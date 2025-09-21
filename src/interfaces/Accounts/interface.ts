@@ -1,4 +1,4 @@
-interface AccountDatas
+interface accountDatas
 {
   id_account?: string
   email: string
@@ -7,4 +7,4 @@ interface AccountDatas
   created_at?: Date
   updated_at?: Date
 }
-export { AccountDatas } 
+export { accountDatas } 

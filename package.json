@@ -39,12 +39,16 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
+    "nanoid": "^5.1.5",
     "nodemailer": "^7.0.6",
     "prisma": "^6.16.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.3",
+    "@types/nanoid": "^2.1.0",
     "@types/node": "^24.5.2",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

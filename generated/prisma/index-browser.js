@@ -176,7 +176,7 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.AdressesScalarFieldEnum = {
+exports.Prisma.AddressesScalarFieldEnum = {
   id_address: 'id_address',
   street: 'street',
   city: 'city',
@@ -279,7 +279,7 @@ exports.Prisma.NullsOrder = {
 };
 exports.AuthenticationsTypes = exports.$Enums.AuthenticationsTypes = {
   by_token: 'by_token',
-  by_2fa: 'by_2fa'
+  by_otp: 'by_otp'
 };
 
 exports.TokenTypes = exports.$Enums.TokenTypes = {
@@ -312,7 +312,7 @@ exports.Prisma.ModelName = {
   TwoFactorAuth: 'TwoFactorAuth',
   Contacts: 'Contacts',
   Users: 'Users',
-  Adresses: 'Adresses',
+  addresses: 'addresses',
   ProductsCategories: 'ProductsCategories',
   Products: 'Products',
   ProductsImages: 'ProductsImages',

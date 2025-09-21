@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./../generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -62,7 +62,7 @@ model TwoFactorAuth{
 model Contacts{
   id_contact  String  @id
   phone_number     String @unique
-  id_user_fk  String 
+  id_user_fk  String @unique
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -76,19 +76,19 @@ model Users{
   id_account_fk String @unique
   my_contacts  Contacts[]
   account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
-  my_addresses Adresses[]
+  my_addresses addresses[]
   my_orders    Orders[]
   my_cart      Carts?
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_users")
 }
-model Adresses{
+model addresses{
   id_address  String @id
   street      String
   city        String
   country     String @default("Angola")
-  id_user_fk  String 
+  id_user_fk  String @unique
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -143,7 +143,7 @@ model productsReviews{
 model Orders{
   id_order     String @id
   total_amount Decimal @db.Decimal(10,2)
-  id_user_fk   String
+  id_user_fk   String @unique
   status       OrderStatus @default(pending)
   payment_method String @default("cash")
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
@@ -205,7 +205,7 @@ enum CartStatus {
 }
 enum AuthenticationsTypes {
   by_token
-  by_2fa
+  by_otp
 }
 
 enum TokenTypes {

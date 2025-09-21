@@ -92,7 +92,7 @@ CREATE TABLE "public"."tbl_addresses" (
     "id_address" TEXT NOT NULL,
     "street" TEXT NOT NULL,
     "city" TEXT NOT NULL,
-    "country" TEXT NOT NULL,
+    "country" TEXT NOT NULL DEFAULT 'Angola',
     "id_user_fk" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -220,10 +220,19 @@ CREATE UNIQUE INDEX "tbl_two_factor_auth_id_authentication_fk_key" ON "public"."
 CREATE UNIQUE INDEX "tbl_contacts_phone_number_key" ON "public"."tbl_contacts"("phone_number");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "tbl_contacts_id_user_fk_key" ON "public"."tbl_contacts"("id_user_fk");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "tbl_users_id_account_fk_key" ON "public"."tbl_users"("id_account_fk");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "tbl_addresses_id_user_fk_key" ON "public"."tbl_addresses"("id_user_fk");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "tbl_products_categories_name_key" ON "public"."tbl_products_categories"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "tbl_orders_id_user_fk_key" ON "public"."tbl_orders"("id_user_fk");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "tbl_carts_id_user_fk_key" ON "public"."tbl_carts"("id_user_fk");
