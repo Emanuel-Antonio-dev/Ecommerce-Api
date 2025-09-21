@@ -1,0 +1,246 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Accounts {
+  id_account             String            @id
+  email                  String            @unique
+  password               String
+  verified               Boolean           @default(false)
+  providerId             String?
+  provider               String?
+  user_details           Users?
+  authentication_details Authentications[]
+  created_at             DateTime          @default(now())
+  updated_at             DateTime          @updatedAt
+
+  @@map("tbl_accounts")
+}
+
+model Authentications {
+  id_authentication     String               @id
+  type                  AuthenticationsTypes @default(by_token)
+  expireIn              DateTime
+  used                  Boolean              @default(false)
+  id_account_fk         String
+  account_details       Accounts             @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+  token_details         Tokens?
+  twoFactorAuth_details TwoFactorAuth?
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @updatedAt
+
+  @@map("tbl_authentications")
+}
+
+model Tokens {
+  id_token               String           @id
+  token                  String           @unique @db.Text
+  token_type             TokenTypes
+  id_authentication      String           @unique
+  authentication_details Authentications? @relation(fields: [id_authentication], references: [id_authentication], onDelete: Cascade)
+  created_at             DateTime         @default(now())
+  updated_at             DateTime         @updatedAt
+
+  @@map("tbl_tokens")
+}
+
+model TwoFactorAuth {
+  id_two_factor_auth     String           @id
+  otp_code               Int              @unique
+  id_authentication_fk   String           @unique
+  authentication_details Authentications? @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
+  created_at             DateTime         @default(now())
+  updated_at             DateTime         @updatedAt
+
+  @@map("tbl_two_factor_auth")
+}
+
+model Contacts {
+  id_contact   String   @id
+  phone_number String   @unique
+  id_user_fk   String
+  user_details Users    @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("tbl_contacts")
+}
+
+model Users {
+  id_user         String     @id
+  first_name      String
+  last_name       String
+  user_type       UsersTypes @default(client)
+  id_account_fk   String     @unique
+  my_contacts     Contacts[]
+  account_details Accounts   @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+  my_addresses    Adresses[]
+  my_orders       Orders[]
+  my_cart         Carts?
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+
+  @@map("tbl_users")
+}
+
+model Adresses {
+  id_address   String   @id
+  street       String
+  city         String
+  country      String
+  id_user_fk   String
+  user_details Users    @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("tbl_addresses")
+}
+
+model ProductsCategories {
+  id_category String     @id
+  name        String     @unique
+  description String?
+  products    Products[]
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  @@map("tbl_products_categories")
+}
+
+model Products {
+  id_product     String             @id
+  name           String
+  description    String?            @db.Text
+  price          Decimal            @db.Decimal(10, 2)
+  stock          Int                @default(0)
+  available      Boolean            @default(true)
+  aditional_info String             @db.Text
+  id_category_fk String
+  images         ProductsImages[]
+  reviews        productsReviews[]
+  order_items    OrderItems[]
+  cart_items     CartItems[]
+  category       ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
+  created_at     DateTime           @default(now())
+  updated_at     DateTime           @updatedAt
+
+  @@map("tbl_products")
+}
+
+model ProductsImages {
+  id_image      String   @id
+  url           String
+  id_product_fk String
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("tbl_products_images")
+}
+
+model productsReviews {
+  id_review     String   @id
+  rating        Int
+  comment       String?
+  id_product_fk String
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("tbl_products_reviews")
+}
+
+model Orders {
+  id_order       String       @id
+  total_amount   Decimal      @db.Decimal(10, 2)
+  id_user_fk     String
+  status         OrderStatus  @default(pending)
+  payment_method String       @default("cash")
+  user_details   Users        @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+  order_items    OrderItems[]
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+  delivered_at   DateTime?
+
+  @@map("tbl_orders")
+}
+
+model OrderItems {
+  id_order_item String   @id
+  quantity      Int
+  price         Decimal? @db.Decimal(10, 2)
+  id_order_fk   String
+  order         Orders   @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
+  id_product_fk String
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("tbl_orders_items")
+}
+
+model Carts {
+  id_cart      String      @id
+  id_user_fk   String      @unique
+  user_details Users       @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+  cart_items   CartItems[]
+  status       CartStatus  @default(waiting)
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+
+  @@map("tbl_carts")
+}
+
+model CartItems {
+  id_cart_item  String   @id
+  quantity      Int
+  id_cart_fk    String
+  price         Decimal  @db.Decimal(10, 2)
+  cart          Carts    @relation(fields: [id_cart_fk], references: [id_cart], onDelete: Cascade)
+  id_product_fk String
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("tbl_carts_items")
+}
+
+enum UsersTypes {
+  admin
+  client
+}
+
+enum OrderStatus {
+  pending
+  completed
+  cancelled
+}
+
+enum CartStatus {
+  waiting
+  active
+  ordered
+  cancelled
+}
+
+enum AuthenticationsTypes {
+  by_token
+  by_2fa
+}
+
+enum TokenTypes {
+  refreshToken
+  resetPassword
+}
