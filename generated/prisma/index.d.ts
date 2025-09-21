@@ -2587,7 +2587,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified: boolean
+    verified: boolean | null
     providerId: string | null
     provider: string | null
     created_at: Date
@@ -2677,7 +2677,7 @@ export namespace Prisma {
       id_account: string
       email: string
       password: string
-      verified: boolean
+      verified: boolean | null
       providerId: string | null
       provider: string | null
       created_at: Date
@@ -19635,7 +19635,7 @@ export namespace Prisma {
     id_account?: StringFilter<"Accounts"> | string
     email?: StringFilter<"Accounts"> | string
     password?: StringFilter<"Accounts"> | string
-    verified?: BoolFilter<"Accounts"> | boolean
+    verified?: BoolNullableFilter<"Accounts"> | boolean | null
     providerId?: StringNullableFilter<"Accounts"> | string | null
     provider?: StringNullableFilter<"Accounts"> | string | null
     created_at?: DateTimeFilter<"Accounts"> | Date | string
@@ -19648,7 +19648,7 @@ export namespace Prisma {
     id_account?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    verified?: SortOrder
+    verified?: SortOrderInput | SortOrder
     providerId?: SortOrderInput | SortOrder
     provider?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -19664,7 +19664,7 @@ export namespace Prisma {
     OR?: AccountsWhereInput[]
     NOT?: AccountsWhereInput | AccountsWhereInput[]
     password?: StringFilter<"Accounts"> | string
-    verified?: BoolFilter<"Accounts"> | boolean
+    verified?: BoolNullableFilter<"Accounts"> | boolean | null
     providerId?: StringNullableFilter<"Accounts"> | string | null
     provider?: StringNullableFilter<"Accounts"> | string | null
     created_at?: DateTimeFilter<"Accounts"> | Date | string
@@ -19677,7 +19677,7 @@ export namespace Prisma {
     id_account?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    verified?: SortOrder
+    verified?: SortOrderInput | SortOrder
     providerId?: SortOrderInput | SortOrder
     provider?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -19694,7 +19694,7 @@ export namespace Prisma {
     id_account?: StringWithAggregatesFilter<"Accounts"> | string
     email?: StringWithAggregatesFilter<"Accounts"> | string
     password?: StringWithAggregatesFilter<"Accounts"> | string
-    verified?: BoolWithAggregatesFilter<"Accounts"> | boolean
+    verified?: BoolNullableWithAggregatesFilter<"Accounts"> | boolean | null
     providerId?: StringNullableWithAggregatesFilter<"Accounts"> | string | null
     provider?: StringNullableWithAggregatesFilter<"Accounts"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Accounts"> | Date | string
@@ -20629,7 +20629,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -20642,7 +20642,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -20655,7 +20655,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20668,7 +20668,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20681,7 +20681,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -20692,7 +20692,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20703,7 +20703,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21686,9 +21686,9 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -21788,12 +21788,12 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21833,6 +21833,11 @@ export namespace Prisma {
     in?: $Enums.AuthenticationsTypes[] | ListEnumAuthenticationsTypesFieldRefInput<$PrismaModel>
     notIn?: $Enums.AuthenticationsTypes[] | ListEnumAuthenticationsTypesFieldRefInput<$PrismaModel>
     not?: NestedEnumAuthenticationsTypesFilter<$PrismaModel> | $Enums.AuthenticationsTypes
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type AccountsScalarRelationFilter = {
@@ -21888,6 +21893,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAuthenticationsTypesFilter<$PrismaModel>
     _max?: NestedEnumAuthenticationsTypesFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumTokenTypesFilter<$PrismaModel = never> = {
@@ -22629,8 +22642,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -22721,6 +22734,10 @@ export namespace Prisma {
 
   export type EnumAuthenticationsTypesFieldUpdateOperationsInput = {
     set?: $Enums.AuthenticationsTypes
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type AccountsUpdateOneRequiredWithoutAuthentication_detailsNestedInput = {
@@ -23481,9 +23498,9 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -23539,12 +23556,23 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23562,17 +23590,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -23596,6 +23613,11 @@ export namespace Prisma {
     not?: NestedEnumAuthenticationsTypesFilter<$PrismaModel> | $Enums.AuthenticationsTypes
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumAuthenticationsTypesWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AuthenticationsTypes | EnumAuthenticationsTypesFieldRefInput<$PrismaModel>
     in?: $Enums.AuthenticationsTypes[] | ListEnumAuthenticationsTypesFieldRefInput<$PrismaModel>
@@ -23604,6 +23626,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAuthenticationsTypesFilter<$PrismaModel>
     _max?: NestedEnumAuthenticationsTypesFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumTokenTypesFilter<$PrismaModel = never> = {
@@ -23913,7 +23943,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -23925,7 +23955,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -23993,7 +24023,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24005,7 +24035,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24281,7 +24311,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -24293,7 +24323,7 @@ export namespace Prisma {
     id_account: string
     email: string
     password: string
-    verified?: boolean
+    verified?: boolean | null
     providerId?: string | null
     provider?: string | null
     created_at?: Date | string
@@ -24429,7 +24459,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24441,7 +24471,7 @@ export namespace Prisma {
     id_account?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
+    verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

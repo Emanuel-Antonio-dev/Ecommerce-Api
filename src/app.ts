@@ -1,9 +1,11 @@
 import express, {Request, Response, NextFunction} from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import { generalRoute } from './Routes/GeneralRoutes/routes';
+import { clientRoutes } from './Routes/Users/Client/routes';
 
 const app = express();
-const urlPath = '/api.ecommerce/v1';
+const urlBase = '/api.ecommerce/v1';
 // Middleware
 app.use(helmet());
 app.use(cors({
@@ -14,6 +16,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(urlBase, generalRoute)
+app.use(urlBase, clientRoutes)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});

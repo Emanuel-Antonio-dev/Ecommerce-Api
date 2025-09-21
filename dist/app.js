@@ -7,9 +7,11 @@ exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
+const routes_1 = require("./Routes/GeneralRoutes/routes");
+const routes_2 = require("./Routes/Users/Client/routes");
 const app = (0, express_1.default)();
 exports.app = app;
-const urlPath = '/api.ecommerce/v1';
+const urlBase = '/api.ecommerce/v1';
 // Middleware
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)({
@@ -20,6 +22,8 @@ app.use((0, cors_1.default)({
 }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use(urlBase, routes_1.generalRoute);
+app.use(urlBase, routes_2.clientRoutes);
 app.use((req, res, next) => {
     res.status(400).json({ success: false, statusCode: 400, message: 'Não conseguimos encontrar esta página.' });
 });

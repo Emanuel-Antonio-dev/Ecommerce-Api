@@ -1,14 +1,14 @@
 import { IAddressesRepositories } from "../adresses-repositories";
 import { Prisma } from "../../../../generated/prisma";
 import { PrismaClient } from "../../../../generated/prisma";
-import { addressesdatas } from "../../../interfaces/Adresses/interface";
+import { addressesDatas } from "../../../interfaces/Adresses/interface";
 import { nanoid } from "nanoid";
 
 class PrismaAddressesRepositories implements IAddressesRepositories
 {
     constructor(private readonly prisma: PrismaClient){}
 
-    async register(datas: addressesdatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<addressesdatas>
+    async register(datas: addressesDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<addressesDatas |any>
     {
         const client = tx ?? this.prisma
         return await client.addresses.create({data:{
@@ -18,7 +18,7 @@ class PrismaAddressesRepositories implements IAddressesRepositories
             id_user_fk: datas.id_user_fk
         }})
     }
-    async getAddressByUserId(id_user: string): Promise<addressesdatas | any>
+    async getAddressByUserId(id_user: string): Promise<addressesDatas | any>
     {
         return await this.prisma.addresses.findFirst({where:{id_user_fk: id_user}})
     }

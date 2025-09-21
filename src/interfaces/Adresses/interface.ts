@@ -1,10 +1,10 @@
-interface addressesdatas
+interface addressesDatas
 {
   id_address?: string;
   id_user_fk: string;
   street: string
   city: string
-  created_at: Date;
-  updated_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
-export { addressesdatas };
+export { addressesDatas };
