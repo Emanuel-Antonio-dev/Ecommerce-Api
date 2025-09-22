@@ -21,9 +21,18 @@ class PrismaUsersRepositories implements IUsersRepositories
             }
         })
     }
-    async updateUser(id_user: string, datas: Partial<usersDatas>): Promise<any>
+    async getUsersProfileDatas(id_user: string, user_type?: "admin" | "client"): Promise<any>
+    {
+        const where = id_user ? {id_user: id_user} : {user_type: user_type}
+        return await this.prisma.users.findFirst({where: where, include:{account_details: true, my_contacts: true, my_addresses: true}})
+    }
+    async updateUser(id_user: string, datas: Partial<usersDatas>, ): Promise<any>
     {
         return await this.prisma.users.update({where:{id_user: id_user}, data:{...datas}})
+    }
+    async deleteUserProfile(id_user: string): Promise<any>
+    {
+        return await this.prisma.users.delete({where:{id_user: id_user}})    
     }
 }
 export{PrismaUsersRepositories}

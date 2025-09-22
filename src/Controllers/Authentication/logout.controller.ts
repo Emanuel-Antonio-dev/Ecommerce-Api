@@ -14,15 +14,16 @@ class LogoutController
             const {refreshToken} = req.cookies
             if (!refreshToken)
             {
-              return res.status(401).json({success: false, message: "Ocorreu um erro ao terminar esta sessão."})
+              return res.status(401).json({success: false, statusCode:401, message: "Ocorreu um erro ao terminar esta sessão."})
             }
             res.clearCookie("refreshToken")
             await authenticationRepositories.deleteToken(refreshToken)
-            return res.status(200).json({success: true, message: "Sessão terminada com sucesso, volte sempre!"})
+            return res.status(200).json({success: true, statusCode:200,message: "Sessão terminada com sucesso, volte sempre!"})
         } catch (error: any)
         {
           console.error('RefreshToken error:', error);
-          return res.status(500).json({ 
+          return res.status(500).json({
+            statusCode:500,
             success: false,
             message: "Ocorreu um erro, tente novamente." 
           });
