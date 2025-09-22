@@ -1,4 +1,4 @@
-/* import { AuthorizationService } from "../../../Services/Auth/Authorization/authorization.service";
+import { AuthorizationService } from "../../../Services/Auth/Authorization/authorization.service";
 import { JwtOperations } from "../../Utils/JwtOperations/operations";
 import { Request, Response, NextFunction } from "express";
 
@@ -45,9 +45,9 @@ class MiddlewareAuthorization
         }
         next()
     }
-        static isSuperAdmin(req: Request, res: Response, next: NextFunction)
+        static isClient(req: Request, res: Response, next: NextFunction)
     {
-        if(req.body.credentials.user_type !== "admin" && req.body.credentials.access_level !== "adm0")
+        if(req.body.credentials.user_type !== "client")
         {
             return res.status(403).json({ 
                 statusCode: 403, 
@@ -61,4 +61,3 @@ class MiddlewareAuthorization
 
 }
 export{MiddlewareAuthorization}
-*/

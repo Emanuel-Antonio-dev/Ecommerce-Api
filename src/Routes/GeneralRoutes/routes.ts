@@ -9,6 +9,7 @@ import { UsersDeleteProfileController } from "../../Controllers/Users/delete-use
 
 import dotenv from "dotenv"
 import { RegisterUsersController } from "../../Controllers/Users/register-genral-user.controller";
+import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";
 dotenv.config()
 
 const generalRoute: Router = Router()
@@ -19,11 +20,12 @@ generalRoute.route("/auth/refreshToken").post((req: Request, res:Response) =>{Re
 generalRoute.route("/auth/request-new-password").post((req: Request, res: Response) =>{ResetPasswordController.request(req, res)})
 generalRoute.route("/auth/reset-password").put((req: Request, res: Response) =>{ResetPasswordController.reset(req, res)})
 generalRoute.route("/auth/logout").post((req: Request, res: Response) =>{LogoutController.logout(req, res)})
+
 //general basics users routes
 generalRoute.route("/auth/users/register").post((req: Request, res: Response) =>{RegisterUsersController.register(req, res)})
-generalRoute.route("/users/profile/:id_user").get((req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
-generalRoute.route("/users/edit-profile/:id_user").patch((req: Request, res: Response) =>{UsersEditProfileController.editProfile(req, res)})
-generalRoute.route("/users/delete-profile/:id_user").delete((req: Request, res: Response) =>{UsersDeleteProfileController.deleteProfile(req, res)})
+generalRoute.route("/users/profile/:id_user").get(MiddlewareAuthorization.authorization, (req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
+generalRoute.route("/users/edit-profile/:id_user").patch(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersEditProfileController.editProfile(req, res)})
+generalRoute.route("/users/delete-profile/:id_user").delete(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersDeleteProfileController.deleteProfile(req, res)})
 
 
 export{generalRoute}

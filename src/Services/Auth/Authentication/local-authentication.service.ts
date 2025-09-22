@@ -16,7 +16,7 @@ class LocalStrategyAuthenticationService
             {
                 throw new HttpException(false, 400, "Informe todos os campos.")
             }
-            const user = await this.prisma.accounts.findUnique({where:{email: email}, include:{user_details:true}})
+            const user = await this.prisma.accounts.findUnique({where:{email: email.trim()}, include:{user_details:true}})
             if(!user)
             {
                 throw new HttpException(false, 401, "Credencias inválidas.")

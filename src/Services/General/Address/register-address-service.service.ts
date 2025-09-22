@@ -14,7 +14,11 @@ class RegisterAddressesService
                 {
                     return {success: false, statusCode: 400, message: "Informe todos os campos"}
                 }
-                const result = await this.repository.register(datas, tx)
+                const result = await this.repository.register({
+                    city: datas.city.trim(),
+                    street: datas.street.trim(),
+                    id_user_fk: datas.id_user_fk.trim()
+                }, tx)
                 if(!result)
                     {
                         return {success: false, statusCode: 500, message: "Ocorreu um erro ao cadastrar o endereço, tente novamente"}

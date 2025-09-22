@@ -5,6 +5,9 @@ import { generalRoute } from './Routes/GeneralRoutes/routes';
 import { clientRoutes } from './Routes/Users/Client/routes';
 import { adminRoutes } from './Routes/Users/Admin/routes';
 import { categoryRoutes } from './Routes/Products/Categories/routes';
+import { getRequestIp } from './Common/Middlewares/Observability/get-ip-address';
+import { getErrorsDetails } from './Common/Middlewares/Observability/get-errors';
+
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -16,8 +19,10 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(getRequestIp)
 
 app.use(urlBase, generalRoute)
 app.use(urlBase, adminRoutes)
@@ -28,6 +33,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
+  getErrorsDetails(err)
   res.status(500).json({success:false, statusCode: 500, message: 'Ocorreu um erro interno, tente novamente.'});
 });
 

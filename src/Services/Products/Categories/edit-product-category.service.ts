@@ -28,11 +28,11 @@ class EditProductCategoryService
                 {
                     return {success: false, statusCode: 400, message:"Informe um nome válido para esta categoria"}
                 }
-                productCategoryDatasToUpdate.name = datas.name
+                productCategoryDatasToUpdate.name = datas.name.trim()
             }
             if(datas.description)
             {
-                productCategoryDatasToUpdate.description = datas.description
+                productCategoryDatasToUpdate.description = datas.description.trim()
             }
             if(Object.keys(productCategoryDatasToUpdate).length === 0)
             {

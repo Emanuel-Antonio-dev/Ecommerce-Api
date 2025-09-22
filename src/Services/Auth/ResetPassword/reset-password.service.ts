@@ -29,7 +29,7 @@ class ResetPasswordService
 
             }
             const passwordHashed = await bcrypt.hash(newPassword, 12)
-            await this.acountRepository.updateAccount(isValidToken.authentication_details.account_details.id_account, {password: passwordHashed})
+            await this.acountRepository.updateAccount(isValidToken.authentication_details.account_details.id_account, {password: passwordHashed.trim()})
             await this.authenticationRepository.updateToken(token, true)
             
             if (!isValidToken)

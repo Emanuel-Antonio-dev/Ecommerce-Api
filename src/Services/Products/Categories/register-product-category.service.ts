@@ -18,7 +18,10 @@ class RegisterProductCategoryService
             {
                 return {success: false, statusCode: 409, message:"Já existe uma categoria com este nome"}
             }
-            const result = await this.repository.register(datas)
+            const result = await this.repository.register({
+                name: datas.name.trim(),
+                description: datas.description.trim()
+            })
             if(!result)
             {
                 return {success: false, statusCode: 400, message:"Ocorreu um erro ao cadastrar esta categoria"} 

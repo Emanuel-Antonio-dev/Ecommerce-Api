@@ -23,7 +23,10 @@ class RegisterContactService
         {
             return {success: false, statusCode:400, message: "Informe um contacto telefónico válido."}
         }
-        const contactCreated = await this.repository.register(datas, tx)
+        const contactCreated = await this.repository.register({
+            phone_number: datas.phone_number.trim(),
+            id_user_fk: datas.id_user_fk.trim()
+        }, tx)
         if (!contactCreated)
         {
             return {success: false, statusCode: 500, message:"Ocorreu um erro ao cadastrar este contacto, tente novamente."}
