@@ -7,6 +7,7 @@ abstract class IProductsCategories
     abstract getCategoryData(mode: SearchDatasOptions, id_category?: number, category_name?: string):Promise<any>
     abstract updateCategoryDatas(id_category: number, datas: Partial<productsCategoriesDatas>):Promise<any>
     abstract deleteCategoryDatas(id_category: number):Promise<any>
-    abstract getAllCategoriesDatas():Promise<any[]> 
+    abstract getAllCategoriesDatas():Promise<any[]>
+    abstract deleteAllCategories():Promise<any>
 }
 export{IProductsCategories}

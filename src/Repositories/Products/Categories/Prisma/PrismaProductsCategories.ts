@@ -32,5 +32,9 @@ class PrismaProductsCategories implements IProductsCategories
     {
         return await this.prisma.productsCategories.delete({where:{id_category: id_category}})    
     }
+    async deleteAllCategories(): Promise<any>
+    {
+        return await this.prisma.productsCategories.deleteMany()    
+    }
 }
 export{ PrismaProductsCategories}
