@@ -1,6 +1,6 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
 
-class DeleteProductCategory
+class DeleteProductCategoryService
 {
     constructor(private readonly repository: PrismaProductsCategories){}
 
@@ -29,4 +29,4 @@ class DeleteProductCategory
         }
     }
 }
-export {DeleteProductCategory}
+export {DeleteProductCategoryService}

@@ -1,6 +1,6 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
 
-class GetAllProductsCategories
+class GetAllProductsCategoriesService
 {
     constructor(private readonly repository: PrismaProductsCategories){}
 
@@ -21,4 +21,4 @@ class GetAllProductsCategories
         }
     }
 }
-export {GetAllProductsCategories}
+export {GetAllProductsCategoriesService}
