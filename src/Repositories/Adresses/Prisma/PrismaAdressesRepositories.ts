@@ -26,9 +26,9 @@ class PrismaAddressesRepositories implements IAddressesRepositories
     {
         return this.prisma.addresses.delete({where:{id_user_fk: id_user}})
     }
-    async updateAddressByUserId(id_address: string, datas: Partial<any>): Promise<any>
+    async updateAddressByUserId(id_user: string, datas: Partial<addressesDatas>): Promise<any>
     {
-        return await this.prisma.addresses.update({where:{id_user_fk: id_address}, data:{...datas}})
+        return await this.prisma.addresses.update({where:{id_user_fk: id_user}, data:{...datas}})
     }
 
 }

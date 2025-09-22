@@ -111,7 +111,7 @@ class UsersEditProfileService
                     }
                 if(Object.keys(accountDatasToUpdate).length > 0)
                 {
-                    const accountUpdated = await this.accountRepository.updateAccount(existsUser.user_details.id_account_fk, accountDatasToUpdate)
+                    const accountUpdated = await this.accountRepository.updateAccount(existsUser.id_account_fk, accountDatasToUpdate)
                     if(!accountUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar os dados da sua conta.")
@@ -119,7 +119,7 @@ class UsersEditProfileService
                 }
                 if (Object.keys(usersDatasToUpdate).length > 0)
                 {
-                    const userUpdated = await this.userRepository.updateUser(existsUser.id_user_fk, usersDatasToUpdate)
+                    const userUpdated = await this.userRepository.updateUser(id_user, usersDatasToUpdate)
                     if (!userUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar os seus dados.")
@@ -133,7 +133,15 @@ class UsersEditProfileService
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o seu contacto telefónico.")
                     }
                 }
-                return {success: true, statusCode: 200, message:"Dados atualizados com sucesso"}
+                if (Object.keys(addressDatasToUpdate).length > 0)
+                {
+                    const addressUpdated = await this.addressRepository.updateAddressByUserId(id_user, addressDatasToUpdate)
+                    if(!addressUpdated)
+                    {
+                        throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o seu contacto endereço.")
+                    }
+                }
+                return {success: true, statusCode: 200, message:"Dados atualizados com sucesso."}
 
         } catch (error: any)
         {

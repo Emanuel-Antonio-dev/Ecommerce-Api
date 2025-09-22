@@ -43,8 +43,8 @@ class UsersEditProfileController
                 phone_number: req.body.phone_number
             }
             const addressDatas = {
-                city: req.body,
-                street: req.body
+                city: req.body.city,
+                street: req.body.street
             }
             if (!accountDatas.email 
                 && !accountDatas.password 

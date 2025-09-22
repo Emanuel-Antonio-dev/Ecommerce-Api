@@ -18,7 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(urlBase, generalRoute)
-app.use(urlBase, clientRoutes)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});

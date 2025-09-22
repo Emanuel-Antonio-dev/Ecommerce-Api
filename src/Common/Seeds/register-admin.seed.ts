@@ -1,0 +1,49 @@
+import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
+import { PrismaClient } from "../../../generated/prisma";
+import { RegisterUserService } from "../../Services/Users/register-user.service";
+import { RegisterAccountService } from "../../Services/Accounts/register-account.service";
+import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
+import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
+import { RegisterContactService } from "../../Services/Contacts/register-contact.service";
+import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories";
+import { RegisterAddressesService } from "../../Services/Address/register-address-service.service";
+import dotenv from "dotenv"
+dotenv.config()
+
+const prisma: PrismaClient = new PrismaClient()
+const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
+const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prisma)
+const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prisma)
+const contactService: RegisterContactService = new RegisterContactService(contactRepository)
+const accountService: RegisterAccountService = new RegisterAccountService(accountRepository)
+const addressService: RegisterAddressesService = new RegisterAddressesService(addressRepository)
+const usersService: RegisterUserService = new RegisterUserService(
+    accountService,
+    userRepository,
+    prisma,
+    contactService,
+    addressService
+)
+ async function registerAdmin()
+{
+    const admin = await usersService.register({
+        email: process.env.ADMIN_EMAIL as string,
+        password: process.env.ADMIN_PASSWORD as string
+    },{
+        first_name: process.env.ADMIN_FIRST_NAME as string,
+        last_name: process.env.ADMIN_LAST_NAME as string,
+        user_type:"admin"
+    }, {
+        phone_number: process.env.ADMIN_PHONE_NUMBER as string
+    }, {
+        city:"",
+        street:""
+    })
+    return admin
+}
+registerAdmin().then((result) =>{
+    console.log(result)
+}).catch((error: any) =>{
+    console.log(error)
+})
