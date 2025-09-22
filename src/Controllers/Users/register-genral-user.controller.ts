@@ -1,17 +1,17 @@
 import { Response, Request } from "express";
 import { RegisterUserService } from "../../Services/Users/register-user.service";
-import { RegisterAccountService } from "../../Services/Accounts/register-account.service";
-import { RegisterContactService } from "../../Services/Contacts/register-contact.service";
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
+import { RegisterAccountService } from "../../Services/General/Accounts/register-account.service";
+import { RegisterContactService } from "../../Services/General/Contacts/register-contact.service";
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
+import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
 import { PrismaClient } from "../../../generated/prisma";
-import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories";
-import { RegisterAddressesService } from "../../Services/Address/register-address-service.service";
-import { accountDatas } from "../../interfaces/Accounts/interface";
+import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
+import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
+import { accountDatas } from "../../interfaces/General/Accounts/interface";
 import { usersDatas } from "../../interfaces/Users/interface";
-import { contactsDatas } from "../../interfaces/Contacts/interface";
-import { addressesDatas } from "../../interfaces/Adresses/interface";
+import { contactsDatas } from "../../interfaces/General/Contacts/interface";
+import { addressesDatas } from "../../interfaces/General/Adresses/interface";
 
 const prisma: PrismaClient = new PrismaClient()
 const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)

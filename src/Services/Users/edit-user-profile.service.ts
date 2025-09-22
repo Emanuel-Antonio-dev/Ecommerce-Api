@@ -4,13 +4,13 @@ import { PasswordValidator } from "../../Common/Validators/password-validator";
 import { PrismaClient } from "../../../generated/prisma";
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
-import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
-import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories"; 
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
+import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
+import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories"; 
 import { usersDatas } from "../../interfaces/Users/interface";
-import { accountDatas } from "../../interfaces/Accounts/interface";
-import { contactsDatas } from "../../interfaces/Contacts/interface";
-import { addressesDatas } from "../../interfaces/Adresses/interface";
+import { accountDatas } from "../../interfaces/General/Accounts/interface";
+import { contactsDatas } from "../../interfaces/General/Contacts/interface";
+import { addressesDatas } from "../../interfaces/General/Adresses/interface";
 
 class UsersEditProfileService
 {

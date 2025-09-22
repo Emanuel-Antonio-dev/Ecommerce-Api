@@ -1,12 +1,12 @@
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaClient } from "../../../generated/prisma";
 import { RegisterUserService } from "../../Services/Users/register-user.service";
-import { RegisterAccountService } from "../../Services/Accounts/register-account.service";
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
-import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
-import { RegisterContactService } from "../../Services/Contacts/register-contact.service";
-import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories";
-import { RegisterAddressesService } from "../../Services/Address/register-address-service.service";
+import { RegisterAccountService } from "../../Services/General/Accounts/register-account.service";
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
+import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
+import { RegisterContactService } from "../../Services/General/Contacts/register-contact.service";
+import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
+import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -37,8 +37,8 @@ const usersService: RegisterUserService = new RegisterUserService(
     }, {
         phone_number: process.env.ADMIN_PHONE_NUMBER as string
     }, {
-        city:"",
-        street:""
+        city:"Luanda",
+        street:"Luanda"
     })
     return admin
 }

@@ -1,9 +1,9 @@
-import { HttpException } from "../../Common/Middlewares/Filters/HttpException";
-import { accountDatas } from "../../interfaces/Accounts/interface";
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
-import { Prisma } from "../../../generated/prisma";
-import { PasswordValidator } from "../../Common/Validators/password-validator";
-import { EmailValidator } from "../../Common/Validators/email-validator";
+import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { accountDatas } from "../../../interfaces/General/Accounts/interface";
+import { PrismaAccountRepositories } from "../../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
+import { Prisma } from "../../../../generated/prisma";
+import { PasswordValidator } from "../../../Common/Validators/password-validator";
+import { EmailValidator } from "../../../Common/Validators/email-validator";
 
 class RegisterAccountService
 {

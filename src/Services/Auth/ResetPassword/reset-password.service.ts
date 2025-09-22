@@ -1,4 +1,4 @@
-import { PrismaAccountRepositories } from "../../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
+import { PrismaAccountRepositories } from "../../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 import { PasswordValidator } from "../../../Common/Validators/password-validator";
 import * as bcrypt from 'bcrypt';

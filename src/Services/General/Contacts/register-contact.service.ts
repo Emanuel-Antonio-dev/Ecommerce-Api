@@ -1,6 +1,6 @@
-import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
-import { Prisma } from "../../../generated/prisma";
-import { contactsDatas } from "../../interfaces/Contacts/interface";
+import { PrismaContactsRepositories } from "../../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
+import { Prisma } from "../../../../generated/prisma";
+import { contactsDatas } from "../../../interfaces/General/Contacts/interface";
 
 class RegisterContactService
 {

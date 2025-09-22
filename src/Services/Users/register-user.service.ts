@@ -1,13 +1,13 @@
-import { RegisterAccountService } from "../Accounts/register-account.service"
-import { RegisterContactService } from "../Contacts/register-contact.service"
+import { RegisterAccountService } from "../General/Accounts/register-account.service"
+import { RegisterContactService } from "../General/Contacts/register-contact.service"
 import { PrismaClient} from "../../../generated/prisma"
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories"
-import { accountDatas } from "../../interfaces/Accounts/interface"
-import { contactsDatas } from "../../interfaces/Contacts/interface"
+import { accountDatas } from "../../interfaces/General/Accounts/interface"
+import { contactsDatas } from "../../interfaces/General/Contacts/interface"
 import { usersDatas } from "../../interfaces/Users/interface"
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException"
-import { addressesDatas } from "../../interfaces/Adresses/interface"
-import { RegisterAddressesService } from "../Address/register-address-service.service"
+import { addressesDatas } from "../../interfaces/General/Adresses/interface"
+import { RegisterAddressesService } from "../General/Address/register-address-service.service"
 
 class RegisterUserService
 {

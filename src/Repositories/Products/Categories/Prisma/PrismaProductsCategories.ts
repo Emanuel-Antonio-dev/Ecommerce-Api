@@ -1,0 +1,36 @@
+import { PrismaClient } from "../../../../../generated/prisma";
+import { productsCategoriesDatas } from "../../../../interfaces/Products/Categories/interface";
+import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
+import { IProductsCategories } from "../products-categories-repositories";
+
+class PrismaProductsCategories implements IProductsCategories
+{
+    constructor(private readonly prisma: PrismaClient){}
+
+    async register(datas: productsCategoriesDatas): Promise<any>
+    {
+        return await this.prisma.productsCategories.create({data:{...datas}})
+    }
+    async getCategoryData(mode: SearchDatasOptions,id_category?: number, category_name?: string): Promise<any>
+    {
+        const where = id_category ? {id_category: id_category} : {category_name: category_name}
+        if(mode.action === "GetOnlyBasicsDatas")
+        {
+            return await this.prisma.productsCategories.findFirst({where})
+        }
+        return await this.prisma.productsCategories.findFirst({where, include:{products:true}})    
+    }
+    async getAllCategoriesDatas(): Promise<any[]>
+    {
+        return await this.prisma.productsCategories.findMany()    
+    }
+    async updateCategoryDatas(id_category: number, datas: Partial<productsCategoriesDatas>): Promise<any>
+    {
+        return await this.prisma.productsCategories.update({where:{id_category: id_category}, data:{...datas}})    
+    }
+    async deleteCategoryDatas(id_category: number): Promise<any>
+    {
+        return await this.prisma.productsCategories.delete({where:{id_category: id_category}})    
+    }
+}
+export{ PrismaProductsCategories}

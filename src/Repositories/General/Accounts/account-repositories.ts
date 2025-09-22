@@ -1,6 +1,6 @@
-import { accountDatas } from "../../interfaces/Accounts/interface";
+import { accountDatas } from "../../../interfaces/General/Accounts/interface";
 import { Prisma } from "@prisma/client";
-import { SearchDatasOptions } from "../../interfaces/Shared/search-datas-options.interface";
+import { SearchDatasOptions } from "../../../interfaces/Shared/search-datas-options.interface";
 
 abstract class IAccountRepositories
 {

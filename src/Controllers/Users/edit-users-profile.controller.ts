@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../../../generated/prisma";
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountsRepositories";
-import { PrismaContactsRepositories } from "../../Repositories/Contacts/Prisma/PrismaContactsRepositories";
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
+import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories";
+import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { UsersEditProfileService } from "../../Services/Users/edit-user-profile.service";
 
 const prisma: PrismaClient = new PrismaClient()

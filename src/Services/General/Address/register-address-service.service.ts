@@ -1,6 +1,6 @@
-import { Prisma } from "../../../generated/prisma";
-import { PrismaAddressesRepositories } from "../../Repositories/Adresses/Prisma/PrismaAdressesRepositories";
-import { addressesDatas } from "../../interfaces/Adresses/interface";
+import { Prisma } from "../../../../generated/prisma";
+import { PrismaAddressesRepositories } from "../../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
+import { addressesDatas } from "../../../interfaces/General/Adresses/interface";
 
 class RegisterAddressesService
 {

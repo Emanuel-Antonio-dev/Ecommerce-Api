@@ -1,7 +1,7 @@
 import { IAddressesRepositories } from "../adresses-repositories";
-import { Prisma } from "../../../../generated/prisma";
-import { PrismaClient } from "../../../../generated/prisma";
-import { addressesDatas } from "../../../interfaces/Adresses/interface";
+import { Prisma } from "../../../../../generated/prisma";
+import { PrismaClient } from "../../../../../generated/prisma";
+import { addressesDatas } from "../../../../interfaces/General/Adresses/interface";
 import { nanoid } from "nanoid";
 
 class PrismaAddressesRepositories implements IAddressesRepositories

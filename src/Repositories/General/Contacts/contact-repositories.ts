@@ -1,6 +1,6 @@
-import { contactsDatas } from "../../interfaces/Contacts/interface";
-import { Prisma } from "../../../generated/prisma";
-import { accountDatas } from "../../interfaces/Accounts/interface";
+import { contactsDatas } from "../../../interfaces/General/Contacts/interface";
+import { Prisma } from "../../../../generated/prisma";
+import { accountDatas } from "../../../interfaces/General/Accounts/interface";
 
 abstract class IContactsRepositories
 {

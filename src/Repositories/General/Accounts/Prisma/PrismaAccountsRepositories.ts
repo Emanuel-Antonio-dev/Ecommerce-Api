@@ -1,9 +1,9 @@
-import { accountDatas } from "../../../interfaces/Accounts/interface";
-import { IAccountRepositories } from "../../Accounts/account-repositories";
-import { SearchDatasOptions } from "../../../interfaces/Shared/search-datas-options.interface";
+import { accountDatas } from "../../../../interfaces/General/Accounts/interface";
+import { IAccountRepositories } from "../account-repositories";
+import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import {nanoid} from "nanoid";
 import bcrypt from "bcrypt";
-import { Prisma, PrismaClient } from "../../../../generated/prisma";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma";
 
 class PrismaAccountRepositories implements IAccountRepositories
 {
