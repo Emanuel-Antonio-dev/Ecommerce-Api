@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { generalRoute } from './Routes/GeneralRoutes/routes';
 import { clientRoutes } from './Routes/Users/Client/routes';
 import { adminRoutes } from './Routes/Users/Admin/routes';
+import { categoryRoutes } from './Routes/Products/Categories/routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(urlBase, generalRoute)
 app.use(urlBase, adminRoutes)
+app.use(urlBase, categoryRoutes)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});

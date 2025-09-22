@@ -23,7 +23,7 @@ class RegisterProductCategoryService
             {
                 return {success: false, statusCode: 400, message:"Ocorreu um erro ao cadastrar esta categoria"} 
             }
-            return {success: true, statusCode: 201, message:"Categoria criada com sucesso"}
+            return {success: true, statusCode: 201, message:"Categoria criada com sucesso", datas: result}
         } catch (error: any)
         {
             console.log(error)

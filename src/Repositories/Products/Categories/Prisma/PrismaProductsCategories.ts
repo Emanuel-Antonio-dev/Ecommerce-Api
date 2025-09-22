@@ -11,9 +11,9 @@ class PrismaProductsCategories implements IProductsCategories
     {
         return await this.prisma.productsCategories.create({data:{...datas}})
     }
-    async getCategoryData(mode: SearchDatasOptions,id_category?: number, category_name?: string): Promise<any>
+    async getCategoryData(mode: SearchDatasOptions,id_category?: number, name?: string): Promise<any>
     {
-        const where = id_category ? {id_category: id_category} : {category_name: category_name}
+        const where = id_category ? {id_category: id_category} : {name: name}
         if(mode.action === "GetOnlyBasicsDatas")
         {
             return await this.prisma.productsCategories.findFirst({where})

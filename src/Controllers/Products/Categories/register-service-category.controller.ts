@@ -8,7 +8,7 @@ const prisma: PrismaClient = new PrismaClient()
 const repository: PrismaProductsCategories = new PrismaProductsCategories(prisma)
 const service: RegisterProductCategoryService = new RegisterProductCategoryService(repository)
 
-class RegisterServicesCategoriesController
+class RegisterProductCategoryController
 {
     static async register(req: Request, res: Response):Promise<Response | any>
     {
@@ -35,4 +35,4 @@ class RegisterServicesCategoriesController
         }
     }
 }
-export {RegisterServicesCategoriesController}
+export {RegisterProductCategoryController}
