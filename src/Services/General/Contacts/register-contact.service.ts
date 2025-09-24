@@ -1,6 +1,7 @@
 import { PrismaContactsRepositories } from "../../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
 import { Prisma } from "../../../../generated/prisma";
 import { contactsDatas } from "../../../interfaces/General/Contacts/interface";
+import sanitize from "sanitize-html";
 
 class RegisterContactService
 {
@@ -24,7 +25,11 @@ class RegisterContactService
             return {success: false, statusCode:400, message: "Informe um contacto telefónico válido."}
         }
         const contactCreated = await this.repository.register({
-            phone_number: datas.phone_number.trim(),
+            phone_number: sanitize(datas.phone_number.trim(),{
+                allowedAttributes:{},
+                allowedClasses:{},
+                allowedTags:[]
+            }),
             id_user_fk: datas.id_user_fk.trim()
         }, tx)
         if (!contactCreated)

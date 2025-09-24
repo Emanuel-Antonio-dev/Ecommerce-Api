@@ -1,0 +1,52 @@
+import { IGeneralProductsRepositories } from "../general-products-repositoires";
+import { PrismaClient } from "../../../../../generated/prisma";
+import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
+import { generalProductsDatas } from "../../../../interfaces/Products/GeneralProducts/interface";
+import { nanoid } from "nanoid";
+
+class PrismaGeneralServicesRepositories implements IGeneralProductsRepositories
+{
+    constructor(private readonly prisma: PrismaClient){}
+
+    async register(datas: generalProductsDatas): Promise<any>
+    {
+        return await this.prisma.products.create({
+            data:{
+                name: datas.name,
+                aditional_info: datas.aditional_info,
+                price: datas.price,
+                reference_code: nanoid(),
+                available: true,
+                description: datas.description,
+                id_category_fk: datas.id_category_fk
+            }
+        })
+    }
+
+    async getProductDatas(mode: SearchDatasOptions, id_product?: number, product_name?: string): Promise<any>
+    {
+        const where = id_product ? {id_product: id_product} : {product_name: product_name}    
+        if(mode.action === "GetOnlyBasicsDatas")
+        {
+            return await this.prisma.products.findFirst({where: where})
+        }
+        return await this.prisma.products.findFirst({where: where})
+    }
+    async getAllProductsDatas(): Promise<any[]>
+    {
+        return await this.prisma.products.findMany({include:{images: true, reviews: true, category: true}, orderBy:{created_at:"desc"}})    
+    }
+    async editProduct(id_product: number, datas: Partial<generalProductsDatas>): Promise<any>
+    {
+        return await this.prisma.products.update({where:{id_product: id_product}, data:{...datas}})    
+    }
+    async deleteProductDatas(id_product: number): Promise<any>
+    {
+        return await this.prisma.products.delete({where:{id_product: id_product}})
+    }
+    async deleteAllProductsDatas(): Promise<any>
+    {
+        return await this.prisma.products.deleteMany()    
+    }
+}
+export {PrismaGeneralServicesRepositories}

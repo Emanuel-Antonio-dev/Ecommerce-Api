@@ -1,3 +1,4 @@
+import sanitize from "sanitize-html";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 
@@ -28,11 +29,20 @@ class EditProductCategoryService
                 {
                     return {success: false, statusCode: 400, message:"Informe um nome válido para esta categoria"}
                 }
-                productCategoryDatasToUpdate.name = datas.name.trim()
+                productCategoryDatasToUpdate.name = sanitize(datas.name.trim(),{
+                    allowedClasses:{},
+                    allowedAttributes:{},
+                    allowedTags:[]
+                })
             }
             if(datas.description)
             {
-                productCategoryDatasToUpdate.description = datas.description.trim()
+                productCategoryDatasToUpdate.description = sanitize(datas.description.trim(),
+            {
+                allowedClasses:{},
+                allowedAttributes: {},
+                allowedTags: []
+            })
             }
             if(Object.keys(productCategoryDatasToUpdate).length === 0)
             {

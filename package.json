@@ -22,7 +22,7 @@
   "main": "server.ts",
   "scripts": {
     "start:prod": "node ./dist/server.js",
-    "db:seed":"ts-node src/Common/Seeds/register-admin.seed.ts",
+    "db:seed": "ts-node src/Common/Seeds/register-admin.seed.ts",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc --watch"
   },
@@ -30,6 +30,7 @@
     "@prisma/client": "^6.16.2",
     "@types/cors": "^2.8.19",
     "@types/nodemailer": "^7.0.1",
+    "@types/sanitize-html": "^2.16.0",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
@@ -55,6 +56,7 @@
     "@types/node": "^24.5.2",
     "@types/validator": "^13.15.3",
     "nodemon": "^3.1.10",
+    "sanitize-html": "^2.17.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

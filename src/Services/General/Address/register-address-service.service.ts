@@ -1,3 +1,4 @@
+import sanitize from "sanitize-html";
 import { Prisma } from "../../../../generated/prisma";
 import { PrismaAddressesRepositories } from "../../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { addressesDatas } from "../../../interfaces/General/Adresses/interface";
@@ -15,8 +16,17 @@ class RegisterAddressesService
                     return {success: false, statusCode: 400, message: "Informe todos os campos"}
                 }
                 const result = await this.repository.register({
-                    city: datas.city.trim(),
-                    street: datas.street.trim(),
+                    city: sanitize(datas.city.trim(),{
+                        allowedAttributes:{},
+                        allowedClasses:{},
+                        allowedTags:[]
+                    }),
+                    street: sanitize(datas.street.trim(),{
+                        allowedAttributes:{},
+                        allowedClasses:{},
+                        allowedTags:[]
+                    }
+                ),
                     id_user_fk: datas.id_user_fk.trim()
                 }, tx)
                 if(!result)

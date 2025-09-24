@@ -1,6 +1,7 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
 import { PrismaClient } from "../../../../generated/prisma";
+import sanitize from "sanitize-html";
 
 class RegisterProductCategoryService
 {
@@ -19,8 +20,18 @@ class RegisterProductCategoryService
                 return {success: false, statusCode: 409, message:"Já existe uma categoria com este nome"}
             }
             const result = await this.repository.register({
-                name: datas.name.trim(),
-                description: datas.description.trim()
+                name: sanitize(datas.name.trim(),
+            {
+                allowedClasses: {},
+                allowedAttributes:{},
+                allowedTags:[]
+            }),
+                description: sanitize(datas.description.trim(),
+            {
+                allowedClasses:{},
+                allowedAttributes:{},
+                allowedTags: []
+        })
             })
             if(!result)
             {

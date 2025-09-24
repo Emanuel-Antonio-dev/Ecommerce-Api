@@ -22,7 +22,7 @@ class PrismaProductsCategories implements IProductsCategories
     }
     async getAllCategoriesDatas(): Promise<any[]>
     {
-        return await this.prisma.productsCategories.findMany()    
+        return await this.prisma.productsCategories.findMany({include:{products: true }})    
     }
     async updateCategoryDatas(id_category: number, datas: Partial<productsCategoriesDatas>): Promise<any>
     {
