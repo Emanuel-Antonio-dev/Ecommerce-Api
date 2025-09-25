@@ -1,21 +1,22 @@
 import { IGeneralProductsRepositories } from "../general-products-repositoires";
-import { PrismaClient } from "../../../../../generated/prisma";
+import { PrismaClient, Prisma} from "../../../../../generated/prisma";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import { generalProductsDatas } from "../../../../interfaces/Products/GeneralProducts/interface";
 import { nanoid } from "nanoid";
 
-class PrismaGeneralServicesRepositories implements IGeneralProductsRepositories
+class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
 {
     constructor(private readonly prisma: PrismaClient){}
 
-    async register(datas: generalProductsDatas): Promise<any>
+    async register(datas: generalProductsDatas, tx:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
-        return await this.prisma.products.create({
+        const client = tx ?? this.prisma
+        return await client.products.create({
             data:{
                 name: datas.name,
                 aditional_info: datas.aditional_info,
                 price: datas.price,
-                reference_code: nanoid(),
+                reference_code: `RFP ${nanoid(8)}`,
                 available: true,
                 description: datas.description,
                 id_category_fk: datas.id_category_fk
@@ -23,9 +24,9 @@ class PrismaGeneralServicesRepositories implements IGeneralProductsRepositories
         })
     }
 
-    async getProductDatas(mode: SearchDatasOptions, id_product?: number, product_name?: string): Promise<any>
+    async getProductDatas(mode: SearchDatasOptions, id_product?: number, name?: string): Promise<any>
     {
-        const where = id_product ? {id_product: id_product} : {product_name: product_name}    
+        const where = id_product ? {id_product: id_product} : {name: name}    
         if(mode.action === "GetOnlyBasicsDatas")
         {
             return await this.prisma.products.findFirst({where: where})
@@ -49,4 +50,4 @@ class PrismaGeneralServicesRepositories implements IGeneralProductsRepositories
         return await this.prisma.products.deleteMany()    
     }
 }
-export {PrismaGeneralServicesRepositories}
+export {PrismaGeneralProductsRepositories}

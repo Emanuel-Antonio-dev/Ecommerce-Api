@@ -13,7 +13,7 @@ if (!fs.existsSync(pathDir))
 }
 
 const directories = {
-  ProductsImages: "ProductsImages",
+  ProductImages: "ProductImages",
 };
 
 Object.values(directories).forEach((dir) => {
@@ -29,8 +29,8 @@ const createUploader = () => {
     destination: (req: Request, file: Express.Multer.File, cb) => {
       let uploaderFolder = pathDir;
 
-      if (file.fieldname === "ProductsImages") {
-        uploaderFolder = path.join(pathDir, directories.ProductsImages);
+      if (file.fieldname === "ProductImages") {
+        uploaderFolder = path.join(pathDir, directories.ProductImages);
       }
 
       cb(null, uploaderFolder);
@@ -49,7 +49,7 @@ const createUploader = () => {
     cb: multer.FileFilterCallback
   ) => {
     const allowedMimes = {
-      ProductsImages: ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"],
+      ProductImages: ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"],
     };
 
     const field = file.fieldname as keyof typeof allowedMimes;

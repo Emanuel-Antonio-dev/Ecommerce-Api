@@ -109,7 +109,7 @@ model Products{
   name         String
   description  String?  @db.Text
   price        Decimal @db.Decimal(10,2)
-  stock        Int @default(0)
+  available_stock        Int @default(1)
   available    Boolean @default(true)
   aditional_info String @db.Text
   id_category_fk Int

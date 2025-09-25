@@ -6,7 +6,7 @@ const pathDir = path.join(__dirname, "./Logs")
 function getErrorsDetails(error: string)
 {
     fs.writeFileSync(path.join(pathDir, "errors.txt"), "", {flag: "a"})
-    fs.appendFileSync(path.join(pathDir, "erros.txt"),
+    fs.appendFileSync(path.join(pathDir, "errors.txt"),
     `
         ===================================================
         Erro:

@@ -1,4 +1,5 @@
 import { Prisma } from "../../../generated/prisma";
+
 import { usersDatas } from "../../interfaces/Users/interface";
 abstract class IUsersRepositories
 {

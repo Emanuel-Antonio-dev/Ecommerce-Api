@@ -1,14 +1,15 @@
 interface generalProductsDatas
 {
     id_product?: number
-    reference_code: string
+    reference_code?: string
     name: string
     description: string
     price: number
-    stock: number
-    available: boolean
+    stock?: number
+    available?: boolean
     aditional_info: string
     id_category_fk: number
+    image_url?:string | string[] | any
     created_at?: Date
     updated_at?: Date
 }

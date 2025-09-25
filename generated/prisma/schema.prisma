@@ -120,22 +120,22 @@ model ProductsCategories {
 }
 
 model Products {
-  id_product     Int                @id @default(autoincrement())
-  reference_code String             @unique
-  name           String
-  description    String?            @db.Text
-  price          Decimal            @db.Decimal(10, 2)
-  stock          Int                @default(0)
-  available      Boolean            @default(true)
-  aditional_info String             @db.Text
-  id_category_fk Int
-  images         ProductsImages[]
-  reviews        productsReviews[]
-  order_items    OrderItems[]
-  cart_items     CartItems[]
-  category       ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
-  created_at     DateTime           @default(now())
-  updated_at     DateTime           @updatedAt
+  id_product      Int                @id @default(autoincrement())
+  reference_code  String             @unique
+  name            String
+  description     String?            @db.Text
+  price           Decimal            @db.Decimal(10, 2)
+  available_stock Int                @default(1)
+  available       Boolean            @default(true)
+  aditional_info  String             @db.Text
+  id_category_fk  Int
+  images          ProductsImages[]
+  reviews         productsReviews[]
+  order_items     OrderItems[]
+  cart_items      CartItems[]
+  category        ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
+  created_at      DateTime           @default(now())
+  updated_at      DateTime           @updatedAt
 
   @@map("tbl_products")
 }
