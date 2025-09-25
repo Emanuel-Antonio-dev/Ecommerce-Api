@@ -106,3 +106,11 @@ Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:13:20
 , proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
 Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:13:20
 , proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:14:39
+, proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:14:39
+, proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:15:18
+, proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+Requisição feita via Ip Adress: 127.0.0.1, data: 25/09/2025, 23:15:18
+, proveniencia: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36

@@ -31,7 +31,7 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
         {
             return await this.prisma.products.findFirst({where: where})
         }
-        return await this.prisma.products.findFirst({where: where})
+        return await this.prisma.products.findFirst({where: where, include:{images: true, reviews: true, category: true}})
     }
     async getAllProductsDatas(): Promise<any[]>
     {
