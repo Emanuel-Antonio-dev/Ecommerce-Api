@@ -1,14 +1,16 @@
 import { Response, Request } from "express";
 import { PrismaClient } from "../../../../generated/prisma";
-import { RegisterGeneralProductService } from "../../../Services/Products/GeneralProducts/register-general-product.service";
+import { RegisterGeneralProductService } from "../../../Services/Products/GeneralProducts/register-product.service";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
+import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 
 const prisma: PrismaClient = new PrismaClient();
 const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prisma)
+const categoryRepository: PrismaProductsCategories = new PrismaProductsCategories(prisma)
 const imagesRepository: PrismaProductsImages = new PrismaProductsImages(prisma)
-const service: RegisterGeneralProductService = new RegisterGeneralProductService(prisma,repository, imagesRepository)
+const service: RegisterGeneralProductService = new RegisterGeneralProductService(prisma,repository, imagesRepository, categoryRepository)
 
 class RegisterProductsController
 {

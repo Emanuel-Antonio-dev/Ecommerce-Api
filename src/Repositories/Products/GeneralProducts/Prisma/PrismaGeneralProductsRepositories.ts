@@ -39,7 +39,7 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
     }
     async editProduct(id_product: number, datas: Partial<generalProductsDatas>): Promise<any>
     {
-        return await this.prisma.products.update({where:{id_product: id_product}, data:{...datas}})    
+        return await this.prisma.products.update({where:{id_product: id_product}, data:{...datas, id_category_fk: datas.id_category_fk}, select:{images:{where:{url: datas.image_url}}}})    
     }
     async deleteProductDatas(id_product: number): Promise<any>
     {

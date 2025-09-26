@@ -19,3 +19,5 @@ docker/
 *.log
 *.pid
 npm-debug.log*
+
+src/Common/Utils/Uploads/ProductImages/

@@ -5,13 +5,15 @@ import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
+import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 
 class RegisterGeneralProductService
 {
     constructor(
         private readonly prisma: PrismaClient,
         private readonly repository: PrismaGeneralProductsRepositories,
-        private readonly imagesRepository: PrismaProductsImages
+        private readonly imagesRepository: PrismaProductsImages,
+        private readonly categoryRepository: PrismaProductsCategories
     ){}
 
     async registerProducts(datas: generalProductsDatas)
@@ -45,12 +47,14 @@ class RegisterGeneralProductService
             if (datas.price <= 0) {
                 throw new HttpException(false, 400, "O preço deve ser maior que 0");
             }
-
             if (!Array.isArray(datas.image_url) || datas.image_url.length === 0)
             {
                 throw new HttpException(false, 400, "Informe pelo menos uma imagem");
             }
-
+            if(!await this.categoryRepository.getCategoryData({action:"GetOnlyBasicsDatas"}, datas.id_category_fk, undefined))
+            {
+                throw new HttpException(false, 409, "A categoria selecionada não existe");
+            }
             let uploadResult
             try
             {
