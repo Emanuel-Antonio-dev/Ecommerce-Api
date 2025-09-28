@@ -7,7 +7,7 @@ import { categoryRoutes } from './Routes/Products/Categories/routes';
 import { getRequestIp } from './Common/Middlewares/Observability/get-ip-address';
 import { getErrorsDetails } from './Common/Middlewares/Observability/get-errors';
 import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
-import dotenv from "dotenv"
+import { cartRoutes } from './Routes/Products/Cart/toutes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -30,11 +30,13 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(getRequestIp)
-app.use(dotenv.config)
+
+// App routes
 app.use(urlBase, generalRoute)
 app.use(urlBase, adminRoutes)
 app.use(urlBase, categoryRoutes)
 app.use(urlBase, productsRoutes)
+app.use(urlBase, cartRoutes)
 
 // Catch 404 and forward to error handler 
 

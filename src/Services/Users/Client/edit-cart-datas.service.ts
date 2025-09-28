@@ -1,14 +1,22 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 class EditMyCartDatasService {
     constructor(
-        private readonly repository: PrismaCartRepositories
+        private readonly repository: PrismaCartRepositories,
+        private readonly userRepository: PrismaUsersRepositories
+
     ) {}
 
-    async editCartDatas(id_user_fk: string, datas: Partial<cartItemsDatas>): Promise<any> {
+    async editCartDatas(id_user_fk: string, datas: Partial<cartItemsDatas>)
+    {
         try {
+            if(!await this.userRepository.getUsersProfileDatas(id_user_fk, "client"))
+            {
+                throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")
+            }
             const cartDatas = await this.repository.getCartDatas(undefined, id_user_fk);
 
             if (!cartDatas) {

@@ -2,15 +2,17 @@ import { Prisma, PrismaClient} from "../../../../generated/prisma";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 class RegisterCartsService
 {
     constructor(
         private readonly prisma: PrismaClient,
-        private readonly repository: PrismaCartRepositories
+        private readonly repository: PrismaCartRepositories,
+        private readonly userRepository: PrismaUsersRepositories
     ){}
 
-    async registerCart(datas: cartDatas, items: cartItemsDatas[]): Promise<any>
+    async registerCart(datas: cartDatas, items: cartItemsDatas[])
     {
         try {
             if(!datas.id_user_fk)
@@ -20,6 +22,10 @@ class RegisterCartsService
             if(items.length === 0)
             {
                 throw new HttpException(false, 400, "Adicione pelo menos 1 item no carrinho");
+            }
+            if(!await this.userRepository.getUsersProfileDatas(datas.id_user_fk, "client"))
+            {
+                throw new HttpException(false, 404, "Não conseguimos encontrar este usuário");
             }
             const transaction = await this.prisma.$transaction(async (tx) => {
                 let cart = await this.repository.getCartDatas(undefined, datas.id_user_fk);

@@ -6,7 +6,8 @@ class DeleteAllCartItemsDatasService {
         private readonly repository: PrismaCartRepositories
     ) {}
 
-    async deleteAllCartItems(id_cart: string): Promise<any> {
+    async deleteAllCartItems(id_cart: string)
+    {
         try {
             const cartDatas = await this.repository.getAllCartItems(id_cart);
             if(cartDatas.length === 0) {

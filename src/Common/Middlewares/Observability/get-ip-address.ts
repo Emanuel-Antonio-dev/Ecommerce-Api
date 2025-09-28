@@ -35,7 +35,7 @@ function getRequestIp(req: Request, res: Response, next: NextFunction)
     
     const logLine = `
     ===================================================
-    [${new Date().toLocaleString()}]
+    DataTime: [${new Date().toLocaleString()}]
     IP: ${ip}
     Rota: ${req.method} ${req.originalUrl}
     Proveniência (User-Agent): ${from}
