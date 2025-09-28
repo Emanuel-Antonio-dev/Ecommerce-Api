@@ -1,5 +1,5 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 class DeleteCartItemDatasService {
@@ -30,7 +30,7 @@ class DeleteCartItemDatasService {
             }
             return {
                 success: true,
-                status: 200,
+                statusCode: 200,
                 message: "Item removido com sucesso."
             };
 

@@ -7,7 +7,7 @@ import { categoryRoutes } from './Routes/Products/Categories/routes';
 import { getRequestIp } from './Common/Middlewares/Observability/get-ip-address';
 import { getErrorsDetails } from './Common/Middlewares/Observability/get-errors';
 import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
-import { cartRoutes } from './Routes/Products/Cart/toutes';
+import { cartRoutes } from './Routes/Products/Cart/routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -41,7 +41,7 @@ app.use(urlBase, cartRoutes)
 // Catch 404 and forward to error handler 
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.status(400).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});
+    res.status(404).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});
 });
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

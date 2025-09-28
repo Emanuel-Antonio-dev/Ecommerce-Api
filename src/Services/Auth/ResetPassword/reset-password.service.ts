@@ -9,7 +9,6 @@ class ResetPasswordService
         private readonly acountRepository: PrismaAccountRepositories,
         private readonly authenticationRepository: PrismaAuthenticationsRepositories
     ){}
-
     async ResetPassword(newPassword: string, token: string)
     {
         try

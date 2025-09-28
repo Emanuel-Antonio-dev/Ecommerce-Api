@@ -1,0 +1,23 @@
+import { nanoid } from "nanoid";
+import { PrismaClient } from "../../../../../generated/prisma";
+import { reviewsDatas } from "../../../../interfaces/Products/Reviews/interface";
+import { IReviewsRepositories } from "../reviews-repositories";
+
+class PrismaProductReviewsRepositories implements IReviewsRepositories
+{
+    constructor(private readonly prisma: PrismaClient){}
+
+    async register(datas: reviewsDatas): Promise<any>
+    {
+        return await this.prisma.productsReviews.create({data:{
+            id_review: nanoid(),
+            ...datas
+        }})
+    }
+
+    async getAllProductReviews(id_product: number): Promise<any[]>
+    {
+        return await this.prisma.productsReviews.findMany({where:{id_product_fk: id_product}, include:{product: true, user_details: true}})    
+    }
+}
+export{PrismaProductReviewsRepositories}

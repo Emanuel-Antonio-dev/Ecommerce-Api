@@ -1,6 +1,6 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
-import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 class EditMyCartDatasService {

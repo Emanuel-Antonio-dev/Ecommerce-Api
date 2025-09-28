@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { PrismaClient } from "../../../../generated/prisma";
-import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import dotenv from "dotenv"
 import { getErrorsDetails } from "../../../Common/Middlewares/Observability/get-errors";
 import { GetCartDatasService } from "../../../Services/Users/Client/get-cart-datas.service";

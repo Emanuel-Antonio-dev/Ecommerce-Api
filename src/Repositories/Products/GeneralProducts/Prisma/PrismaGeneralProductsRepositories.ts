@@ -2,7 +2,7 @@ import { IGeneralProductsRepositories } from "../general-products-repositoires";
 import { PrismaClient, Prisma} from "../../../../../generated/prisma";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import { generalProductsDatas } from "../../../../interfaces/Products/GeneralProducts/interface";
-import { nanoid } from "nanoid";
+import crypto from "node:crypto"
 
 class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
 {
@@ -16,14 +16,13 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
                 name: datas.name,
                 aditional_info: datas.aditional_info,
                 price: datas.price,
-                reference_code: `RFP ${nanoid(8)}`,
+                reference_code: `RFP2025-${crypto.randomInt(10000, 999999)}`,
                 available: true,
                 description: datas.description,
                 id_category_fk: datas.id_category_fk
             }
         })
     }
-
     async getProductDatas(mode: SearchDatasOptions, id_product?: number, name?: string): Promise<any>
     {
         const where = id_product ? {id_product: id_product} : {name: name}    

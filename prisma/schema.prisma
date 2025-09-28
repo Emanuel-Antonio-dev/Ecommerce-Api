@@ -74,11 +74,12 @@ model Users{
   last_name   String
   user_type   UsersTypes @default(client)
   id_account_fk String @unique
-  my_contacts  Contacts[]
   account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
   my_addresses Addresses[]
+  my_contacts  Contacts[]
   my_orders    Orders[]
   my_cart      Carts?
+  my_reviews   ProductsReviews[]
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_users")
@@ -114,7 +115,7 @@ model Products{
   aditional_info String @db.Text
   id_category_fk Int
   images       ProductsImages[]
-  reviews      productsReviews[]
+  reviews      ProductsReviews[]
   order_items  OrderItems[]
   cart_items   CartItems[]
   category     ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
@@ -131,11 +132,13 @@ model ProductsImages{
   updated_at  DateTime  @updatedAt
   @@map("tbl_products_images")
 }
-model productsReviews{
+model ProductsReviews{
   id_review    String @id
   rating       Int
   comment      String?
   id_product_fk Int
+  id_user_fk    String
+  user_details  Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt

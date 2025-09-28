@@ -221,6 +221,7 @@ exports.Prisma.ProductsReviewsScalarFieldEnum = {
   rating: 'rating',
   comment: 'comment',
   id_product_fk: 'id_product_fk',
+  id_user_fk: 'id_user_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -313,11 +314,11 @@ exports.Prisma.ModelName = {
   TwoFactorAuth: 'TwoFactorAuth',
   Contacts: 'Contacts',
   Users: 'Users',
-  addresses: 'addresses',
+  Addresses: 'Addresses',
   ProductsCategories: 'ProductsCategories',
   Products: 'Products',
   ProductsImages: 'ProductsImages',
-  productsReviews: 'productsReviews',
+  ProductsReviews: 'ProductsReviews',
   Orders: 'Orders',
   OrderItems: 'OrderItems',
   Carts: 'Carts',

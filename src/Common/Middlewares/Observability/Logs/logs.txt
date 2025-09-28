@@ -283,3 +283,315 @@ Requisição feita via Ip Adress: 127.0.0.1, data: 26/09/2025, 17:26:51
     ===================================================
 
     
+    ===================================================
+    DataTime: [28/09/2025, 20:48:57]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:49:47]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:50:38]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:50:56]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:51:20]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:52:00]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:54:13]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:54:16]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:54:26]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 20:59:43]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:02:13]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:06:40]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:07:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:08:09]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:08:11]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:08:46]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:15:05]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:22:00]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:23:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:30:04]
+    IP: 127.0.0.1
+    Rota: GET /api.ecommerce/v1/carts/get-cart-tem/Ux_UIGAr8lhVVedvN6vuk
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:30:45]
+    IP: 127.0.0.1
+    Rota: GET /api.ecommerce/v1/carts/get-cart-item/Ux_UIGAr8lhVVedvN6vuk
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:32:18]
+    IP: 127.0.0.1
+    Rota: GET /api.ecommerce/v1/carts/delete-all-cart-item/Ux_UIGAr8lhVVedvN6vuk
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:32:25]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-item/Ux_UIGAr8lhVVedvN6vuk
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:32:28]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-item/Ux_UIGAr8lhVVedvN6vuk
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:32:38]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/Ux_UIGAr8lhVVedvN6vu
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:35:17]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/Ux_UIGAr8lhVVedvN6vu
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:35:41]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1RpbepR
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:35:53]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1RpbepR
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:36:38]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:37:53]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:37:56]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:38:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:38:57]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1RpbepR
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:39:00]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1RpbepR
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:39:19]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-item
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:45:11]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1Rpbep
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:45:17]
+    IP: 127.0.0.1
+    Rota: DELETE /api.ecommerce/v1/carts/delete-all-cart-items/TGKzZeNzwzDs8h1RpbepR
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:45:33]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-items
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [28/09/2025, 21:45:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/carts/register-cart-items
+    Proveniência (User-Agent): insomnia/11.5.0
+    ===================================================
+
+    

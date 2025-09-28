@@ -1,5 +1,5 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 
 class DeleteAllCartItemsDatasService {
     constructor(
@@ -9,6 +9,10 @@ class DeleteAllCartItemsDatasService {
     async deleteAllCartItems(id_cart: string)
     {
         try {
+            if(!await this.repository.getCartDatas(undefined, id_cart))
+            {
+                throw new HttpException(false, 404, "Este carrinho não existe")
+            }
             const cartDatas = await this.repository.getAllCartItems(id_cart);
             if(cartDatas.length === 0) {
                 throw new HttpException(
@@ -23,7 +27,7 @@ class DeleteAllCartItemsDatasService {
             }
             return {
                 success: true,
-                status: 200,
+                statusCode: 200,
                 message: "Itens removidos com sucesso."
             };
 

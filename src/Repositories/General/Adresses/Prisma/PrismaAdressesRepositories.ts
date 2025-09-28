@@ -22,13 +22,13 @@ class PrismaAddressesRepositories implements IAddressesRepositories
     {
         return await this.prisma.addresses.findFirst({where:{id_user_fk: id_user}})
     }
-    async deleteAsddressByUserId(id_user: string): Promise<any>
+    async deleteAsddressByUserId(id_address: string): Promise<any>
     {
-        return this.prisma.addresses.delete({where:{id_user_fk: id_user}})
+        return this.prisma.addresses.delete({where:{id_address: id_address}})
     }
-    async updateAddressByUserId(id_user: string, datas: Partial<addressesDatas>): Promise<any>
+    async updateAddressByUserId(id_address: string, datas: Partial<addressesDatas>): Promise<any>
     {
-        return await this.prisma.addresses.update({where:{id_user_fk: id_user}, data:{...datas}})
+        return await this.prisma.addresses.update({where:{id_address: id_address}, data:{...datas}})
     }
 
 }

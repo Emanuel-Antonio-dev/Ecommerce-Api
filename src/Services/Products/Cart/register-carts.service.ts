@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient} from "../../../../generated/prisma";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
-import { PrismaCartRepositories } from "../../../Repositories/Cart/Prisma/PrismaCartRepositories";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
@@ -28,7 +28,7 @@ class RegisterCartsService
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário");
             }
             const transaction = await this.prisma.$transaction(async (tx) => {
-                let cart = await this.repository.getCartDatas(undefined, datas.id_user_fk);
+                let cart = await this.repository.getCartDatas(tx, undefined, datas.id_user_fk);
                 
                 if(!cart)
                 {
@@ -36,6 +36,10 @@ class RegisterCartsService
                 }
                 for(const item of items)
                     {
+                        if(!await tx.products.findUnique({where:{id_product: item.id_product_fk}}))
+                        {
+                            throw new HttpException(false, 404, "O Produto selecionado não existe")
+                        }
                         item.id_cart_fk = cart.id_cart
                         const existingItem = await tx.cartItems.findFirst({
                             where:{
@@ -54,7 +58,7 @@ class RegisterCartsService
                         await this.repository.registerCartItems(item, tx);
                     }
                 }
-                return await this.repository.getCartDatas(cart.id_cart, undefined);
+                return await this.repository.getCartDatas(tx, cart.id_cart, undefined);
             })
             return {
                 success: true,
@@ -71,7 +75,6 @@ class RegisterCartsService
                     message: error.message
                 };
             }
-
             console.error(error);
             return {
                 success: false,

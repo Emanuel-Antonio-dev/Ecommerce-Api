@@ -119,7 +119,7 @@ class UsersEditProfileService
                 }
                 if (Object.keys(usersDatasToUpdate).length > 0)
                 {
-                    const userUpdated = await this.userRepository.updateUser(id_user, usersDatasToUpdate)
+                    const userUpdated = await this.userRepository.updateUser(existsUser.my_address.id_address, usersDatasToUpdate)
                     if (!userUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar os seus dados.")

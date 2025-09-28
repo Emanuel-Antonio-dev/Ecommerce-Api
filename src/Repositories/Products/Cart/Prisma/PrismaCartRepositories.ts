@@ -1,6 +1,6 @@
-import { PrismaClient, Prisma} from "../../../../generated/prisma";
+import { PrismaClient, Prisma} from "../../../../../generated/prisma";
 import { ICartRepositories } from "../cart-repositories";
-import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
+import { cartDatas, cartItemsDatas } from "../../../../interfaces/Products/Cart/interface";
 import { nanoid } from "nanoid";
 
 class PrismaCartRepositories implements ICartRepositories
@@ -30,17 +30,32 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async getCartDatas(id_cart?: string, id_user_fk?: string): Promise<any>
+    async getCartDatas(tx?: Omit<Prisma.TransactionClient, "$transaction">, id_cart?: string, id_user_fk?: string): Promise<any>
     {
-        if(id_cart)
+        const client = tx ?? this.prisma
+        const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}
+        const datas = await client.carts.findFirst({where: {...where, status:"active"}, include:{cart_items:{include:{product:true}}, user_details: true}})    
+        
+        if(!datas)
         {
-            return await this.prisma.carts.findUnique({where:{id_cart:id_cart}, include:{cart_items:{include:{product:true}}, user_details: true}})    
+            return null
         }
-        if(id_user_fk)
-        {
-            return await this.prisma.carts.findFirst({where:{id_user_fk:id_user_fk, status:"active"}, include:{cart_items:{include:{product: true}}, user_details: true}})    
+        return {
+            id_cart: datas?.id_cart,
+            id_user_fk: datas?.id_user_fk,
+            status: datas?.status,
+            created_at: datas?.created_at,
+            updated_at: datas?.updated_at,
+            user_datas: datas?.user_details,
+            items: datas?.cart_items.map(item => ({
+                id_cart_item: item.id_cart_item,
+                quantity: item.quantity,
+                price: item.price,
+                created_at: item.created_at,
+                updated_at: item.updated_at,
+                product_datas: item.product
+            }))
         }
-        return null;
     }
     async editCartItems(id_cart_item: string, data: Partial<cartItemsDatas>): Promise<any>
     {
