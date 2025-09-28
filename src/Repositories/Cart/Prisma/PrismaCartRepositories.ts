@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma} from "../../../../generated/prisma";
 import { ICartRepositories } from "../cart-repositories";
-import { cartDatas, cartItemsDatas } from "../../../interfaces/Cart/interface";
+import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { nanoid } from "nanoid";
 
 class PrismaCartRepositories implements ICartRepositories

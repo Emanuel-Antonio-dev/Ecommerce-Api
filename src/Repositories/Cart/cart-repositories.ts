@@ -1,5 +1,5 @@
 import { Prisma } from "../../../generated/prisma";
-import { cartDatas, cartItemsDatas } from "../../interfaces/Cart/interface";
+import { cartDatas, cartItemsDatas } from "../../interfaces/Products/Cart/interface";
 
 abstract class ICartRepositories
 {

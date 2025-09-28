@@ -32,7 +32,16 @@ function getRequestIp(req: Request, res: Response, next: NextFunction)
         ip = ip.substring(7)
     }
     (req as any ).clientIp = ip || 'unknow'
-    fs.appendFileSync(path.join(pathDir, "logs.txt"), `Requisição feita via Ip Adress: ${ip}, data: ${new Date().toLocaleString()}\n, proveniencia: ${from}\n`)
+    
+    const logLine = `
+    ===================================================
+    [${new Date().toLocaleString()}]
+    IP: ${ip}
+    Rota: ${req.method} ${req.originalUrl}
+    Proveniência (User-Agent): ${from}
+    ===================================================\n
+    `;
+    fs.appendFileSync(path.join(pathDir, "logs.txt"), logLine)
     next()
 }
 export{getRequestIp}

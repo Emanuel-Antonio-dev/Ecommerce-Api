@@ -3,16 +3,20 @@ import path from 'node:path';
 
 const pathDir = path.join(__dirname, "./Logs")
 
-function getErrorsDetails(error: string)
-{
-    fs.writeFileSync(path.join(pathDir, "errors.txt"), "", {flag: "a"})
-    fs.appendFileSync(path.join(pathDir, "errors.txt"),
-    `
-        ===================================================
-        Erro:
-            ${error}\n
-        data: ${new Date().toLocaleString()}\n
-        ===================================================
-    `)
+function getErrorsDetails(error: any) {
+  const logPath = path.join(pathDir, "errors.txt");
+
+  const errorMessage =
+    error instanceof Error ? error.stack || error.message : String(error);
+
+  const logLine = `
+  ===================================================
+  [${new Date().toLocaleString()}]
+  Erro capturado:
+  ${errorMessage}
+  ===================================================\n
+  `;
+  fs.appendFileSync(logPath, logLine);
 }
+
 export {getErrorsDetails}
