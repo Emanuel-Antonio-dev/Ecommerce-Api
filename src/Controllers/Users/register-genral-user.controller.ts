@@ -45,19 +45,26 @@ class RegisterUsersController
                 last_name: req.body.last_name,
                 user_type: "client",
             }
-            const contactDatas: Omit<contactsDatas, "id_user_fk"> ={
+            const contactDatas: Omit<contactsDatas, "id_user_fk">[] =
+            
+            Array.isArray(req.body.contacts) ? req.body.contacts.map((c: any)=>({
+                phone_number: c.phone_number
+            })):[{
                 phone_number: req.body.phone_number
-            }
-            const addressDatas: Omit<addressesDatas, "id_user_fk"> =
-            {
+            }]
+            const addressDatas: Omit<addressesDatas, "id_user_fk">[] =
+            Array.isArray(req.body.addresses) ? req.body.addresses.map((a: any) =>({
+                city: a.city,
+                street: a.street
+            })):[{
                 city: req.body.city,
                 street: req.body.street
-            }
+            }]
+
             if (!accountDatas.email || !accountDatas.password || 
                 !userDatas.first_name || !userDatas.last_name ||
-                !contactDatas.phone_number ||
-                !addressDatas.city ||
-                !addressDatas.street
+                contactDatas.length === 0 ||
+                addressDatas.length === 0
             )
             {
                 return res.status(400).json({ success: false,statusCode: 400,message: "Por favor, preencha todos os campos!" });

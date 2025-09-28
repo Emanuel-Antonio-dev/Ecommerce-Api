@@ -11,7 +11,8 @@ import { cartRoutes } from './Routes/Products/Cart/routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
-// Middleware
+
+// Middlewares
 app.use(helmet(
   {
     referrerPolicy:{policy: "no-referrer"},

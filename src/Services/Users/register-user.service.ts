@@ -22,8 +22,8 @@ class RegisterUserService
     async register(
         accountDatas: accountDatas,
         userDatas: Omit<usersDatas, "id_account_fk">,
-        contactDatas: Omit<contactsDatas, "id_user_fk">,
-        addressesDatas: Omit<addressesDatas, "id_user_fk">
+        contactDatas: Omit<contactsDatas, "id_user_fk">[],
+        addressesDatas: Omit<addressesDatas, "id_user_fk">[]
     )
     {
         try {
@@ -44,19 +44,27 @@ class RegisterUserService
                     {
                         throw new HttpException(false, 500,"Ocorreu um erro ao criar esta contas.")
                     }
-                if (contactDatas.phone_number.length < 9)
+                    const contacts = []
+                    for (const c of contactDatas)
                     {
-                        throw new HttpException(false, 500, "Informe um contacto telefónico válido.")
-                    }
-                const contact = await this.contactService.register({
-                    phone_number: contactDatas.phone_number,
-                    id_user_fk: user.id_user}, tx)
-                if (!contact.success || !contact)
+                    const contact = await this.contactService.register({
+                        phone_number: c.phone_number,
+                        id_user_fk: user.id_user}, tx)    
+                    if (!contact.success || !contact.datas)
                     {
                         throw new HttpException(false, contact.statusCode, contact.message ?? "")
                     }
+                    contacts.push(contact.datas)
+                }
+                const addresses = []
+                for(const address of addressesDatas)
+                {
+                    addresses.push(address)
+                }
                 const address = await this.addressesService.register({
-                    ...addressesDatas, id_user_fk: user.id_user
+                    city: addresses[0].city,
+                    street: addresses[0].street,
+                    id_user_fk: user.id_user
                 }, tx)
                 if(!address.success)
                 {
@@ -70,8 +78,8 @@ class RegisterUserService
                     first_name: user.first_name,
                     last_name: user.last_name,
                     email: account.datas.email,
-                    phone_number: contact.datas?.phone_number,
-                    address: address.datas,
+                    phone_number: contacts,
+                    address: addresses,
                     user_type: user.user_type,
                     created_at: user.created_at
                     }
@@ -82,8 +90,8 @@ class RegisterUserService
                 first_name: user.first_name,
                 last_name: user.last_name,
                 email: account.datas.email,
-                phone_number: contact.datas?.phone_number,
-                address: address.datas,
+                phone_number: contacts,
+                address: addresses,
                 user_type: user.user_type,
                 created_at: user.created_at
                 }
@@ -99,6 +107,7 @@ class RegisterUserService
             {
                 if (error instanceof HttpException)
                     {
+                        console.log(error)
                         return {success: false, statusCode: error.statusCode, message: error.message}
                     }
                     console.log(error)

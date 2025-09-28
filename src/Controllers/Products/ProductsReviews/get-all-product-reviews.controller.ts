@@ -16,9 +16,9 @@ class GetAllProductReviewsController
         try
         {
             const id_product_fk = parseInt(req.params.id_product_fk, 10)
-            if(id_product_fk)
+            if(!id_product_fk)
             {
-                return res.status(400).json({success: false, statusCode: 400, message: "Informe todos o produto"})
+                return res.status(400).json({success: false, statusCode: 400, message: "Informe o produto"})
             }
             const result = await service.getProductReview(id_product_fk)
             if(!result.success)
