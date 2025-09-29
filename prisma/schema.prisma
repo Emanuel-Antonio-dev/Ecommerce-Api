@@ -171,9 +171,9 @@ model OrderItems{
 }
 model Carts{
   id_cart      String @id
-  id_user_fk   String @unique
+  id_user_fk   String? @unique
   id_guest_cart String?
-  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+  user_details Users? @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   cart_items   CartItems[]
   status       CartStatus @default(waiting)
   created_at   DateTime  @default(now())

@@ -27,7 +27,7 @@ class SignInController
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
             }
-            const authenticationResult = await authenticationService.SignInWithLocalStrategy(email, password)
+            const authenticationResult = await authenticationService.SignInWithLocalStrategy(email, password, id_guest_cart)
             if(!authenticationResult.success || !authenticationResult.refreshToken)
             {
                 return res.status(authenticationResult.statusCode).json(authenticationResult)
@@ -39,7 +39,6 @@ class SignInController
                 maxAge:this.RefreshTokenDate,
                 sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax"
             })
-            let userCart = null
             await prisma.$transaction(async(tx)=>{
                 const id_account = await tx.accounts.findUnique({where:{email: email}})
                 if(!id_account)
@@ -66,17 +65,14 @@ class SignInController
                     token_type: "refreshToken",
                     id_authentication: authentication.id_authentication,
                 }, tx)
-                if(id_guest_cart)
-                {
-                    userCart = await cartService.migrateGuestCartToUser(id_guest_cart, authenticationResult.id_user)
-                }
+                
             })
             return res.status(authenticationResult.statusCode).json({
                 success: authenticationResult.success, 
                 statusCode: authenticationResult.statusCode, 
                 accessToken: authenticationResult.accessToken, 
                 message: authenticationResult.message,
-                cart_items: userCart
+                ...(authenticationResult.user_datas.user_type === "client" && {cart_items: authenticationResult.userCartItems}),
             })
         } catch (error: any)
         {

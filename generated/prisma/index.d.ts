@@ -17325,7 +17325,7 @@ export namespace Prisma {
 
   export type CartsGroupByOutputType = {
     id_cart: string
-    id_user_fk: string
+    id_user_fk: string | null
     id_guest_cart: string | null
     status: $Enums.CartStatus
     created_at: Date
@@ -17356,7 +17356,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
     cart_items?: boolean | Carts$cart_itemsArgs<ExtArgs>
     _count?: boolean | CartsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["carts"]>
@@ -17368,7 +17368,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
   }, ExtArgs["result"]["carts"]>
 
   export type CartsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17378,7 +17378,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
   }, ExtArgs["result"]["carts"]>
 
   export type CartsSelectScalar = {
@@ -17392,26 +17392,26 @@ export namespace Prisma {
 
   export type CartsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cart" | "id_user_fk" | "id_guest_cart" | "status" | "created_at" | "updated_at", ExtArgs["result"]["carts"]>
   export type CartsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
     cart_items?: boolean | Carts$cart_itemsArgs<ExtArgs>
     _count?: boolean | CartsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CartsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
   }
   export type CartsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user_details?: boolean | UsersDefaultArgs<ExtArgs>
+    user_details?: boolean | Carts$user_detailsArgs<ExtArgs>
   }
 
   export type $CartsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Carts"
     objects: {
-      user_details: Prisma.$UsersPayload<ExtArgs>
+      user_details: Prisma.$UsersPayload<ExtArgs> | null
       cart_items: Prisma.$CartItemsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id_cart: string
-      id_user_fk: string
+      id_user_fk: string | null
       id_guest_cart: string | null
       status: $Enums.CartStatus
       created_at: Date
@@ -17810,7 +17810,7 @@ export namespace Prisma {
    */
   export interface Prisma__CartsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user_details<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user_details<T extends Carts$user_detailsArgs<ExtArgs> = {}>(args?: Subset<T, Carts$user_detailsArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     cart_items<T extends Carts$cart_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Carts$cart_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -18240,6 +18240,25 @@ export namespace Prisma {
      * Limit how many Carts to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Carts.user_details
+   */
+  export type Carts$user_detailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Users
+     */
+    omit?: UsersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    where?: UsersWhereInput
   }
 
   /**
@@ -20697,18 +20716,18 @@ export namespace Prisma {
     OR?: CartsWhereInput[]
     NOT?: CartsWhereInput | CartsWhereInput[]
     id_cart?: StringFilter<"Carts"> | string
-    id_user_fk?: StringFilter<"Carts"> | string
+    id_user_fk?: StringNullableFilter<"Carts"> | string | null
     id_guest_cart?: StringNullableFilter<"Carts"> | string | null
     status?: EnumCartStatusFilter<"Carts"> | $Enums.CartStatus
     created_at?: DateTimeFilter<"Carts"> | Date | string
     updated_at?: DateTimeFilter<"Carts"> | Date | string
-    user_details?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    user_details?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
     cart_items?: CartItemsListRelationFilter
   }
 
   export type CartsOrderByWithRelationInput = {
     id_cart?: SortOrder
-    id_user_fk?: SortOrder
+    id_user_fk?: SortOrderInput | SortOrder
     id_guest_cart?: SortOrderInput | SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -20727,13 +20746,13 @@ export namespace Prisma {
     status?: EnumCartStatusFilter<"Carts"> | $Enums.CartStatus
     created_at?: DateTimeFilter<"Carts"> | Date | string
     updated_at?: DateTimeFilter<"Carts"> | Date | string
-    user_details?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    user_details?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
     cart_items?: CartItemsListRelationFilter
   }, "id_cart" | "id_user_fk">
 
   export type CartsOrderByWithAggregationInput = {
     id_cart?: SortOrder
-    id_user_fk?: SortOrder
+    id_user_fk?: SortOrderInput | SortOrder
     id_guest_cart?: SortOrderInput | SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -20748,7 +20767,7 @@ export namespace Prisma {
     OR?: CartsScalarWhereWithAggregatesInput[]
     NOT?: CartsScalarWhereWithAggregatesInput | CartsScalarWhereWithAggregatesInput[]
     id_cart?: StringWithAggregatesFilter<"Carts"> | string
-    id_user_fk?: StringWithAggregatesFilter<"Carts"> | string
+    id_user_fk?: StringNullableWithAggregatesFilter<"Carts"> | string | null
     id_guest_cart?: StringNullableWithAggregatesFilter<"Carts"> | string | null
     status?: EnumCartStatusWithAggregatesFilter<"Carts"> | $Enums.CartStatus
     created_at?: DateTimeWithAggregatesFilter<"Carts"> | Date | string
@@ -21761,13 +21780,13 @@ export namespace Prisma {
     status?: $Enums.CartStatus
     created_at?: Date | string
     updated_at?: Date | string
-    user_details: UsersCreateNestedOneWithoutMy_cartInput
+    user_details?: UsersCreateNestedOneWithoutMy_cartInput
     cart_items?: CartItemsCreateNestedManyWithoutCartInput
   }
 
   export type CartsUncheckedCreateInput = {
     id_cart: string
-    id_user_fk: string
+    id_user_fk?: string | null
     id_guest_cart?: string | null
     status?: $Enums.CartStatus
     created_at?: Date | string
@@ -21781,13 +21800,13 @@ export namespace Prisma {
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_details?: UsersUpdateOneRequiredWithoutMy_cartNestedInput
+    user_details?: UsersUpdateOneWithoutMy_cartNestedInput
     cart_items?: CartItemsUpdateManyWithoutCartNestedInput
   }
 
   export type CartsUncheckedUpdateInput = {
     id_cart?: StringFieldUpdateOperationsInput | string
-    id_user_fk?: StringFieldUpdateOperationsInput | string
+    id_user_fk?: NullableStringFieldUpdateOperationsInput | string | null
     id_guest_cart?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21797,7 +21816,7 @@ export namespace Prisma {
 
   export type CartsCreateManyInput = {
     id_cart: string
-    id_user_fk: string
+    id_user_fk?: string | null
     id_guest_cart?: string | null
     status?: $Enums.CartStatus
     created_at?: Date | string
@@ -21814,7 +21833,7 @@ export namespace Prisma {
 
   export type CartsUncheckedUpdateManyInput = {
     id_cart?: StringFieldUpdateOperationsInput | string
-    id_user_fk?: StringFieldUpdateOperationsInput | string
+    id_user_fk?: NullableStringFieldUpdateOperationsInput | string | null
     id_guest_cart?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23729,10 +23748,12 @@ export namespace Prisma {
     set?: $Enums.CartStatus
   }
 
-  export type UsersUpdateOneRequiredWithoutMy_cartNestedInput = {
+  export type UsersUpdateOneWithoutMy_cartNestedInput = {
     create?: XOR<UsersCreateWithoutMy_cartInput, UsersUncheckedCreateWithoutMy_cartInput>
     connectOrCreate?: UsersCreateOrConnectWithoutMy_cartInput
     upsert?: UsersUpsertWithoutMy_cartInput
+    disconnect?: UsersWhereInput | boolean
+    delete?: UsersWhereInput | boolean
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutMy_cartInput, UsersUpdateWithoutMy_cartInput>, UsersUncheckedUpdateWithoutMy_cartInput>
   }
@@ -25962,12 +25983,12 @@ export namespace Prisma {
     status?: $Enums.CartStatus
     created_at?: Date | string
     updated_at?: Date | string
-    user_details: UsersCreateNestedOneWithoutMy_cartInput
+    user_details?: UsersCreateNestedOneWithoutMy_cartInput
   }
 
   export type CartsUncheckedCreateWithoutCart_itemsInput = {
     id_cart: string
-    id_user_fk: string
+    id_user_fk?: string | null
     id_guest_cart?: string | null
     status?: $Enums.CartStatus
     created_at?: Date | string
@@ -26034,12 +26055,12 @@ export namespace Prisma {
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_details?: UsersUpdateOneRequiredWithoutMy_cartNestedInput
+    user_details?: UsersUpdateOneWithoutMy_cartNestedInput
   }
 
   export type CartsUncheckedUpdateWithoutCart_itemsInput = {
     id_cart?: StringFieldUpdateOperationsInput | string
-    id_user_fk?: StringFieldUpdateOperationsInput | string
+    id_user_fk?: NullableStringFieldUpdateOperationsInput | string | null
     id_guest_cart?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
