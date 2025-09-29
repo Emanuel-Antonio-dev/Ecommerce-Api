@@ -21,7 +21,12 @@ class RegisterCartController
         {
             const cartDatas: cartDatas={
                 id_user_fk: req.body.id_user_fk,
+                id_guest_cart: req.body.id_guest_cart,
                 status: "active"
+            }
+            if(!cartDatas.id_user_fk && !cartDatas.id_guest_cart)
+            {
+                return res.status(400).json({success: false, statusCode: 400, message:"Informe os dados."})
             }
             const cartItems: cartItemsDatas[] = req.body.cartItems || []
             if (!Array.isArray(cartItems) || cartItems.length === 0) {

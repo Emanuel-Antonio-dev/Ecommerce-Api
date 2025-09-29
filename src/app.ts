@@ -8,6 +8,7 @@ import { getRequestIp } from './Common/Middlewares/Observability/get-ip-address'
 import { getErrorsDetails } from './Common/Middlewares/Observability/get-errors';
 import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
 import { cartRoutes } from './Routes/Products/Cart/routes';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -30,6 +31,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 app.use(getRequestIp)
 
 // App routes

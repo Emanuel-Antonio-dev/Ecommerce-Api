@@ -13,7 +13,8 @@ class PrismaCartRepositories implements ICartRepositories
             data:{
                 id_cart: nanoid(),
                 status:"active",
-                id_user_fk: datas.id_user_fk
+                id_guest_cart: datas.id_guest_cart ?? null,
+                id_user_fk: datas.id_user_fk ?? null
             }
         })
     }

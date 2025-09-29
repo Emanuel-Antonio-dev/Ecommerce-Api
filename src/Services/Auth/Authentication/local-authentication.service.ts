@@ -17,7 +17,7 @@ class LocalStrategyAuthenticationService
                 throw new HttpException(false, 400, "Informe todos os campos.")
             }
             const user = await this.prisma.accounts.findUnique({where:{email: email.trim()}, include:{user_details:true}})
-            if(!user)
+            if(!user || !user.user_details)
             {
                 throw new HttpException(false, 401, "Credencias inválidas.")
             }
@@ -41,7 +41,7 @@ class LocalStrategyAuthenticationService
             const accessToken = JwtOperations.GenerateToken(userClaims, "access")
             const refreshToken = JwtOperations.GenerateToken(userClaims, "refreshToken")
             
-            return {success: true, statusCode: 200, accessToken, refreshToken, message: "Login realizado com sucesso!"}
+            return {success: true, statusCode: 200, accessToken, refreshToken, id_user: user.user_details.id_user,message: "Login realizado com sucesso!"}
         } catch (error: any)
         {
             if (error instanceof HttpException)

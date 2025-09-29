@@ -250,6 +250,7 @@ exports.Prisma.OrderItemsScalarFieldEnum = {
 exports.Prisma.CartsScalarFieldEnum = {
   id_cart: 'id_cart',
   id_user_fk: 'id_user_fk',
+  id_guest_cart: 'id_guest_cart',
   status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at'

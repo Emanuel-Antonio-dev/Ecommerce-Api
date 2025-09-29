@@ -3,12 +3,17 @@ import { PrismaClient, Prisma} from "../../../generated/prisma";
 import { LocalStrategyAuthenticationService } from "../../Services/Auth/Authentication/local-authentication.service";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 import dotenv from "dotenv"
+import { RegisterCartsService } from "../../Services/Products/Cart/register-carts.service";
+import { PrismaCartRepositories } from "../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
+import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 dotenv.config()
 
 const prisma: PrismaClient = new PrismaClient()
 const authenticationsRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prisma)
 const authenticationService: LocalStrategyAuthenticationService = new LocalStrategyAuthenticationService(prisma)
-
+const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
+const cartService: RegisterCartsService = new RegisterCartsService(prisma,cartRepository, userRepository)
 class SignInController
 {
     private static RefreshTokenDate: number = 7*24*60*60*1000
@@ -17,7 +22,7 @@ class SignInController
     {
         try
         {
-            const {email, password} = req.body
+            const {email, password, id_guest_cart} = req.body
             if (!email || !password)
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
@@ -34,6 +39,7 @@ class SignInController
                 maxAge:this.RefreshTokenDate,
                 sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax"
             })
+            let userCart = null
             await prisma.$transaction(async(tx)=>{
                 const id_account = await tx.accounts.findUnique({where:{email: email}})
                 if(!id_account)
@@ -60,8 +66,18 @@ class SignInController
                     token_type: "refreshToken",
                     id_authentication: authentication.id_authentication,
                 }, tx)
+                if(id_guest_cart)
+                {
+                    userCart = await cartService.migrateGuestCartToUser(id_guest_cart, authenticationResult.id_user)
+                }
             })
-            return res.status(authenticationResult.statusCode).json({success: authenticationResult.success, statusCode: authenticationResult.statusCode, accessToken: authenticationResult.accessToken, message: authenticationResult.message})
+            return res.status(authenticationResult.statusCode).json({
+                success: authenticationResult.success, 
+                statusCode: authenticationResult.statusCode, 
+                accessToken: authenticationResult.accessToken, 
+                message: authenticationResult.message,
+                cart_items: userCart
+            })
         } catch (error: any)
         {
             console.log(error)

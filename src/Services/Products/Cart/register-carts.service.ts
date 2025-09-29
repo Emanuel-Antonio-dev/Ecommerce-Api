@@ -15,21 +15,28 @@ class RegisterCartsService
     async registerCart(datas: cartDatas, items: cartItemsDatas[])
     {
         try {
-            if(!datas.id_user_fk)
+            if(!datas.id_user_fk && !datas.id_guest_cart)
             {
-                throw new HttpException(false, 400, "Informe todos o usuario")
+                throw new HttpException(false, 400, "Informe todos os campos")
             }
             if(items.length === 0)
             {
                 throw new HttpException(false, 400, "Adicione pelo menos 1 item no carrinho");
             }
-            if(!await this.userRepository.getUsersProfileDatas(datas.id_user_fk, "client"))
+            if(datas.id_user_fk && !await this.userRepository.getUsersProfileDatas(datas.id_user_fk, "client"))
             {
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário");
             }
             const transaction = await this.prisma.$transaction(async (tx) => {
-                let cart = await this.repository.getCartDatas(tx, undefined, datas.id_user_fk);
-                
+                let cart
+                if(datas.id_user_fk)
+                {
+                    cart = await this.repository.getCartDatas(tx, undefined, datas.id_user_fk);
+                }
+                else
+                {
+                    cart = await tx.carts.findFirst({where:{id_guest_cart: datas.id_guest_cart, status:"active"}})
+                }           
                 if(!cart)
                 {
                     cart = await this.repository.registerCart(datas, tx);
@@ -83,6 +90,43 @@ class RegisterCartsService
             };    
         }
 
+    }
+
+    async migrateGuestCartToUser(id_guest_cart: string, id_user: string)
+    {
+        return this.prisma.$transaction(async(tx)=>{
+            const guestCart = await tx.carts.findFirst({where:{id_guest_cart: id_guest_cart, status:"active"}, include:{cart_items: true}})
+            if(!guestCart)
+            {
+                return null
+            }
+            let userCartExists = await tx.carts.findFirst({where:{id_user_fk: id_user, status:"active"}, include:{cart_items: true}})
+            if(!userCartExists)
+            {
+                userCartExists = await tx.carts.update({where:{id_cart: guestCart.id_cart}, include:{cart_items: true},data:{id_user_fk: id_user, id_guest_cart: null}})
+            }
+            else
+            {
+                for(const item of guestCart.cart_items)
+                {
+                    const existingItem = await tx.cartItems.findFirst({where:{id_cart_fk: userCartExists.id_cart, id_product_fk: item.id_product_fk}})
+                    if(existingItem)
+                    {
+                        await tx.cartItems.update({where:{id_cart_item: existingItem.id_cart_item}, data:{quantity: existingItem.quantity + item.quantity}})
+                    }
+                    else
+                    {
+                        await this.repository.registerCartItems({
+                            id_cart_fk: userCartExists.id_cart,
+                            id_product_fk: item.id_product_fk,
+                            quantity: item.quantity,
+                            price: item.price
+                        }, tx)
+                    }
+                }
+            }
+            await tx.carts.delete({where:{id_cart: guestCart.id_cart}})
+        })
     }
 }
 export {RegisterCartsService}
