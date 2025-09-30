@@ -6,7 +6,7 @@ class SendEmail
 
     async sendEmail(email: string,subject: string,templeateForBody: string)
     {
-        this.emailProvider.sendEmail({
+        await this.emailProvider.sendEmail({
             from:{
                 email:"mulembe@suporte.gmail.com",
                 name: "Mulembe Ao"

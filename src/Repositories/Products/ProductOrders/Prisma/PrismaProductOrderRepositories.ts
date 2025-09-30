@@ -33,5 +33,9 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
             }
         })
     }
+    async setOrderStatus(id_order: string, status: "completed" | "cancelled"): Promise<any>
+    {
+        return await this.prisma.orders.update({where:{id_order: id_order}, data:{status:status}})    
+    }
 }
 export {PrismaOrdersRepositories}

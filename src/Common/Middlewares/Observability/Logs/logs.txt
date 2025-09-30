@@ -1179,3 +1179,115 @@ Requisição feita via Ip Adress: 127.0.0.1, data: 26/09/2025, 17:26:51
     ===================================================
 
     
+    ===================================================
+    DataTime: [30/09/2025, 20:28:05]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:30:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:30:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:30:35]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:31:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:39:51]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:40:05]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:40:58]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:41:52]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:43:24]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:44:06]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 20:51:40]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 21:22:00]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [30/09/2025, 21:22:11]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/register-order
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    

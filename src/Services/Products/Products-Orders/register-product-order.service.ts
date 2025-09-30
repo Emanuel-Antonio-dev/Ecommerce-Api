@@ -63,6 +63,7 @@ class RegisterProductOrderService
                     data:{status: "ordered"}
                 })
             }
+            await tx.carts.update({where:{id_cart: cart.id_cart}, data:{status:"active", cart_items:{deleteMany:{}}}})
             return ({success: true, statusCode: 201, message: "O seu pedido foi processado com sucesso!", datas: order})
             })
 
@@ -70,7 +71,6 @@ class RegisterProductOrderService
         {
             if (error instanceof HttpException)
             {
-                console.log(error)
                 return {success: false, statusCode: error.statusCode, message: error.message}
             }
             console.log(error)

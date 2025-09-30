@@ -9,6 +9,7 @@ import { getErrorsDetails } from './Common/Middlewares/Observability/get-errors'
 import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
 import { cartRoutes } from './Routes/Products/Cart/routes';
 import cookieParser from 'cookie-parser';
+import { producstOrders } from './Routes/Products/Products-Orders/routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -40,6 +41,7 @@ app.use(urlBase, adminRoutes)
 app.use(urlBase, categoryRoutes)
 app.use(urlBase, productsRoutes)
 app.use(urlBase, cartRoutes)
+app.use(urlBase, producstOrders)
 
 // Catch 404 and forward to error handler 
 

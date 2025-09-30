@@ -43,9 +43,14 @@ class RegisterCartsService
                 }
                 for(const item of items)
                     {
-                        if(!await tx.products.findUnique({where:{id_product: item.id_product_fk}}))
+                        const availableProduct = await tx.products.findFirst({where:{id_product: item.id_product_fk}})
+                        if(!availableProduct)
                         {
                             throw new HttpException(false, 404, "O Produto selecionado não existe")
+                        }
+                        if(!availableProduct.available || availableProduct.available_stock < item.quantity)
+                        {
+                            throw new HttpException(false, 400, `O produto ${availableProduct.name} esta sem estoque suficiente.`)
                         }
                         item.id_cart_fk = cart.id_cart
                         const existingItem = await tx.cartItems.findFirst({

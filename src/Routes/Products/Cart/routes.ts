@@ -11,5 +11,4 @@ cartRoutes.route("/carts/register-cart-items").post((req: Request, res: Response
 cartRoutes.route("/carts/get-cart-item/:id_user_fk").get((req: Request, res: Response) =>{GetCartDatasController.getCartDatas(req, res)})
 cartRoutes.route("/carts/delete-cart-item/:id_user_fk").delete((req: Request, res: Response) =>{DeleteCartItemController.deleteCartItem(req, res)})
 cartRoutes.route("/carts/delete-all-cart-items/:id_cart").delete((req: Request, res: Response) => {DeleteAllCarItemsController.deleteAllCartItems(req, res)})
-
 export {cartRoutes}
