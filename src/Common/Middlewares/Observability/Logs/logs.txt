@@ -1291,3 +1291,107 @@ Requisição feita via Ip Adress: 127.0.0.1, data: 26/09/2025, 17:26:51
     ===================================================
 
     
+    ===================================================
+    DataTime: [01/10/2025, 17:43:09]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:43:20]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21S
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:43:42]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21S
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:44:11]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21S
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:44:21]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:44:39]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:44:44]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:45:42]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:45:59]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:46:13]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/6jppaPTnex8RJKGtJ21SY
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:46:33]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/jBEkLW6mWy6JSVdjIKNRr
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:49:47]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/jBEkLW6mWy6JSVdjIKNRr
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [01/10/2025, 17:49:53]
+    IP: 127.0.0.1
+    Rota: PUT /api.ecommerce/v1/orders/set-order-status/jVvCoH21B0jtrUSyyL6-o
+    Proveniência (User-Agent): insomnia/11.6.1
+    ===================================================
+
+    

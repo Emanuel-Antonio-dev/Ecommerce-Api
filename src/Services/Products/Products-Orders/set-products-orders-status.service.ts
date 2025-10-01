@@ -22,6 +22,8 @@ class SetOrdersStatusService
                 throw new HttpException(false, 400, "Informe todos os campos")
             }
             const order = await this.prisma.orders.findFirst({where: {id_order: id_order, id_user_fk: id_user}})
+            const userDatas = await this.userRepository.getUsersProfileDatas(id_user, "client")
+
             if(!order)
             {
                 throw new HttpException(false, 404, "Pedido não encontrado")
@@ -30,11 +32,10 @@ class SetOrdersStatusService
             {
                 throw new HttpException(false, 400, "Somente pedidos pendentes podem ser aprovados.");
             }
-            const userEmail = await this.userRepository.getUsersProfileDatas(id_order, "client")
             if(status === "completed")
             {
                 const updatedOrder = await this.repository.setOrderStatus(id_order, "completed")
-                await this.emailProvider.sendEmail(userEmail.account_details.email,"Confirmar compra","<h1>Pedido aprovado</h1>")
+                await this.emailProvider.sendEmail(userDatas.account_details.email,"Confirmar compra","<h1>Pedido aprovado</h1>")
                 return { success: true, statusCode: 200, message: "O seu pedido foi aprovado com sucesso.", datas: updatedOrder };
             }
             const orderItems = await this.prisma.orderItems.findMany({where:{id_order_fk: id_order}})
@@ -45,7 +46,7 @@ class SetOrdersStatusService
                 }})
             }
             const updatedOrder = await this.repository.setOrderStatus(id_order, "cancelled")
-            await this.emailProvider.sendEmail(userEmail.account_details.email,"Pedido negado","<h1>Pedido aprovado</h1>")
+            await this.emailProvider.sendEmail(userDatas.account_details.email,"Pedido negado","<h1>Pedido aprovado</h1>")
             return { success: true, statusCode: 200, message: "O seu pedido foi negado.", datas: updatedOrder };
             
         } catch (error: any)

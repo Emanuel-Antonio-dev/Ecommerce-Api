@@ -22,7 +22,7 @@ generalRoute.route("/auth/reset-password").put((req: Request, res: Response) =>{
 generalRoute.route("/auth/logout").post((req: Request, res: Response) =>{LogoutController.logout(req, res)})
 
 //general basics users routes
-generalRoute.route("/auth/users/signup").post((req: Request, res: Response) =>{RegisterUsersController.register(req, res)})
+generalRoute.route("/auth/signup").post((req: Request, res: Response) =>{RegisterUsersController.register(req, res)})
 generalRoute.route("/users/profile/:id_user").get(MiddlewareAuthorization.authorization, (req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
 generalRoute.route("/users/edit-profile/:id_user").patch(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersEditProfileController.editProfile(req, res)})
 generalRoute.route("/users/delete-profile/:id_user").delete(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersDeleteProfileController.deleteProfile(req, res)})
