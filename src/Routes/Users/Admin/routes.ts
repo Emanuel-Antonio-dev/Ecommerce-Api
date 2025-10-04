@@ -4,6 +4,6 @@ import { MiddlewareAuthorization } from "../../../Common/Middlewares/Authorizati
 
 const adminRoutes: Router = Router()
 
-adminRoutes.route("/admin/get-all-users").get(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{GetAllUsersController.getAll(req, res)})
+adminRoutes.route("/admin/get-all-users").get((req: Request, res: Response) =>{GetAllUsersController.getAll(req, res)})
 
 export {adminRoutes}

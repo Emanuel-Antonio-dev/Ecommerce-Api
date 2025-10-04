@@ -9,7 +9,7 @@ class DeleteAllCartItemsDatasService {
     async deleteAllCartItems(id_cart: string)
     {
         try {
-            if(!await this.repository.getCartDatas(undefined, id_cart))
+            if(!await this.repository.getCartItems(undefined, id_cart))
             {
                 throw new HttpException(false, 404, "Este carrinho não existe")
             }

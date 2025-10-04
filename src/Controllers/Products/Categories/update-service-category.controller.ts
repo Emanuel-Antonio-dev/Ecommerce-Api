@@ -23,9 +23,9 @@ class EditProductCategoryController
                 name: req.body.name,
                 description: req.body.description
             }
-            if(!productCategoryDatas.name || !productCategoryDatas.description)
+            if(!productCategoryDatas.name && !productCategoryDatas.description)
             {
-                return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos para atualização"})
+                return res.status(400).json({success: false, statusCode: 400, message:"Informe pelo menos um campo para atualização"})
             }
 
             const result = await service.editCategory(id_category, productCategoryDatas)

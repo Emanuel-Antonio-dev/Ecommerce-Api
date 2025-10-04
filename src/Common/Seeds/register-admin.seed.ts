@@ -34,12 +34,19 @@ const usersService: RegisterUserService = new RegisterUserService(
         first_name: process.env.ADMIN_FIRST_NAME as string,
         last_name: process.env.ADMIN_LAST_NAME as string,
         user_type:"admin"
-    }, {
+    },
+    [
+        {
         phone_number: process.env.ADMIN_PHONE_NUMBER as string
-    }, {
+        }
+    ],
+    [
+        {
         city:"Luanda",
         street:"Luanda"
-    })
+    }
+    ]
+)
     return admin
 }
 registerAdmin().then((result) =>{

@@ -7,6 +7,6 @@ abstract class IAccountRepositories
     abstract register(datas: accountDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<accountDatas>;
     abstract getDatas(mode: SearchDatasOptions, id_account?: string, email?: string): Promise<accountDatas>;
     abstract updateAccount(id_account: string, datas: Partial<accountDatas>, tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>;
-    abstract deleteAccount(id_account: string): Promise<any>;
+    abstract deleteAccount(id_account: string, tx:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>;
 }
 export { IAccountRepositories };

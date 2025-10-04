@@ -10,9 +10,15 @@ import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
 import { cartRoutes } from './Routes/Products/Cart/routes';
 import cookieParser from 'cookie-parser';
 import { producstOrders } from './Routes/Products/Products-Orders/routes';
+import Stripe from 'stripe';
+
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2025-09-30.clover'
+})
+
 
 // Middlewares
 app.use(helmet(

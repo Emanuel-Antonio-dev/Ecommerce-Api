@@ -3,7 +3,9 @@ import { PrismaGeneralProductsRepositories } from "../../../Repositories/Product
 
 class GetProductDatasService
 {
-    constructor(private readonly repository: PrismaGeneralProductsRepositories){}
+    constructor(
+        private readonly repository: PrismaGeneralProductsRepositories
+    ){}
 
     async getProductDatas(id_product: number)
     {
@@ -22,7 +24,12 @@ class GetProductDatasService
             {
                 throw new HttpException(false, 500, "Ocorreu um erro ao carregar os dados deste produto, tente novamente")
             }
-            return {success: true, statusCode: 200, datas: productResult}
+            const productAverage = await this.repository.productAverage(id_product)
+            return {success: true, statusCode: 200, datas: {
+                ...productResult,
+                averageRating: productAverage._avg.rating ?? 0,
+                totalReviews: productAverage._count.rating ?? 0
+            }}
         } catch (error: any)
         {
             if (error instanceof HttpException)

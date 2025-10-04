@@ -42,9 +42,10 @@ class PrismaAccountRepositories implements IAccountRepositories
             data: {...datas}
         })
     }
-    async deleteAccount(id_account: string): Promise<any>
+    async deleteAccount(id_account: string, tx:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
-        return await this.prisma.accounts.delete({where:{id_account: id_account}})
+        const client = tx ?? this.prisma
+        return await client.accounts.delete({where:{id_account: id_account}})
     }
 
 }

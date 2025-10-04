@@ -9,10 +9,10 @@ import { MiddlewareAuthorization } from "../../../Common/Middlewares/Authorizati
 const categoryRoutes: Router = Router()
 
 //Privates Services Categories Routes
-categoryRoutes.route("/products/categories/register-category").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {RegisterProductCategoryController.register(req, res)})
-categoryRoutes.route("/products/categories/edit-category/:id_category").patch(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{EditProductCategoryController.editProduct(req, res)})
-categoryRoutes.route("/products/categories/delete-category/:id_category").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{DeleteProductCategoryController.delete(req, res)})
-categoryRoutes.route("/products/categories/delete-all-categories").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{DeleteAllProductsCategoriesController.deleteAll(req, res)})
+categoryRoutes.route("/products/categories/register-category").post( (req: Request, res: Response) => {RegisterProductCategoryController.register(req, res)})
+categoryRoutes.route("/products/categories/edit-category/:id_category").patch((req: Request, res: Response) =>{EditProductCategoryController.editProduct(req, res)})
+categoryRoutes.route("/products/categories/delete-category/:id_category").delete((req: Request, res: Response) =>{DeleteProductCategoryController.delete(req, res)})
+categoryRoutes.route("/products/categories/delete-all-categories").delete((req: Request, res: Response) =>{DeleteAllProductsCategoriesController.deleteAll(req, res)})
 
 //Publics Services Categories Routes
 categoryRoutes.route("/products/categories/get-all-categories").get((req: Request, res: Response) =>{GetProductsCategoriesController.findAll(req, res)})

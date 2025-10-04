@@ -48,5 +48,12 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
     {
         return await this.prisma.products.deleteMany()    
     }
+    async productAverage(id_product: number): Promise<any> {
+        return await this.prisma.productsReviews.aggregate({
+            where:{id_product_fk: id_product},
+            _avg:{rating: true},
+            _count: {rating: true}
+        })
+    }
 }
 export {PrismaGeneralProductsRepositories}

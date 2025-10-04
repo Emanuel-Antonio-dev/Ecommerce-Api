@@ -31,7 +31,7 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async getCartDatas(tx?: Omit<Prisma.TransactionClient, "$transaction">, id_cart?: string, id_user_fk?: string): Promise<any>
+    async getCartItems(tx?: Omit<Prisma.TransactionClient, "$transaction">, id_cart?: string, id_user_fk?: string): Promise<any>
     {
         const client = tx ?? this.prisma
         const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}

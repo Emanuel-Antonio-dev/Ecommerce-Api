@@ -39,7 +39,7 @@ class RegisterProductsController
             || !productDatas.stock
             || !imagesDatas.image_url)
         {
-            return res.status(400).json({ success: false, statusCode:400, message: "Informe todos os campossss" });
+            return res.status(400).json({ success: false, statusCode:400, message: "Informe todos os campos" });
         }
         const result = await service.registerProducts({
             name: productDatas.name,

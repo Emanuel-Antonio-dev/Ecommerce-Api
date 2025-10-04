@@ -20,7 +20,7 @@ class RequestNewPasswordService
         {
             if(!email)
             {
-                return {success: false, statusCode: 400, message:"Por favor informe o seu email"}
+                return {success: false, statusCode: 400, message:"Informe o seu email"}
             }
             const existsAccount = await this.acountRepository.getDatas({action:"GetOnlyBasicsDatas"}, undefined, email)
             if (!existsAccount)

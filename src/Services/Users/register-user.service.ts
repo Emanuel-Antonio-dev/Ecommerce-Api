@@ -8,6 +8,7 @@ import { usersDatas } from "../../interfaces/Users/interface"
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException"
 import { addressesDatas } from "../../interfaces/General/Adresses/interface"
 import { RegisterAddressesService } from "../General/Address/register-address-service.service"
+import sanitize from "sanitize-html"
 
 class RegisterUserService
 {
@@ -35,8 +36,20 @@ class RegisterUserService
                     throw new HttpException (account.success, account.statusCode, account.message ?? "")
                 }
                 const user = await this.repository.register({
-                    first_name: userDatas.first_name,
-                    last_name: userDatas.last_name,
+                    first_name: sanitize(userDatas.first_name,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    ),
+                    last_name: sanitize(userDatas.last_name,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    ),
                     user_type: userDatas.user_type,
                     id_account_fk: account.datas.id_account
                 }, tx)
@@ -62,8 +75,20 @@ class RegisterUserService
                     addresses.push(address)
                 }
                 const address = await this.addressesService.register({
-                    city: addresses[0].city,
-                    street: addresses[0].street,
+                    city: sanitize(addresses[0].city,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    ),
+                    street: sanitize(addresses[0].street,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    ),
                     id_user_fk: user.id_user
                 }, tx)
                 if(!address.success)

@@ -26,7 +26,12 @@ class GetAllProductReviewsService
             {
                 throw new HttpException(true, 200, "Este produto ainda não foi avaliado")
             }
-            return {success: true, statusCode: 200, datas: result}
+            const productAverage = await this.productRepository.productAverage(id_product)
+            return {success: true, statusCode: 200, datas: {
+                result,
+                averageRating: productAverage._avg.rating ?? 0,
+                totalReviews: productAverage._count.rating ?? 0
+            }}
         } catch (error: any)
         {
             if (error instanceof HttpException)

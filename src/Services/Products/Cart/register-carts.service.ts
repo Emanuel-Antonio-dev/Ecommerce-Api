@@ -31,7 +31,7 @@ class RegisterCartsService
                 let cart
                 if(datas.id_user_fk)
                 {
-                    cart = await this.repository.getCartDatas(tx, undefined, datas.id_user_fk);
+                    cart = await this.repository.getCartItems(tx, undefined, datas.id_user_fk);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ class RegisterCartsService
                         await this.repository.registerCartItems(item, tx);
                     }
                 }
-                return await this.repository.getCartDatas(tx, cart.id_cart, undefined);
+                return await this.repository.getCartItems(tx, cart.id_cart, undefined);
             })
             return {
                 success: true,

@@ -24,5 +24,6 @@ COPY --from=BUILDER_STEP /app/package-lock.json ./package-lock.json
 COPY --from=BUILDER_STEP /app/.env ./.env
 COPY --from=BUILDER_STEP /app/.env.example ./.env.example
 
+
 EXPOSE 3000
 CMD ["npm", "run", "start:prod"]

@@ -11,6 +11,7 @@ import { usersDatas } from "../../interfaces/Users/interface";
 import { accountDatas } from "../../interfaces/General/Accounts/interface";
 import { contactsDatas } from "../../interfaces/General/Contacts/interface";
 import { addressesDatas } from "../../interfaces/General/Adresses/interface";
+import sanitize from "sanitize-html";
 
 class UsersEditProfileService
 {
@@ -43,11 +44,23 @@ class UsersEditProfileService
 
                 if (userDatas.first_name)
                 {
-                    usersDatasToUpdate.first_name = userDatas.first_name
+                    usersDatasToUpdate.first_name = sanitize(userDatas.first_name,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    )
                 }
                 if (userDatas.last_name)
                 {
-                    usersDatasToUpdate.last_name = userDatas.last_name
+                    usersDatasToUpdate.last_name = sanitize(userDatas.last_name,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    )
                 }
                 if (accountDatas.email)
                 {
@@ -95,11 +108,23 @@ class UsersEditProfileService
                 }
                 if(addressDatas.city)
                 {
-                    addressDatasToUpdate.city = addressDatas.city
+                    addressDatasToUpdate.city = sanitize(addressDatas.city,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    )
                 }
                 if(addressDatas.street)
                 {
-                    addressDatasToUpdate.street = addressDatas.street
+                    addressDatasToUpdate.street = sanitize(addressDatas.street,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    )
                 }
                 if(
                     Object.keys(accountDatasToUpdate).length === 0 
@@ -119,7 +144,7 @@ class UsersEditProfileService
                 }
                 if (Object.keys(usersDatasToUpdate).length > 0)
                 {
-                    const userUpdated = await this.userRepository.updateUser(existsUser.my_address.id_address, usersDatasToUpdate)
+                    const userUpdated = await this.userRepository.updateUser(id_user, usersDatasToUpdate)
                     if (!userUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar os seus dados.")
@@ -127,7 +152,7 @@ class UsersEditProfileService
                 }
                 if (Object.keys(contactDatasToUpdate).length > 0)
                 {
-                    const contactUpdated = await this.contactRepository.updateContact(existsUser.user_details.my_contacts[0].id_contact,contactDatasToUpdate)
+                    const contactUpdated = await this.contactRepository.updateContact(existsUser.my_contacts[0].id_contact,contactDatasToUpdate)
                     if (!contactUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o seu contacto telefónico.")
@@ -135,7 +160,7 @@ class UsersEditProfileService
                 }
                 if (Object.keys(addressDatasToUpdate).length > 0)
                 {
-                    const addressUpdated = await this.addressRepository.updateAddressByUserId(id_user, addressDatasToUpdate)
+                    const addressUpdated = await this.addressRepository.updateAddressByUserId(existsUser.my_addresses[0].id_address, addressDatasToUpdate)
                     if(!addressUpdated)
                     {
                         throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o seu contacto endereço.")

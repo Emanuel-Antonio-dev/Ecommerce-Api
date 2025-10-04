@@ -16,6 +16,7 @@ productsRoutes.route("/products/get-product/:id_product").get((req: Request, res
 productsRoutes.route("/products/get-all-products").get((req: Request, res: Response) => {GetProductDatasController.getAllProductsDatas(req, res)})
 productsRoutes.route("/products/delete-product/:id_product").delete((req: Request, res: Response) => {DeleteProductsController.deleteProductDatas(req, res)})
 productsRoutes.route("/products/edit-product/:id_product").patch((req: Request, res: Response) =>{EditProductDatasController.editProduct(req, res)})
+
 productsRoutes.route("/products/reviews/register-review").post((req: Request, res: Response) => {RegisterProductReviewController.registerReview(req, res)})
 productsRoutes.route("/products/reviews/get-all-reviews/:id_product_fk").get((req: Request, res: Response) => {GetAllProductReviewsController.getReviews(req, res)})
 

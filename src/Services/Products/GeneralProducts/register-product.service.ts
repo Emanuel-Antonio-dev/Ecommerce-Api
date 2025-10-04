@@ -32,7 +32,12 @@ class RegisterGeneralProductService
             {
                 throw new HttpException(false, 400, "Informe todos os campos")
             }
-            if(await this.repository.getProductDatas({action: "GetOnlyBasicsDatas"}, undefined, datas.name))
+            const existsProduct = await this.repository.getProductDatas({action: "GetOnlyBasicsDatas"}, undefined, sanitize(datas.name, {
+                allowedAttributes:{},
+                allowedClasses:{},
+                allowedTags:[]
+            }))
+            if(existsProduct)
             {
                 throw new HttpException(false, 409, "Já existe um produto com este nome");
             }

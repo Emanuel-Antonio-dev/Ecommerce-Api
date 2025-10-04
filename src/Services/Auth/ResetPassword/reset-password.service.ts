@@ -15,7 +15,7 @@ class ResetPasswordService
         {
             if(!newPassword || !token)
             {
-                return {success: false, statusCode: 400, message:"Por favor informe todos os campos"}
+                return {success: false, statusCode: 400, message:"Informe todos os campos"}
             }
             const isValidToken = await this.authenticationRepository.findToken(token, "resetPassword")
             if (!isValidToken || isValidToken.authentication_details.expireIn < new Date() || isValidToken.authentication_details.used)

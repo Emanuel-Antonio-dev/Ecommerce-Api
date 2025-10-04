@@ -9,6 +9,7 @@ abstract class IGeneralProductsRepositories
     abstract deleteProductDatas(id_product: number):Promise<any>
     abstract deleteAllProductsDatas():Promise<any>
     abstract getAllProductsDatas():Promise<any[]>
+    abstract productAverage(id_product: number):Promise<any>
 }
 
 export {IGeneralProductsRepositories}

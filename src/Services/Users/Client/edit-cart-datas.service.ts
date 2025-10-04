@@ -3,21 +3,21 @@ import { cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
-class EditMyCartDatasService {
+class EditCartItemsService {
     constructor(
         private readonly repository: PrismaCartRepositories,
         private readonly userRepository: PrismaUsersRepositories
 
     ) {}
 
-    async editCartDatas(id_user_fk: string, datas: Partial<cartItemsDatas>)
+    async editCartItems(id_user_fk: string, datas: Partial<cartItemsDatas>)
     {
         try {
             if(!await this.userRepository.getUsersProfileDatas(id_user_fk, "client"))
             {
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")
             }
-            const cartDatas = await this.repository.getCartDatas(undefined, id_user_fk);
+            const cartDatas = await this.repository.getCartItems(undefined, undefined,id_user_fk);
 
             if (!cartDatas) {
                 throw new HttpException(
@@ -44,13 +44,13 @@ class EditMyCartDatasService {
             if (!updatedCartItem) {
                 throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o item do carrinho.");
             }
-            const updatedCartDatas = await this.repository.getCartDatas(cartDatas.id_cart, undefined);
+            const updatedCartDatas = await this.repository.getCartItems(undefined,cartDatas.id_cart, undefined);
             if (!updatedCartDatas) {
                 throw new HttpException(false, 500, "Ocorreu um erro ao recuperar os dados atualizados do carrinho.");
             }
             return {
                 success: true,
-                status: 200,
+                statusCode: 200,
                 message: "Item do carrinho atualizado com sucesso.",
                 datas: updatedCartDatas
             };
@@ -62,7 +62,6 @@ class EditMyCartDatasService {
                     message: error.message
                 };
             }
-
             console.error(error);
             return {
                 success: false,
@@ -72,4 +71,4 @@ class EditMyCartDatasService {
         }
     }
 }
-export { EditMyCartDatasService };
+export { EditCartItemsService };

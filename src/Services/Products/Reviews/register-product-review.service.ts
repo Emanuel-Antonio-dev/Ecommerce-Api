@@ -29,6 +29,14 @@ class RegisterProductReviewService
             {
                 throw new HttpException(false, 404, "Este produto não existe")
             }
+            if(await this.repository.getReviewsByUserid(datas.id_user_fk))
+            {
+                throw new HttpException(false, 409, "Você já avaliou este produto.");
+            }
+            if(datas.rating < 1 || datas.rating > 5)
+            {
+                throw new HttpException(false, 400, "O rating deve ser entre 1 e 5.")
+            }
             const result = await this.repository.register({
                 ...datas,
                 comment: sanitize(datas.comment, {

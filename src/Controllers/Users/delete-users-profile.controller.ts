@@ -2,10 +2,12 @@ import { Response, Request } from "express";
 import { UsersDeleteProfileService } from "../../Services/Users/delete-user-profile.service";
 import { PrismaClient } from "../../../generated/prisma";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 
 const prisma: PrismaClient = new PrismaClient()
 const repository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const service: UsersDeleteProfileService = new UsersDeleteProfileService(repository)
+const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
+const service: UsersDeleteProfileService = new UsersDeleteProfileService(prisma,repository, accountRepository)
 
 class UsersDeleteProfileController
 {

@@ -28,6 +28,7 @@ class PrismaAddressesRepositories implements IAddressesRepositories
     }
     async updateAddressByUserId(id_address: string, datas: Partial<addressesDatas>): Promise<any>
     {
+        console.log(id_address, datas)
         return await this.prisma.addresses.update({where:{id_address: id_address}, data:{...datas}})
     }
 

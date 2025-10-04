@@ -31,9 +31,10 @@ class PrismaUsersRepositories implements IUsersRepositories
         console.log(datas)
         return await this.prisma.users.update({where:{id_user: id_user}, data:{...datas}})
     }
-    async deleteUserProfile(id_user: string): Promise<any>
+    async deleteUserProfile(id_user: string,  tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
-        return await this.prisma.users.delete({where:{id_user: id_user}})    
+        const client = tx ?? this.prisma
+        return await client.users.delete({where:{id_user: id_user}})    
     }
 }
 export{PrismaUsersRepositories}

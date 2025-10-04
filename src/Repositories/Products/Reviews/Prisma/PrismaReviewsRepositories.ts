@@ -19,5 +19,8 @@ class PrismaProductReviewsRepositories implements IReviewsRepositories
     {
         return await this.prisma.productsReviews.findMany({where:{id_product_fk: id_product}, include:{product: true, user_details: true}})    
     }
+    async getReviewsByUserid(id_user: string): Promise<any> {
+        return await this.prisma.productsReviews.findFirst({where:{id_user_fk: id_user}})
+    }
 }
 export{PrismaProductReviewsRepositories}

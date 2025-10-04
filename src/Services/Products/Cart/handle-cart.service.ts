@@ -22,7 +22,6 @@ async function handleCart(id_guest_cart: string | undefined, id_user: string) {
     });
     userCart = existingCart?.cart_items || [];
   }
-
   return userCart;
 }
 

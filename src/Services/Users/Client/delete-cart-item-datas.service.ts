@@ -15,16 +15,16 @@ class DeleteCartItemDatasService {
             {
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")
             }
-            const cartDatas = await this.repository.getCartDatas(undefined, id_user_fk);
+            const cartDatas = await this.repository.getCartItems(undefined, undefined,id_user_fk);
 
-            if (!cartDatas) {
+            if (!cartDatas || cartDatas.items.length===0) {
                 throw new HttpException(
                     false,
                     404,
-                    "Você ainda não possui um carrinho, adicione o seu primeiro item."
+                    "Você ainda não possui items no carrinho, adicione os seus primeiros item."
                 );
             }
-            const cartDeleted = await this.repository.deleteCartItem(cartDatas.id_cart_item);
+            const cartDeleted = await this.repository.deleteCartItem(cartDatas.items[0].id_cart_item);
             if (!cartDeleted) {
                 throw new HttpException(false, 500, "Ocorreu um erro ao deletar o item do carrinho.");
             }
