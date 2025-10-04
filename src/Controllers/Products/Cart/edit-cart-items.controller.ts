@@ -28,7 +28,9 @@ class EditCartItemsController
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe pelo menos um campo para atualização"})
             }
-            const result = await service.editCartItems(id_user_fk, quantity)
+            const result = await service.editCartItems(id_user_fk, {
+                quantity: quantity
+            })
             if(!result.success)
             {
                 return res.status(result.statusCode).json(result)

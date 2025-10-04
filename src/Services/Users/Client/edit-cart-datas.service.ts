@@ -19,7 +19,7 @@ class EditCartItemsService {
             }
             const cartDatas = await this.repository.getCartItems(undefined, undefined,id_user_fk);
 
-            if (!cartDatas) {
+            if (!cartDatas || !cartDatas.items[0].id_cart_item) {
                 throw new HttpException(
                     false,
                     404,
@@ -30,6 +30,10 @@ class EditCartItemsService {
             
             if (datas.quantity)
             {
+                if(datas.quantity > cartDatas.items[0].quantity)
+                {
+                    throw new HttpException(false, 400, "Este produto esta sem estoque suficiente.");
+                }
                 cartIetemsToUpdate.quantity = datas.quantity;
             }
             if (datas.price)
@@ -40,19 +44,14 @@ class EditCartItemsService {
             {
                 throw new HttpException(false, 400, "Nenhum dado foi fornecido para atualização.");
             }
-            const updatedCartItem = await this.repository.editCartItems(datas.id_cart_item!, cartIetemsToUpdate);
+            const updatedCartItem = await this.repository.editCartItems(cartDatas.items[0].id_cart_item, cartIetemsToUpdate);
             if (!updatedCartItem) {
                 throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o item do carrinho.");
-            }
-            const updatedCartDatas = await this.repository.getCartItems(undefined,cartDatas.id_cart, undefined);
-            if (!updatedCartDatas) {
-                throw new HttpException(false, 500, "Ocorreu um erro ao recuperar os dados atualizados do carrinho.");
             }
             return {
                 success: true,
                 statusCode: 200,
-                message: "Item do carrinho atualizado com sucesso.",
-                datas: updatedCartDatas
+                message: "Item do carrinho atualizado com sucesso."
             };
         } catch (error: any) {
             if (error instanceof HttpException) {

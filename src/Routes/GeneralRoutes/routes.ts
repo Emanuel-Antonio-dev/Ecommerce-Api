@@ -10,12 +10,13 @@ import { UsersDeleteProfileController } from "../../Controllers/Users/delete-use
 import dotenv from "dotenv"
 import { RegisterUsersController } from "../../Controllers/Users/register-genral-user.controller";
 import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";
+import { limiterConfig } from "../../Common/Middlewares/Limiters/requests-limiter.config";
 dotenv.config()
 
 const generalRoute: Router = Router()
 
 //general authentications routes
-generalRoute.route("/auth/local-signin").post((req: Request, res: Response) =>{SignInController.signIn(req, res)})
+generalRoute.route("/auth/local-signin").post(limiterConfig("Tente novamente dentro de 2 minutos"),(req: Request, res: Response) =>{SignInController.signIn(req, res)})
 generalRoute.route("/auth/refreshToken").post((req: Request, res:Response) =>{RefreshTokenController.newAcessToken(req, res)})
 generalRoute.route("/auth/request-new-password").post((req: Request, res: Response) =>{ResetPasswordController.request(req, res)})
 generalRoute.route("/auth/reset-password").patch((req: Request, res: Response) =>{ResetPasswordController.reset(req, res)})

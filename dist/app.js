@@ -16,9 +16,13 @@ const routes_4 = require("./Routes/Products/GeneralProducts/routes");
 const routes_5 = require("./Routes/Products/Cart/routes");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const routes_6 = require("./Routes/Products/Products-Orders/routes");
+const stripe_1 = __importDefault(require("stripe"));
 const app = (0, express_1.default)();
 exports.app = app;
 const urlBase = '/api.ecommerce/v1';
+const stripe = new stripe_1.default(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-09-30.clover'
+});
 // Middlewares
 app.use((0, helmet_1.default)({
     referrerPolicy: { policy: "no-referrer" },
