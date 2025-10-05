@@ -5,7 +5,7 @@ import { RegisterProductOrderController } from "../../../Controllers/Products/Pr
 
 const producstOrders: Router = Router()
 
-producstOrders.route("/orders/register-order").post((req: Request, res: Response) =>{RegisterProductOrderController.registerProductOrder(req, res)})
-producstOrders.route("/orders/set-order-status/:id_order").put((req: Request, res: Response) =>{SetProductsOrdersStatusController.setStatus(req, res)})
+producstOrders.route("/orders/register-order").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{RegisterProductOrderController.registerProductOrder(req, res)})
+producstOrders.route("/orders/set-order-status/:id_order").put(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{SetProductsOrdersStatusController.setStatus(req, res)})
 
 export {producstOrders}

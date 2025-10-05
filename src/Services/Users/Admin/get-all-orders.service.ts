@@ -1,16 +1,16 @@
 import { PrismaAdminRepositories } from "../../../Repositories/Users/Admin/Prisma/PrismaAdminRepositories";
 
-class GetAllUsersService
+class GetAllOrdersService
 {
     constructor(private readonly repository: PrismaAdminRepositories){}
-    async getAllUsers()
+    async getAllOrders()
     {
         try
         {
-            const result = await this.repository.getAllUsers()
+            const result = await this.repository.getAllOrders()
             if(result.length === 0)
             {
-                return {success: true, statusCode: 200, message:"De momento ainda não existem usuários"}
+                return {success: true, statusCode: 200, message:"De momento ainda não existem pedidos"}
             }
             return {success: true, statusCode: 200, datas: result}
         } catch (error: any)
@@ -20,4 +20,4 @@ class GetAllUsersService
         }
     }
 }
-export{GetAllUsersService}
+export{GetAllOrdersService}

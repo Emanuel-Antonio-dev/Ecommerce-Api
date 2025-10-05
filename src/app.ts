@@ -19,8 +19,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2025-09-30.clover'
 })
 
-
-// Middlewares
 app.use(helmet(
   {
     referrerPolicy:{policy: "no-referrer"},
@@ -29,6 +27,8 @@ app.use(helmet(
     hidePoweredBy: true
   }
 ));
+app.set('trust proy', 1)
+
 app.use(cors({
     origin: true,
     credentials: true,
@@ -41,15 +41,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(getRequestIp)
 
-// App routes
 app.use(urlBase, generalRoute)
 app.use(urlBase, adminRoutes)
 app.use(urlBase, categoryRoutes)
 app.use(urlBase, productsRoutes)
 app.use(urlBase, cartRoutes)
 app.use(urlBase, producstOrders)
-
-// Catch 404 and forward to error handler 
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({success:false, statusCode: 400, message: 'Não conseguimos encontrar esta página.'});

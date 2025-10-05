@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthorizationService } from "./src/Services/Auth/Authorization/authorization.service";
 import { JwtOperations } from "./src/Common/Utils/JwtOperations/operations";
+import dotenv from "dotenv";
+import path from "path";
+
+// 👉 Garante que use o .env.test
+dotenv.config({ path: path.resolve(__dirname, ".env.test") });
 
 
 jest.mock("@prisma/client", ()=>{
@@ -57,6 +62,3 @@ jest.mock("bcrypt", () => ({
     .fn()
     .mockImplementation((password1, password2) => password1 === password2),
 }));
-supaFiles:[
-    "dotenv/confiig"
-]

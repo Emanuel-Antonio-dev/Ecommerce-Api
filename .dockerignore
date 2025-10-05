@@ -1,4 +1,4 @@
- .dockerignore
+.dockerignore
 node_modules
 .git
 dist

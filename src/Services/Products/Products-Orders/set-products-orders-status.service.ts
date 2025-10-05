@@ -46,8 +46,12 @@ class SetOrdersStatusService
                 }})
             }
             const updatedOrder = await this.repository.setOrderStatus(id_order, "cancelled")
+            const orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
             await this.emailProvider.sendEmail(userDatas.account_details.email,"Pedido negado","<h1>Pedido aprovado</h1>")
-            return { success: true, statusCode: 200, message: "O seu pedido foi negado.", datas: updatedOrder };
+            return { success: true, statusCode: 200, message: "O seu pedido foi negado.", datas: {
+                updatedOrder,
+                orderResume
+            } };
             
         } catch (error: any)
         {

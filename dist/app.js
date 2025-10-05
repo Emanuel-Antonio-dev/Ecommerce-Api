@@ -39,7 +39,9 @@ app.use((0, cors_1.default)({
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
-app.use(get_ip_address_1.getRequestIp);
+if (process.env.NODE_ENV !== "test") {
+    app.use(get_ip_address_1.getRequestIp);
+}
 // App routes
 app.use(urlBase, routes_1.generalRoute);
 app.use(urlBase, routes_2.adminRoutes);

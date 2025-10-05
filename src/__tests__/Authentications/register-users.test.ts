@@ -1,15 +1,16 @@
 import request from "supertest"
 import {app} from "../../app"
-import {PrismaClient} from "@prisma/client"
+import {PrismaClient} from "../../../generated/prisma"
 
 const prisma: PrismaClient = new PrismaClient()
+
 const urlBase = "/api.ecommerce/v1"
 const mockUserDatas = {
     first_name: "Jonas",
     last_name:"Santos",
-    email:"jonas@gmail.com",
+    email:"user1@gmail.com",
     contacts:[{
-        phone_number:"9412340945"
+        phone_number:`9002301241`
     }],
     addresses:[
         {
@@ -20,15 +21,11 @@ const mockUserDatas = {
     password:"Rui4244@"
 }
 describe('Autentications Endpoints', () =>{
-    beforeEach(async()=>{
-          await prisma.users.deleteMany(); 
-        jest.clearAllMocks()
-
+    beforeEach(()=>{
+        prisma.users.deleteMany()
     })
-    describe("Register client", () =>{
-        it("should return user datas", async () =>{
-            prisma.users.findUnique.mockResolvedValue(null); // email não existe
-            prisma.users.create.mockResolvedValue(mockUserDatas)
+    describe("/auth/signup", () =>{
+        it("should return 201 ", async () =>{
             const response = await request(app).post(`${urlBase}/auth/signup`)
             .send(mockUserDatas)
             expect(response.status).toBe(201)
@@ -41,9 +38,12 @@ describe('Autentications Endpoints', () =>{
                 })
             })
             it("should return 409 if already exists email or contact", async()=>{
-                prisma.users.findUnique.mockResolvedValue(mockUserDatas)
                 const respone = await request(app).post(`${urlBase}/auth/signup`).send(mockUserDatas)
             expect(respone.status).toBe(409)
+            })
+            it("should return 404 for not found route", async()=>{
+                const response = await request(app).post(`${urlBase}/auth/signups`).send([])
+                expect(response.status).toBe(404)
             })
         })
     })

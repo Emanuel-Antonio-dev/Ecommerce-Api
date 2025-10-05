@@ -1,23 +1,15 @@
 node_modules
-# Keep environment variables out of version control
 .env
-
 /src/generated/prisma
 dist/
 generated/
 /distdocker/postgresql/data/
-# Ignora migrações do Prisma (caso prefira gerá-las dinamicamente)
 prisma/migrations/
-
-# Ignora dados do PostgreSQL do Docker
 docker/postgresql/data/
 postgresql/
 postgresql/data/
 docker/
-
-# Ignora cache e logs
 *.log
 *.pid
 npm-debug.log*
-
 src/Common/Utils/Uploads/ProductImages/

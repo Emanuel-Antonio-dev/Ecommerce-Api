@@ -41,6 +41,8 @@ class RegisterProductOrderService
                 status:"pending",
                 payment_method: datas.payment_method,
             }, tx);
+            const orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
+
             for (const item of cart.cart_items)
             {
                 const orderItems: productsOrderItemsDatas ={
@@ -63,8 +65,11 @@ class RegisterProductOrderService
                     data:{status: "ordered"}
                 })
             }
-            await tx.carts.update({where:{id_cart: cart.id_cart}, data:{status:"active", cart_items:{deleteMany:{}}}})
-            return ({success: true, statusCode: 201, message: "O seu pedido foi processado com sucesso!", datas: order})
+            await tx.carts.deleteMany({where:{id_cart: cart.id_cart}})
+            return ({success: true, statusCode: 201, message: "O seu pedido foi processado com sucesso!", datas: {
+                order,
+                orderResume
+            }})
             })
 
         } catch (error: any)

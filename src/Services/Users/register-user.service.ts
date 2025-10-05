@@ -132,7 +132,6 @@ class RegisterUserService
             {
                 if (error instanceof HttpException)
                     {
-                        console.log(error)
                         return {success: false, statusCode: error.statusCode, message: error.message}
                     }
                     console.log(error)

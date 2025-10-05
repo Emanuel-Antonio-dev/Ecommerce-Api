@@ -1,13 +1,20 @@
 import { Request, Response, NextFunction} from "express";
 import fs from "fs"
 import path from "path"
+import dotenv from "dotenv"
 
 const pathDir = path.join(__dirname, "./Logs")
 if(!fs.existsSync(pathDir))
 {
-    fs.mkdirSync("Logs",{recursive: true})
+    fs.mkdirSync(pathDir,{recursive: true})
 }
-fs.writeFileSync(path.join(pathDir, "logs.txt"), "", {flag: "a"})
+
+const logFilePath = path.join(pathDir, "logs.txt")
+if(!fs.existsSync(logFilePath))
+{
+    fs.writeFileSync(logFilePath, "")
+}
+
 function getRequestIp(req: Request, res: Response, next: NextFunction)
 {
     let ip: string | string[] | undefined = req.headers["x-forwarded-for"]
@@ -41,7 +48,14 @@ function getRequestIp(req: Request, res: Response, next: NextFunction)
     Proveniência (User-Agent): ${from}
     ===================================================\n
     `;
-    fs.appendFileSync(path.join(pathDir, "logs.txt"), logLine)
-    next()
+    try
+    {
+        fs.appendFileSync(logFilePath, logLine);
+    }
+    catch (err)
+    {
+        console.error("Erro ao escrever no arquivo de log:", err);
+    }
+  next()
 }
 export{getRequestIp}

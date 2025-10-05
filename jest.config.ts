@@ -13,8 +13,15 @@ const config: Config = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1', // opcional: para imports absolutos
+    '^@prisma/client$': '<rootDir>/generated/prisma',
+
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // opcional
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  globalSetup: "<rootDir>/tests/setup/globalSetup.ts",
+  globalTeardown: "<rootDir>/tests/setup/globalTeardown.ts",
+  extensionsToTreatAsEsm: [".ts"],
+
+
 };
 
 export default config;

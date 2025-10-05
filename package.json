@@ -25,8 +25,10 @@
     "db:seed": "ts-node src/Common/Seeds/register-admin.seed.ts",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc --watch",
-    "test": " NODE_ENV=test jest --runInBand"
-  },
+    "postinstall": "prisma generate",
+    "pretest": "prisma generate",
+    "test": "jest --runInBand --detectOpenHandles"
+ },
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "@types/cors": "^2.8.19",
@@ -65,6 +67,8 @@
     "@types/node": "^24.5.2",
     "@types/sanitize-html": "^2.16.0",
     "@types/validator": "^13.15.3",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^10.0.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.4",
