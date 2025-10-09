@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "../../../generated/prisma"
+import { PrismaClient } from "@prisma/client"
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException"
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories"

@@ -1,8 +1,8 @@
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import * as  crypto from "node:crypto"
 import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
-import { SendEmail } from "../../../Common/Utils/Emails/send-email";
-import { HtmlTemplateResetPassword } from "../../../Common/Utils/Emails/Templates/resetPasswordTemplate";
+import { SendEmail } from "../../../Utils/Emails/send-email";
+import { HtmlTemplateResetPassword } from "../../../Utils/Emails/Templates/resetPasswordTemplate";
 import { PrismaAccountRepositories } from "../../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 
 class RequestNewPasswordService

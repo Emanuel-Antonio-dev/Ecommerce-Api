@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { PrismaClient, Prisma} from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 
 const prisma: PrismaClient = new PrismaClient()

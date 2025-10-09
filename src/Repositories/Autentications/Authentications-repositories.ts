@@ -1,6 +1,6 @@
-import { AuthenticationsTypes, Prisma } from "../../../generated/prisma";
+import { AuthenticationsTypes, Prisma } from "@prisma/client";
 import { AuthenticationDatas, TokenDatas } from "../../interfaces/Shared/authentication.interface";
-abstract class AuthenticationsRepositories
+abstract class IAuthenticationsRepositories
 {
     abstract register(datas: AuthenticationDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     abstract registerToken(datas: TokenDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
@@ -10,4 +10,4 @@ abstract class AuthenticationsRepositories
 
     
 }
-export{AuthenticationsRepositories}
+export{IAuthenticationsRepositories}

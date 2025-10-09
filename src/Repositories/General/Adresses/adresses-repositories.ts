@@ -1,4 +1,4 @@
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { addressesDatas } from "../../../interfaces/General/Adresses/interface";
 
 abstract class IAddressesRepositories

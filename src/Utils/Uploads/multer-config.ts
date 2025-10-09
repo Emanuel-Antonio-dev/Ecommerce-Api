@@ -2,7 +2,7 @@ import fs from "fs";
 import multer, { StorageEngine } from "multer";
 import path from "path";
 import { Request } from "express";
-import { HttpException } from "../../Middlewares/Filters/HttpException";
+import { HttpException } from "../../Common/Middlewares/Filters/HttpException";
 
 const pathDir = path.resolve(__dirname, "../Uploads");
 

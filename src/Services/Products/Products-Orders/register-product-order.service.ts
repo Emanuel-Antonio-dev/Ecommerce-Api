@@ -1,7 +1,7 @@
 import { productsOrderItemsDatas, productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 
 class RegisterProductOrderService

@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { PrismaClient, Prisma} from "../../../generated/prisma";
-import { JwtOperations } from "../../Common/Utils/JwtOperations/operations";
+import { PrismaClient} from "@prisma/client";
+import { JwtOperations } from "../../Utils/JwtOperations/operations";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 
 const prisma: PrismaClient = new PrismaClient()

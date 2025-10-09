@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
-import { Prisma, PrismaClient } from "../../../../generated/prisma";
-import { AuthenticationsRepositories } from "../Authentications-repositories";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { IAuthenticationsRepositories } from "../Authentications-repositories";
 import { AuthenticationDatas, TokenDatas } from "../../../interfaces/Shared/authentication.interface";
 
-class PrismaAuthenticationsRepositories implements AuthenticationsRepositories
+class PrismaAuthenticationsRepositories implements IAuthenticationsRepositories
 {
     constructor(private readonly prisma: PrismaClient){}
 

@@ -13,7 +13,6 @@ const config: Config = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1', // opcional: para imports absolutos
-    '^@prisma/client$': '<rootDir>/generated/prisma',
     "^(\\.{1,2}/.*)\\.js$": "$1"
 
   },

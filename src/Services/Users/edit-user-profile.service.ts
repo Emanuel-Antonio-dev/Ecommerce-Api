@@ -1,7 +1,7 @@
 import { EmailValidator } from "../../Common/Validators/email-validator";
 import * as bcrypt from 'bcrypt';
 import { PasswordValidator } from "../../Common/Validators/password-validator";
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";

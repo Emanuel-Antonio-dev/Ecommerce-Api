@@ -1,5 +1,5 @@
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { RegisterUserService } from "../../Services/Users/register-user.service";
 import { RegisterAccountService } from "../../Services/General/Accounts/register-account.service";
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
@@ -8,7 +8,7 @@ import { RegisterContactService } from "../../Services/General/Contacts/register
 import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
 import dotenv from "dotenv"
-dotenv.config()
+dotenv.config({quiet: true})
 
 const prisma: PrismaClient = new PrismaClient()
 const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)

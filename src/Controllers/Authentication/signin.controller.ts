@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { PrismaClient, Prisma} from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { LocalStrategyAuthenticationService } from "../../Services/Auth/Authentication/local-authentication.service";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 import dotenv from "dotenv"

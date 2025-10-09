@@ -1,6 +1,6 @@
-import { JwtOperations } from "../../../Common/Utils/JwtOperations/operations";
+import { JwtOperations } from "../../../Utils/JwtOperations/operations";
 import dotenv from "dotenv"
-dotenv.config()
+dotenv.config({quiet: true})
 
 class AuthorizationService
 {

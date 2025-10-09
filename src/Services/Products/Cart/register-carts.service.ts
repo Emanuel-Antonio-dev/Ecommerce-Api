@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient} from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";

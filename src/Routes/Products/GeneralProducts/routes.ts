@@ -1,5 +1,5 @@
 import { Request, Response, Router} from "express";
-import { upload } from "../../../Common/Utils/Uploads/multer-config";
+import { upload } from "../../../Utils/Uploads/multer-config";
 import { MiddlewareAuthorization } from "../../../Common/Middlewares/Authorization/authorization";
 import { RegisterProductsController } from "../../../Controllers/Products/GeneralProducts/register-product.controller";
 import { GetProductDatasController } from "../../../Controllers/Products/GeneralProducts/get-products.controller";

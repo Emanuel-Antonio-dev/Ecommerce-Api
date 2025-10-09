@@ -1,6 +1,5 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
-import { PrismaClient } from "../../../../generated/prisma";
 import sanitize from "sanitize-html";
 
 class RegisterProductCategoryService

@@ -1,6 +1,6 @@
 import { RegisterAccountService } from "../General/Accounts/register-account.service"
 import { RegisterContactService } from "../General/Contacts/register-contact.service"
-import { PrismaClient} from "../../../generated/prisma"
+import { PrismaClient} from "@prisma/client"
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories"
 import { accountDatas } from "../../interfaces/General/Accounts/interface"
 import { contactsDatas } from "../../interfaces/General/Contacts/interface"

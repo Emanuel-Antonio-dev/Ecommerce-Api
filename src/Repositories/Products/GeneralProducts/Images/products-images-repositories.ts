@@ -1,5 +1,5 @@
 import { productsImagesDatas } from "../../../../interfaces/Products/Images/interface";
-import { Prisma } from "../../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 
 abstract class IProductsImages
 {

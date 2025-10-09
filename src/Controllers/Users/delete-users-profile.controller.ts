@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { UsersDeleteProfileService } from "../../Services/Users/delete-user-profile.service";
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 

@@ -3,7 +3,7 @@ import { IAccountRepositories } from "../account-repositories";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import {nanoid} from "nanoid";
 import bcrypt from "bcrypt";
-import { Prisma, PrismaClient } from "../../../../../generated/prisma";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 class PrismaAccountRepositories implements IAccountRepositories
 {

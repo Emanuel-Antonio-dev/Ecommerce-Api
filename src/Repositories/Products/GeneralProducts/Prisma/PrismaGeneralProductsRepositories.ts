@@ -1,5 +1,5 @@
 import { IGeneralProductsRepositories } from "../general-products-repositoires";
-import { PrismaClient, Prisma} from "../../../../../generated/prisma";
+import { PrismaClient, Prisma} from "@prisma/client";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import { generalProductsDatas } from "../../../../interfaces/Products/GeneralProducts/interface";
 import crypto from "node:crypto"

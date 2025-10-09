@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma} from "../../../../../generated/prisma";
+import { PrismaClient, Prisma} from "@prisma/client";
 import { ICartRepositories } from "../cart-repositories";
 import { cartDatas, cartItemsDatas } from "../../../../interfaces/Products/Cart/interface";
 import { nanoid } from "nanoid";

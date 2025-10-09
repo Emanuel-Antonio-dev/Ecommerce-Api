@@ -5,7 +5,7 @@ import { RegisterContactService } from "../../Services/General/Contacts/register
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
 import { accountDatas } from "../../interfaces/General/Accounts/interface";

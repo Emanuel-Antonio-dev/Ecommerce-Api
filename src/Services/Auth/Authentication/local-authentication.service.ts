@@ -1,7 +1,7 @@
-import { JwtOperations } from "../../../Common/Utils/JwtOperations/operations"
+import { JwtOperations } from "../../../Utils/JwtOperations/operations"
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import * as bcrypt from 'bcrypt';
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { handleCart } from "../../Products/Cart/handle-cart.service";
 
 

@@ -1,7 +1,7 @@
 import sanitize from "sanitize-html";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaClient } from '../../../../generated/prisma/index';
-import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
+import { PrismaClient } from "@prisma/client";
+import { cloudinary } from "../../../Utils/Uploads/cloudinary-config";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";

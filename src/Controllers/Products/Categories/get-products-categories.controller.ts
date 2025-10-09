@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { GetProductsCategoryDatasService } from "../../../Services/Products/Categories/get-product-category.service";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { GetAllProductsCategoriesService } from "../../../Services/Products/Categories/find-all-services-categories.service";

@@ -1,5 +1,5 @@
 import { PrismaContactsRepositories } from "../../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { contactsDatas } from "../../../interfaces/General/Contacts/interface";
 import sanitize from "sanitize-html";
 

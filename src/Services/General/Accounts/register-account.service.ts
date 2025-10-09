@@ -1,7 +1,7 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { accountDatas } from "../../../interfaces/General/Accounts/interface";
 import { PrismaAccountRepositories } from "../../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { PasswordValidator } from "../../../Common/Validators/password-validator";
 import { EmailValidator } from "../../../Common/Validators/email-validator";
 

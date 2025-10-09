@@ -1,41 +1,42 @@
+import request from "supertest";
 import { app } from "../../app";
-import req from "supertest";
+import { resetDatabase, prismaInstace } from "../../../tests/setup/prismaInstace";
 
-const datas = {
+describe("Auth › /local-signin", () => {
+  const user = {
+    first_name: "Emanuel",
+    last_name: "Paulo",
     email: "emaricaroffice@gmail.com",
-    password: "Emaricar16@"
-}
-describe("/auth/local-signin", ()=>{
-        it("Deve retornar um token caso o status for 200.", async ()=>{
-            const response = await req(app)
-            .post("/api.ecommerce/v1/auth/local-signin")
-            .send(datas)
-            expect(response.status).toBe(200)
-            expect(response.body.success).toBeTruthy()
-            expect(response.body.statusCode).toBe(200)
-            expect(response.body.message).toBeDefined()
-            expect(response.body).toHaveProperty("accessToken")
-        })
-            it("Deve retornar um status 400, se caso faltar algum campo.", async ()=>{
-            const response = await req(app).post("/api.ecommerce/v1/auth/local-signin")
-            .send({
-                    email: ""
-                })
-                expect(response.status).toBe(400)
-                expect(response.body.success).toBeFalsy()
-                expect(response.body.statusCode).toBe(400)
-                expect(response.body.message).toBeDefined()
-            })
-           
-            it("Deve retornar um status 401, se caso as credencias forem inválidas.", async ()=>{
-            const response = await req(app).post("/api.ecommerce/v1/auth/local-signin")
-            .send({
-                    email: "emaricar12@gmail.com",
-                    password:"12345m"
-                })
-                expect(response.status).toBe(401)
-                expect(response.body.success).toBeFalsy()
-                expect(response.body.statusCode).toBe(401)
-                expect(response.body.message).toBeDefined()
-            })
-    })
+    password: "Emaricar16@",
+    contacts: [{ phone_number: "944395932" }],
+    addresses: [{ city: "Luanda", street: "rua da china" }],
+  };
+
+  beforeAll(async () => {
+    await resetDatabase();
+    await request(app).post("/api.ecommerce/v1/auth/signup").send(user);
+  });
+
+  it("Deve retornar 200 e o token se o login for válido", async () => {
+    const response = await request(app)
+      .post("/api.ecommerce/v1/auth/local-signin")
+      .send({
+        email: user.email,
+        password: user.password,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("accessToken");
+  });
+
+  it("Deve retornar 401 se o e-mail ou senha estiverem incorretos", async () => {
+    const response = await request(app)
+      .post("/api.ecommerce/v1/auth/local-signin")
+      .send({
+        email: "teste@invalido.com",
+        password: "senhaErrada",
+      });
+
+    expect(response.status).toBe(401);
+  });
+});

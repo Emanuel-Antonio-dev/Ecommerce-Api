@@ -1,4 +1,4 @@
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { productsOrderItemsDatas, productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
 
 abstract class IProductOrderRepositories

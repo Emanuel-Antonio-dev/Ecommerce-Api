@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { IAdminRepositories } from "../admin-repositories";
 
 class PrismaAdminRepositories implements IAdminRepositories

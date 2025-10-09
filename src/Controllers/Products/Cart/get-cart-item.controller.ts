@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import dotenv from "dotenv"
 import { getErrorsDetails } from "../../../Common/Middlewares/Observability/get-errors";

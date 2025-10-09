@@ -1,4 +1,4 @@
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 
 abstract class ICartRepositories

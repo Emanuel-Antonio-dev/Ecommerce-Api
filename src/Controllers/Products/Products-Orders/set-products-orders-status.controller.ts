@@ -1,6 +1,6 @@
-import { PrismaClient } from "../../../../generated/prisma";
-import { EmailProvider } from "../../../Common/Utils/Emails/email-sender";
-import { SendEmail } from "../../../Common/Utils/Emails/send-email";
+import { PrismaClient } from "@prisma/client";
+import { EmailProvider } from "../../../Utils/Emails/email-sender";
+import { SendEmail } from "../../../Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";

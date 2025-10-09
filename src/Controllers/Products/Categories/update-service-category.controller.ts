@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { EditProductCategoryService } from "../../../Services/Products/Categories/edit-product-category.service";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";

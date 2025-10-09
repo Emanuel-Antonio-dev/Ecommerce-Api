@@ -1,5 +1,5 @@
 import sanitize from "sanitize-html";
-import { Prisma } from "../../../../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { PrismaAddressesRepositories } from "../../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { addressesDatas } from "../../../interfaces/General/Adresses/interface";
 

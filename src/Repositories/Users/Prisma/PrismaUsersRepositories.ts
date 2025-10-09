@@ -1,6 +1,5 @@
 import { IUsersRepositories } from "../users-repositories";
-import { Prisma } from "../../../../generated/prisma";
-import { PrismaClient } from "../../../../generated/prisma";
+import { Prisma, PrismaClient} from "@prisma/client";
 import { usersDatas } from "../../../interfaces/Users/interface";
 import { nanoid } from "nanoid";
 

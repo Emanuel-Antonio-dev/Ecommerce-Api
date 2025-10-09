@@ -10,7 +10,7 @@ import dotenv from "dotenv"
 import { RegisterUsersController } from "../../Controllers/Users/register-genral-user.controller";
 import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";
 import { limiterConfig } from "../../Common/Middlewares/Limiters/requests-limiter.config";
-dotenv.config()
+dotenv.config({quiet: true})
 
 const generalRoute: Router = Router()
 

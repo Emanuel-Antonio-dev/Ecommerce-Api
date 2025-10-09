@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { DeleteProductDataService } from "../../../Services/Products/GeneralProducts/delete-product-data.service";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 
