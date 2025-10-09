@@ -1,0 +1,923 @@
+type: collection.insomnia.rest/5.0
+name: Ecommerce-routes
+meta:
+  id: wrk_6a031e71da904a41b6d7720434088efe
+  created: 1759337805592
+  modified: 1759337805592
+  description: ""
+collection:
+  - name: UsersRoutes
+    meta:
+      id: fld_b0a4926d24054f2bb345fc811b6f1cd1
+      created: 1759337855898
+      modified: 1759337855898
+      sortKey: -1759337855898
+      description: ""
+    children:
+      - url: http://localhost:3000/api.ecommerce/v1/users/profile/fHz7Xci41jRqSbdUu0dq0
+        name: users-profile-datas
+        meta:
+          id: req_aa2a250b7e93462981ca0cadfc6c8768
+          created: 1759339343246
+          modified: 1759420888351
+          isPrivate: false
+          description: ""
+          sortKey: -1759339343246
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/users/edit-profile/uawSk4SRN-h9AxwooZJC1
+        name: edit-users-profile
+        meta:
+          id: req_665648292f124202b3b6f065a761827c
+          created: 1759416793824
+          modified: 1759417634971
+          isPrivate: false
+          description: ""
+          sortKey: -1759416793824
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"last_name":"Ma"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/users/delete-profile/fHz7Xci41jRqSbdUu0dq0
+        name: delete-profile
+        meta:
+          id: req_db344d0816d24e90b2a8787dbb814da1
+          created: 1759417674032
+          modified: 1759423917703
+          isPrivate: false
+          description: ""
+          sortKey: -1759417674032
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Authentication
+    meta:
+      id: fld_b51a86018a1f40558adb7b173762bf00
+      created: 1759417662420
+      modified: 1759417662420
+      sortKey: -1759417662420
+      description: ""
+    children:
+      - url: http://localhost:3000/api.ecommerce/v1/auth/signup
+        name: register-user-client
+        meta:
+          id: req_51665299d00c4687b103ac9db693b9f0
+          created: 1759337865954
+          modified: 1759417875672
+          isPrivate: false
+          description: ""
+          sortKey: -1759417730420
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"first_name":"Paulo",
+            	"last_name":"Joaquim",
+            	"email":"emaricaroffice@gmail.com",
+            	"contacts":[
+            		{
+            			"phone_number":"944395940"
+            		}
+            	],
+            	"addresses":[
+            		{
+            			"city":"Luanda",
+            			"street":"30 24"
+            		},
+            		{
+            			"city":"Luanda",
+            			"street":"Cabo"
+            		}
+            	],
+            	"password":"Emaricar16@"
+            	
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/auth/local-signin
+        name: local-signin
+        meta:
+          id: req_3df4f043bee845358deef6f22596f5c5
+          created: 1759417733756
+          modified: 1759617779309
+          isPrivate: false
+          description: ""
+          sortKey: -1759417733756
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email":"emaricaroffice@gmail.com",
+            	"password":"Emaricar1",
+            	"id_guest_cart":"41216da5-07db-4558-a111-373377bd49c8"
+            }	
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/auth/logout
+        name: logout-server-side
+        meta:
+          id: req_7148072e4df343d6aea93f3ae227a61d
+          created: 1759421289096
+          modified: 1759421374243
+          isPrivate: false
+          description: ""
+          sortKey: -1759421289096
+        method: POST
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/auth/refreshToken
+        name: refreshToken
+        meta:
+          id: req_ac69db7fd3674cf5bb767ef4cb9a9808
+          created: 1759421380104
+          modified: 1759421431613
+          isPrivate: false
+          description: ""
+          sortKey: -1759421380104
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/auth/request-new-password
+        name: request-new-passowrd
+        meta:
+          id: req_830ed73f5dd54c1e8b67a337e949980c
+          created: 1759421434384
+          modified: 1759421499229
+          isPrivate: false
+          description: ""
+          sortKey: -1759421434384
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email":"emaricaroffice@gmail.com"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:3000/api.ecommerce/v1/auth/reset-password?authorization=kaakakakakakaka
+        name: reset-password
+        meta:
+          id: req_14c351a31a1a46b1932961f43ebee2d6
+          created: 1759421503495
+          modified: 1759421901430
+          isPrivate: false
+          description: ""
+          sortKey: -1759421503495
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"newPassword":"Eememe"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Products
+    meta:
+      id: fld_f5dd85f30fb84cdfbd0c1fcd80702b61
+      created: 1759421941706
+      modified: 1759421941706
+      sortKey: -1759421941706
+      description: ""
+    children:
+      - name: Categories
+        meta:
+          id: fld_9a6f2d1b43fe4f02ae7893cc5fa3fcdc
+          created: 1759421951207
+          modified: 1759423468795
+          sortKey: -1759421951207
+          description: ""
+        children:
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/register-category
+            name: register-category
+            meta:
+              id: req_51adab7505c64d46a5f14ab1acc403ed
+              created: 1759421955931
+              modified: 1759423531045
+              isPrivate: false
+              description: ""
+              sortKey: -1759421955931
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"name":"Suplementos",
+                	"description":"Sei la este e apenas um teste ya! ok1!"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/1
+            name: P-get-category
+            meta:
+              id: req_92f5e63b8d4841a9a08ebf008ced4fe0
+              created: 1759422125451
+              modified: 1759423887219
+              isPrivate: false
+              description: ""
+              sortKey: -1759422125451
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/edit-category/1
+            name: edit-category-datas
+            meta:
+              id: req_4925a87d2763429a9f4248254cdcde44
+              created: 1759422738273
+              modified: 1759423462323
+              isPrivate: false
+              description: ""
+              sortKey: -1759422738273
+            method: PATCH
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"name":"Suplementos"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/delete-category/1
+            name: delete-category-datas
+            meta:
+              id: req_e482e9fe783645ada598831d49bc8b99
+              created: 1759423468760
+              modified: 1759423879415
+              isPrivate: false
+              description: ""
+              sortKey: -1759423468760
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/get-all-categories
+            name: P-get-all-categories
+            meta:
+              id: req_804cb2d9c8b44931aa997cbed2d3cfda
+              created: 1759423576315
+              modified: 1759423862464
+              isPrivate: false
+              description: ""
+              sortKey: -1759423576315
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/categories/delete-all-categories
+            name: delete-all-categories
+            meta:
+              id: req_828e9202cc8f4f7386b5d75141167646
+              created: 1759423790207
+              modified: 1759423867120
+              isPrivate: false
+              description: ""
+              sortKey: -1759423790207
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: GeneralProducts
+        meta:
+          id: fld_7e43371dfc994f38a136dee9d4bc1c57
+          created: 1759423945296
+          modified: 1759423945296
+          sortKey: -1759423945296
+          description: ""
+        children:
+          - url: http://localhost:3000/api.ecommerce/v1/products/get-product/1
+            name: P-get-product-datas
+            meta:
+              id: req_ce67c00cffbb4a04a513b6bbe63b337c
+              created: 1759423948357
+              modified: 1759423992913
+              isPrivate: false
+              description: ""
+              sortKey: -1759423948357
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/get-all-products
+            name: P-get-all-products-datas
+            meta:
+              id: req_beaa4ffdaf954d8f86ff524bcddd26f1
+              created: 1759423998210
+              modified: 1759424038397
+              isPrivate: false
+              description: ""
+              sortKey: -1759423998210
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/delete-product/3
+            name: delete-product-datas
+            meta:
+              id: req_6e7ae7b0b0be4ad7a4e9634584be46c7
+              created: 1759424041388
+              modified: 1759425580414
+              isPrivate: false
+              description: ""
+              sortKey: -1759424041388
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/edit-product/1
+            name: edit-product-datas
+            meta:
+              id: req_43cb42a8723a45c18deca26ba28c521b
+              created: 1759424121146
+              modified: 1759425530510
+              isPrivate: false
+              description: ""
+              sortKey: -1759424121146
+            method: PATCH
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"name":"<h1>Creatina Monohydratata</h1>"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/register-product
+            name: register-product-datas
+            meta:
+              id: req_2d6a23aca7a34a5f815d0c8fe3150293
+              created: 1759424186446
+              modified: 1759425482243
+              isPrivate: false
+              description: ""
+              sortKey: -1759424186446
+            method: POST
+            body:
+              mimeType: multipart/form-data
+              params:
+                - id: pair_fb52d7345cd045c6b6483c540ea70c11
+                  name: name
+                  value: </h1>Creatina Boost</h1>
+                  description: ""
+                  disabled: false
+                - id: pair_a9382d844afb4ca0b82183cb2881cbf3
+                  name: description
+                  value: <h1>Creatina Booster, dá-te força para os treinos intensos e nuceque</h1>
+                  description: ""
+                  disabled: false
+                - id: pair_087fed6362954569a994eaad0f208038
+                  name: price
+                  value: "25000"
+                  description: ""
+                  disabled: false
+                - id: pair_741497d6fcfd485b8aa4ebe5b6679904
+                  name: aditional_info
+                  value: Sei lá, isso é só um teste weee, tipo, já testei <h2>Testei mais agora
+                    wi</h2>
+                  description: ""
+                  disabled: false
+                - id: pair_ce5de195be3e45218f0c4669dc4b2654
+                  name: id_category_fk
+                  value: "2"
+                  description: ""
+                  disabled: false
+                - id: pair_994c896edd584d00b8f03031dda0b252
+                  name: stock
+                  value: "1000"
+                  description: ""
+                  disabled: false
+                - id: pair_4683e3fe87bc4d898564265e9a9bf8e6
+                  name: ProductImages
+                  value: ""
+                  description: ""
+                  disabled: false
+                  type: file
+                  fileName: /home/emaricar_developer/Transferências/crea.jpg
+            headers:
+              - name: Content-Type
+                value: multipart/form-data
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Reviews
+        meta:
+          id: fld_4627a8cb077f4b15b8b504fbd99771fa
+          created: 1759425713580
+          modified: 1759428128036
+          sortKey: -1759425713580
+          description: ""
+        children:
+          - url: http://localhost:3000/api.ecommerce/v1/products/reviews/register-review
+            name: register-product-review
+            meta:
+              id: req_ee4e68e74bee46a38e32d3301310718e
+              created: 1759425697827
+              modified: 1759427482650
+              isPrivate: false
+              description: ""
+              sortKey: -1759425718698
+            method: POST
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "id_product_fk": 1,
+                  "id_user_fk": "Vo_BFp2x47j_UDDMbp-41",
+                  "rating": 4,
+                  "comment": "Bom produto, chegou rápido!"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/products/reviews/get-all-reviews/1
+            name: New Request
+            meta:
+              id: req_17250474aceb451cad856a30e1813d7d
+              created: 1759428131206
+              modified: 1759429956681
+              isPrivate: false
+              description: ""
+              sortKey: -1759428131206
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Cart
+        meta:
+          id: fld_8be77bb4348b491c8beb3504b03c8bc4
+          created: 1759603863750
+          modified: 1759603863750
+          sortKey: -1759603863750
+          description: ""
+        children:
+          - url: http://localhost:3000/api.ecommerce/v1/carts/register-cart-items
+            name: register-cart-item-with-id_guest-card
+            meta:
+              id: req_e83e5a1a5f584e9cbc50b56a5e22ae20
+              created: 1759603867054
+              modified: 1759604517281
+              isPrivate: false
+              description: ""
+              sortKey: -1759603867054
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"id_guest_cart":"41216da5-07db-4558-a111-373377bd49c8",
+                	"cartItems":[{
+                		"price":1000,
+                		"quantity":3,
+                		"id_product_fk":1
+                	}]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/carts/edit-cart-items/BwDyh4F-9utKmTgAx2ti_
+            name: register-cart-item-with-user-id
+            meta:
+              id: req_2575c138917c4a8c8307d9b8451086d6
+              created: 1759605493057
+              modified: 1759614050630
+              isPrivate: false
+              description: ""
+              sortKey: -1759605493057
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"id_user_fk":"BwDyh4F-9utKmTgAx2ti_",
+                	"cartItems":[{
+                		"price":1000,
+                		"quantity":3,
+                		"id_product_fk":1
+                	}]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/carts/get-cart-items/Vo_BFp2x47j_UDDMbp-41
+            name: get-cart-item
+            meta:
+              id: req_8bbd7a31c64d4b5f9c3d3af65ce41402
+              created: 1759605739895
+              modified: 1759613950157
+              isPrivate: false
+              description: ""
+              sortKey: -1759605739895
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/carts/delete-cart-items/Vo_BFp2x47j_UDDMbp-41
+            name: delete-cart-item
+            meta:
+              id: req_7a912ad221b14e338096cf43fe74b4e6
+              created: 1759606906261
+              modified: 1759613963719
+              isPrivate: false
+              description: ""
+              sortKey: -1759606906261
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/carts/delete-all-cart-items/L7NcPtzVXTabbO_LbS11W
+            name: delete-all-cart-items
+            meta:
+              id: req_5d008f5e85a24c3eadc83dd216e84acd
+              created: 1759607380753
+              modified: 1759607503019
+              isPrivate: false
+              description: ""
+              sortKey: -1759607380753
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/carts/edit-cart-items/BwDyh4F-9utKmTgAx2ti_
+            name: edit-cart-item-datas
+            meta:
+              id: req_00865ea9b65d4051928422885a0dc9bc
+              created: 1759607507128
+              modified: 1759615438483
+              isPrivate: false
+              description: ""
+              sortKey: -1759607507128
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"quantity":2
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Orders
+        meta:
+          id: fld_d298587446c9444c9c583d0455ef1d0e
+          created: 1759617944876
+          modified: 1759617944876
+          sortKey: -1759617944876
+          description: ""
+        children:
+          - url: http://localhost:3000/api.ecommerce/v1/orders/register-order
+            name: register-order
+            meta:
+              id: req_323c4f0c96854aaa8dbe5c0fae68e299
+              created: 1759617916879
+              modified: 1760033752135
+              isPrivate: false
+              description: ""
+              sortKey: -1759617955880
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"id_user_fk":"BwDyh4F-9utKmTgAx2ti_"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:3000/api.ecommerce/v1/orders/set-order-status/gx_XHLdjCxzMPtNlTije1
+            name: set-order-status
+            meta:
+              id: req_c40f6b283d0c4783be367023c91d28f5
+              created: 1759618235845
+              modified: 1759618375049
+              isPrivate: false
+              description: ""
+              sortKey: -1759618235845
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"status":"completed",
+                	"id_user":"BwDyh4F-9utKmTgAx2ti_"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_4b85e4fce0d3cd2ed0fe7b2ff5c88742f23b2bed
+    created: 1759337805595
+    modified: 1759604225929
+  cookies:
+    - key: refreshToken
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jbGllbnQiOiJWb19CRnAyeDQ3al9VRERNYnAtNDEiLCJ1c2VyX3R5cGUiOiJjbGllbnQiLCJpYXQiOjE3NTk2MDQyMjUsImV4cCI6MTc2MDIwOTAyNX0.1cJT5S744ro-Uo90pqlzGxViacMWYZsYIvdWQixnXS0
+      maxAge: 604800
+      domain: localhost
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-10-02T16:07:45.244Z
+      lastAccessed: 2025-10-04T18:57:05.927Z
+      sameSite: lax
+      id: f3620789-60c8-4077-8e02-1ca6a20394f3
+environments:
+  name: Base Environment
+  meta:
+    id: env_4b85e4fce0d3cd2ed0fe7b2ff5c88742f23b2bed
+    created: 1759337805594
+    modified: 1759337805594
+    isPrivate: false

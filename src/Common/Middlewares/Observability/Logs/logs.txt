@@ -815,3 +815,467 @@
     ===================================================
 
     
+    ===================================================
+    DataTime: [09/10/2025, 18:39:10]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 18:39:11]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 18:39:11]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:00:54]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:00:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:00:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:18:41]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:18:41]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:18:41]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:20:22]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:20:24]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:20:25]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:20:25]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:22:33]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:22:33]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:22:36]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:22:36]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:22:36]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:27:26]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:27:26]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:27:29]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:27:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:27:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:30:18]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:30:18]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:30:21]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:30:21]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:30:22]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:32:05]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:32:05]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/logout
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:32:08]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:32:08]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:32:08]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:36:54]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:36:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:36:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:36:55]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:16]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:16]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:16]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:17]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:18]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:18]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:46:18]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signups
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:28]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:29]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signups
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:47:30]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:50]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:51]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:51]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signup
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:51]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/signups
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:53]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:53]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    
+    ===================================================
+    DataTime: [09/10/2025, 19:48:53]
+    IP: 127.0.0.1
+    Rota: POST /api.ecommerce/v1/auth/local-signin
+    Proveniência (User-Agent): undefined
+    ===================================================
+
+    

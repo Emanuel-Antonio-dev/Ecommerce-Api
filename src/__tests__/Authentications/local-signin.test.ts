@@ -2,8 +2,8 @@ import { app } from "../../app";
 import req from "supertest";
 
 const datas = {
-    email: "emanuel@gmail.com",
-    password: "Rui4244@"
+    email: "emaricaroffice@gmail.com",
+    password: "Emaricar16@"
 }
 describe("/auth/local-signin", ()=>{
         it("Deve retornar um token caso o status for 200.", async ()=>{
