@@ -1,0 +1,13 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+jobs:
+  deploy:
+    runs_on: ubuntu-latest
+    steps:
+      -name: Fazer o deploy
+      run: echo "Deploy preparado - aguardando aprovação"

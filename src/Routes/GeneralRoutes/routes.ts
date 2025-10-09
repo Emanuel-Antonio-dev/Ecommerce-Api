@@ -6,7 +6,6 @@ import { ResetPasswordController } from "../../Controllers/Authentication/reset-
 import { UsersProfileController } from "../../Controllers/Users/profile-users.controller";
 import { UsersEditProfileController } from "../../Controllers/Users/edit-users-profile.controller";
 import { UsersDeleteProfileController } from "../../Controllers/Users/delete-users-profile.controller";
-
 import dotenv from "dotenv"
 import { RegisterUsersController } from "../../Controllers/Users/register-genral-user.controller";
 import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";

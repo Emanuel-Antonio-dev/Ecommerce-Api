@@ -14,5 +14,5 @@
   },
   "include":[
     "./src/**/*.ts"
-, "src/Routes/Users/Admin/routes.ts"  ]
+  ]
 }

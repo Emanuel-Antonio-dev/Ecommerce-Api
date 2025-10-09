@@ -28,7 +28,7 @@
     "postinstall": "prisma generate",
     "pretest": "prisma generate",
     "test": "jest --runInBand --detectOpenHandles"
- },
+  },
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "@types/cors": "^2.8.19",
@@ -69,6 +69,7 @@
     "@types/validator": "^13.15.3",
     "cross-env": "^10.1.0",
     "dotenv-cli": "^10.0.0",
+    "eslint": "^9.37.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.4",
