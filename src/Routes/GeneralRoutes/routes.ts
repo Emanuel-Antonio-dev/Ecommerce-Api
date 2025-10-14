@@ -18,7 +18,7 @@ const generalRoute: Router = Router()
 generalRoute.route("/auth/local-signin").post(limiterConfig("Tente novamente dentro de 2 minutos"),(req: Request, res: Response) =>{SignInController.signIn(req, res)})
 generalRoute.route("/auth/refreshToken").post((req: Request, res:Response) =>{RefreshTokenController.newAcessToken(req, res)})
 generalRoute.route("/auth/request-new-password").post((req: Request, res: Response) =>{ResetPasswordController.request(req, res)})
-generalRoute.route("/auth/reset-password").patch((req: Request, res: Response) =>{ResetPasswordController.reset(req, res)})
+generalRoute.route("/auth/reset-password").put((req: Request, res: Response) =>{ResetPasswordController.reset(req, res)})
 generalRoute.route("/auth/logout").post(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{LogoutController.logout(req, res)})
 
 //general basics users routes

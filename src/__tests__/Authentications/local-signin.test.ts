@@ -3,12 +3,12 @@ import { app } from "../../app";
 import { resetDatabase } from "../../../tests/setup/prismaInstace";
 
 const user = {
-    first_name: "Emanuel",
-    last_name: "Paulo",
-    email: "emaricaroffice@gmail.com",
-    password: "Emaricar16@",
-    contacts: [{ phone_number: "944395932" }],
-    addresses: [{ city: "Luanda", street: "rua da china" }],
+  first_name: "Emanuel",
+  last_name: "Paulo",
+  email: "login@gmail.com",
+  password: "Emaricar16@",
+  contacts: [{ phone_number: "901291203" }],
+  addresses: [{ city: "Luanda", street: "rua da china" }],
 };
 
 describe("Auth › /local-signin", () => {

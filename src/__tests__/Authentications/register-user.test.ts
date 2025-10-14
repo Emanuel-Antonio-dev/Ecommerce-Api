@@ -5,9 +5,9 @@ import { resetDatabase } from "../../../tests/setup/prismaInstace";
 const userPayload = {
   first_name: "Emanuel",
   last_name: "Paulo",
-  email: "emaricaroffice@gmail.com",
+  email: "register@gmail.com",
   password: "Emaricar16@",
-  contacts: [{ phone_number: "944395932" }],
+  contacts: [{ phone_number: "900112321" }],
   addresses: [{ city: "Luanda", street: "rua da china" }],
 };
 
@@ -28,7 +28,6 @@ describe("Auth /signup", () => {
 
   it("Deve retornar 409 se o e-mail já existir", async () => {
     await request(app).post("/api.ecommerce/v1/auth/signup").send(userPayload);
-
     const response = await request(app)
       .post("/api.ecommerce/v1/auth/signup")
       .send(userPayload);
@@ -36,3 +35,4 @@ describe("Auth /signup", () => {
     expect(response.status).toBe(409);
   });
 });
+
