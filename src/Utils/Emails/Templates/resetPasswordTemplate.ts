@@ -81,7 +81,7 @@ function HtmlTemplateResetPassword(token: string): string
             <p>Olá,</p>
             <p>Recebemos uma solicitação para redefinir a senha da sua conta. Caso tenha sido você, use o link abaixo para criar uma nova senha:</p>
             <p>
-                <a href="${process.env.RESET_PASSWORD_URI}?auth=${token}" target="_blank" style="color: #4CAF50; text-decoration: none; font-weight: bold;">
+                <a href="${process.env.RESET_PASSWORD_URI}?authorization=${token}" target="_blank" style="color: #4CAF50; text-decoration: none; font-weight: bold;">
                     Redefinir Senha
                 </a>
             </p>

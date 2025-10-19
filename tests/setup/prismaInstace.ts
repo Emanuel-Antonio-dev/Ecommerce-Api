@@ -10,7 +10,8 @@ async function resetDatabase()
         prismaInstace.contacts.deleteMany(),
         prismaInstace.addresses.deleteMany(),
         prismaInstace.authentications.deleteMany(),
-        prismaInstace.tokens.deleteMany()
+        prismaInstace.tokens.deleteMany(),
+        prismaInstace.productsCategories.deleteMany()
     ])
 }
 afterAll(async()=>{

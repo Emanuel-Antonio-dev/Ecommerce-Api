@@ -54,3 +54,4 @@ registerAdmin().then((result) =>{
 }).catch((error: any) =>{
     console.log(error)
 })
+export{registerAdmin}

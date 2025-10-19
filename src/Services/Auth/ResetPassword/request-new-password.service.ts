@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import * as  crypto from "node:crypto"
+import dotenv from "dotenv"
+dotenv.config({quiet: true})
 import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 import { SendEmail } from "../../../Utils/Emails/send-email";
 import { HtmlTemplateResetPassword } from "../../../Utils/Emails/Templates/resetPasswordTemplate";
@@ -51,7 +53,7 @@ class RequestNewPasswordService
             })
             ///Add sendEmailService
             await this.emailSender.sendEmail(email, "Recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
-            return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`}
+            return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`,  ...(process.env.NODE_ENV=="test" ? {token: restPasswordToken} : {})}
 
         } catch (error: any)
         {

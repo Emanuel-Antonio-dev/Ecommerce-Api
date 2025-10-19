@@ -27,6 +27,7 @@ class ResetPasswordController
                 return res.status(400).json({success: false, statusCode: 400, message: "Informe o seu email"})
             }
             const requestNewPassword = await requestPasswordService.RequestNewPassword(email)
+            console.log(requestNewPassword)
             if (!requestNewPassword.success)
             {
                 return res.status(requestNewPassword.statusCode).json(requestNewPassword)
@@ -51,6 +52,7 @@ class ResetPasswordController
                 return res.status(400).json({success: false, statusCode: 400, message: "Informe todos os campos."})
             }
             const resetPassword = await resetPasswordService.ResetPassword(newPassword, authorization)
+            console.log(resetPassword)
             if (!resetPassword.success)
             {
                 return res.status(resetPassword.statusCode).json(resetPassword)
