@@ -2,71 +2,46 @@ import req from "supertest";
 import { app } from "../../app";
 import { resetDatabase } from "../../../tests/setup/prismaInstace";
 import { registerAdmin } from "../../Common/Seeds/register-admin.seed";
-import dotenv from "dotenv"
-dotenv.config({quiet: true})
+import dotenv from "dotenv";
 
-describe("/products/categories/register-category", () =>{
-    let validToken: string
+dotenv.config({ quiet: true });
 
-    beforeEach(async()=>{
-        await registerAdmin()
-        const request = await req(app).post("/api.ecommerce/v1/auth/local-signin")
-        .send({
-            email: process.env.ADMIN_EMAIL,
-            password: process.env.ADMIN_PASSWORD
-        })
-        console.log(request.body)
-        validToken = request.body.accessToken
-        console.log("Token: ", validToken)
-})
+describe("/products/categories/register-category", () => {
+  let validToken: string;
 
-    afterEach(async()=>{
-        await resetDatabase()
-    })
-        it("Should return 201", async()=>{
-        const request = await req(app).post("/api.ecommerce/v1/products/categories/register-category")
-        .send({name:"Anabolizantes", description:"Esta categoria esta presente em todos os dias das nossas vidas"})
-        .set("Authorization", `Bearer ${validToken}`)
+  beforeEach(async () => {
+    await resetDatabase();
+    await registerAdmin();
+    const response = await req(app)
+      .post("/api.ecommerce/v1/auth/local-signin")
+      .send({
+        email: process.env.ADMIN_EMAIL,
+        password: process.env.ADMIN_PASSWORD,
+      });
 
-        expect(request.status).toBe(201);
-        expect(request.body.success).toBeTruthy();
-        expect(request.body.message).toBeDefined()
-    })
-/*
-    it("Should return 403", async()=>{
-        const request = await req(app).post("/api.ecommerce/v1/products/categories/register-category")
-        .send({name:"Anabolizantes", description:"Esta categoria esta presente em todos os dias das nossas vidas"})
-        .set("Authorization", `Bearer ${validToken}`)
+    if (!response.body.accessToken)
+    {
+      throw new Error("❌ Falha ao autenticar admin: token ausente.");
+    }
 
-        expect(request.status).toBe(403);
-        expect(request.body.success).toBeFalsy();
-        expect(request.body.message).toBeDefined()
-    })
-    it("Should return 401", async()=>{
-        const request = await req(app).post("/api.ecommerce/v1/products/categories/register-category")
-        .send({name:"Anabolizantes", description:"Esta categoria esta presente em todos os dias das nossas vidas"})
-        .set("Authorization", `Bearer ${validToken}`)
+    validToken = response.body.accessToken;
+  });
 
-        expect(request.status).toBe(401);
-        expect(request.body.success).toBeFalsy();
-        expect(request.body.message).toBeDefined()
-    })
-    it("Should return 400", async()=>{
-        const request = await req(app).post("/api.ecommerce/v1/products/categories/register-category")
-        .send({name:"Anabolizantes"})
-        .set("Authorization", `Bearer ${validToken}`)
-        expect(request.status).toBe(400);
-        expect(request.body.success).toBeFalsy();
-        expect(request.body.message).toBeDefined()
-    })
-    it("Should return 409", async()=>{
-        const request = await req(app).post("/api.ecommerce/v1/products/categories/register-category")
-        .send({name:"Anabolizantes", description:"Esta categoria esta presente em todos os dias das nossas vidas"})
-        .set("Authorization", `Bearer ${validToken}`)
+  afterEach(async () => {
+    await resetDatabase();
+  });
 
-        expect(request.status).toBe(409);
-        expect(request.body.success).toBeFalsy();
-        expect(request.body.message).toBeDefined()
-    })
-*/
-})
+  it("Should return 201", async () => {
+    const response = await req(app)
+      .post("/api.ecommerce/v1/products/categories/register-category")
+      .send({
+        name: "Anabolizantes",
+        description: "Esta categoria está presente em todos os dias das nossas vidas",
+      })
+      .set("Authorization", `Bearer ${validToken}`);
+
+    expect(response.status).toBe(201);
+    expect(response.body.success).toBeTruthy();
+    expect(response.body.message).toBeDefined();
+  });
+});

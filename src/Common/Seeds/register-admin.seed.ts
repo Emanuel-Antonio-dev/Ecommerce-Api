@@ -50,8 +50,6 @@ const usersService: RegisterUserService = new RegisterUserService(
     return admin
 }
 registerAdmin().then((result) =>{
-    console.log(result)
 }).catch((error: any) =>{
-    console.log(error)
 })
 export{registerAdmin}

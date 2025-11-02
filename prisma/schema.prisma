@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_TEST")
+  url      = env("DATABASE_URL")
 }
 
 model Accounts{
@@ -19,7 +19,7 @@ model Accounts{
   password    String
   verified    Boolean?   @default(false)
   providerId  String?
-  provider    String?
+  provider    Providers? @default(Local)
   user_details Users?
   authentication_details Authentications[]
   created_at   DateTime  @default(now())
@@ -214,4 +214,9 @@ enum AuthenticationsTypes {
 enum TokenTypes {
   refreshToken
   resetPassword
+}
+enum Providers {
+  Google
+  Facebook
+  Local
 }

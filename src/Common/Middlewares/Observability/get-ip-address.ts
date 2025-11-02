@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction} from "express";
 import fs from "fs"
 import path from "path"
-import dotenv from "dotenv"
 
 const pathDir = path.join(__dirname, "./Logs")
 if(!fs.existsSync(pathDir))

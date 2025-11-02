@@ -134,7 +134,6 @@ class RegisterUserService
                     {
                         return {success: false, statusCode: error.statusCode, message: error.message}
                     }
-                    console.log(error)
                     return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
             }
         }
