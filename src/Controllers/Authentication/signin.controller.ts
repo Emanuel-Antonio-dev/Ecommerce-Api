@@ -14,6 +14,7 @@ const authenticationService: LocalStrategyAuthenticationService = new LocalStrat
 const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
 const cartService: RegisterCartsService = new RegisterCartsService(prisma,cartRepository, userRepository)
+
 class SignInController
 {
     private static RefreshTokenDate: number = 7*24*60*60*1000

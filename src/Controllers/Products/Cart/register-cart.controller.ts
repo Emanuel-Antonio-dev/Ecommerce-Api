@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { RegisterCartsService } from "../../../Services/Products/Cart/register-carts.service";
 import dotenv from "dotenv"
-import { getErrorsDetails } from "../../../Common/Middlewares/Observability/get-errors";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 dotenv.config()
@@ -44,7 +43,7 @@ class RegisterCartController
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {
-            process.env.NODE_ENV === "dev" ? console.log(error) : getErrorsDetails(error)
+            console.log(error) 
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
         }
     }

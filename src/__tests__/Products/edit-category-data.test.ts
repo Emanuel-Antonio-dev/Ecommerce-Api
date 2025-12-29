@@ -27,7 +27,7 @@ describe("Category datas", () => {
   });
     it("Should return 200", async () => {
         const request = await req(app)
-        .post("/api.ecommerce/v1/products/categories/register-category")
+        .post("/api.ecommerce/v1/products/categories")
         .send({
             name: "Anabolizantes",
             description: "Esta categoria está presente em todos os dias das nossas vidas"
@@ -35,7 +35,7 @@ describe("Category datas", () => {
         .set("Authorization", `Bearer ${validToken}`);
 
         const categoryId = request.body.datas.id_category
-        const response = await req(app).patch(`/api.ecommerce/v1/products/edit-category/${categoryId}`)
+        const response = await req(app).patch(`/api.ecommerce/v1/products/${categoryId}`)
         .send({
             name:"Anabolizantes Femenino."
         })

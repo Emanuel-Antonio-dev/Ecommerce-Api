@@ -33,7 +33,7 @@ describe("/products/categories/register-category", () => {
 
   it("Should return 201", async () => {
     const response = await req(app)
-      .post("/api.ecommerce/v1/products/categories/register-category")
+      .post("/api.ecommerce/v1/products/categories")
       .send({
         name: "Anabolizantes",
         description: "Esta categoria está presente em todos os dias das nossas vidas",

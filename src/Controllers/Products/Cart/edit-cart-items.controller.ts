@@ -1,11 +1,10 @@
 import { Response, Request } from "express";
 import { PrismaClient } from "@prisma/client";
-import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import dotenv from "dotenv"
-import { getErrorsDetails } from "../../../Common/Middlewares/Observability/get-errors";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { EditCartItemsService } from "../../../Services/Users/Client/edit-cart-datas.service";
-dotenv.config()
+dotenv.config({quiet: true})
 
 const prisma: PrismaClient = new PrismaClient()
 const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
@@ -38,7 +37,7 @@ class EditCartItemsController
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {
-            process.env.NODE_ENV === "dev" ? console.log(error) : getErrorsDetails(error)
+            console.log(error)
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
         }
     }

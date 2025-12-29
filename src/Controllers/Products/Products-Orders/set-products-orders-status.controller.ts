@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express";
 import { EmailProvider } from "../../../Utils/Emails/email-sender";
 import { SendEmail } from "../../../Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
@@ -14,7 +15,7 @@ const service = new SetOrdersStatusService(prisma,repository,userRepository,emai
 
 class SetProductsOrdersStatusController
 {
-    static async setStatus(req: any, res: any):Promise<Response | any>
+    static async setStatus(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

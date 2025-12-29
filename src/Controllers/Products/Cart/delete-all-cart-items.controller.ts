@@ -1,10 +1,9 @@
 import { Response, Request } from "express";
 import { PrismaClient } from "@prisma/client";
-import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import dotenv from "dotenv"
-import { getErrorsDetails } from "../../../Common/Middlewares/Observability/get-errors";
+import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { DeleteAllCartItemsDatasService } from "../../../Services/Users/Client/delete-all-cart-items-datas.service";
-dotenv.config()
+dotenv.config({quiet: true})
 
 const prisma: PrismaClient = new PrismaClient()
 const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
@@ -29,7 +28,7 @@ class DeleteAllCarItemsController
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {
-            process.env.NODE_ENV === "dev" ? console.log(error) : getErrorsDetails(error)
+            console.log(error)
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
         }
     }

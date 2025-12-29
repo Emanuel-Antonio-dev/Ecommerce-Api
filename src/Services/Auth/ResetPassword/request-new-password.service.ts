@@ -52,7 +52,7 @@ class RequestNewPasswordService
                 }
             })
             ///Add sendEmailService
-            await this.emailSender.sendEmail(email, "Recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
+            await this.emailSender.sendEmail(email, "Pedido de recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
             return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`,  ...(process.env.NODE_ENV=="test" ? {token: restPasswordToken} : {})}
 
         } catch (error: any)

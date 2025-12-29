@@ -10,7 +10,7 @@ class PrismaAuthenticationsRepositories implements IAuthenticationsRepositories
     async register(datas: AuthenticationDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
         const client = tx ?? this.prisma
-        return client.authentications.create({data:{
+        return await client.authentications.create({data:{
             id_authentication: nanoid(),
             used: datas.used,
             expireIn: new Date(datas.expireIn),
@@ -21,7 +21,7 @@ class PrismaAuthenticationsRepositories implements IAuthenticationsRepositories
     async registerToken(datas: TokenDatas, tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
         const client = tx ?? this.prisma
-        return client.tokens.create({
+        return await client.tokens.create({
             data:{
                 id_token: nanoid(),
                 token: datas.token,

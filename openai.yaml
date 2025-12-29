@@ -1,0 +1,399 @@
+openapi: 3.0.0
+
+info:
+  title: E-commerce API
+  description: Documentação oficial da API de E-commerce
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api.ecommerce/v1
+    description: Servidor local
+
+tags:
+  - name: Authentication
+  - name: Users
+  - name: Products
+  - name: Categories
+  - name: Reviews
+  - name: Cart
+  - name: Orders
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: refreshToken
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+        category_id:
+          type: integer
+
+paths:
+
+  # ================= AUTH =================
+  /auth/signup:
+    post:
+      tags: [Authentication]
+      summary: Registar novo utilizador cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [first_name, last_name, email, password]
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                contacts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      phone_number:
+                        type: string
+                addresses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      city:
+                        type: string
+                      street:
+                        type: string
+      responses:
+        "201":
+          description: Utilizador criado com sucesso
+        "400":
+          description: Dados inválidos
+
+  /auth/local-signin:
+    post:
+      tags: [Authentication]
+      summary: Login do utilizador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                id_guest_cart:
+                  type: string
+      responses:
+        "200":
+          description: Login efetuado com sucesso
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Logout do utilizador
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Logout realizado
+
+  /auth/refreshToken:
+    post:
+      tags: [Authentication]
+      summary: Renovar access token
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Token renovado
+
+  /auth/request-new-password:
+    post:
+      tags: [Authentication]
+      summary: Solicitar redefinição de palavra-passe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Email enviado
+
+  /auth/reset-password:
+    patch:
+      tags: [Authentication]
+      summary: Redefinir palavra-passe
+      parameters:
+        - in: query
+          name: authorization
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [newPassword]
+              properties:
+                newPassword:
+                  type: string
+      responses:
+        "200":
+          description: Palavra-passe atualizada
+
+  # ================= USERS =================
+  /users/profile/{id}:
+    get:
+      tags: [Users]
+      summary: Obter perfil do utilizador
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Dados do utilizador
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/edit-profile/{id}:
+    patch:
+      tags: [Users]
+      summary: Editar perfil do utilizador
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+      responses:
+        "200":
+          description: Perfil atualizado
+
+  /users/delete-profile/{id}:
+    delete:
+      tags: [Users]
+      summary: Eliminar conta do utilizador
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Conta eliminada
+
+  # ================= CATEGORIES =================
+  /products/categories/register-category:
+    post:
+      tags: [Categories]
+      summary: Criar categoria
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        "201":
+          description: Categoria criada
+
+  /products/categories/get-all-categories:
+    get:
+      tags: [Categories]
+      summary: Listar categorias
+      responses:
+        "200":
+          description: Lista de categorias
+
+  /products/categories/{id}:
+    get:
+      tags: [Categories]
+      summary: Obter categoria por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Categoria encontrada
+
+  # ================= PRODUCTS =================
+  /products/register-product:
+    post:
+      tags: [Products]
+      summary: Registar produto
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [name, price, stock, id_category_fk]
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: integer
+                id_category_fk:
+                  type: integer
+                ProductImages:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Produto criado
+
+  /products/get-all-products:
+    get:
+      tags: [Products]
+      summary: Listar produtos
+      responses:
+        "200":
+          description: Lista de produtos
+
+  /products/get-product/{id}:
+    get:
+      tags: [Products]
+      summary: Obter produto por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Produto encontrado
+
+  # ================= CART =================
+  /carts/register-cart-items:
+    post:
+      tags: [Cart]
+      summary: Adicionar itens ao carrinho
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_guest_cart:
+                  type: string
+                id_user_fk:
+                  type: string
+                cartItems:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id_product_fk:
+                        type: integer
+                      quantity:
+                        type: integer
+                      price:
+                        type: number
+      responses:
+        "201":
+          description: Item adicionado ao carrinho
+
+  # ================= ORDERS =================
+  /orders/register-order:
+    post:
+      tags: [Orders]
+      summary: Criar pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_user_fk:
+                  type: string
+      responses:
+        "201":
+          description: Pedido criado

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdminRepositories } from "../../../Repositories/Users/Admin/Prisma/PrismaAdminRepositories";
-import { GetAllUsersService } from "../../../Services/Users/Admin/get-all-users.service";
 import { GetAllOrdersService } from "../../../Services/Users/Admin/get-all-orders.service";
 
 const prisma: PrismaClient = new PrismaClient()

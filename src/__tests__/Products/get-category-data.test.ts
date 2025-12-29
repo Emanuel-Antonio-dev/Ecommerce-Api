@@ -28,7 +28,7 @@ describe("Category datas", () => {
   });
     it("Should return 200 if exists category", async () => {
         const request = await req(app)
-        .post("/api.ecommerce/v1/products/categories/register-category")
+        .post("/api.ecommerce/v1/products/categories")
         .send({
             name: "Anabolizantes",
             description: "Esta categoria está presente em todos os dias das nossas vidas"

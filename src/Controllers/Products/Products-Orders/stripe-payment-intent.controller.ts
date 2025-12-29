@@ -16,7 +16,7 @@ class StripePaymentIntentControler
                 amount: amount,
                 currency:"AO",
                 automatic_payment_methods: {
-                    enabled: true
+                    enabled: true,
                 }
             })
             if(!paymentIntent)

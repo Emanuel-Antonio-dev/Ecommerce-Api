@@ -1,9 +1,9 @@
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { RegisterProductOrderService } from "../../../Services/Products/Products-Orders/register-product-order.service";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
-import { Request, Response } from "express";
 
 const prisma: PrismaClient = new PrismaClient();
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prisma);

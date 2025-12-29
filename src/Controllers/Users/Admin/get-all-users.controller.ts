@@ -9,7 +9,7 @@ const service: GetAllUsersService = new GetAllUsersService(repository)
 
 class GetAllUsersController
 {
-     static async getAll(req: Request, res: Response):Promise<Response | any>
+     static async getAllUsers(req: Request, res: Response):Promise<Response | any>
     {
         try
         {
