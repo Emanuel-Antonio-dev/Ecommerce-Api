@@ -33,13 +33,13 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
             }
         })
     }
-    async setOrderStatus(id_order: string, status: "completed" | "cancelled"): Promise<any>
+    async setOrderStatus(id_order: string, status: "completed" | "cancelled" | "failed"): Promise<any>
     {
         return await this.prisma.orders.update({where:{id_order: id_order}, data:{status:status}})    
     }
     async getOrderItemsByOrder(id_order_fk: string): Promise<productsOrderItemsDatas[] | any>
     {
-        return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk}})
+        return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk}, include:{order:{include:{user_details: true}}}})
     }
 }
 export {PrismaOrdersRepositories}

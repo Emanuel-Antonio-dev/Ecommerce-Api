@@ -5,7 +5,7 @@ interface productsOrdersDatas
     id_order?: string
     total_amount: number
     id_user_fk: string 
-    status: "pending" | "completed" | "cancelled"
+    status: "pending" | "completed" | "cancelled" |"failed"
     payment_method: "cash"
     created_at?: Date | string
     updated_at?: Date | string

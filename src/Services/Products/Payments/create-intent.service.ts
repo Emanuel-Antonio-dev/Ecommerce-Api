@@ -18,6 +18,7 @@ class CreateStripePaymentIntentService
             {
                 return {success: false, statusCode: 404, message:"Pedido não encontrado."}
             }
+            const id_user = existsOrder.order.user_details.id_user
             const paymentIntent = await stripeConfig.paymentIntents.create({
                 amount: datas.amount,
                 currency: datas.currency || "AOA",
@@ -30,7 +31,7 @@ class CreateStripePaymentIntentService
             {
                 return {success: false, statusCode: 500, message:"Ocorreu um erro ao processar este pagamento."}
             } 
-            return {success: true, statusCode: 200, datas: {secret: paymentIntent.client_secret}}
+            return {success: true, statusCode: 200, datas: {id_user: id_user, secret: paymentIntent.client_secret}}
         } catch (error: any)
         {
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}   

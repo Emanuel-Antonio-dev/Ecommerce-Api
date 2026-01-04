@@ -200,6 +200,7 @@ enum OrderStatus {
   pending
   completed
   cancelled
+  failed
 }
 enum CartStatus {
   waiting

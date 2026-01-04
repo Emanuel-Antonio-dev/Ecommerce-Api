@@ -13,7 +13,7 @@ class CreatePaymentIntentController
     {
         try
         {
-            const { id_order, totalAmount } = req.body;
+            const {id_order, totalAmount } = req.body;
             if(!totalAmount || !id_order)
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
