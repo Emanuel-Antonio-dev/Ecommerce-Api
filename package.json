@@ -21,7 +21,7 @@
   "type": "commonjs",
   "main": "server.ts",
   "scripts": {
-    "start:prod": "node ./dist/server.js",
+    "start:prod": "node ./dist/src/server.js",
     "db:seed": "ts-node src/Common/Seeds/register-admin.seed.ts",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
