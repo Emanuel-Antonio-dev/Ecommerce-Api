@@ -1,18 +1,16 @@
 import { Request, Response } from "express"
-import { PrismaClient } from "@prisma/client"
+import { prismaService } from "../../lib/prisma.service"
 import { RequestNewPasswordService } from "../../Services/Auth/ResetPassword/request-new-password.service"
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
 import { EmailProvider } from "../../Common/Utils/Emails/email-sender"
 import { SendEmail } from "../../Common/Utils/Emails/send-email"
 
-const prisma: PrismaClient = new PrismaClient()
-const acountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
-const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prisma)
+const acountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
+const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
 const emailProvider: EmailProvider = new EmailProvider()
 const emailSender: SendEmail = new SendEmail(emailProvider)
-const requestPasswordService: RequestNewPasswordService = new RequestNewPasswordService(prisma, acountRepository, authenticationRepository, emailSender)
-
+const requestPasswordService: RequestNewPasswordService = new RequestNewPasswordService(prismaService, acountRepository, authenticationRepository, emailSender)
 class RequestPasswordController
 {
     static async requestPassword(req:Request, res: Response): Promise<Response>
@@ -20,15 +18,7 @@ class RequestPasswordController
         try
         {
             const {email} = req.body
-            if (!email)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message: "Informe o seu email"})
-            }
             const requestNewPassword = await requestPasswordService.RequestNewPassword(email)
-            if (!requestNewPassword.success)
-            {
-                return res.status(requestNewPassword.statusCode).json(requestNewPassword)
-            }
             return res.status(requestNewPassword.statusCode).json(requestNewPassword)
         } catch (error: any)
         {

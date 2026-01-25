@@ -1,8 +1,7 @@
 import { Response, Request } from "express";
 import { prismaService } from "../../lib/prisma.service";
 import { JwtOperations } from "../../Common/Utils/AuthenticationsProcols/JwtOperations/operations";
-import { PrismaAuthenticationsRepositories } from "../../Repositories/Authentications/Prisma/PrismaAuthenticationsRepositories";
-
+import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 const authenticationRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
 const REFRESH_TOKEN_TTL = 7 * 24 * 60 * 60 * 1000
 

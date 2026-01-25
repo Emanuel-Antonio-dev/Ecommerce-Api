@@ -1,6 +1,6 @@
 import { stripeConfig } from "../../../Common/Utils/PaymentGatwayConfig/stripe.config";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
-import { StripeIntentDatas } from "interfaces/Payments/Interface";
+import { StripeIntentDatas } from "../../../interfaces/Payments/Interface";
 
 class CreateStripePaymentIntentService
 {
