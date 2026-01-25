@@ -1,5 +1,4 @@
-import { Decimal } from "@prisma/client/runtime/library"
-
+import { Decimal } from "../../../../generated/prisma/internal/prismaNamespace"
 interface cartDatas
 {
     id_cart?: string

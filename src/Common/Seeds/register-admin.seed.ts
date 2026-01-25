@@ -1,5 +1,5 @@
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../lib/prisma.service";
 import { RegisterUserService } from "../../Services/Users/register-user.service";
 import { RegisterAccountService } from "../../Services/General/Accounts/register-account.service";
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
@@ -7,21 +7,19 @@ import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/
 import { RegisterContactService } from "../../Services/General/Contacts/register-contact.service";
 import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
-import dotenv from "dotenv"
-dotenv.config({quiet: true})
+import "dotenv/config"; 
 
-const prisma: PrismaClient = new PrismaClient()
-const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prisma)
-const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prisma)
+const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
+const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prismaService)
+const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prismaService)
 const contactService: RegisterContactService = new RegisterContactService(contactRepository)
 const accountService: RegisterAccountService = new RegisterAccountService(accountRepository)
 const addressService: RegisterAddressesService = new RegisterAddressesService(addressRepository)
 const usersService: RegisterUserService = new RegisterUserService(
     accountService,
     userRepository,
-    prisma,
+    prismaService,
     contactService,
     addressService
 )
@@ -33,7 +31,8 @@ const usersService: RegisterUserService = new RegisterUserService(
     },{
         first_name: process.env.ADMIN_FIRST_NAME as string,
         last_name: process.env.ADMIN_LAST_NAME as string,
-        user_type:"admin"
+        user_type:"admin",
+        username:"@SYSTEM_ADMIN"
     },
     [
         {

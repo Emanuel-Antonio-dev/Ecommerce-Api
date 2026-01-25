@@ -1,6 +1,6 @@
 import { Prisma } from "../../../generated/prisma/client";
-import { OtpDatas } from "interfaces/Shared/authentication.interface";
-import { AuthenticationDatas, TokenDatas } from "interfaces/Shared/authentication.interface";
+import { OtpDatas } from "../../interfaces/Shared/authentication.interface";
+import { AuthenticationDatas, TokenDatas } from "../../interfaces/Shared/authentication.interface";
 
 abstract class AuthenticationsRepositories
 {
