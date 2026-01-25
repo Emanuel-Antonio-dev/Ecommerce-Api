@@ -1,5 +1,4 @@
-import { Prisma } from "@prisma/client";
-
+import { Prisma } from "../../../generated/prisma/client";
 import { usersDatas } from "../../interfaces/Users/interface";
 abstract class IUsersRepositories
 {

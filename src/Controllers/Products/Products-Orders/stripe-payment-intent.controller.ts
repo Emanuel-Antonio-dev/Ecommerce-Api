@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { stripeConfig } from "../../../Utils/PaymentGatwayConfig/stripe.config";
+import { stripeConfig } from "../../../Common/Utils/PaymentGatwayConfig/stripe.config";
 
 class StripePaymentIntentControler
 {

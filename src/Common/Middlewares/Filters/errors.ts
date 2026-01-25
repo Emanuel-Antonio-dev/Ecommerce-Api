@@ -12,4 +12,39 @@ function ErrorHandler(err: any, req: Request, res: Response, next: NextFunction)
         ...(details && {details})
     })
 }
-export {ErrorHandler}
+function multerErrorHandler(
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  // Erros do multer
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({
+      success: false,
+      statusCode: 400,
+      message: err.message,
+    });
+  }
+
+  // Erros personalizados (HttpException)
+  if (err instanceof HttpException) {
+    return res.status(err.statusCode).json({
+      success: false,
+      statusCode: err.statusCode,
+      message: err.message,
+    });
+  }
+
+  // Outros erros
+  if (err) {
+    return res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Erro ao processar upload do arquivo",
+    });
+  }
+
+  next();
+}
+export {ErrorHandler, multerErrorHandler}

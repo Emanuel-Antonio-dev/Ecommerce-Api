@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma} from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { ICartRepositories } from "../cart-repositories";
 import { cartDatas, cartItemsDatas } from "../../../../interfaces/Products/Cart/interface";
 import { nanoid } from "nanoid";
@@ -31,7 +31,7 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async getCartItems(tx?: Omit<Prisma.TransactionClient, "$transaction">, id_cart?: string, id_user_fk?: string): Promise<any>
+    async getCartItems(id_cart?: string, id_user_fk?: string, tx?: Omit<Prisma.TransactionClient, "$transaction"> ): Promise<any>
     {
         const client = tx ?? this.prisma
         const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}

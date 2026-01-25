@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { reviewsDatas } from "../../../../interfaces/Products/Reviews/interface";
 import { IReviewsRepositories } from "../reviews-repositories";
 

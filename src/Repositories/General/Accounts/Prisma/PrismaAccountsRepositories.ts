@@ -3,7 +3,8 @@ import { IAccountRepositories } from "../account-repositories";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import {nanoid} from "nanoid";
 import bcrypt from "bcrypt";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
+import { Providers } from "../../../../../generated/prisma/client";
 
 class PrismaAccountRepositories implements IAccountRepositories
 {
@@ -24,16 +25,38 @@ class PrismaAccountRepositories implements IAccountRepositories
         return null;
     }
     async register(datas: accountDatas, tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<accountDatas>
-    {
+   {
         const client = tx ?? this.prisma
-        return await client.accounts.create({
-            data:{
-                id_account: nanoid(),
+        const id_account = crypto.randomUUID()
+        const hashedPassword = datas.password ? await bcrypt.hash(datas.password, 12) : id_account
+
+        const provider: Providers = (() => {
+            const p = datas.provider?.toLowerCase()
+            if (p === "google") return Providers.Google
+            if (p === "facebook") return Providers.Facebook
+            return Providers.Local
+        })()
+
+        const result = await client.accounts.create({
+            data: {
+                id_account: id_account,
                 email: datas.email,
-                password: await bcrypt.hash(datas.password, 12),
-                verified: false
+                password: hashedPassword,
+                provider,
+                providerId: datas.providerId || null
             }
         })
+        return {
+            id_account: result.id_account,
+            email: result.email,
+            password: result.password!,
+            created_at: result.created_at,
+            updated_at: result.updated_at,
+            verified: result.verified,
+            is_active: result.is_active,
+            provider: result.provider,
+            providerId: result.providerId ?? undefined
+        }
     }
     async updateAccount(id_account: string, datas: Partial<accountDatas>): Promise<any>
     {

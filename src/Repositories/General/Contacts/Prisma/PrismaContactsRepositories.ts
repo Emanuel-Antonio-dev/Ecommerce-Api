@@ -1,6 +1,5 @@
 import { IContactsRepositories } from "../contact-repositories";
-import { Prisma } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { contactsDatas } from "../../../../interfaces/General/Contacts/interface";
 import { nanoid } from "nanoid";
 

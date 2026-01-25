@@ -17,7 +17,7 @@ class EditCartItemsService {
             {
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")
             }
-            const cartDatas = await this.repository.getCartItems(undefined, undefined,id_user_fk);
+            const cartDatas = await this.repository.getCartItems(undefined,id_user_fk);
 
             if (!cartDatas || !cartDatas.items[0].id_cart_item) {
                 throw new HttpException(

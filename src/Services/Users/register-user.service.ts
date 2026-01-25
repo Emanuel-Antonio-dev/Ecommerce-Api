@@ -1,6 +1,6 @@
 import { RegisterAccountService } from "../General/Accounts/register-account.service"
 import { RegisterContactService } from "../General/Contacts/register-contact.service"
-import { PrismaClient} from "@prisma/client"
+import { PrismaClient } from "../../../generated/prisma/client"
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories"
 import { accountDatas } from "../../interfaces/General/Accounts/interface"
 import { contactsDatas } from "../../interfaces/General/Contacts/interface"
@@ -30,8 +30,16 @@ class RegisterUserService
         try {
             const transaction = await this.prisma.$transaction(async(tx)=>{
             let datas
-            const account = await this.accountService.register({email: accountDatas.email, password: accountDatas.password}, tx)
-            if (!account.success || !account.datas?.id_account)
+                    const account = await this.accountService.register(
+                        { 
+                            email: accountDatas.email, 
+                            password: accountDatas.password,
+                            provider: accountDatas.provider,
+                            providerId: accountDatas.providerId
+                        },
+                        tx
+                    );
+                if (!account.success || !account.datas?.id_account)
                 {
                     throw new HttpException (account.success, account.statusCode, account.message ?? "")
                 }
@@ -44,6 +52,13 @@ class RegisterUserService
                         }
                     ),
                     last_name: sanitize(userDatas.last_name,
+                        {
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        }
+                    ),
+                    username: sanitize(userDatas.username,
                         {
                             allowedTags: [],
                             allowedAttributes: {},
@@ -102,6 +117,7 @@ class RegisterUserService
                     id_account_fk: account.datas.id_account,
                     first_name: user.first_name,
                     last_name: user.last_name,
+                    username: user.username,
                     email: account.datas.email,
                     phone_number: contacts,
                     address: addresses,
@@ -114,6 +130,7 @@ class RegisterUserService
                 id_account_fk: account.datas.id_account,
                 first_name: user.first_name,
                 last_name: user.last_name,
+                username: user.username,
                 email: account.datas.email,
                 phone_number: contacts,
                 address: addresses,

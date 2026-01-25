@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../generated/prisma/client";
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
@@ -31,7 +31,7 @@ class RegisterCartsService
                 let cart
                 if(datas.id_user_fk)
                 {
-                    cart = await this.repository.getCartItems(tx, undefined, datas.id_user_fk);
+                    cart = await this.repository.getCartItems(undefined, datas.id_user_fk, tx);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ class RegisterCartsService
                         await this.repository.registerCartItems(item, tx);
                     }
                 }
-                return await this.repository.getCartItems(tx, cart.id_cart, undefined);
+                return await this.repository.getCartItems(cart.id_cart, undefined, tx);
             })
             return {
                 success: true,

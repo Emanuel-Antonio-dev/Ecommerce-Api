@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { productsCategoriesDatas } from "../../../../interfaces/Products/Categories/interface";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import { IProductsCategories } from "../products-categories-repositories";

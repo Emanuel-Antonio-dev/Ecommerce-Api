@@ -1,26 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
+   
+    "target": "es2020",
+    "module": "commonjs",                            
     "outDir": "./dist",
-    "rootDir": ".",
-    "esModuleInterop": true,
+    //"rootDir": "./src",
+    "esModuleInterop": true,            
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"],
-      "@prisma": ["generated/prisma"]
-    }
   },
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  "include":[
+    "./src/**/*.ts"
+, "src/server.ts"  ]
 }

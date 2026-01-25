@@ -13,7 +13,7 @@ class GetAllProductsDatasService
             const allProducts = await this.repository.getAllProductsDatas()
             if(allProducts.length === 0)
             {
-                throw new HttpException(true, 200, "De momento não existem produtos disponiveis")
+                throw new HttpException(true, 404, "De momento não existem produtos disponiveis")
             }
             return {success: true, statusCode: 200, datas: allProducts}
         } catch (error: any)

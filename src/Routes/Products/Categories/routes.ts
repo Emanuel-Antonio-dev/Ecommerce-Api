@@ -12,7 +12,7 @@ const categoryRoutes: Router = Router()
 categoryRoutes.route("/products/categories").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {RegisterProductCategoryController.register(req, res)})
 categoryRoutes.route("/products/categories/:id_category").patch(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) =>{EditProductCategoryController.editProduct(req, res)})
 categoryRoutes.route("/products/categories/:id_category").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) =>{DeleteProductCategoryController.delete(req, res)})
-categoryRoutes.route("/products/categories/all-categories").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) =>{DeleteAllProductsCategoriesController.deleteAll(req, res)})
+categoryRoutes.route("/products/categories").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) =>{DeleteAllProductsCategoriesController.deleteAll(req, res)})
 
 //Publics Services Categories Routes
 categoryRoutes.route("/products/categories").get((req: Request, res: Response) =>{GetProductsCategoriesController.findAll(req, res)})

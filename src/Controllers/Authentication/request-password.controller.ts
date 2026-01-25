@@ -3,8 +3,8 @@ import { PrismaClient } from "@prisma/client"
 import { RequestNewPasswordService } from "../../Services/Auth/ResetPassword/request-new-password.service"
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
-import { EmailProvider } from "../../Utils/Emails/email-sender"
-import { SendEmail } from "../../Utils/Emails/send-email"
+import { EmailProvider } from "../../Common/Utils/Emails/email-sender"
+import { SendEmail } from "../../Common/Utils/Emails/send-email"
 
 const prisma: PrismaClient = new PrismaClient()
 const acountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)

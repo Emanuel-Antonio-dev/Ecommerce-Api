@@ -11,7 +11,7 @@ class GetAllProductsCategoriesService
             const categoriesResult = await this.repository.getAllCategoriesDatas()
             if(categoriesResult.length === 0)
             {
-                return {success: true, statusCode: 200, message: "De momento não existem categorias"}
+                return {success: true, statusCode: 404, message: "De momento não existem categorias"}
             }
             return {success: true, statusCode: 200, datas: categoriesResult}
         } catch (error: any)

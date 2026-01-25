@@ -13,3 +13,4 @@ docker/
 *.pid
 npm-debug.log*
 src/Common/Utils/Uploads/ProductImages/
+/generated/prisma

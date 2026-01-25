@@ -1,5 +1,5 @@
 import { contactsDatas } from "../../../interfaces/General/Contacts/interface";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../../generated/prisma/client";
 import { accountDatas } from "../../../interfaces/General/Accounts/interface";
 
 abstract class IContactsRepositories

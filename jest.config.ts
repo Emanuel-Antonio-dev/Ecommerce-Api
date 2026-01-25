@@ -1,27 +1,24 @@
-import type { Config } from 'jest';
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+import type {Config} from 'jest';
 
 const config: Config = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
   clearMocks: true,
-  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-  transform: {
-    '^.+\\.(t|j)s$': ['ts-jest', { isolatedModules: true }],
-  },
-  transformIgnorePatterns: [
-    'node_modules/(?!(nanoid)/)', // <--- para Jest conseguir ler ESM
+  //collectCoverage: true,
+  //coverageDirectory: "coverage",
+  coverageProvider: "v8",
+  preset: "ts-jest",
+
+  transformIgnorePatterns: [ "node_modules/(?!@faker-js/faker)" ],
+  testMatch: [
+    "**/__tests__/**/*.?([mc])[jt]s?(x)",
+    "**/?(*.)+(spec|test).?([mc])[jt]s?(x)"
   ],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1', // opcional: para imports absolutos
-    "^(\\.{1,2}/.*)\\.js$": "$1"
-
-  },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  globalSetup: "<rootDir>/tests/setup/globalSetup.ts",
-  globalTeardown: "<rootDir>/tests/setup/globalTeardown.ts",
-  extensionsToTreatAsEsm: [".ts"],
-
-
+  setupFilesAfterEnv: ["<rootDir>/__tests__/setup/global.ts"],
+  testTimeout: 30000,
 };
 
 export default config;

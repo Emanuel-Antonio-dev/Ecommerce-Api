@@ -10,8 +10,8 @@ const cartRoutes: Router = Router()
 
 cartRoutes.route("/carts").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{RegisterCartController.register(req, res)})
 cartRoutes.route("/carts/:id_user_fk").get(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{GetCartDatasController.getCartDatas(req, res)})
-cartRoutes.route("/carts/user/:id_user_fk").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{DeleteCartItemController.deleteCartItem(req, res)})
-cartRoutes.route("/carts/all-items/:id_cart").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) => {DeleteAllCarItemsController.deleteAllCartItems(req, res)})
-cartRoutes.route("/carts/:id_user_fk").put(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{EditCartItemsController.editCartItems(req, res)})
+cartRoutes.route("/carts/items/:id_user_fk").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{DeleteCartItemController.deleteCartItem(req, res)})
+cartRoutes.route("/carts/:id_cart").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) => {DeleteAllCarItemsController.deleteAllCartItems(req, res)})
+cartRoutes.route("/carts/items/:id_user_fk").put(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{EditCartItemsController.editCartItems(req, res)})
 
 export {cartRoutes}

@@ -1,13 +1,12 @@
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../../lib/prisma.service";
 import { RegisterCartsService } from "./register-carts.service";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const cartService: RegisterCartsService = new RegisterCartsService(prisma, repository, userRepository)
+const repository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
+const cartService: RegisterCartsService = new RegisterCartsService(prismaService, repository, userRepository)
 
 async function handleCart(id_guest_cart: string | undefined, id_user: string) {
   let userCart = [];
@@ -16,7 +15,7 @@ async function handleCart(id_guest_cart: string | undefined, id_user: string) {
     const migratedCart = await cartService.migrateGuestCartToUser(id_guest_cart, id_user);
     userCart = migratedCart?.cart_items || [];
   } else {
-    const existingCart = await prisma.carts.findFirst({
+    const existingCart = await prismaService.carts.findFirst({
       where: { id_user_fk: id_user, status: "active" },
       include: { cart_items: true },
     });

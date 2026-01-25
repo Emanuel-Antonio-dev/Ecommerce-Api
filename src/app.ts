@@ -12,6 +12,7 @@ import { createStripeWebhookController } from './Controllers/Payments/create-str
 import { swaggerConfig } from './docs/swagger';
 import swaggerUi from "swagger-ui-express"
 import yaml from "yamljs"
+import passport from 'passport';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -30,9 +31,10 @@ app.set('trust proxy', 1)
 app.use(cors({
     origin: true,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use(passport.initialize())
 app.use(`${urlBase}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerYamlDocument))
 app.post(`${urlBase}/webhook/stripe`, express.raw({type:"application/json" }), createStripeWebhookController)
 app.use(express.json());

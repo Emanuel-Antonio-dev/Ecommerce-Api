@@ -1,6 +1,5 @@
 import { IAddressesRepositories } from "../adresses-repositories";
-import { Prisma } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { addressesDatas } from "../../../../interfaces/General/Adresses/interface";
 import { nanoid } from "nanoid";
 

@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma} from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { nanoid } from "nanoid";
 import { IProductOrderRepositories } from "../product-order-repositories";
 import { productsOrderItemsDatas, productsOrdersDatas } from "../../../../interfaces/Products/Products-Orders/interface";

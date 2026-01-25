@@ -10,7 +10,7 @@ class GetAllUsersService
             const result = await this.repository.getAllUsers()
             if(result.length === 0)
             {
-                return {success: true, statusCode: 200, message:"De momento ainda não existem usuários"}
+                return {success: true, statusCode: 404, message:"De momento ainda não existem usuários"}
             }
             return {success: true, statusCode: 200, datas: result}
         } catch (error: any)

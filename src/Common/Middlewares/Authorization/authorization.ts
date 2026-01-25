@@ -1,5 +1,5 @@
 import { AuthorizationService } from "../../../Services/Auth/Authorization/authorization.service";
-import { JwtOperations } from "../../../Utils/JwtOperations/operations";
+import { JwtOperations } from "../../Utils/AuthenticationsProcols/JwtOperations/operations";
 import { Request, Response, NextFunction } from "express";
 
 class MiddlewareAuthorization

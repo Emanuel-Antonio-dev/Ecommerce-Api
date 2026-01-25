@@ -3,7 +3,7 @@ import { PrismaGeneralProductsRepositories } from "../../../Repositories/Product
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import sanitize from "sanitize-html";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
-import { cloudinary } from "../../../Utils/Uploads/cloudinary-config";
+import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
 
 class EditProductDatasService
 {
@@ -96,7 +96,7 @@ class EditProductDatasService
                 {
                     const updateCloudinaryImage = await cloudinary.uploader.upload(datas.image_url,
                         {
-                            folder: "TourImages",
+                            folder: "ProductcsImages",
                             public_id: `image-${Date.now()}`,
                             allowed_formats: ["jpg", "jpeg", "png", "webp"],
                         })

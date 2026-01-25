@@ -1,4 +1,4 @@
-import { JwtOperations } from "../../../Utils/JwtOperations/operations";
+import { JwtOperations } from "../../../Common/Utils/AuthenticationsProcols/JwtOperations/operations";
 import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 
 class RefreshTokenService

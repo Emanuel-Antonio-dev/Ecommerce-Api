@@ -1,11 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import * as  crypto from "node:crypto"
-import dotenv from "dotenv"
-dotenv.config({quiet: true})
-import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
-import { SendEmail } from "../../../Utils/Emails/send-email";
-import { HtmlTemplateResetPassword } from "../../../Utils/Emails/Templates/resetPasswordTemplate";
 import { PrismaAccountRepositories } from "../../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
+import * as  crypto from "node:crypto"
+import "dotenv/config"
+import { PrismaAuthenticationsRepositories } from "../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
+import { SendEmail } from "../../../Common/Utils/Emails/send-email";
+import { HtmlTemplateResetPassword } from "../../../Common/Utils/Emails/Templates/resetPasswordTemplate";
+import { PrismaClient } from "../../../../generated/prisma/client";
 
 class RequestNewPasswordService
 {
@@ -22,7 +21,7 @@ class RequestNewPasswordService
         {
             if(!email)
             {
-                return {success: false, statusCode: 400, message:"Informe o seu email"}
+                return {success: false, statusCode: 400, message:"Por favor informe o seu email"}
             }
             const existsAccount = await this.acountRepository.getDatas({action:"GetOnlyBasicsDatas"}, undefined, email)
             if (!existsAccount)
@@ -31,7 +30,7 @@ class RequestNewPasswordService
             }
             const restPasswordToken = crypto.randomBytes(32).toString("hex")
             await this.prisma.$transaction(async(tx)=>{
-                const authentication = await this.authenticationRepository.register({
+                const authentication = await this.authenticationRepository.initAuthenticationDatas({
                     type:"by_token",
                     used:false,
                     expireIn: new Date(Date.now() + 3600000),
@@ -52,8 +51,8 @@ class RequestNewPasswordService
                 }
             })
             ///Add sendEmailService
-            await this.emailSender.sendEmail(email, "Pedido de recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
-            return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`,  ...(process.env.NODE_ENV=="test" ? {token: restPasswordToken} : {})}
+            await this.emailSender.sendEmail(email, "Recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
+            return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`, ...(process.env.NODE_ENV==="test"?{token: restPasswordToken}:{})}
 
         } catch (error: any)
         {

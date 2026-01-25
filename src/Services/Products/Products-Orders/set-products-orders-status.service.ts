@@ -1,7 +1,7 @@
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaClient } from "@prisma/client";
-import { SendEmail } from "../../../Utils/Emails/send-email";
+import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
 class SetOrdersStatusService

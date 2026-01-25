@@ -1,5 +1,5 @@
 import { IGeneralProductsRepositories } from "../general-products-repositoires";
-import { PrismaClient, Prisma} from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
 import { generalProductsDatas } from "../../../../interfaces/Products/GeneralProducts/interface";
 import crypto from "node:crypto"
@@ -11,12 +11,13 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
     async register(datas: generalProductsDatas, tx:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
         const client = tx ?? this.prisma
+        const year = new Date().getFullYear();
         return await client.products.create({
             data:{
                 name: datas.name,
                 aditional_info: datas.aditional_info,
                 price: datas.price,
-                reference_code: `RFP2025-${crypto.randomInt(10000, 999999)}`,
+                reference_code: `RFP${year}-${crypto.randomInt(10000, 999999)}`,
                 available: true,
                 description: datas.description,
                 id_category_fk: datas.id_category_fk

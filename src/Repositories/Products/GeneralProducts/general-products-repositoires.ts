@@ -1,6 +1,6 @@
 import { SearchDatasOptions } from "../../../interfaces/Shared/search-datas-options.interface"
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface"
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../../generated/prisma/client"
 abstract class IGeneralProductsRepositories
 {
     abstract register(datas: generalProductsDatas, tx:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>

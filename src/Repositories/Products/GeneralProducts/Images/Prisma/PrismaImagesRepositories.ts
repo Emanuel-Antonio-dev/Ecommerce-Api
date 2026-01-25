@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../../../generated/prisma/client";
 import { IProductsImages } from "../products-images-repositories";
 import { productsImagesDatas } from "../../../../../interfaces/Products/Images/interface";
 

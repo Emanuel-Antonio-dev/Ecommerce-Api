@@ -1,5 +1,5 @@
 import { IUsersRepositories } from "../users-repositories";
-import { Prisma, PrismaClient} from "@prisma/client";
+import { Prisma, PrismaClient } from "../../../../generated/prisma/client";
 import { usersDatas } from "../../../interfaces/Users/interface";
 import { nanoid } from "nanoid";
 
@@ -15,6 +15,7 @@ class PrismaUsersRepositories implements IUsersRepositories
                 id_user: nanoid(),
                 first_name: datas.first_name,
                 last_name: datas.last_name,
+                username: datas.username,
                 user_type: datas.user_type,
                 id_account_fk: datas.id_account_fk
             }

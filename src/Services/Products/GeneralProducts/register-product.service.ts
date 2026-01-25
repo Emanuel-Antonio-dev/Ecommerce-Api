@@ -1,7 +1,7 @@
 import sanitize from "sanitize-html";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaClient } from "@prisma/client";
-import { cloudinary } from "../../../Utils/Uploads/cloudinary-config";
+import { prismaService } from "../../../lib/prisma.service";
+import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
@@ -10,7 +10,7 @@ import { PrismaProductsCategories } from "../../../Repositories/Products/Categor
 class RegisterGeneralProductService
 {
     constructor(
-        private readonly prisma: PrismaClient,
+        private readonly prisma: typeof prismaService,
         private readonly repository: PrismaGeneralProductsRepositories,
         private readonly imagesRepository: PrismaProductsImages,
         private readonly categoryRepository: PrismaProductsCategories

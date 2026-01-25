@@ -5,23 +5,25 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
-
 model Accounts{
-  id_account  String @id
-  email       String @unique
-  password    String
-  verified    Boolean?   @default(false)
-  providerId  String?
-  provider    Providers? @default(Local)
-  user_details Users?
+  id_account             String            @id
+  email                  String            @unique
+  password               String?
+  verified               Boolean           @default(false)
+  providerId             String?
+  provider               Providers         @default(Local)
+  deleted_at             DateTime?
+  is_active              Boolean           @default(true)
+  is_delected            Boolean?
   authentication_details Authentications[]
+  user_details  Users?
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_accounts")
@@ -31,10 +33,13 @@ model Authentications{
   type AuthenticationsTypes @default(by_token)
   expireIn  DateTime
   used Boolean @default(false)
-  id_account_fk String
-  account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+  temp_email            String?
+  temp_phone_number     String?
+  id_account_fk String?
+  id_system_settings String?
+  account_details Accounts? @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
   token_details  Tokens?
-  twoFactorAuth_details TwoFactorAuth?
+  two_factor_auth_details TwoFactorAuth?
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_authentications")
@@ -50,13 +55,15 @@ model Tokens{
   @@map("tbl_tokens")
 }
 model TwoFactorAuth{
-  id_two_factor_auth String @id
-  otp_code    Int @unique
-  id_authentication_fk   String @unique
-  authentication_details Authentications? @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_two_factor_auth")
+  id_two_factor_auth     String          @id
+  id_authentication_fk   String          @unique
+  attempts           Int      @default(0)
+  max_attempts       Int      @default(5)
+  locked             Boolean  @default(false)
+  created_at             DateTime        @default(now())
+  updated_at             DateTime        @updatedAt
+  otp_code_hash          String          @unique(map: "tbl_two_factor_auth_otp_code_key")
+  authentication_details Authentications @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
 }
 model Contacts{
   id_contact  String  @id
@@ -71,6 +78,7 @@ model Users{
   id_user     String @id
   first_name  String
   last_name   String
+  username    String @unique
   user_type   UsersTypes @default(client)
   id_account_fk String @unique
   account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
@@ -112,15 +120,27 @@ model Products{
   available_stock        Int @default(1)
   available    Boolean @default(true)
   aditional_info String @db.Text
+  weight       Decimal? @db.Decimal(10,2)
   id_category_fk Int
   images       ProductsImages[]
   reviews      ProductsReviews[]
   order_items  OrderItems[]
   cart_items   CartItems[]
+  brand        ProductBrands[]
   category     ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_products")
+}
+model ProductBrands{
+  id_brand    Int @id @default(autoincrement())
+  name        String @unique
+  description String?
+  id_product_fk Int
+  product     Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  created_at   DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  @@map("tbl_product_brands")
 }
 model ProductsImages{
   id_image     String @id
@@ -221,3 +241,4 @@ enum Providers {
   Facebook
   Local
 }
+

@@ -1,5 +1,5 @@
 import { Request, Response, Router} from "express";
-import { upload } from "../../../Utils/Uploads/multer-config";
+import { upload } from "../../../Common/Utils/Uploads/multer-config";
 import { MiddlewareAuthorization } from "../../../Common/Middlewares/Authorization/authorization";
 import { RegisterProductsController } from "../../../Controllers/Products/GeneralProducts/register-product.controller";
 import { GetProductDatasController } from "../../../Controllers/Products/GeneralProducts/get-products.controller";
@@ -8,23 +8,14 @@ import { EditProductDatasController } from "../../../Controllers/Products/Genera
 import { RegisterProductReviewController } from "../../../Controllers/Products/ProductsReviews/register-product-review.controller";
 import { GetAllProductReviewsController } from "../../../Controllers/Products/ProductsReviews/get-all-product-reviews.controller";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { multerErrorHandler } from "Common/Middlewares/Filters/errors";
 
 
 const productsRoutes: Router = Router()
 
-productsRoutes.route("/products").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, upload.fields([{name:"ProductImages", maxCount: 10}]),(req: Request, res: Response) => {
-    try
-    {
-
-    } catch (error: any){
-        if(error instanceof HttpException)
-        {
-            throw error
-        }
-        return res.status(500).json({success: false, statusCode: 500, message:"O"})
-    } RegisterProductsController.register(req, res)})
+productsRoutes.route("/products").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, upload.fields([{name:"ProductImages", maxCount: 10}]),multerErrorHandler,(req: Request, res: Response) => {RegisterProductsController.register(req, res)})
 productsRoutes.route("/products/:id_product").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {DeleteProductsController.deleteProductDatas(req, res)})
-productsRoutes.route("/products/:id_product").patch(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,(req: Request, res: Response) =>{EditProductDatasController.editProduct(req, res)})
+productsRoutes.route("/products/:id_product").patch(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin,upload.fields([{name:"ProductImages", maxCount: 10}]),multerErrorHandler,(req: Request, res: Response) =>{EditProductDatasController.editProduct(req, res)})
 
 productsRoutes.route("/products/:id_product").get((req: Request, res: Response) => {GetProductDatasController.getProductDatas(req, res)})
 productsRoutes.route("/products").get((req: Request, res: Response) => {GetProductDatasController.getAllProductsDatas(req, res)})

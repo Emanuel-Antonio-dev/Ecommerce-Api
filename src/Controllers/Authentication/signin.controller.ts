@@ -1,19 +1,17 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
-import { LocalStrategyAuthenticationService } from "../../Services/Auth/Authentication/local-authentication.service";
+import { prismaService } from "../../lib/prisma.service";
+import { LocalStrategyAuthenticationService } from "../../Services/Auth/Authentication/Local/local-authentication.service";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
-import dotenv from "dotenv"
+import "dotenv/config"
 import { RegisterCartsService } from "../../Services/Products/Cart/register-carts.service";
 import { PrismaCartRepositories } from "../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
-dotenv.config()
 
-const prisma: PrismaClient = new PrismaClient()
-const authenticationsRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prisma)
-const authenticationService: LocalStrategyAuthenticationService = new LocalStrategyAuthenticationService(prisma)
-const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const cartService: RegisterCartsService = new RegisterCartsService(prisma,cartRepository, userRepository)
+const authenticationsRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
+const authenticationService: LocalStrategyAuthenticationService = new LocalStrategyAuthenticationService(prismaService)
+const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
+const cartService: RegisterCartsService = new RegisterCartsService(prismaService,cartRepository, userRepository)
 
 class SignInController
 {
@@ -34,19 +32,28 @@ class SignInController
                 return res.status(authenticationResult.statusCode).json(authenticationResult)
             }
             const refreshToken = authenticationResult.refreshToken
-            res.cookie("refreshToken",refreshToken,{
+            const isProduction = process.env.NODE_ENV === "production"
+
+            const cookieOptions: any = {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                maxAge:this.RefreshTokenDate,
-                sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax"
-            })
-            await prisma.$transaction(async(tx)=>{
+                secure: false,
+                maxAge: this.RefreshTokenDate,
+                path: "/",
+                sameSite: 'lax',
+            }
+            if (isProduction) {
+                cookieOptions.sameSite = "none"
+                cookieOptions.secure = true
+            }
+            
+            res.cookie("refreshToken", refreshToken, cookieOptions)
+            await prismaService.$transaction(async(tx)=>{
                 const id_account = await tx.accounts.findUnique({where:{email: email}})
                 if(!id_account)
                 {
                     throw new Error()
                 }
-                const authentication = await authenticationsRepositories.register({
+                const authentication = await authenticationsRepositories.initAuthenticationDatas({
                     type: "by_token",
                     used:false,
                     expireIn: new Date(Date.now() + this.RefreshTokenDate),
@@ -66,7 +73,9 @@ class SignInController
                     token_type: "refreshToken",
                     id_authentication: authentication.id_authentication,
                 }, tx)
-                
+            }, {
+                maxWait: 10000,
+                timeout: 15000
             })
             return res.status(authenticationResult.statusCode).json({
                 success: authenticationResult.success, 
