@@ -1,14 +1,12 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
-import dotenv from "dotenv"
+import { prismaService } from "../../../lib/prisma.service";
+import "dotenv/config"
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { GetCartDatasService } from "../../../Services/Users/Client/get-cart-datas.service";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
-dotenv.config({quiet: true})
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
+const repository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
 const service: GetCartDatasService = new GetCartDatasService(repository, userRepository)
 
 class GetCartDatasController
@@ -18,15 +16,7 @@ class GetCartDatasController
         try
         {
             const {id_user_fk} = req.params
-            if(!id_user_fk)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message:"Informe o usuario"})
-            }
-            const result = await service.getCartDatas(id_user_fk)
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
+            const result = await service.getCartDatas(id_user_fk as string)
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

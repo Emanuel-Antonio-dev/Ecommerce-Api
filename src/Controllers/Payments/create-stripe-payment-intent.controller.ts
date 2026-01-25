@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaOrdersRepositories } from "../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { CreateStripePaymentIntentService } from "../../Services/Products/Payments/create-intent.service";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../lib/prisma.service";
 
-const prisma: PrismaClient = new PrismaClient()
-const productsOrderRepository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prisma)
+const productsOrderRepository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
 class CreatePaymentIntentController
 {
     private static service: CreateStripePaymentIntentService = new CreateStripePaymentIntentService(productsOrderRepository);
@@ -25,10 +24,6 @@ class CreatePaymentIntentController
                 },
                 currency:"AOA"
             });
-            if(!paymentIntent.success)
-            {
-                return res.status(paymentIntent.statusCode).json(paymentIntent);
-            }
             return res.status(paymentIntent.statusCode).json(paymentIntent);
         } catch (error: any)
         {

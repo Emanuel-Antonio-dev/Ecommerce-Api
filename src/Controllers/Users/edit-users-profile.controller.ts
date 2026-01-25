@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../lib/prisma.service";
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { UsersEditProfileService } from "../../Services/Users/edit-user-profile.service";
 
-const prisma: PrismaClient = new PrismaClient()
 
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
-const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prisma)
-const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prisma)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories( prismaService)
+const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
+const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prismaService)
+const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prismaService)
 const service: UsersEditProfileService = new UsersEditProfileService(
-    prisma,
+    prismaService,
     userRepository,
     accountRepository,
     contactRepository,
@@ -58,7 +57,7 @@ class UsersEditProfileController
             {
                 return res.status(400).json({ success: false, statusCode: 400, message: "Informe pelo menos um campo para atualização" });
             }
-            const result = await service.editProfile(id_user,userDatas,accountDatas,contactDatas, addressDatas)
+            const result = await service.editProfile(id_user as string,userDatas,accountDatas,contactDatas, addressDatas)
             if(!result.success)
             {
                 return res.status(result.statusCode).json(result)

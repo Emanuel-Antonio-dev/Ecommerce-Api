@@ -5,7 +5,7 @@ import { RegisterContactService } from "../../Services/General/Contacts/register
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { PrismaContactsRepositories } from "../../Repositories/General/Contacts/Prisma/PrismaContactsRepositories";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../lib/prisma.service";
 import { PrismaAddressesRepositories } from "../../Repositories/General/Adresses/Prisma/PrismaAdressesRepositories";
 import { RegisterAddressesService } from "../../Services/General/Address/register-address-service.service";
 import { accountDatas } from "../../interfaces/General/Accounts/interface";
@@ -13,11 +13,10 @@ import { usersDatas } from "../../interfaces/Users/interface";
 import { contactsDatas } from "../../interfaces/General/Contacts/interface";
 import { addressesDatas } from "../../interfaces/General/Adresses/interface";
 
-const prisma: PrismaClient = new PrismaClient()
-const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prisma)
-const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prisma)
+const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
+const contactRepository: PrismaContactsRepositories = new PrismaContactsRepositories(prismaService)
+const addressRepository: PrismaAddressesRepositories = new PrismaAddressesRepositories(prismaService)
 const addressService: RegisterAddressesService = new RegisterAddressesService(addressRepository)
 const accountService: RegisterAccountService = new RegisterAccountService(accountRepository)
 const contactService: RegisterContactService = new RegisterContactService(contactRepository)
@@ -25,7 +24,7 @@ const contactService: RegisterContactService = new RegisterContactService(contac
 const userService: RegisterUserService = new RegisterUserService(
     accountService,
     userRepository,
-    prisma,
+    prismaService,
     contactService,
     addressService
 )
@@ -44,6 +43,7 @@ class RegisterUsersController
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 user_type: "client",
+                username: req.body.username
             }
             const contactDatas: Omit<contactsDatas, "id_user_fk">[] =
             
@@ -70,11 +70,7 @@ class RegisterUsersController
                 return res.status(400).json({ success: false,statusCode: 400,message: "Por favor, preencha todos os campos!" });
             }
             const result = await userService.register(accountDatas, userDatas, contactDatas, addressDatas)
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result); 
-            }
-                return res.status(result.statusCode).json(result); 
+            return res.status(result.statusCode).json(result); 
             } catch (error: any)
             {
                 console.log(error)

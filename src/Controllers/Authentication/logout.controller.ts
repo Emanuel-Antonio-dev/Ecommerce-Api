@@ -1,10 +1,8 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../lib/prisma.service";
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 
-const prisma: PrismaClient = new PrismaClient()
-const authenticationRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prisma)
-
+const authenticationRepositories: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
 class LogoutController
 {
     static async logout(req: Request, res: Response):Promise<Response | any>

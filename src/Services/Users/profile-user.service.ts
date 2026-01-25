@@ -8,6 +8,10 @@ class UsersProfileService
     {
         try
         {
+            if(!id_user)
+            {
+                throw new HttpException(false, 400, "Informe todos os campos.")
+            }
             if (!await this.repository.getUsersProfileDatas(id_user, user_type))
             {
                 throw new HttpException(false, 404, "Perfil não encontrado.")

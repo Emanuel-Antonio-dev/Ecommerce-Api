@@ -1,14 +1,12 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
-import dotenv from "dotenv"
+import { prismaService } from "../../../lib/prisma.service";
+import "dotenv/config"
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { EditCartItemsService } from "../../../Services/Users/Client/edit-cart-datas.service";
-dotenv.config({quiet: true})
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
+const repository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
 const service: EditCartItemsService = new EditCartItemsService(repository, userRepository)
 
 class EditCartItemsController
@@ -27,13 +25,9 @@ class EditCartItemsController
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe pelo menos um campo para atualização"})
             }
-            const result = await service.editCartItems(id_user_fk, {
+            const result = await service.editCartItems(id_user_fk as string, {
                 quantity: quantity
             })
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

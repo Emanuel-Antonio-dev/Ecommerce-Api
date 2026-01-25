@@ -8,7 +8,7 @@ import { EditProductDatasController } from "../../../Controllers/Products/Genera
 import { RegisterProductReviewController } from "../../../Controllers/Products/ProductsReviews/register-product-review.controller";
 import { GetAllProductReviewsController } from "../../../Controllers/Products/ProductsReviews/get-all-product-reviews.controller";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { multerErrorHandler } from "Common/Middlewares/Filters/errors";
+import { multerErrorHandler } from "../../../Common/Middlewares/Filters/errors";
 
 
 const productsRoutes: Router = Router()

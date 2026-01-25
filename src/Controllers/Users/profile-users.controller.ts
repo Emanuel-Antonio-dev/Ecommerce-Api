@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
+import { prismaService } from "../../lib/prisma.service";
 import { UsersProfileService } from "../../Services/Users/profile-user.service";
 import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaUsersRepositories";
 
-const prisma: PrismaClient = new PrismaClient()
-const usersRepositories: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
+const usersRepositories: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
 const userProfileService: UsersProfileService = new UsersProfileService(usersRepositories)
 
 class UsersProfileController
@@ -15,15 +13,8 @@ class UsersProfileController
         try
         {
             const {id_user} = req.params
-            if(!id_user)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos"})
-            }
-            const userProfileResult = await userProfileService.profile(id_user)
-            if(!userProfileResult.success)
-            {
-                return res.status(userProfileResult.statusCode).json(userProfileResult)
-            }
+            const user_type = req.query.user_type as "admin" | "client" | undefined
+            const userProfileResult = await userProfileService.profile(id_user as string, user_type)
             return res.status(userProfileResult.statusCode).json(userProfileResult)
         } catch (error: any)
         {

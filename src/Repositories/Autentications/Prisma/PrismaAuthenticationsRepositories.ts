@@ -1,8 +1,8 @@
 import crypto from "node:crypto"
 import { Prisma, PrismaClient } from "../../../../generated/prisma/client";
-import { OtpDatas } from "interfaces/Shared/authentication.interface";
+import { OtpDatas } from "../../../interfaces/Shared/authentication.interface";
 import { AuthenticationsRepositories } from "../Authentications-repositories";
-import { AuthenticationDatas, TokenDatas } from "interfaces/Shared/authentication.interface";
+import { AuthenticationDatas, TokenDatas } from "../../../interfaces/Shared/authentication.interface";
 
 class PrismaAuthenticationsRepositories implements AuthenticationsRepositories
 {

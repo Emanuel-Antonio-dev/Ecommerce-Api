@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../../lib/prisma.service";
 import { RegisterProductOrderService } from "../../../Services/Products/Products-Orders/register-product-order.service";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
 
-const prisma: PrismaClient = new PrismaClient();
-const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prisma);
-const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prisma);
-const service: RegisterProductOrderService = new RegisterProductOrderService(prisma, repository, cartRepository);
+const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
+const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prismaService);
+const service: RegisterProductOrderService = new RegisterProductOrderService(prismaService, repository, cartRepository);
 
 class RegisterProductOrderController
 {
@@ -23,15 +22,7 @@ class RegisterProductOrderController
                 status: "pending",
                 total_amount: req.body.total_amount
             }
-            if (!orderDatas.id_user_fk)
-            {
-                return res.status(400).json({ success: false, statusCode:400, message: "Informe todos o usuário" });
-            }
             const result = await service.registerOrder(orderDatas);
-            if (!result.success)
-            {
-                return res.status(result.statusCode).json(result);
-            }
             return res.status(result.statusCode).json(result);
         } catch (error: any)
         {

@@ -1,6 +1,6 @@
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../../../generated/prisma/client";
 import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 

@@ -1,16 +1,15 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../../lib/prisma.service";
 import { RegisterGeneralProductService } from "../../../Services/Products/GeneralProducts/register-product.service";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 
-const prisma: PrismaClient = new PrismaClient();
-const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prisma)
-const categoryRepository: PrismaProductsCategories = new PrismaProductsCategories(prisma)
-const imagesRepository: PrismaProductsImages = new PrismaProductsImages(prisma)
-const service: RegisterGeneralProductService = new RegisterGeneralProductService(prisma,repository, imagesRepository, categoryRepository)
+const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prismaService)
+const categoryRepository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
+const imagesRepository: PrismaProductsImages = new PrismaProductsImages(prismaService)
+const service: RegisterGeneralProductService = new RegisterGeneralProductService(prismaService,repository, imagesRepository, categoryRepository)
 
 class RegisterProductsController
 {
@@ -30,17 +29,6 @@ class RegisterProductsController
         const imagesDatas = {
             image_url: files?.["ProductImages"].map(file => file.path) || []
         }
-        if (
-            !productDatas.name
-            || !productDatas.description
-            || !productDatas.aditional_info
-            || !productDatas.id_category_fk
-            || !productDatas.price
-            || !productDatas.stock
-            || !imagesDatas.image_url)
-        {
-            return res.status(400).json({ success: false, statusCode:400, message: "Informe todos os campos" });
-        }
         const result = await service.registerProducts({
             name: productDatas.name,
             description: productDatas.description,
@@ -50,10 +38,6 @@ class RegisterProductsController
             stock: productDatas.stock,
             image_url: imagesDatas.image_url
         });
-        if (!result.success)
-        {
-            return res.status(result.statusCode).json(result);
-        }
         return res.status(result.statusCode).json(result);
         } catch (error: any)
         {

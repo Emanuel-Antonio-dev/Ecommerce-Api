@@ -1,16 +1,14 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../../lib/prisma.service";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { RegisterCartsService } from "../../../Services/Products/Cart/register-carts.service";
-import dotenv from "dotenv"
+import "dotenv/config"
 import { cartDatas, cartItemsDatas } from "../../../interfaces/Products/Cart/interface";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
-dotenv.config()
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
-const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prisma)
-const service: RegisterCartsService = new RegisterCartsService(prisma, repository, userRepository)
+const repository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
+const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
+const service: RegisterCartsService = new RegisterCartsService(prismaService, repository, userRepository)
 
 class RegisterCartController
 {
@@ -36,10 +34,6 @@ class RegisterCartController
                 });
             }
             const result = await service.registerCart(cartDatas,cartItems)
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

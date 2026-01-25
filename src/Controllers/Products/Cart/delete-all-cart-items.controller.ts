@@ -1,12 +1,9 @@
 import { Response, Request } from "express";
-import { PrismaClient } from "@prisma/client";
-import dotenv from "dotenv"
+import { prismaService } from "../../../lib/prisma.service";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { DeleteAllCartItemsDatasService } from "../../../Services/Users/Client/delete-all-cart-items-datas.service";
-dotenv.config({quiet: true})
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaCartRepositories = new PrismaCartRepositories(prisma)
+const repository: PrismaCartRepositories = new PrismaCartRepositories(prismaService)
 const service: DeleteAllCartItemsDatasService = new DeleteAllCartItemsDatasService(repository)
 
 class DeleteAllCarItemsController
@@ -20,11 +17,7 @@ class DeleteAllCarItemsController
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe o carrinho"})
             }
-            const result = await service.deleteAllCartItems(id_cart)
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
+            const result = await service.deleteAllCartItems(id_cart as string)
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

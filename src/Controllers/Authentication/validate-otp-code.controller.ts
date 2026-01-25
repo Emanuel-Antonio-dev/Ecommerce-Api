@@ -1,12 +1,11 @@
 import { Request, Response } from "express"
 import { prismaService } from "../../lib/prisma.service"
-import { PrismaAuthenticationsRepositories } from "../../Repositories/Authentications/Prisma/PrismaAuthenticationsRepositories"
 import { ValidateOtpCodeService } from "../../Services/Auth/Authentication/2FA/validate-otp-code.service"
-import { PrismaAccountRepositories } from "../../Repositories/Accounts/Prisma/PrismaAccountRepositories"
+import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
+import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
 
 const repository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
-const accountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
-const service: ValidateOtpCodeService = new ValidateOtpCodeService(repository,prismaService, accountRepository)
+const service: ValidateOtpCodeService = new ValidateOtpCodeService(repository,prismaService)
 
 class ValidateOtpCodeController
 {

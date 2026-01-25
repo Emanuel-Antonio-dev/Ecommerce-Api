@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prismaService } from "../../../lib/prisma.service";
 import { PrismaAdminRepositories } from "../../../Repositories/Users/Admin/Prisma/PrismaAdminRepositories";
 import { GetAllUsersService } from "../../../Services/Users/Admin/get-all-users.service";
 
-const prisma: PrismaClient = new PrismaClient()
-const repository: PrismaAdminRepositories = new PrismaAdminRepositories(prisma)
+const repository: PrismaAdminRepositories = new PrismaAdminRepositories(prismaService)
 const service: GetAllUsersService = new GetAllUsersService(repository)
 
 class GetAllUsersController
@@ -14,10 +13,6 @@ class GetAllUsersController
         try
         {
             const result = await service.getAllUsers()
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
             return res.status(result.statusCode).json(result)
                 
         } catch (error: any)
