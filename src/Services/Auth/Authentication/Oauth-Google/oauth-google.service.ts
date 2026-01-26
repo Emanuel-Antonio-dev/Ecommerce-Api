@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
                 first_name: profile.name?.givenName,
                 last_name: profile.name?.familyName,
                 email: profile.emails,
-                user_type: "tourist",
+                user_type: "client",
                 providerId: profile.id,
                 provider: profile.provider
             }, "temp")

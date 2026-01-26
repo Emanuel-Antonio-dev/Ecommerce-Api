@@ -13,6 +13,7 @@ import { swaggerConfig } from './docs/swagger';
 import swaggerUi from "swagger-ui-express"
 import yaml from "yamljs"
 import passport from 'passport';
+import "./Services/Auth/Authentication/Oauth-Google/oauth-google.service"
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';

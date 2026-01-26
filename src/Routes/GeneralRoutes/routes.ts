@@ -34,7 +34,7 @@ generalRoute.route("/auth/logout").post(MiddlewareAuthorization.authorization,(r
 generalRoute.route("/auth/otp/send").post((req: Request, res: Response) =>{SendOtpCodeController.send(req, res)})
 generalRoute.route("/auth/otp/verify-code").post(limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.",2,2),(req: Request, res: Response) =>{ValidateOtpCodeController.validate(req, res)})
 generalRoute.route("/auth/google/signin").get(passport.authenticate("google", {scope:["profile", "email"]}))
-generalRoute.route("/auth/google/callback").get(passport.authenticate("google", {session: false, failureFlash:"/auth/failed"}),
+generalRoute.route("/auth/google/callback").get(passport.authenticate("google", {session: false, failureFlash:"/auth/login"}),
     (req: Request, res: Response) => {
         const data = req.user as any
         const FRONT_URL = process.env.REDIRECT_URI as string

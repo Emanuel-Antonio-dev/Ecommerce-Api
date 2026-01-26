@@ -22,7 +22,7 @@
   "main": "server.ts",
   "scripts": {
     "start:prod": "node ./dist/src/server.js",
-    "db:seed": "ts-node src/Common/Seeds/register-admin.seed.ts",
+    "db:seed": "node ./dist/src/Common/Seeds/register-admin.seed.js",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
     "postinstall": "prisma generate",
