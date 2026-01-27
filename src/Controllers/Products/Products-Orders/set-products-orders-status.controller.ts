@@ -19,18 +19,14 @@ class SetProductsOrdersStatusController
         try
         {
             const {status, id_user} = req.body
-            const {id_order} = req.params
-
-            if(status !== "completed" && status !== "cancelled")
-            {
-                return res.status(400).json({ success: false, statusCode:400, message: "Status inválido" });
-            }
-            const result = await service.setOrderStatus(id_order as string,status,id_user);
+            const id_order = Number(req.params.id_order)
+            const result = await service.setOrderStatus(id_order,status,id_user);
             return res.status(result.statusCode).json(result);   
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

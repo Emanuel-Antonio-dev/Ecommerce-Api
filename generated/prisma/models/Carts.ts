@@ -20,13 +20,25 @@ export type CartsModel = runtime.Types.Result.DefaultSelection<Prisma.$CartsPayl
 
 export type AggregateCarts = {
   _count: CartsCountAggregateOutputType | null
+  _avg: CartsAvgAggregateOutputType | null
+  _sum: CartsSumAggregateOutputType | null
   _min: CartsMinAggregateOutputType | null
   _max: CartsMaxAggregateOutputType | null
 }
 
+export type CartsAvgAggregateOutputType = {
+  id_cart: number | null
+  id_user_fk: number | null
+}
+
+export type CartsSumAggregateOutputType = {
+  id_cart: number | null
+  id_user_fk: number | null
+}
+
 export type CartsMinAggregateOutputType = {
-  id_cart: string | null
-  id_user_fk: string | null
+  id_cart: number | null
+  id_user_fk: number | null
   id_guest_cart: string | null
   status: $Enums.CartStatus | null
   created_at: Date | null
@@ -34,8 +46,8 @@ export type CartsMinAggregateOutputType = {
 }
 
 export type CartsMaxAggregateOutputType = {
-  id_cart: string | null
-  id_user_fk: string | null
+  id_cart: number | null
+  id_user_fk: number | null
   id_guest_cart: string | null
   status: $Enums.CartStatus | null
   created_at: Date | null
@@ -52,6 +64,16 @@ export type CartsCountAggregateOutputType = {
   _all: number
 }
 
+
+export type CartsAvgAggregateInputType = {
+  id_cart?: true
+  id_user_fk?: true
+}
+
+export type CartsSumAggregateInputType = {
+  id_cart?: true
+  id_user_fk?: true
+}
 
 export type CartsMinAggregateInputType = {
   id_cart?: true
@@ -119,6 +141,18 @@ export type CartsAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: CartsAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: CartsSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: CartsMinAggregateInputType
@@ -149,18 +183,22 @@ export type CartsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: CartsCountAggregateInputType | true
+  _avg?: CartsAvgAggregateInputType
+  _sum?: CartsSumAggregateInputType
   _min?: CartsMinAggregateInputType
   _max?: CartsMaxAggregateInputType
 }
 
 export type CartsGroupByOutputType = {
-  id_cart: string
-  id_user_fk: string | null
+  id_cart: number
+  id_user_fk: number | null
   id_guest_cart: string | null
   status: $Enums.CartStatus
   created_at: Date
   updated_at: Date
   _count: CartsCountAggregateOutputType | null
+  _avg: CartsAvgAggregateOutputType | null
+  _sum: CartsSumAggregateOutputType | null
   _min: CartsMinAggregateOutputType | null
   _max: CartsMaxAggregateOutputType | null
 }
@@ -184,8 +222,8 @@ export type CartsWhereInput = {
   AND?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
   OR?: Prisma.CartsWhereInput[]
   NOT?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
-  id_cart?: Prisma.StringFilter<"Carts"> | string
-  id_user_fk?: Prisma.StringNullableFilter<"Carts"> | string | null
+  id_cart?: Prisma.IntFilter<"Carts"> | number
+  id_user_fk?: Prisma.IntNullableFilter<"Carts"> | number | null
   id_guest_cart?: Prisma.StringNullableFilter<"Carts"> | string | null
   status?: Prisma.EnumCartStatusFilter<"Carts"> | $Enums.CartStatus
   created_at?: Prisma.DateTimeFilter<"Carts"> | Date | string
@@ -206,8 +244,8 @@ export type CartsOrderByWithRelationInput = {
 }
 
 export type CartsWhereUniqueInput = Prisma.AtLeast<{
-  id_cart?: string
-  id_user_fk?: string
+  id_cart?: number
+  id_user_fk?: number
   AND?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
   OR?: Prisma.CartsWhereInput[]
   NOT?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
@@ -227,16 +265,18 @@ export type CartsOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.CartsCountOrderByAggregateInput
+  _avg?: Prisma.CartsAvgOrderByAggregateInput
   _max?: Prisma.CartsMaxOrderByAggregateInput
   _min?: Prisma.CartsMinOrderByAggregateInput
+  _sum?: Prisma.CartsSumOrderByAggregateInput
 }
 
 export type CartsScalarWhereWithAggregatesInput = {
   AND?: Prisma.CartsScalarWhereWithAggregatesInput | Prisma.CartsScalarWhereWithAggregatesInput[]
   OR?: Prisma.CartsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CartsScalarWhereWithAggregatesInput | Prisma.CartsScalarWhereWithAggregatesInput[]
-  id_cart?: Prisma.StringWithAggregatesFilter<"Carts"> | string
-  id_user_fk?: Prisma.StringNullableWithAggregatesFilter<"Carts"> | string | null
+  id_cart?: Prisma.IntWithAggregatesFilter<"Carts"> | number
+  id_user_fk?: Prisma.IntNullableWithAggregatesFilter<"Carts"> | number | null
   id_guest_cart?: Prisma.StringNullableWithAggregatesFilter<"Carts"> | string | null
   status?: Prisma.EnumCartStatusWithAggregatesFilter<"Carts"> | $Enums.CartStatus
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Carts"> | Date | string
@@ -244,7 +284,6 @@ export type CartsScalarWhereWithAggregatesInput = {
 }
 
 export type CartsCreateInput = {
-  id_cart: string
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -254,8 +293,8 @@ export type CartsCreateInput = {
 }
 
 export type CartsUncheckedCreateInput = {
-  id_cart: string
-  id_user_fk?: string | null
+  id_cart?: number
+  id_user_fk?: number | null
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -264,7 +303,6 @@ export type CartsUncheckedCreateInput = {
 }
 
 export type CartsUpdateInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -274,8 +312,8 @@ export type CartsUpdateInput = {
 }
 
 export type CartsUncheckedUpdateInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_cart?: Prisma.IntFieldUpdateOperationsInput | number
+  id_user_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -284,8 +322,8 @@ export type CartsUncheckedUpdateInput = {
 }
 
 export type CartsCreateManyInput = {
-  id_cart: string
-  id_user_fk?: string | null
+  id_cart?: number
+  id_user_fk?: number | null
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -293,7 +331,6 @@ export type CartsCreateManyInput = {
 }
 
 export type CartsUpdateManyMutationInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -301,8 +338,8 @@ export type CartsUpdateManyMutationInput = {
 }
 
 export type CartsUncheckedUpdateManyInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_cart?: Prisma.IntFieldUpdateOperationsInput | number
+  id_user_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -323,6 +360,11 @@ export type CartsCountOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
 }
 
+export type CartsAvgOrderByAggregateInput = {
+  id_cart?: Prisma.SortOrder
+  id_user_fk?: Prisma.SortOrder
+}
+
 export type CartsMaxOrderByAggregateInput = {
   id_cart?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
@@ -339,6 +381,11 @@ export type CartsMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type CartsSumOrderByAggregateInput = {
+  id_cart?: Prisma.SortOrder
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type CartsScalarRelationFilter = {
@@ -382,6 +429,14 @@ export type EnumCartStatusFieldUpdateOperationsInput = {
   set?: $Enums.CartStatus
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type CartsCreateNestedOneWithoutCart_itemsInput = {
   create?: Prisma.XOR<Prisma.CartsCreateWithoutCart_itemsInput, Prisma.CartsUncheckedCreateWithoutCart_itemsInput>
   connectOrCreate?: Prisma.CartsCreateOrConnectWithoutCart_itemsInput
@@ -397,7 +452,6 @@ export type CartsUpdateOneRequiredWithoutCart_itemsNestedInput = {
 }
 
 export type CartsCreateWithoutUser_detailsInput = {
-  id_cart: string
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -406,7 +460,7 @@ export type CartsCreateWithoutUser_detailsInput = {
 }
 
 export type CartsUncheckedCreateWithoutUser_detailsInput = {
-  id_cart: string
+  id_cart?: number
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -431,7 +485,6 @@ export type CartsUpdateToOneWithWhereWithoutUser_detailsInput = {
 }
 
 export type CartsUpdateWithoutUser_detailsInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -440,7 +493,7 @@ export type CartsUpdateWithoutUser_detailsInput = {
 }
 
 export type CartsUncheckedUpdateWithoutUser_detailsInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
+  id_cart?: Prisma.IntFieldUpdateOperationsInput | number
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -449,7 +502,6 @@ export type CartsUncheckedUpdateWithoutUser_detailsInput = {
 }
 
 export type CartsCreateWithoutCart_itemsInput = {
-  id_cart: string
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -458,8 +510,8 @@ export type CartsCreateWithoutCart_itemsInput = {
 }
 
 export type CartsUncheckedCreateWithoutCart_itemsInput = {
-  id_cart: string
-  id_user_fk?: string | null
+  id_cart?: number
+  id_user_fk?: number | null
   id_guest_cart?: string | null
   status?: $Enums.CartStatus
   created_at?: Date | string
@@ -483,7 +535,6 @@ export type CartsUpdateToOneWithWhereWithoutCart_itemsInput = {
 }
 
 export type CartsUpdateWithoutCart_itemsInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -492,8 +543,8 @@ export type CartsUpdateWithoutCart_itemsInput = {
 }
 
 export type CartsUncheckedUpdateWithoutCart_itemsInput = {
-  id_cart?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_cart?: Prisma.IntFieldUpdateOperationsInput | number
+  id_user_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   id_guest_cart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCartStatusFieldUpdateOperationsInput | $Enums.CartStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -592,8 +643,8 @@ export type $CartsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     cart_items: Prisma.$CartItemsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id_cart: string
-    id_user_fk: string | null
+    id_cart: number
+    id_user_fk: number | null
     id_guest_cart: string | null
     status: $Enums.CartStatus
     created_at: Date
@@ -1023,8 +1074,8 @@ export interface Prisma__CartsClient<T, Null = never, ExtArgs extends runtime.Ty
  * Fields of the Carts model
  */
 export interface CartsFieldRefs {
-  readonly id_cart: Prisma.FieldRef<"Carts", 'String'>
-  readonly id_user_fk: Prisma.FieldRef<"Carts", 'String'>
+  readonly id_cart: Prisma.FieldRef<"Carts", 'Int'>
+  readonly id_user_fk: Prisma.FieldRef<"Carts", 'Int'>
   readonly id_guest_cart: Prisma.FieldRef<"Carts", 'String'>
   readonly status: Prisma.FieldRef<"Carts", 'CartStatus'>
   readonly created_at: Prisma.FieldRef<"Carts", 'DateTime'>

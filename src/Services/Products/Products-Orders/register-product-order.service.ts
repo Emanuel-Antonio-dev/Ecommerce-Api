@@ -16,6 +16,10 @@ class RegisterProductOrderService
     {
         try
         {
+            if(!datas.id_user_fk || !datas.payment_method)
+            {
+                throw new HttpException(false, 400, "Informe todos os campos")
+            }
             return await this.prisma.$transaction(async(tx)=>{
                 const cart = await this.prisma.carts.findFirst({
                     where:{id_user_fk: datas.id_user_fk, status:"active"},

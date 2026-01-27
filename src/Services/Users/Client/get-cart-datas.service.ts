@@ -8,7 +8,7 @@ class GetCartDatasService {
         private readonly userRepository: PrismaUsersRepositories
     ) {}
 
-    async getCartDatas(id_user_fk: string)
+    async getCartDatas(id_user_fk: number)
     {
         try {
             if(!id_user_fk)

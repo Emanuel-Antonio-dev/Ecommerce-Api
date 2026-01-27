@@ -15,16 +15,12 @@ class GetAllProductReviewsController
         try
         {
             const id_product_fk = Number(req.params.id_product_fk)
-            if(!id_product_fk)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message: "Informe o produto"})
-            }
             const result = await service.getProductReview(id_product_fk)
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

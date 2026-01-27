@@ -20,14 +20,24 @@ export type ContactsModel = runtime.Types.Result.DefaultSelection<Prisma.$Contac
 
 export type AggregateContacts = {
   _count: ContactsCountAggregateOutputType | null
+  _avg: ContactsAvgAggregateOutputType | null
+  _sum: ContactsSumAggregateOutputType | null
   _min: ContactsMinAggregateOutputType | null
   _max: ContactsMaxAggregateOutputType | null
+}
+
+export type ContactsAvgAggregateOutputType = {
+  id_user_fk: number | null
+}
+
+export type ContactsSumAggregateOutputType = {
+  id_user_fk: number | null
 }
 
 export type ContactsMinAggregateOutputType = {
   id_contact: string | null
   phone_number: string | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -35,7 +45,7 @@ export type ContactsMinAggregateOutputType = {
 export type ContactsMaxAggregateOutputType = {
   id_contact: string | null
   phone_number: string | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -49,6 +59,14 @@ export type ContactsCountAggregateOutputType = {
   _all: number
 }
 
+
+export type ContactsAvgAggregateInputType = {
+  id_user_fk?: true
+}
+
+export type ContactsSumAggregateInputType = {
+  id_user_fk?: true
+}
 
 export type ContactsMinAggregateInputType = {
   id_contact?: true
@@ -113,6 +131,18 @@ export type ContactsAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ContactsAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ContactsSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ContactsMinAggregateInputType
@@ -143,6 +173,8 @@ export type ContactsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: ContactsCountAggregateInputType | true
+  _avg?: ContactsAvgAggregateInputType
+  _sum?: ContactsSumAggregateInputType
   _min?: ContactsMinAggregateInputType
   _max?: ContactsMaxAggregateInputType
 }
@@ -150,10 +182,12 @@ export type ContactsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type ContactsGroupByOutputType = {
   id_contact: string
   phone_number: string
-  id_user_fk: string
+  id_user_fk: number
   created_at: Date
   updated_at: Date
   _count: ContactsCountAggregateOutputType | null
+  _avg: ContactsAvgAggregateOutputType | null
+  _sum: ContactsSumAggregateOutputType | null
   _min: ContactsMinAggregateOutputType | null
   _max: ContactsMaxAggregateOutputType | null
 }
@@ -179,7 +213,7 @@ export type ContactsWhereInput = {
   NOT?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
   id_contact?: Prisma.StringFilter<"Contacts"> | string
   phone_number?: Prisma.StringFilter<"Contacts"> | string
-  id_user_fk?: Prisma.StringFilter<"Contacts"> | string
+  id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -200,7 +234,7 @@ export type ContactsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
   OR?: Prisma.ContactsWhereInput[]
   NOT?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
-  id_user_fk?: Prisma.StringFilter<"Contacts"> | string
+  id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -213,8 +247,10 @@ export type ContactsOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.ContactsCountOrderByAggregateInput
+  _avg?: Prisma.ContactsAvgOrderByAggregateInput
   _max?: Prisma.ContactsMaxOrderByAggregateInput
   _min?: Prisma.ContactsMinOrderByAggregateInput
+  _sum?: Prisma.ContactsSumOrderByAggregateInput
 }
 
 export type ContactsScalarWhereWithAggregatesInput = {
@@ -223,7 +259,7 @@ export type ContactsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ContactsScalarWhereWithAggregatesInput | Prisma.ContactsScalarWhereWithAggregatesInput[]
   id_contact?: Prisma.StringWithAggregatesFilter<"Contacts"> | string
   phone_number?: Prisma.StringWithAggregatesFilter<"Contacts"> | string
-  id_user_fk?: Prisma.StringWithAggregatesFilter<"Contacts"> | string
+  id_user_fk?: Prisma.IntWithAggregatesFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Contacts"> | Date | string
 }
@@ -239,7 +275,7 @@ export type ContactsCreateInput = {
 export type ContactsUncheckedCreateInput = {
   id_contact: string
   phone_number: string
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -255,7 +291,7 @@ export type ContactsUpdateInput = {
 export type ContactsUncheckedUpdateInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -263,7 +299,7 @@ export type ContactsUncheckedUpdateInput = {
 export type ContactsCreateManyInput = {
   id_contact: string
   phone_number: string
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -278,7 +314,7 @@ export type ContactsUpdateManyMutationInput = {
 export type ContactsUncheckedUpdateManyInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -289,6 +325,10 @@ export type ContactsCountOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type ContactsAvgOrderByAggregateInput = {
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type ContactsMaxOrderByAggregateInput = {
@@ -305,6 +345,10 @@ export type ContactsMinOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type ContactsSumOrderByAggregateInput = {
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type ContactsListRelationFilter = {
@@ -405,7 +449,7 @@ export type ContactsScalarWhereInput = {
   NOT?: Prisma.ContactsScalarWhereInput | Prisma.ContactsScalarWhereInput[]
   id_contact?: Prisma.StringFilter<"Contacts"> | string
   phone_number?: Prisma.StringFilter<"Contacts"> | string
-  id_user_fk?: Prisma.StringFilter<"Contacts"> | string
+  id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
 }
@@ -494,7 +538,7 @@ export type $ContactsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_contact: string
     phone_number: string
-    id_user_fk: string
+    id_user_fk: number
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["contacts"]>
@@ -923,7 +967,7 @@ export interface Prisma__ContactsClient<T, Null = never, ExtArgs extends runtime
 export interface ContactsFieldRefs {
   readonly id_contact: Prisma.FieldRef<"Contacts", 'String'>
   readonly phone_number: Prisma.FieldRef<"Contacts", 'String'>
-  readonly id_user_fk: Prisma.FieldRef<"Contacts", 'String'>
+  readonly id_user_fk: Prisma.FieldRef<"Contacts", 'Int'>
   readonly created_at: Prisma.FieldRef<"Contacts", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Contacts", 'DateTime'>
 }

@@ -31,7 +31,7 @@ class RegisterAddressesService {
                             allowedClasses: {},
                             allowedTags: [],
                         }),
-                        id_user_fk: address.id_user_fk.trim(),
+                        id_user_fk: address.id_user_fk,
                     },
                     tx
                 );

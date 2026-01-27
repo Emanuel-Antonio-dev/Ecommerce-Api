@@ -12,9 +12,9 @@ class UsersProfileController
     {
         try
         {
-            const {id_user} = req.params
-            const user_type = req.query.user_type as "admin" | "client" | undefined
-            const userProfileResult = await userProfileService.profile(id_user as string, user_type)
+            const id_user = Number(req.params.id_user)
+            const {user_type} = req.body.credentials
+            const userProfileResult = await userProfileService.profile(id_user, user_type)
             return res.status(userProfileResult.statusCode).json(userProfileResult)
         } catch (error: any)
         {

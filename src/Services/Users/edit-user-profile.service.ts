@@ -23,7 +23,7 @@ class UsersEditProfileService
         private readonly addressRepository: PrismaAddressesRepositories
     ){}
     async editProfile(
-        id_user: string, 
+        id_user: number, 
         userDatas:Partial<usersDatas>,
         accountDatas: Partial<accountDatas>,
         contactDatas: Partial<contactsDatas>,
@@ -32,6 +32,10 @@ class UsersEditProfileService
     {
         try
         {
+            if(!id_user)
+            {
+                throw new HttpException(false, 400, "Informe o usuário.")
+            }
             const existsUser = await this.userRepository.getUsersProfileDatas(id_user)
             if(!existsUser)
                 {

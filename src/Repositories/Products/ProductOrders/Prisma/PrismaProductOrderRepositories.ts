@@ -12,7 +12,6 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
         const client = tx ?? this.prisma
         return await client.orders.create({
             data:{
-                id_order: nanoid(),
                 total_amount: datas.total_amount,
                 id_user_fk: datas.id_user_fk,
                 status: datas.status,
@@ -25,7 +24,6 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
         const client = tx ?? this.prisma
         return await client.orderItems.create({
             data:{
-                id_order_item: nanoid(),
                 quantity: datas.quantity,
                 id_order_fk: datas.id_order_fk,
                 id_product_fk: datas.id_product_fk,
@@ -33,11 +31,11 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
             }
         })
     }
-    async setOrderStatus(id_order: string, status: "completed" | "cancelled" | "failed"): Promise<any>
+    async setOrderStatus(id_order: number, status: "completed" | "cancelled" | "failed"): Promise<any>
     {
         return await this.prisma.orders.update({where:{id_order: id_order}, data:{status:status}})    
     }
-    async getOrderItemsByOrder(id_order_fk: string): Promise<productsOrderItemsDatas[] | any>
+    async getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[] | any>
     {
         return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk}, include:{order:{include:{user_details: true}}}})
     }

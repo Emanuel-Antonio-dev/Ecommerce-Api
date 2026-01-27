@@ -35,7 +35,7 @@ class RegisterContactService {
                             allowedClasses: {},
                             allowedTags: [],
                         }),
-                        id_user_fk: contact.id_user_fk.trim(),
+                        id_user_fk: contact.id_user_fk,
                     },
                     tx
                 );

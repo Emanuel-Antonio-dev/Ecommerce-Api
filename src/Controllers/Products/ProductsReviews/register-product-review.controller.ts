@@ -23,19 +23,12 @@ class RegisterProductReviewController
                 id_product_fk: req.body.id_product_fk,
                 id_user_fk: req.body.id_user_fk
             }
-            if(!reviewDatas.comment
-                || !reviewDatas.rating 
-                || !reviewDatas.id_product_fk
-                || !reviewDatas.id_user_fk)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message: "Informe todos os campos"})
-            }
             const result = await service.registerProductReview(reviewDatas)
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

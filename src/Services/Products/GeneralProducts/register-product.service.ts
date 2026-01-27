@@ -23,7 +23,7 @@ class RegisterGeneralProductService
             if(
                 !datas.name
                 || !datas.description 
-                || !datas.aditional_info
+                || !datas.additional_info
                 || !datas.price
                 || !datas.id_category_fk
                 || !datas.image_url
@@ -45,7 +45,7 @@ class RegisterGeneralProductService
             {
                 throw new HttpException(false, 400, "Informe o nome do produto com pelo menos 3 caracteres")
             }
-            if (datas.aditional_info.length < 20)
+            if (datas.additional_info.length < 20)
             {
                 throw new HttpException(false, 400, "Informe uma descrição para este produto com pelo menos 20 caracteres");
             }
@@ -93,12 +93,13 @@ class RegisterGeneralProductService
                                 allowedTags:[]
                             }
                         ),
-                        aditional_info: sanitize(datas.aditional_info.trim(),{
+                        additional_info: sanitize(datas.additional_info.trim(),{
                             allowedAttributes:{},
                             allowedClasses:{},
                             allowedTags:[]
                         }),
                         id_category_fk: datas.id_category_fk,
+                        id_brand_fk: datas.id_brand_fk,
                         price: datas.price
                     }, tx
                 )

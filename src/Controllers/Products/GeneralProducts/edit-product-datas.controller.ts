@@ -19,19 +19,21 @@ class EditProductDatasController
             const productDatas: generalProductsDatas = {
                 name: req.body.name,
                 description: req.body.description,
-                aditional_info: req.body.aditional_info,
+                additional_info: req.body.aditional_info,
                 price: req.body.price,
                 available: req.body.available,
                 image_url: req.file?.path,
                 stock: req.body.stock,
+                id_brand_fk: req.body.id_brand_fk,
                 id_category_fk: req.body.id_category_fk
             }
             const result = await service.editProductDatas(id_product,productDatas)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

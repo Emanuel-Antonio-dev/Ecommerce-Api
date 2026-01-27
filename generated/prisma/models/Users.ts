@@ -20,12 +20,22 @@ export type UsersModel = runtime.Types.Result.DefaultSelection<Prisma.$UsersPayl
 
 export type AggregateUsers = {
   _count: UsersCountAggregateOutputType | null
+  _avg: UsersAvgAggregateOutputType | null
+  _sum: UsersSumAggregateOutputType | null
   _min: UsersMinAggregateOutputType | null
   _max: UsersMaxAggregateOutputType | null
 }
 
+export type UsersAvgAggregateOutputType = {
+  id_user: number | null
+}
+
+export type UsersSumAggregateOutputType = {
+  id_user: number | null
+}
+
 export type UsersMinAggregateOutputType = {
-  id_user: string | null
+  id_user: number | null
   first_name: string | null
   last_name: string | null
   username: string | null
@@ -36,7 +46,7 @@ export type UsersMinAggregateOutputType = {
 }
 
 export type UsersMaxAggregateOutputType = {
-  id_user: string | null
+  id_user: number | null
   first_name: string | null
   last_name: string | null
   username: string | null
@@ -58,6 +68,14 @@ export type UsersCountAggregateOutputType = {
   _all: number
 }
 
+
+export type UsersAvgAggregateInputType = {
+  id_user?: true
+}
+
+export type UsersSumAggregateInputType = {
+  id_user?: true
+}
 
 export type UsersMinAggregateInputType = {
   id_user?: true
@@ -131,6 +149,18 @@ export type UsersAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UsersAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UsersSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UsersMinAggregateInputType
@@ -161,12 +191,14 @@ export type UsersGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: UsersCountAggregateInputType | true
+  _avg?: UsersAvgAggregateInputType
+  _sum?: UsersSumAggregateInputType
   _min?: UsersMinAggregateInputType
   _max?: UsersMaxAggregateInputType
 }
 
 export type UsersGroupByOutputType = {
-  id_user: string
+  id_user: number
   first_name: string
   last_name: string
   username: string
@@ -175,6 +207,8 @@ export type UsersGroupByOutputType = {
   created_at: Date
   updated_at: Date
   _count: UsersCountAggregateOutputType | null
+  _avg: UsersAvgAggregateOutputType | null
+  _sum: UsersSumAggregateOutputType | null
   _min: UsersMinAggregateOutputType | null
   _max: UsersMaxAggregateOutputType | null
 }
@@ -198,7 +232,7 @@ export type UsersWhereInput = {
   AND?: Prisma.UsersWhereInput | Prisma.UsersWhereInput[]
   OR?: Prisma.UsersWhereInput[]
   NOT?: Prisma.UsersWhereInput | Prisma.UsersWhereInput[]
-  id_user?: Prisma.StringFilter<"Users"> | string
+  id_user?: Prisma.IntFilter<"Users"> | number
   first_name?: Prisma.StringFilter<"Users"> | string
   last_name?: Prisma.StringFilter<"Users"> | string
   username?: Prisma.StringFilter<"Users"> | string
@@ -232,7 +266,7 @@ export type UsersOrderByWithRelationInput = {
 }
 
 export type UsersWhereUniqueInput = Prisma.AtLeast<{
-  id_user?: string
+  id_user?: number
   username?: string
   id_account_fk?: string
   AND?: Prisma.UsersWhereInput | Prisma.UsersWhereInput[]
@@ -261,15 +295,17 @@ export type UsersOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.UsersCountOrderByAggregateInput
+  _avg?: Prisma.UsersAvgOrderByAggregateInput
   _max?: Prisma.UsersMaxOrderByAggregateInput
   _min?: Prisma.UsersMinOrderByAggregateInput
+  _sum?: Prisma.UsersSumOrderByAggregateInput
 }
 
 export type UsersScalarWhereWithAggregatesInput = {
   AND?: Prisma.UsersScalarWhereWithAggregatesInput | Prisma.UsersScalarWhereWithAggregatesInput[]
   OR?: Prisma.UsersScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UsersScalarWhereWithAggregatesInput | Prisma.UsersScalarWhereWithAggregatesInput[]
-  id_user?: Prisma.StringWithAggregatesFilter<"Users"> | string
+  id_user?: Prisma.IntWithAggregatesFilter<"Users"> | number
   first_name?: Prisma.StringWithAggregatesFilter<"Users"> | string
   last_name?: Prisma.StringWithAggregatesFilter<"Users"> | string
   username?: Prisma.StringWithAggregatesFilter<"Users"> | string
@@ -280,7 +316,6 @@ export type UsersScalarWhereWithAggregatesInput = {
 }
 
 export type UsersCreateInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -296,7 +331,7 @@ export type UsersCreateInput = {
 }
 
 export type UsersUncheckedCreateInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -312,7 +347,6 @@ export type UsersUncheckedCreateInput = {
 }
 
 export type UsersUpdateInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -328,7 +362,7 @@ export type UsersUpdateInput = {
 }
 
 export type UsersUncheckedUpdateInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -344,7 +378,7 @@ export type UsersUncheckedUpdateInput = {
 }
 
 export type UsersCreateManyInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -355,7 +389,6 @@ export type UsersCreateManyInput = {
 }
 
 export type UsersUpdateManyMutationInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -365,7 +398,7 @@ export type UsersUpdateManyMutationInput = {
 }
 
 export type UsersUncheckedUpdateManyInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -396,6 +429,10 @@ export type UsersCountOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
 }
 
+export type UsersAvgOrderByAggregateInput = {
+  id_user?: Prisma.SortOrder
+}
+
 export type UsersMaxOrderByAggregateInput = {
   id_user?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
@@ -416,6 +453,10 @@ export type UsersMinOrderByAggregateInput = {
   id_account_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type UsersSumOrderByAggregateInput = {
+  id_user?: Prisma.SortOrder
 }
 
 export type UsersCreateNestedOneWithoutAccount_detailsInput = {
@@ -527,7 +568,6 @@ export type UsersUpdateOneWithoutMy_cartNestedInput = {
 }
 
 export type UsersCreateWithoutAccount_detailsInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -542,7 +582,7 @@ export type UsersCreateWithoutAccount_detailsInput = {
 }
 
 export type UsersUncheckedCreateWithoutAccount_detailsInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -573,7 +613,6 @@ export type UsersUpdateToOneWithWhereWithoutAccount_detailsInput = {
 }
 
 export type UsersUpdateWithoutAccount_detailsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -588,7 +627,7 @@ export type UsersUpdateWithoutAccount_detailsInput = {
 }
 
 export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -603,7 +642,6 @@ export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
 }
 
 export type UsersCreateWithoutMy_contactsInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -618,7 +656,7 @@ export type UsersCreateWithoutMy_contactsInput = {
 }
 
 export type UsersUncheckedCreateWithoutMy_contactsInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -649,7 +687,6 @@ export type UsersUpdateToOneWithWhereWithoutMy_contactsInput = {
 }
 
 export type UsersUpdateWithoutMy_contactsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -664,7 +701,7 @@ export type UsersUpdateWithoutMy_contactsInput = {
 }
 
 export type UsersUncheckedUpdateWithoutMy_contactsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -679,7 +716,6 @@ export type UsersUncheckedUpdateWithoutMy_contactsInput = {
 }
 
 export type UsersCreateWithoutMy_addressesInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -694,7 +730,7 @@ export type UsersCreateWithoutMy_addressesInput = {
 }
 
 export type UsersUncheckedCreateWithoutMy_addressesInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -725,7 +761,6 @@ export type UsersUpdateToOneWithWhereWithoutMy_addressesInput = {
 }
 
 export type UsersUpdateWithoutMy_addressesInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -740,7 +775,7 @@ export type UsersUpdateWithoutMy_addressesInput = {
 }
 
 export type UsersUncheckedUpdateWithoutMy_addressesInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -755,7 +790,6 @@ export type UsersUncheckedUpdateWithoutMy_addressesInput = {
 }
 
 export type UsersCreateWithoutMy_reviewsInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -770,7 +804,7 @@ export type UsersCreateWithoutMy_reviewsInput = {
 }
 
 export type UsersUncheckedCreateWithoutMy_reviewsInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -801,7 +835,6 @@ export type UsersUpdateToOneWithWhereWithoutMy_reviewsInput = {
 }
 
 export type UsersUpdateWithoutMy_reviewsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -816,7 +849,7 @@ export type UsersUpdateWithoutMy_reviewsInput = {
 }
 
 export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -831,7 +864,6 @@ export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
 }
 
 export type UsersCreateWithoutMy_ordersInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -846,7 +878,7 @@ export type UsersCreateWithoutMy_ordersInput = {
 }
 
 export type UsersUncheckedCreateWithoutMy_ordersInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -877,7 +909,6 @@ export type UsersUpdateToOneWithWhereWithoutMy_ordersInput = {
 }
 
 export type UsersUpdateWithoutMy_ordersInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -892,7 +923,7 @@ export type UsersUpdateWithoutMy_ordersInput = {
 }
 
 export type UsersUncheckedUpdateWithoutMy_ordersInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -907,7 +938,6 @@ export type UsersUncheckedUpdateWithoutMy_ordersInput = {
 }
 
 export type UsersCreateWithoutMy_cartInput = {
-  id_user: string
   first_name: string
   last_name: string
   username: string
@@ -922,7 +952,7 @@ export type UsersCreateWithoutMy_cartInput = {
 }
 
 export type UsersUncheckedCreateWithoutMy_cartInput = {
-  id_user: string
+  id_user?: number
   first_name: string
   last_name: string
   username: string
@@ -953,7 +983,6 @@ export type UsersUpdateToOneWithWhereWithoutMy_cartInput = {
 }
 
 export type UsersUpdateWithoutMy_cartInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -968,7 +997,7 @@ export type UsersUpdateWithoutMy_cartInput = {
 }
 
 export type UsersUncheckedUpdateWithoutMy_cartInput = {
-  id_user?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1121,7 +1150,7 @@ export type $UsersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     my_reviews: Prisma.$ProductsReviewsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id_user: string
+    id_user: number
     first_name: string
     last_name: string
     username: string
@@ -1558,7 +1587,7 @@ export interface Prisma__UsersClient<T, Null = never, ExtArgs extends runtime.Ty
  * Fields of the Users model
  */
 export interface UsersFieldRefs {
-  readonly id_user: Prisma.FieldRef<"Users", 'String'>
+  readonly id_user: Prisma.FieldRef<"Users", 'Int'>
   readonly first_name: Prisma.FieldRef<"Users", 'String'>
   readonly last_name: Prisma.FieldRef<"Users", 'String'>
   readonly username: Prisma.FieldRef<"Users", 'String'>

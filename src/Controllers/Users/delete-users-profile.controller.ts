@@ -14,14 +14,15 @@ class UsersDeleteProfileController
     {
         try
         {
-            const {id_user} = req.params
-            const result = await service.deleteProfile(id_user as string)
+            const id_user = Number(req.params.id_user)
+            const result = await service.deleteProfile(id_user)
             return res.status(result.statusCode).json(result)
-            } catch (error: any)
-            {
-                console.log(error)
-                return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente"})
-            }
+        }
+        catch (error: any)
+        {
+            console.log(error)
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente"})
+        }
         }
 }
 export{UsersDeleteProfileController}

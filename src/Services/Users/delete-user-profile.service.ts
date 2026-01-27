@@ -11,10 +11,14 @@ class UsersDeleteProfileService
         private readonly accountRepository: PrismaAccountRepositories
     ){}
 
-    async deleteProfile(id_user: string)
+    async deleteProfile(id_user: number)
     {
         try
         {
+            if(!id_user)
+            {
+                throw new HttpException(false, 400, "Informe o usuário.")
+            }
             const userExists = await this.repository.getUsersProfileDatas(id_user)
             if(!userExists)
             {

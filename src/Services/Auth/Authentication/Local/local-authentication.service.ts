@@ -44,13 +44,13 @@ class LocalStrategyAuthenticationService
             if(user.user_details?.user_type == "admin")
             {
                 const adminDatas = await this.prisma.users.findFirst({where:{id_user: user.user_details.id_user, user_type:"admin"}})
-                userClaims = {id_admin: adminDatas?.id_user, user_type: adminDatas?.user_type}
+                userClaims = {sub: adminDatas?.id_user, user_type: adminDatas?.user_type}
             }
             
             if(user.user_details?.user_type == "client")
             {
                 const clientDatas = await this.prisma.users.findFirst({where:{id_user: user.user_details.id_user, user_type:"client"}})
-                userClaims = {id_client: clientDatas?.id_user, user_type: clientDatas?.user_type}
+                userClaims = {sub: clientDatas?.id_user, user_type: clientDatas?.user_type}
                 userCartItems = await handleCart(id_guest_cart, user.user_details.id_user)
             }
             const accessToken = JwtOperations.GenerateToken(userClaims, "access")

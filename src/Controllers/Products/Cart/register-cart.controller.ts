@@ -21,24 +21,14 @@ class RegisterCartController
                 id_guest_cart: req.body.id_guest_cart,
                 status: "active"
             }
-            if(!cartDatas.id_user_fk && !cartDatas.id_guest_cart)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os dados"})
-            }
             const cartItems: cartItemsDatas[] = req.body.cartItems || []
-            if (!Array.isArray(cartItems) || cartItems.length === 0) {
-                return res.status(400).json({
-                    success: false,
-                    statusCode: 400,
-                    message: "É necessário informar pelo menos um item no carrinho.",
-                });
-            }
             const result = await service.registerCart(cartDatas,cartItems)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error) 
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

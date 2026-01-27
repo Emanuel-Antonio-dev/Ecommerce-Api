@@ -14,10 +14,11 @@ class DeleteAllProductsCategoriesController
         {
             const categoriesDeleted = await service.deleteAllServiceCategories()
             return res.status(categoriesDeleted.statusCode).json(categoriesDeleted)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

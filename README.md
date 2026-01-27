@@ -1,18 +1,18 @@
 # API-Ecommerce
 
-**API-Ecommerce** é o backend oficial de um e-commerce, uma aplicação voltada para vendas de suplementos. Desenvolvida com Node.js, TypeScript e Prisma, esta API fornece os serviços fundamentais para a gestão de usuários, contas, contatos, produtos, entre outros.
+**API-Ecommerce** é o backend oficial de um e-commerce, uma aplicação voltada para vendas de suplementos. Desenvolvida com Node.js, TypeScript e Prisma, esta API fornece os serviços fundamentais para a gestão de usuários, produtos, compras e pagamentos.
 
 ## Visão Geral
 
 Esta API oferece:
 
 - Interface RESTful clara e bem estruturada.
-- Autenticação e autorização de usuários com JWT.
+- Autenticação e autorização de usuários com JWT e 2FA.
 - Integração com banco de dados relacional usando Prisma ORM.
-- Validações robustas por meio de middlewares.
-- Arquitetura escalável baseada em camadas (Controllers, Services, Repositories, Common).
+- Validações robustas.
+- Arquitetura escalável baseada em camadas (Controllers, Services, Repositories, Interfaces, Common).
 - Testes automatizados.
-- Middlewares de Observbilidade de requisições.
+- Observbilidade.
 - Limites de requisições.
 - Pipelines de CI/CD para facilitar a intrega e implantação contínua.
 - Estrutura modular separada por domínios.
@@ -23,10 +23,10 @@ Esta API oferece:
 |-----------------------|----------------------|
 | Linguagem             | TypeScript           |
 | Plataforma            | Node.js              |
-| Framework Web         | Express.js           |
+| Framework             | Express.js           |
 | ORM                   | Prisma               |
 | Banco de Dados        | PostgreSQL           |
-| Autenticação          | JWT (JSON Web Token) |
+| Autenticação          | JWT + 2FA            |
 | Variáveis de Ambiente | dotenv               |
 | Conteinerização       | Docker               | 
 | Workflows             | Github Actions       | 
@@ -134,7 +134,7 @@ cd API-Ecommerce
 ### 2. Instalar Dependências
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 3. Configurar Variáveis de Ambiente
@@ -156,19 +156,20 @@ npx prisma migrate dev
 ### 5. Iniciar a Aplicação
 
 ```bash
-npm run start:dev
+pnpm start:dev
 ```
 
-A aplicação será executada em `http://localhost:3000`.
+A aplicação será executada em `http://localhost:3000/api.ecommerce/v1`.
 
 ## Scripts
-
+---------------------------------------------------------------
 |       Comando           |         Descrição                 |
 |-------------------------|-----------------------------------|
-|   `npm run start:dev`   |    Inicia o servidor em modo dev  |
-|   `npm run test`        |    Rodar os testes automatizados  |
-|   `npm run build`       |    Compila os arquivos TypeScript |
+|   `pnpm start:dev`      |    Inicia o servidor em modo dev  |
+|   `pnpm test`           |    Rodar os testes automatizados  |
+|   `pnpm build`          |    Compila os arquivos TypeScript |
 |   `npx prisma`          |    Executa comandos do Prisma ORM |
+---------------------------------------------------------------
 
 ## Boas Práticas Adotadas
 
@@ -186,7 +187,7 @@ A aplicação será executada em `http://localhost:3000`.
 
 ## Próximas Funcionalidades
 
-- Módulo de pagamentos
+- Módulo de entregas
 
 ## Licença
 

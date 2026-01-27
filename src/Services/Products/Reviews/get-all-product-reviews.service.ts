@@ -15,7 +15,7 @@ class GetAllProductReviewsService
         {
             if(!id_product)
             {
-                throw new HttpException(false, 400, "Informe todos o produto")
+                throw new HttpException(false, 400, "Informe o produto")
             }
             if(!await this.productRepository.getProductDatas({action:"GetOnlyBasicsDatas"}, id_product, undefined))
             {
@@ -24,7 +24,7 @@ class GetAllProductReviewsService
             const result = await this.repository.getAllProductReviews(id_product)
             if(result.length === 0)
             {
-                throw new HttpException(true, 200, "Este produto ainda não foi avaliado")
+                throw new HttpException(true, 404, "Este produto ainda não foi avaliado")
             }
             const productAverage = await this.productRepository.productAverage(id_product)
             return {success: true, statusCode: 200, datas: {

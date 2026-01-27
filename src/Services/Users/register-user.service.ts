@@ -28,6 +28,18 @@ class RegisterUserService
     )
     {
         try {
+            if(!accountDatas.email
+                ||!userDatas.first_name 
+                ||!userDatas.last_name
+                ||!userDatas.username
+                ||!userDatas.user_type
+                ||contactDatas.length === 0
+                ||addressesDatas.length === 0
+            )
+            {
+                throw new HttpException(false, 400, "Informe todos os campos")
+            }
+
             const transaction = await this.prisma.$transaction(async(tx)=>{
             let datas
                     const account = await this.accountService.register(
@@ -151,6 +163,7 @@ class RegisterUserService
                     {
                         return {success: false, statusCode: error.statusCode, message: error.message}
                     }
+                    console.log(error)
                     return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
             }
         }

@@ -15,12 +15,13 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
         return await client.products.create({
             data:{
                 name: datas.name,
-                aditional_info: datas.aditional_info,
+                additional_info: datas.additional_info,
                 price: datas.price,
                 reference_code: `RFP${year}-${crypto.randomInt(10000, 999999)}`,
                 available: true,
                 description: datas.description,
-                id_category_fk: datas.id_category_fk
+                id_category_fk: datas.id_category_fk,
+                id_brand_fk: datas.id_brand_fk,
             }
         })
     }

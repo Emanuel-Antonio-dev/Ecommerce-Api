@@ -17,10 +17,11 @@ class GetProductDatasController
             const id_product = Number(req.params.id_product)
             const result = await service.getProductDatas(id_product)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}      
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})    
         }
     }
         static async getAllProductsDatas(req: Request, res: Response): Promise<Response | any>
@@ -28,15 +29,12 @@ class GetProductDatasController
         try
         {
             const result = await getAllProductsService.getAll()
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}      
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

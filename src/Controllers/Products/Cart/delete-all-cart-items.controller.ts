@@ -12,17 +12,14 @@ class DeleteAllCarItemsController
     {
         try
         {
-            const {id_cart} = req.params
-            if(!id_cart)
-            {
-                return res.status(400).json({success: false, statusCode: 400, message:"Informe o carrinho"})
-            }
-            const result = await service.deleteAllCartItems(id_cart as string)
+            const id_cart = Number(req.params.id_cart)
+            const result = await service.deleteAllCartItems(id_cart)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

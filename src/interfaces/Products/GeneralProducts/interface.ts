@@ -7,8 +7,9 @@ interface generalProductsDatas
     price: number
     stock?: number
     available?: boolean
-    aditional_info: string
+    additional_info: string
     id_category_fk: number
+    id_brand_fk: number
     image_url?:string | string[] | any
     created_at?: Date
     updated_at?: Date

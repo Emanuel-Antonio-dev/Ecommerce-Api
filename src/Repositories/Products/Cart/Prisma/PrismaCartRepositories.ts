@@ -1,7 +1,6 @@
 import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { ICartRepositories } from "../cart-repositories";
 import { cartDatas, cartItemsDatas } from "../../../../interfaces/Products/Cart/interface";
-import { nanoid } from "nanoid";
 
 class PrismaCartRepositories implements ICartRepositories
 {
@@ -11,7 +10,6 @@ class PrismaCartRepositories implements ICartRepositories
     {
         return await this.prisma.carts.create({
             data:{
-                id_cart: nanoid(),
                 status:"active",
                 id_guest_cart: datas.id_guest_cart ?? null,
                 id_user_fk: datas.id_user_fk ?? null
@@ -23,7 +21,6 @@ class PrismaCartRepositories implements ICartRepositories
         const client = tx ??  this.prisma
         return await client.cartItems.create({
             data:{
-                id_cart_item: nanoid(),
                 price: datas.price,
                 quantity: datas.quantity,
                 id_cart_fk: datas.id_cart_fk,
@@ -31,7 +28,7 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async getCartItems(id_cart?: string, id_user_fk?: string, tx?: Omit<Prisma.TransactionClient, "$transaction"> ): Promise<any>
+    async getCartItems(id_cart?:number, id_user_fk?:number, tx?: Omit<Prisma.TransactionClient, "$transaction"> ): Promise<any>
     {
         const client = tx ?? this.prisma
         const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}
@@ -58,7 +55,7 @@ class PrismaCartRepositories implements ICartRepositories
             }))
         }
     }
-    async editCartItems(id_cart_item: string, data: Partial<cartItemsDatas>): Promise<any>
+    async editCartItems(id_cart_item:number, data: Partial<cartItemsDatas>): Promise<any>
     {
         return await this.prisma.cartItems.update({
             where:{id_cart_item:id_cart_item},
@@ -67,15 +64,15 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async deleteCartItem(id_cart_item: string): Promise<any>
+    async deleteCartItem(id_cart_item:number): Promise<any>
     {
         return await this.prisma.cartItems.delete({where:{id_cart_item:id_cart_item}})
     }
-    async deleteAllCartItems(id_cart: string): Promise<any>
+    async deleteAllCartItems(id_cart:number): Promise<any>
     {
         return await this.prisma.cartItems.deleteMany({where:{id_cart_fk:id_cart}})
     }
-    async getAllCartItems(id_cart: string): Promise<any>
+    async getAllCartItems(id_cart:number): Promise<any>
     {
         return await this.prisma.cartItems.findMany({where:{id_cart_fk:id_cart}, include:{product:true, cart:true}})
     }

@@ -10,7 +10,7 @@ class DeleteProductCategoryService
         {
             if(!id_category)
             {
-                return {success: false, statusCode: 400, message: "Informe a categoria do serviço"}
+                return {success: false, statusCode: 400, message: "Informe a categoria."}
             }
             if(!await this.repository.getCategoryData({action:"GetOnlyBasicsDatas"}, id_category, undefined))
             {

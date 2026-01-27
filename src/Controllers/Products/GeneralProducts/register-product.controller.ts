@@ -21,8 +21,9 @@ class RegisterProductsController
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
-            aditional_info: req.body.aditional_info,
+            additional_info: req.body.aditional_info,
             id_category_fk: req.body.id_category_fk,
+            id_brand_fk: req.body.id_brand_fk,
             stock: req.body.stock,
         }
         const files = req.files as {[filedname: string]: Express.Multer.File[]};
@@ -32,8 +33,9 @@ class RegisterProductsController
         const result = await service.registerProducts({
             name: productDatas.name,
             description: productDatas.description,
-            aditional_info: productDatas.aditional_info,
-            id_category_fk: parseInt(productDatas.id_category_fk.toString()),
+            additional_info: productDatas.additional_info,
+            id_category_fk: productDatas.id_category_fk,
+            id_brand_fk: productDatas.id_brand_fk,
             price: productDatas.price,
             stock: productDatas.stock,
             image_url: imagesDatas.image_url
@@ -42,7 +44,7 @@ class RegisterProductsController
         } catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }

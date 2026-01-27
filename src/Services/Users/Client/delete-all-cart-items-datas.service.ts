@@ -6,9 +6,13 @@ class DeleteAllCartItemsDatasService {
         private readonly repository: PrismaCartRepositories
     ) {}
 
-    async deleteAllCartItems(id_cart: string)
+    async deleteAllCartItems(id_cart: number)
     {
         try {
+            if(!id_cart)
+            {
+                throw new HttpException(false, 400, "Informe o carrinho")
+            }
             if(!await this.repository.getCartItems(undefined, id_cart))
             {
                 throw new HttpException(false, 404, "Este carrinho não existe")

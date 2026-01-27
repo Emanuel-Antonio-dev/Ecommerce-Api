@@ -4,11 +4,11 @@ import { PrismaUsersRepositories } from "../../Repositories/Users/Prisma/PrismaU
 class UsersProfileService
 {
     constructor(private readonly repository: PrismaUsersRepositories){}
-    async profile(id_user: string, user_type?:"admin" | "client")
+    async profile(id_user: number, user_type?:"admin" | "client")
     {
         try
         {
-            if(!id_user)
+            if(!id_user && !user_type)
             {
                 throw new HttpException(false, 400, "Informe todos os campos.")
             }

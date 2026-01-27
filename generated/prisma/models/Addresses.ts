@@ -20,8 +20,18 @@ export type AddressesModel = runtime.Types.Result.DefaultSelection<Prisma.$Addre
 
 export type AggregateAddresses = {
   _count: AddressesCountAggregateOutputType | null
+  _avg: AddressesAvgAggregateOutputType | null
+  _sum: AddressesSumAggregateOutputType | null
   _min: AddressesMinAggregateOutputType | null
   _max: AddressesMaxAggregateOutputType | null
+}
+
+export type AddressesAvgAggregateOutputType = {
+  id_user_fk: number | null
+}
+
+export type AddressesSumAggregateOutputType = {
+  id_user_fk: number | null
 }
 
 export type AddressesMinAggregateOutputType = {
@@ -29,7 +39,7 @@ export type AddressesMinAggregateOutputType = {
   street: string | null
   city: string | null
   country: string | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -39,7 +49,7 @@ export type AddressesMaxAggregateOutputType = {
   street: string | null
   city: string | null
   country: string | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -55,6 +65,14 @@ export type AddressesCountAggregateOutputType = {
   _all: number
 }
 
+
+export type AddressesAvgAggregateInputType = {
+  id_user_fk?: true
+}
+
+export type AddressesSumAggregateInputType = {
+  id_user_fk?: true
+}
 
 export type AddressesMinAggregateInputType = {
   id_address?: true
@@ -125,6 +143,18 @@ export type AddressesAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: AddressesAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: AddressesSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: AddressesMinAggregateInputType
@@ -155,6 +185,8 @@ export type AddressesGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: AddressesCountAggregateInputType | true
+  _avg?: AddressesAvgAggregateInputType
+  _sum?: AddressesSumAggregateInputType
   _min?: AddressesMinAggregateInputType
   _max?: AddressesMaxAggregateInputType
 }
@@ -164,10 +196,12 @@ export type AddressesGroupByOutputType = {
   street: string
   city: string
   country: string
-  id_user_fk: string
+  id_user_fk: number
   created_at: Date
   updated_at: Date
   _count: AddressesCountAggregateOutputType | null
+  _avg: AddressesAvgAggregateOutputType | null
+  _sum: AddressesSumAggregateOutputType | null
   _min: AddressesMinAggregateOutputType | null
   _max: AddressesMaxAggregateOutputType | null
 }
@@ -195,7 +229,7 @@ export type AddressesWhereInput = {
   street?: Prisma.StringFilter<"Addresses"> | string
   city?: Prisma.StringFilter<"Addresses"> | string
   country?: Prisma.StringFilter<"Addresses"> | string
-  id_user_fk?: Prisma.StringFilter<"Addresses"> | string
+  id_user_fk?: Prisma.IntFilter<"Addresses"> | number
   created_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -220,7 +254,7 @@ export type AddressesWhereUniqueInput = Prisma.AtLeast<{
   street?: Prisma.StringFilter<"Addresses"> | string
   city?: Prisma.StringFilter<"Addresses"> | string
   country?: Prisma.StringFilter<"Addresses"> | string
-  id_user_fk?: Prisma.StringFilter<"Addresses"> | string
+  id_user_fk?: Prisma.IntFilter<"Addresses"> | number
   created_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -235,8 +269,10 @@ export type AddressesOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.AddressesCountOrderByAggregateInput
+  _avg?: Prisma.AddressesAvgOrderByAggregateInput
   _max?: Prisma.AddressesMaxOrderByAggregateInput
   _min?: Prisma.AddressesMinOrderByAggregateInput
+  _sum?: Prisma.AddressesSumOrderByAggregateInput
 }
 
 export type AddressesScalarWhereWithAggregatesInput = {
@@ -247,7 +283,7 @@ export type AddressesScalarWhereWithAggregatesInput = {
   street?: Prisma.StringWithAggregatesFilter<"Addresses"> | string
   city?: Prisma.StringWithAggregatesFilter<"Addresses"> | string
   country?: Prisma.StringWithAggregatesFilter<"Addresses"> | string
-  id_user_fk?: Prisma.StringWithAggregatesFilter<"Addresses"> | string
+  id_user_fk?: Prisma.IntWithAggregatesFilter<"Addresses"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Addresses"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Addresses"> | Date | string
 }
@@ -267,7 +303,7 @@ export type AddressesUncheckedCreateInput = {
   street: string
   city: string
   country?: string
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -287,7 +323,7 @@ export type AddressesUncheckedUpdateInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -297,7 +333,7 @@ export type AddressesCreateManyInput = {
   street: string
   city: string
   country?: string
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -316,7 +352,7 @@ export type AddressesUncheckedUpdateManyInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -341,6 +377,10 @@ export type AddressesCountOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
 }
 
+export type AddressesAvgOrderByAggregateInput = {
+  id_user_fk?: Prisma.SortOrder
+}
+
 export type AddressesMaxOrderByAggregateInput = {
   id_address?: Prisma.SortOrder
   street?: Prisma.SortOrder
@@ -359,6 +399,10 @@ export type AddressesMinOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type AddressesSumOrderByAggregateInput = {
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type AddressesCreateNestedManyWithoutUser_detailsInput = {
@@ -455,7 +499,7 @@ export type AddressesScalarWhereInput = {
   street?: Prisma.StringFilter<"Addresses"> | string
   city?: Prisma.StringFilter<"Addresses"> | string
   country?: Prisma.StringFilter<"Addresses"> | string
-  id_user_fk?: Prisma.StringFilter<"Addresses"> | string
+  id_user_fk?: Prisma.IntFilter<"Addresses"> | number
   created_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Addresses"> | Date | string
 }
@@ -562,7 +606,7 @@ export type $AddressesPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     street: string
     city: string
     country: string
-    id_user_fk: string
+    id_user_fk: number
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["addresses"]>
@@ -993,7 +1037,7 @@ export interface AddressesFieldRefs {
   readonly street: Prisma.FieldRef<"Addresses", 'String'>
   readonly city: Prisma.FieldRef<"Addresses", 'String'>
   readonly country: Prisma.FieldRef<"Addresses", 'String'>
-  readonly id_user_fk: Prisma.FieldRef<"Addresses", 'String'>
+  readonly id_user_fk: Prisma.FieldRef<"Addresses", 'Int'>
   readonly created_at: Prisma.FieldRef<"Addresses", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Addresses", 'DateTime'>
 }

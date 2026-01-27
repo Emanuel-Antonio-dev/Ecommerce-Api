@@ -54,13 +54,13 @@ class EditProductDatasService
                     allowedTags:[]
                 })
             }
-            if(datas.aditional_info)
+            if(datas.additional_info)
             {
-                if(datas.aditional_info.length < 20)
+                if(datas.additional_info.length < 20)
                 {
                     throw new HttpException(false, 400, "Informe uma descrição adicional com pelo menos 20 caracteres")
                 }
-                productDatasToUpdate.aditional_info = sanitize(datas.aditional_info, {
+                productDatasToUpdate.additional_info = sanitize(datas.additional_info, {
                     allowedAttributes:{},
                     allowedClasses:{},
                     allowedTags:[]
@@ -85,6 +85,10 @@ class EditProductDatasService
                     throw new HttpException(false, 409, "A categoria selecionada não existe");
                 }
                 productDatasToUpdate.id_category_fk = datas.id_category_fk
+            }
+            if(datas.id_brand_fk)
+            {
+                productDatasToUpdate.id_brand_fk = datas.id_brand_fk
             }
             if(datas.stock)
             {

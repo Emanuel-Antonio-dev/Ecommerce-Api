@@ -35,7 +35,7 @@ export const createStripeWebhookController = (
     let paymentIntent = event.data.object;
 
       console.log("Pagamento confirmado:", paymentIntent.metadata.id_order);
-      service.setOrderStatus( paymentIntent.metadata.id_order,"completed", paymentIntent.metadata.id_user)
+      service.setOrderStatus(Number(paymentIntent.metadata.id_order),"completed", Number(paymentIntent.metadata.id_user))
       .then((success)=>{
         return res.status(success.statusCode).json(success);
       }).catch((failure)=>{
@@ -46,7 +46,7 @@ export const createStripeWebhookController = (
     case "payment_intent.payment_failed":
       paymentIntent = event.data.object;
 
-      service.setOrderStatus( paymentIntent.metadata.id_order,"failed", paymentIntent.metadata.id_user)
+      service.setOrderStatus( Number(paymentIntent.metadata.id_order),"failed", Number(paymentIntent.metadata.id_user))
       .then((success)=>{
         return res.status(success.statusCode).json(success);
       }).catch((failure)=>{
@@ -57,7 +57,7 @@ export const createStripeWebhookController = (
     
       case "payment_intent.canceled":
       paymentIntent = event.data.object;
-      service.setOrderStatus( paymentIntent.metadata.id_order,"cancelled", paymentIntent.metadata.id_user)
+      service.setOrderStatus( Number(paymentIntent.metadata.id_order),"cancelled", Number(paymentIntent.metadata.id_user))
       .then((success)=>{
         return res.status(success.statusCode).json(success);
       }).catch((failure)=>{

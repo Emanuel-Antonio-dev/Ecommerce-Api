@@ -15,10 +15,11 @@ class DeleteProductsController
             const id_product = Number(req.params.id_product) 
             const result = await service.deleteProductData(id_product)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}      
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})  
         }
     }
 }

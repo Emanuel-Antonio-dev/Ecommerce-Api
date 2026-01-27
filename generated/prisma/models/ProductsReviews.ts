@@ -27,31 +27,35 @@ export type AggregateProductsReviews = {
 }
 
 export type ProductsReviewsAvgAggregateOutputType = {
+  id_review: number | null
   rating: number | null
   id_product_fk: number | null
+  id_user_fk: number | null
 }
 
 export type ProductsReviewsSumAggregateOutputType = {
+  id_review: number | null
   rating: number | null
   id_product_fk: number | null
+  id_user_fk: number | null
 }
 
 export type ProductsReviewsMinAggregateOutputType = {
-  id_review: string | null
+  id_review: number | null
   rating: number | null
   comment: string | null
   id_product_fk: number | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
 
 export type ProductsReviewsMaxAggregateOutputType = {
-  id_review: string | null
+  id_review: number | null
   rating: number | null
   comment: string | null
   id_product_fk: number | null
-  id_user_fk: string | null
+  id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -69,13 +73,17 @@ export type ProductsReviewsCountAggregateOutputType = {
 
 
 export type ProductsReviewsAvgAggregateInputType = {
+  id_review?: true
   rating?: true
   id_product_fk?: true
+  id_user_fk?: true
 }
 
 export type ProductsReviewsSumAggregateInputType = {
+  id_review?: true
   rating?: true
   id_product_fk?: true
+  id_user_fk?: true
 }
 
 export type ProductsReviewsMinAggregateInputType = {
@@ -196,11 +204,11 @@ export type ProductsReviewsGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 export type ProductsReviewsGroupByOutputType = {
-  id_review: string
+  id_review: number
   rating: number
   comment: string | null
   id_product_fk: number
-  id_user_fk: string
+  id_user_fk: number
   created_at: Date
   updated_at: Date
   _count: ProductsReviewsCountAggregateOutputType | null
@@ -229,11 +237,11 @@ export type ProductsReviewsWhereInput = {
   AND?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
   OR?: Prisma.ProductsReviewsWhereInput[]
   NOT?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
-  id_review?: Prisma.StringFilter<"ProductsReviews"> | string
+  id_review?: Prisma.IntFilter<"ProductsReviews"> | number
   rating?: Prisma.IntFilter<"ProductsReviews"> | number
   comment?: Prisma.StringNullableFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntFilter<"ProductsReviews"> | number
-  id_user_fk?: Prisma.StringFilter<"ProductsReviews"> | string
+  id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -253,14 +261,14 @@ export type ProductsReviewsOrderByWithRelationInput = {
 }
 
 export type ProductsReviewsWhereUniqueInput = Prisma.AtLeast<{
-  id_review?: string
+  id_review?: number
   AND?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
   OR?: Prisma.ProductsReviewsWhereInput[]
   NOT?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
   rating?: Prisma.IntFilter<"ProductsReviews"> | number
   comment?: Prisma.StringNullableFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntFilter<"ProductsReviews"> | number
-  id_user_fk?: Prisma.StringFilter<"ProductsReviews"> | string
+  id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
@@ -286,17 +294,16 @@ export type ProductsReviewsScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductsReviewsScalarWhereWithAggregatesInput | Prisma.ProductsReviewsScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductsReviewsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductsReviewsScalarWhereWithAggregatesInput | Prisma.ProductsReviewsScalarWhereWithAggregatesInput[]
-  id_review?: Prisma.StringWithAggregatesFilter<"ProductsReviews"> | string
+  id_review?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
   rating?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
   comment?: Prisma.StringNullableWithAggregatesFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
-  id_user_fk?: Prisma.StringWithAggregatesFilter<"ProductsReviews"> | string
+  id_user_fk?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsReviews"> | Date | string
 }
 
 export type ProductsReviewsCreateInput = {
-  id_review: string
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -306,17 +313,16 @@ export type ProductsReviewsCreateInput = {
 }
 
 export type ProductsReviewsUncheckedCreateInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
   id_product_fk: number
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ProductsReviewsUpdateInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -326,27 +332,26 @@ export type ProductsReviewsUpdateInput = {
 }
 
 export type ProductsReviewsUncheckedUpdateInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductsReviewsCreateManyInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
   id_product_fk: number
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ProductsReviewsUpdateManyMutationInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,11 +359,11 @@ export type ProductsReviewsUpdateManyMutationInput = {
 }
 
 export type ProductsReviewsUncheckedUpdateManyInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,8 +389,10 @@ export type ProductsReviewsCountOrderByAggregateInput = {
 }
 
 export type ProductsReviewsAvgOrderByAggregateInput = {
+  id_review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type ProductsReviewsMaxOrderByAggregateInput = {
@@ -409,8 +416,10 @@ export type ProductsReviewsMinOrderByAggregateInput = {
 }
 
 export type ProductsReviewsSumOrderByAggregateInput = {
+  id_review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
+  id_user_fk?: Prisma.SortOrder
 }
 
 export type ProductsReviewsCreateNestedManyWithoutUser_detailsInput = {
@@ -498,7 +507,6 @@ export type ProductsReviewsUncheckedUpdateManyWithoutProductNestedInput = {
 }
 
 export type ProductsReviewsCreateWithoutUser_detailsInput = {
-  id_review: string
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -507,7 +515,7 @@ export type ProductsReviewsCreateWithoutUser_detailsInput = {
 }
 
 export type ProductsReviewsUncheckedCreateWithoutUser_detailsInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
   id_product_fk: number
@@ -545,17 +553,16 @@ export type ProductsReviewsScalarWhereInput = {
   AND?: Prisma.ProductsReviewsScalarWhereInput | Prisma.ProductsReviewsScalarWhereInput[]
   OR?: Prisma.ProductsReviewsScalarWhereInput[]
   NOT?: Prisma.ProductsReviewsScalarWhereInput | Prisma.ProductsReviewsScalarWhereInput[]
-  id_review?: Prisma.StringFilter<"ProductsReviews"> | string
+  id_review?: Prisma.IntFilter<"ProductsReviews"> | number
   rating?: Prisma.IntFilter<"ProductsReviews"> | number
   comment?: Prisma.StringNullableFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntFilter<"ProductsReviews"> | number
-  id_user_fk?: Prisma.StringFilter<"ProductsReviews"> | string
+  id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
 }
 
 export type ProductsReviewsCreateWithoutProductInput = {
-  id_review: string
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -564,10 +571,10 @@ export type ProductsReviewsCreateWithoutProductInput = {
 }
 
 export type ProductsReviewsUncheckedCreateWithoutProductInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -599,7 +606,7 @@ export type ProductsReviewsUpdateManyWithWhereWithoutProductInput = {
 }
 
 export type ProductsReviewsCreateManyUser_detailsInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
   id_product_fk: number
@@ -608,7 +615,6 @@ export type ProductsReviewsCreateManyUser_detailsInput = {
 }
 
 export type ProductsReviewsUpdateWithoutUser_detailsInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -617,7 +623,7 @@ export type ProductsReviewsUpdateWithoutUser_detailsInput = {
 }
 
 export type ProductsReviewsUncheckedUpdateWithoutUser_detailsInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
@@ -626,7 +632,7 @@ export type ProductsReviewsUncheckedUpdateWithoutUser_detailsInput = {
 }
 
 export type ProductsReviewsUncheckedUpdateManyWithoutUser_detailsInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
@@ -635,16 +641,15 @@ export type ProductsReviewsUncheckedUpdateManyWithoutUser_detailsInput = {
 }
 
 export type ProductsReviewsCreateManyProductInput = {
-  id_review: string
+  id_review?: number
   rating: number
   comment?: string | null
-  id_user_fk: string
+  id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ProductsReviewsUpdateWithoutProductInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -653,19 +658,19 @@ export type ProductsReviewsUpdateWithoutProductInput = {
 }
 
 export type ProductsReviewsUncheckedUpdateWithoutProductInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductsReviewsUncheckedUpdateManyWithoutProductInput = {
-  id_review?: Prisma.StringFieldUpdateOperationsInput | string
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_user_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -739,11 +744,11 @@ export type $ProductsReviewsPayload<ExtArgs extends runtime.Types.Extensions.Int
     product: Prisma.$ProductsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id_review: string
+    id_review: number
     rating: number
     comment: string | null
     id_product_fk: number
-    id_user_fk: string
+    id_user_fk: number
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["productsReviews"]>
@@ -1171,11 +1176,11 @@ export interface Prisma__ProductsReviewsClient<T, Null = never, ExtArgs extends 
  * Fields of the ProductsReviews model
  */
 export interface ProductsReviewsFieldRefs {
-  readonly id_review: Prisma.FieldRef<"ProductsReviews", 'String'>
+  readonly id_review: Prisma.FieldRef<"ProductsReviews", 'Int'>
   readonly rating: Prisma.FieldRef<"ProductsReviews", 'Int'>
   readonly comment: Prisma.FieldRef<"ProductsReviews", 'String'>
   readonly id_product_fk: Prisma.FieldRef<"ProductsReviews", 'Int'>
-  readonly id_user_fk: Prisma.FieldRef<"ProductsReviews", 'String'>
+  readonly id_user_fk: Prisma.FieldRef<"ProductsReviews", 'Int'>
   readonly created_at: Prisma.FieldRef<"ProductsReviews", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"ProductsReviews", 'DateTime'>
 }

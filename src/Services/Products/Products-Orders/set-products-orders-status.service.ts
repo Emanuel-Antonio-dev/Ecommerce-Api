@@ -13,13 +13,17 @@ class SetOrdersStatusService
         private readonly emailProvider: SendEmail
     ){}
 
-    async setOrderStatus(id_order: string,status:"completed"|"cancelled"|"failed",id_user: string)
+    async setOrderStatus(id_order: number, status:"completed"|"cancelled"|"failed",id_user: number) 
     {
         try
         {
             if(!id_order || !id_user)
             {
                 throw new HttpException(false, 400, "Informe todos os campos")
+            }
+            if(status !== "completed" && status !== "cancelled" && status!=="failed")
+            {
+                throw new HttpException(false, 400, "Status inválido")
             }
             const order = await this.prisma.orders.findFirst({where: {id_order: id_order, id_user_fk: id_user}})
             const userDatas = await this.userRepository.getUsersProfileDatas(id_user, "client")

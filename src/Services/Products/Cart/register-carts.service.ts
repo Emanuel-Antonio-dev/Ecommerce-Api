@@ -19,7 +19,7 @@ class RegisterCartsService
             {
                 throw new HttpException(false, 400, "Informe todos os campos")
             }
-            if(items.length === 0)
+            if(!Array.isArray(items) || items.length === 0)
             {
                 throw new HttpException(false, 400, "Adicione pelo menos 1 item no carrinho");
             }
@@ -96,7 +96,7 @@ class RegisterCartsService
         }
 
     }
-    async migrateGuestCartToUser(id_guest_cart: string, id_user: string) {
+    async migrateGuestCartToUser(id_guest_cart: string, id_user: number) {
         return this.prisma.$transaction(async (tx) => {
             const guestCart = await tx.carts.findFirst({
                 where: { id_guest_cart, status: "active" },

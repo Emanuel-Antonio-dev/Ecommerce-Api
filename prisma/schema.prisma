@@ -68,14 +68,14 @@ model TwoFactorAuth{
 model Contacts{
   id_contact  String  @id
   phone_number     String @unique
-  id_user_fk  String 
+  id_user_fk  Int 
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_contacts")
 }
 model Users{
-  id_user     String @id
+  id_user     Int @id @default(autoincrement())
   first_name  String
   last_name   String
   username    String @unique
@@ -96,7 +96,7 @@ model Addresses{
   street      String
   city        String
   country     String @default("Angola")
-  id_user_fk  String 
+  id_user_fk  Int 
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -119,25 +119,30 @@ model Products{
   price        Decimal @db.Decimal(10,2)
   available_stock        Int @default(1)
   available    Boolean @default(true)
-  aditional_info String @db.Text
+  additional_info String @db.Text
   weight       Decimal? @db.Decimal(10,2)
   id_category_fk Int
+  id_brand_fk  Int
   images       ProductsImages[]
   reviews      ProductsReviews[]
   order_items  OrderItems[]
   cart_items   CartItems[]
-  brand        ProductBrands[]
+  brand        ProductBrands @relation(fields: [id_brand_fk], references: [id_brand], onDelete: Cascade)
   category     ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
+
+  @@index([id_category_fk])
+  @@index([id_brand_fk])
+  @@index([price])
+  @@index([available])
   @@map("tbl_products")
 }
 model ProductBrands{
   id_brand    Int @id @default(autoincrement())
   name        String @unique
-  description String?
   id_product_fk Int
-  product     Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  product    Products[]
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_product_brands")
@@ -152,11 +157,11 @@ model ProductsImages{
   @@map("tbl_products_images")
 }
 model ProductsReviews{
-  id_review    String @id
+  id_review    Int @id @default(autoincrement())
   rating       Int
   comment      String?
   id_product_fk Int
-  id_user_fk    String
+  id_user_fk    Int
   user_details  Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
   created_at   DateTime  @default(now())
@@ -164,9 +169,9 @@ model ProductsReviews{
   @@map("tbl_products_reviews")
 }
 model Orders{
-  id_order     String @id
+  id_order     Int @id @default(autoincrement())
   total_amount Decimal @db.Decimal(10,2)
-  id_user_fk   String 
+  id_user_fk   Int 
   status       OrderStatus @default(pending)
   payment_method String @default("cash")
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
@@ -174,13 +179,15 @@ model Orders{
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   delivered_at DateTime?
+  @@index([id_user_fk])
+  @@index([status])
   @@map("tbl_orders")
 }
 model OrderItems{
-  id_order_item String @id
+  id_order_item Int @id @default(autoincrement())
   quantity      Int
   price         Decimal? @db.Decimal(10, 2) 
-  id_order_fk   String
+  id_order_fk   Int
   order         Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
   id_product_fk Int
   product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
@@ -189,20 +196,21 @@ model OrderItems{
   @@map("tbl_orders_items")
 }
 model Carts{
-  id_cart      String @id
-  id_user_fk   String? @unique
+  id_cart      Int @id @default(autoincrement())
+  id_user_fk   Int? @unique
   id_guest_cart String?
   user_details Users? @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   cart_items   CartItems[]
   status       CartStatus @default(waiting)
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
+
   @@map("tbl_carts")
 }
 model CartItems{
-  id_cart_item String @id
+  id_cart_item  Int @id @default(autoincrement())
   quantity     Int
-  id_cart_fk   String
+  id_cart_fk   Int
   price        Decimal @db.Decimal(10,2)
   cart         Carts @relation(fields: [id_cart_fk], references: [id_cart], onDelete: Cascade)
   id_product_fk Int

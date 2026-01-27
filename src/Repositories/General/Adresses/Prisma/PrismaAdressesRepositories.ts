@@ -17,7 +17,7 @@ class PrismaAddressesRepositories implements IAddressesRepositories
             id_user_fk: datas.id_user_fk
         }})
     }
-    async getAddressByUserId(id_user: string): Promise<addressesDatas | any>
+    async getAddressByUserId(id_user: number): Promise<addressesDatas | any>
     {
         return await this.prisma.addresses.findFirst({where:{id_user_fk: id_user}})
     }

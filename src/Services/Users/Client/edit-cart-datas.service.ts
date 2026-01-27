@@ -10,9 +10,13 @@ class EditCartItemsService {
 
     ) {}
 
-    async editCartItems(id_user_fk: string, datas: Partial<cartItemsDatas>)
+    async editCartItems(id_user_fk: number, datas: Partial<cartItemsDatas>)
     {
         try {
+        if(!id_user_fk )
+            {
+                throw new HttpException(false, 400, "Informe o usuário")
+            }
             if(!await this.userRepository.getUsersProfileDatas(id_user_fk, "client"))
             {
                 throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")

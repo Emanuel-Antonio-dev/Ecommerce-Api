@@ -24,11 +24,7 @@ class UsersEditProfileController
     {
         try
         {
-            const {id_user} = req.params
-            if(!id_user)
-            {
-                return res.status(400).json({sucess: false, statusCode: 400, message:"Informe o usuário"})   
-            }
+            const id_user = Number(req.params.id_user)
                 const accountDatas ={
                 email: req.body.email,
                 password: req.body.password,
@@ -45,25 +41,10 @@ class UsersEditProfileController
                 city: req.body.city,
                 street: req.body.street
             }
-            if (!accountDatas.email 
-                && !accountDatas.password 
-                && !accountDatas.newPassword
-                && !userDatas.first_name
-                && !userDatas.last_name
-                && !contactDatas.phone_number
-                && !addressDatas.city
-                && !addressDatas.street
-            )
-            {
-                return res.status(400).json({ success: false, statusCode: 400, message: "Informe pelo menos um campo para atualização" });
-            }
-            const result = await service.editProfile(id_user as string,userDatas,accountDatas,contactDatas, addressDatas)
-            if(!result.success)
-            {
-                return res.status(result.statusCode).json(result)
-            }
+            const result = await service.editProfile(id_user,userDatas,accountDatas,contactDatas, addressDatas)
             return res.status(result.statusCode).json(result)
-        } catch (error: any)
+        }
+        catch (error: any)
         {
             console.log(error)
             return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente"})

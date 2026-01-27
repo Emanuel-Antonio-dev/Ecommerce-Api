@@ -60,22 +60,14 @@ class RegisterUsersController
                 city: req.body.city,
                 street: req.body.street
             }]
-
-            if (!accountDatas.email || !accountDatas.password || 
-                !userDatas.first_name || !userDatas.last_name ||
-                contactDatas.length === 0 ||
-                addressDatas.length === 0
-            )
-            {
-                return res.status(400).json({ success: false,statusCode: 400,message: "Por favor, preencha todos os campos!" });
-            }
             const result = await userService.register(accountDatas, userDatas, contactDatas, addressDatas)
             return res.status(result.statusCode).json(result); 
-            } catch (error: any)
-            {
-                console.log(error)
-                return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente"})
-            }
+        }
+        catch (error: any)
+        {
+            console.log(error)
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente"})
+        }
     }
 }
 export{RegisterUsersController}

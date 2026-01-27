@@ -18,7 +18,7 @@ class RegisterProductOrderController
             const orderDatas: productsOrdersDatas =
             {
                 id_user_fk: req.body.id_user_fk,
-                payment_method: "cash",
+                payment_method: req.body.payment_method || "cash",
                 status: "pending",
                 total_amount: req.body.total_amount
             }
@@ -27,7 +27,7 @@ class RegisterProductOrderController
         } catch (error: any)
         {
             console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}    
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})   
         }
     }
 }
