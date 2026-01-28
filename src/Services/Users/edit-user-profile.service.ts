@@ -34,7 +34,7 @@ class UsersEditProfileService
         {
             if(!id_user)
             {
-                throw new HttpException(false, 400, "Informe o usuário.")
+                throw new HttpException(false, 400, "Informe o perfil.")
             }
             const existsUser = await this.userRepository.getUsersProfileDatas(id_user)
             if(!existsUser)
@@ -70,12 +70,12 @@ class UsersEditProfileService
                 {
                     if(!EmailValidator.isValidEmail(accountDatas.email))
                     {
-                        throw new HttpException(false, 400, "Informe um e-mail válido")
+                        throw new HttpException(false, 400, "Informe um e-mail válido.")
                     }
                     const alreadyExistsEmail = await this.accountRepository.getDatas({action:"GetOnlyBasicsDatas"}, undefined, accountDatas.email)
                     if(alreadyExistsEmail)
                     {
-                        throw new HttpException(false, 409, "Este e-mail já está em uso")
+                        throw new HttpException(false, 409, "Este e-mail já está em uso.")
                     }
                     accountDatasToUpdate.email = accountDatas.email
                 }
@@ -83,7 +83,7 @@ class UsersEditProfileService
                 {
                     if(!accountDatas.newPassword)
                     {
-                        throw new HttpException(false, 400, "Informe a sua nova senha")
+                        throw new HttpException(false, 400, "Informe a sua nova senha.")
                     }
                     const searchPassword = await this.accountRepository.getDatas({action:"GetOnlyBasicsDatas"},existsUser.user_details.account_details.email)
                     const passwordMatch = await bcrypt.compare(accountDatas.password, searchPassword.password)
@@ -136,7 +136,7 @@ class UsersEditProfileService
                     && Object.keys(contactDatasToUpdate).length === 0 
                     && Object.keys(addressDatasToUpdate).length === 0)
                     {
-                        throw new HttpException(false, 400, "Informe pelo menos um campo para atualização")
+                        throw new HttpException(false, 400, "Informe pelo menos um campo para atualização.")
                     }
                 if(Object.keys(accountDatasToUpdate).length > 0)
                 {
@@ -179,7 +179,7 @@ class UsersEditProfileService
                     return {success: false, statusCode: error.statusCode, message: error.message}
                 }
                 console.log(error)
-                return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}         
+                return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente."}         
         }
     }
 }

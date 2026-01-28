@@ -10,7 +10,7 @@ const service: UsersDeleteProfileService = new UsersDeleteProfileService(prismaS
 
 class UsersDeleteProfileController
 {
-    static async deleteProfile(req: Request, res: Response):Promise<Response | any>
+    static async delete(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

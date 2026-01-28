@@ -39,7 +39,23 @@ class RegisterUserService
             {
                 throw new HttpException(false, 400, "Informe todos os campos")
             }
-
+            if(userDatas.first_name.length < 3)
+            {
+                throw new HttpException(false, 400, "O seu primeiro nome deve conter pelo menos 3 caracteres.")
+            }
+            if(userDatas.last_name.length < 3)
+            {
+                throw new HttpException(false, 400, "O seu sobrenome deve conter pelo menos 3 caracteres.")
+            }
+            if(userDatas.username.length < 3)
+            {
+                throw new HttpException(false, 400, "O seu nome de usuário deve conter pelo menos 3 caracteres.")
+            }
+            const existsUsername = await this.prisma.users.findFirst({where:{username: userDatas.username}})
+            if(existsUsername)
+            {
+                throw new HttpException(false, 409, "Este nome de usuário já está em uso.")
+            }
             const transaction = await this.prisma.$transaction(async(tx)=>{
             let datas
                     const account = await this.accountService.register(
@@ -126,26 +142,34 @@ class RegisterUserService
                 {
                     datas = {
                     id_user: user.id_user,
-                    id_account_fk: account.datas.id_account,
                     first_name: user.first_name,
                     last_name: user.last_name,
                     username: user.username,
                     email: account.datas.email,
-                    phone_number: contacts,
-                    address: addresses,
+                    phone_number: contacts.map((contact)=>({
+                        phone_numbers: contact[0].phone_number
+                    })),
+                    address: addresses.map((address)=>({
+                        city: address.city,
+                        street: address.street
+                    })),
                     user_type: user.user_type,
                     created_at: user.created_at
                     }
                 }
                 datas = {
                 id_user: user.id_user,
-                id_account_fk: account.datas.id_account,
                 first_name: user.first_name,
                 last_name: user.last_name,
                 username: user.username,
                 email: account.datas.email,
-                phone_number: contacts,
-                address: addresses,
+                phone_number: contacts.map((contact)=>({
+                    phone_numbers: contact[0].phone_number
+                })),
+                address: addresses.map((address)=>({
+                    city: address.city,
+                    street: address.street
+                })),
                 user_type: user.user_type,
                 created_at: user.created_at
                 }

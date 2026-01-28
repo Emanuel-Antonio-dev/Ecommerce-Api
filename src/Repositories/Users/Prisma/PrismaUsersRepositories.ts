@@ -27,7 +27,6 @@ class PrismaUsersRepositories implements IUsersRepositories
     }
     async updateUser(id_user: number, datas: Partial<usersDatas>, ): Promise<any>
     {
-        console.log(datas)
         return await this.prisma.users.update({where:{id_user: id_user}, data:{...datas}})
     }
     async deleteUserProfile(id_user: number,  tx: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>

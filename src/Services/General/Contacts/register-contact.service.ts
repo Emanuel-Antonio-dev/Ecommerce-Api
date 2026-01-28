@@ -24,8 +24,8 @@ class RegisterContactService {
                     return { success: false, statusCode: 409, message: `O contacto ${contact.phone_number} já está em uso.` };
                 }
 
-                if (contact.phone_number.length < 9) {
-                    return { success: false, statusCode: 400, message: `Informe um contacto telefónico válido: ${contact.phone_number}` };
+                if (contact.phone_number.length > 9) {
+                    return { success: false, statusCode: 400, message: `Contacto telefónico ${contact.phone_number} inválido`};
                 }
 
                 const contactCreated = await this.repository.register(

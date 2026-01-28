@@ -13,7 +13,7 @@ const service: RegisterProductReviewService = new RegisterProductReviewService(r
 
 class RegisterProductReviewController
 {
-    static async registerReview(req: Request, res: Response):Promise<Response | any>
+    static async register(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

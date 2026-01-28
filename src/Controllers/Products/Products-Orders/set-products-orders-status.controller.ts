@@ -14,7 +14,7 @@ const service = new SetOrdersStatusService(prismaService,repository,userReposito
 
 class SetProductsOrdersStatusController
 {
-    static async setStatus(req: Request, res: Response):Promise<Response | any>
+    static async set(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

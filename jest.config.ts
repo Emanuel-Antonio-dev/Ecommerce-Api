@@ -17,7 +17,7 @@ const config: Config = {
     "**/__tests__/**/*.?([mc])[jt]s?(x)",
     "**/?(*.)+(spec|test).?([mc])[jt]s?(x)"
   ],
-  setupFilesAfterEnv: ["<rootDir>/tests-setup/global.ts"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setup/global.ts"],
   testTimeout: 30000,
 };
 

@@ -11,7 +11,7 @@ const service: EditCartItemsService = new EditCartItemsService(repository, userR
 
 class EditCartItemsController
 {
-    static async editCartItems(req: Request, res: Response): Promise<Response | any>
+    static async edit(req: Request, res: Response): Promise<Response | any>
     {
         try
         {

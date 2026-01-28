@@ -1,4 +1,4 @@
-import { prismaService } from "../src/lib/prisma.service";
+import { prismaService } from "../../src/lib/prisma.service";
 import "dotenv/config";
 export async function resetDatabase()
 {

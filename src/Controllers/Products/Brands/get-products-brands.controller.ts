@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { prismaService } from "../../../lib/prisma.service";
-import { GetProductsCategoryDatasService } from "../../../Services/Products/Categories/get-product-category.service";
-import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
+import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
+import { GetProductsBrandDatasService } from "../../../Services/Products/Brands/get-product-brand.service";
 
-const repository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
-const getProductCategory: GetProductsCategoryDatasService = new GetProductsCategoryDatasService(repository)
+const repository:  PrismaProductsBrands= new PrismaProductsBrands(prismaService)
+const service: GetProductsBrandDatasService = new GetProductsBrandDatasService(repository)
 
 class GetProductsCategoriesController
 {
@@ -12,8 +12,8 @@ class GetProductsCategoriesController
     {
         try
         {
-            const id_category = Number(req.params.id_category)
-            const result = await getProductCategory.getCategory(id_category)
+            const id_brand = Number(req.params.id_brand)
+            const result = await service.getBrand(id_brand)
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)

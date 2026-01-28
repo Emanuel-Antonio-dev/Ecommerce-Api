@@ -8,7 +8,7 @@ const service: DeleteAllCartItemsDatasService = new DeleteAllCartItemsDatasServi
 
 class DeleteAllCarItemsController
 {
-    static async deleteAllCartItems(req: Request, res: Response): Promise<Response | any>
+    static async deleteAll(req: Request, res: Response): Promise<Response | any>
     {
         try
         {

@@ -1,6 +1,6 @@
-import { app } from "../../src/app";
+import { app } from "../../../src/app";
 import req from "supertest"
-import { generateFakePhoneNumber } from "../../tests-setup/utils/fake-datas";
+import { generateFakePhoneNumber } from "../../setup/utils/fake-datas";
 
     const datas = {
       first_name:"Emanuel",

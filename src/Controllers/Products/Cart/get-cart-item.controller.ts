@@ -11,7 +11,7 @@ const service: GetCartDatasService = new GetCartDatasService(repository, userRep
 
 class GetCartDatasController
 {
-    static async getCartDatas(req: Request, res: Response): Promise<Response | any>
+    static async get(req: Request, res: Response): Promise<Response | any>
     {
         try
         {

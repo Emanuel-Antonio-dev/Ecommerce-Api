@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
 import { prismaService } from "../../../lib/prisma.service";
-import { GetProductsCategoryDatasService } from "../../../Services/Products/Categories/get-product-category.service";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
+import { GetAllProductsCategoriesService } from "../../../Services/Products/Categories/find-all-services-categories.service";
 
 const repository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
-const getProductCategory: GetProductsCategoryDatasService = new GetProductsCategoryDatasService(repository)
+const getAllProductsCategories: GetAllProductsCategoriesService = new GetAllProductsCategoriesService(repository)
 
-class GetProductsCategoriesController
+class GetAllProductsCategoriesController
 {
-    static async get(req: Request, res: Response):Promise<Response | any>
+    static async getAll(req: Request, res: Response):Promise<Response | any>
     {
         try
         {
-            const id_category = Number(req.params.id_category)
-            const result = await getProductCategory.getCategory(id_category)
+            const result = await getAllProductsCategories.getAllCategories()
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)
@@ -23,4 +22,4 @@ class GetProductsCategoriesController
         }
     }
 }
-export {GetProductsCategoriesController}
+export {GetAllProductsCategoriesController}

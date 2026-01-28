@@ -8,7 +8,7 @@ const service: GetAllOrdersService = new GetAllOrdersService(repository)
 
 class GetAllOrdersController
 {
-    static async getAllOrders(req: Request, res: Response):Promise<Response | any>
+    static async getAll(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

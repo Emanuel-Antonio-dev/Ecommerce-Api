@@ -10,7 +10,7 @@ const service: DeleteCartItemDatasService = new DeleteCartItemDatasService(repos
 
 class DeleteCartItemController
 {
-    static async deleteCartItem(req: Request, res: Response): Promise<Response | any>
+    static async delete(req: Request, res: Response): Promise<Response | any>
     {
         try
         {

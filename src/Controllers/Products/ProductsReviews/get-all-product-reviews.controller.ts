@@ -10,7 +10,7 @@ const service: GetAllProductReviewsService = new GetAllProductReviewsService(rep
 
 class GetAllProductReviewsController
 {
-    static async getReviews(req: Request, res: Response):Promise<Response | any>
+    static async get(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

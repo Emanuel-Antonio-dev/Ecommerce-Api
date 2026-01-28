@@ -18,11 +18,11 @@ class PrismaProductsCategories implements IProductsCategories
         {
             return await this.prisma.productsCategories.findFirst({where})
         }
-        return await this.prisma.productsCategories.findFirst({where, include:{products:true}})    
+        return await this.prisma.productsCategories.findFirst({where, include:{product:true}})    
     }
     async getAllCategoriesDatas(): Promise<any[]>
     {
-        return await this.prisma.productsCategories.findMany({include:{products: true }})    
+        return await this.prisma.productsCategories.findMany({include:{product: true }})    
     }
     async updateCategoryDatas(id_category: number, datas: Partial<productsCategoriesDatas>): Promise<any>
     {

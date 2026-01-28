@@ -9,7 +9,7 @@ const service: EditProductCategoryService = new EditProductCategoryService(repos
 
 class EditProductCategoryController
 {
-    static async editProduct(req: Request, res: Response):Promise<Response | any>
+    static async edit(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

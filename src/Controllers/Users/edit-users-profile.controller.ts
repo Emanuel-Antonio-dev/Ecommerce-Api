@@ -20,7 +20,7 @@ const service: UsersEditProfileService = new UsersEditProfileService(
 )
 class UsersEditProfileController
 {
-    static async editProfile(req: Request, res: Response):Promise<Response | any>
+    static async edit(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

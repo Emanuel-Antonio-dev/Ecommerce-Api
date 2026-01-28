@@ -1,6 +1,6 @@
-import { app } from "../../src/app";
+import { app } from "../../../src/app";
 import req from "supertest"
-import { generateFakeEmail, generateFakePhoneNumber } from "../../tests-setup/utils/fake-datas";
+import { generateFakeEmail, generateFakePhoneNumber } from "../../setup/utils/fake-datas";
 
 let datas: any
 let refreshToken: string;

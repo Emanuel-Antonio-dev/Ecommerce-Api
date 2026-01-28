@@ -1,28 +1,25 @@
 import { Response, Request } from "express";
 import { prismaService } from "../../../lib/prisma.service";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
-import { GetProductDatasService } from "../../../Services/Products/GeneralProducts/get-product-data.service";
 import { GetAllProductsDatasService } from "../../../Services/Products/GeneralProducts/get-all-products-datas.service";
 
 const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prismaService)
-const service: GetProductDatasService = new GetProductDatasService(repository)
 const getAllProductsService: GetAllProductsDatasService = new GetAllProductsDatasService(repository)
 
-class GetProductDatasController
+class GetAllProductDatasController
 {
-    static async get(req: Request, res: Response): Promise<Response | any>
+    static async getAll(req: Request, res: Response): Promise<Response | any>
     {
         try
         {
-            const id_product = Number(req.params.id_product)
-            const result = await service.getProductDatas(id_product)
+            const result = await getAllProductsService.getAll()
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)
         {
             console.log(error)
-            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})    
+            return res.status(500).json({success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"})
         }
     }
 }
-export {GetProductDatasController}
+export {GetAllProductDatasController}

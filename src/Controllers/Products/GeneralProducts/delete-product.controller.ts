@@ -8,7 +8,7 @@ const service: DeleteProductDataService = new DeleteProductDataService(repositor
 
 class DeleteProductsController
 {
-    static async deleteProductDatas(req: Request, res: Response): Promise<Response | any>
+    static async delete(req: Request, res: Response): Promise<Response | any>
     {
         try
         {

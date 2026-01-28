@@ -11,12 +11,12 @@ const service: EditProductDatasService = new EditProductDatasService(repository,
 
 class EditProductDatasController
 {
-    static async editProduct(req: Request, res: Response):Promise<Response | any>
+    static async edit(req: Request, res: Response):Promise<Response | any>
     {
         try
         {
             const id_product = Number(req.params.id_product)
-            const productDatas: generalProductsDatas = {
+            const productDatas: Partial<generalProductsDatas> = {
                 name: req.body.name,
                 description: req.body.description,
                 additional_info: req.body.aditional_info,

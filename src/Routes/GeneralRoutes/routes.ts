@@ -26,13 +26,13 @@ generalRoute.route("/health").get((req: Request, res: Response) =>{
   });
 })
 generalRoute.route("/auth/signup").post((req: Request, res: Response) =>{RegisterUsersController.register(req, res)})
-generalRoute.route("/auth/signin").post(limiterMiddleware("Tente novamente dentro de 2 minutos"), (req: Request, res: Response) =>{SignInController.signIn(req, res)})
+generalRoute.route("/auth/signin").post(limiterMiddleware("Tente novamente dentro de 2 minutos",2,3), (req: Request, res: Response) =>{SignInController.signIn(req, res)})
 generalRoute.route("/auth/refreshToken").post((req: Request, res:Response) =>{RefreshTokenController.newAcessToken(req, res)})
 generalRoute.route("/auth/password/request").post((req: Request, res: Response) =>{RequestPasswordController.requestPassword(req, res)})
 generalRoute.route("/auth/password/reset").put((req: Request, res: Response) =>{ResetPasswordController.resetPassword(req, res)})
 generalRoute.route("/auth/logout").post((req: Request, res: Response) =>{LogoutController.logout(req, res)})
 generalRoute.route("/auth/otp/send").post((req: Request, res: Response) =>{SendOtpCodeController.send(req, res)})
-generalRoute.route("/auth/otp/verify-code").post(limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.",2,2),(req: Request, res: Response) =>{ValidateOtpCodeController.validate(req, res)})
+generalRoute.route("/auth/otp/verify-code").post(limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.",2,3),(req: Request, res: Response) =>{ValidateOtpCodeController.validate(req, res)})
 generalRoute.route("/auth/google/signin").get(passport.authenticate("google", {scope:["profile", "email"]}))
 generalRoute.route("/auth/google/callback").get(passport.authenticate("google", {session: false, failureFlash:"/auth/login"}),
     (req: Request, res: Response) => {
@@ -60,7 +60,7 @@ generalRoute.route("/auth/google/callback").get(passport.authenticate("google", 
     })
 
 generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
-generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersEditProfileController.editProfile(req, res)})
-generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersDeleteProfileController.deleteProfile(req, res)})
+generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
+generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
 
 export{generalRoute}

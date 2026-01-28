@@ -12,7 +12,7 @@ class EditProductDatasService
         private readonly categoryRepository: PrismaProductsCategories
     ){}
     
-    async editProductDatas(id_product: number, datas: generalProductsDatas)
+    async editProductDatas(id_product: number, datas: Partial<generalProductsDatas>)
     {
         try
         {

@@ -19,7 +19,7 @@ class UsersProfileService
             const userProfileResult = await this.repository.getUsersProfileDatas(id_user, user_type)
             if (!userProfileResult)
             {
-                throw new HttpException(false, 500, "Ocorreu um erro, tente novamente")
+                throw new HttpException(false, 500, "Ocorreu um erro, tente novamente.")
             }
             return {success: true, statusCode: 200, datas: userProfileResult}
         } catch (error: any)
@@ -29,7 +29,7 @@ class UsersProfileService
                     return {success: false, statusCode: error.statusCode, message: error.message}
                 }
                 console.log(error)
-                return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}         
+                return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente."}         
         }
     }
 }

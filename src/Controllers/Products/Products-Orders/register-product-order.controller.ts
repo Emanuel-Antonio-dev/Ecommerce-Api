@@ -11,7 +11,7 @@ const service: RegisterProductOrderService = new RegisterProductOrderService(pri
 
 class RegisterProductOrderController
 {
-    static async registerProductOrder(req: Request, res: Response):Promise<Response | any>
+    static async register(req: Request, res: Response):Promise<Response | any>
     {
         try
         {

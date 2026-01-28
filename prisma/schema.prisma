@@ -107,7 +107,7 @@ model ProductsCategories{
   id_category  Int @id @default(autoincrement())
   name         String @unique
   description  String?
-  products     Products[]
+  product     Products[]
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   @@map("tbl_products_categories")
@@ -142,7 +142,6 @@ model Products{
 model ProductBrands{
   id_brand    Int @id @default(autoincrement())
   name        String @unique
-  id_product_fk Int
   product    Products[]
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt

@@ -1,5 +1,5 @@
 import req from "supertest"
-import { app } from "../../src/app"
+import { app } from "../../../src/app"
 
 describe("Send otp code", () => {
   it("Should return 200", async () => {
