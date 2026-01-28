@@ -64,6 +64,7 @@ model TwoFactorAuth{
   updated_at             DateTime        @updatedAt
   otp_code_hash          String          @unique(map: "tbl_two_factor_auth_otp_code_key")
   authentication_details Authentications @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
+  @@map("tbl_two_factor_auth")
 }
 model Contacts{
   id_contact  String  @id

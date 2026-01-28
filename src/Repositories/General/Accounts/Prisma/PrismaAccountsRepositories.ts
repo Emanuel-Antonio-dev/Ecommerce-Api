@@ -1,10 +1,10 @@
 import { accountDatas } from "../../../../interfaces/General/Accounts/interface";
 import { IAccountRepositories } from "../account-repositories";
 import { SearchDatasOptions } from "../../../../interfaces/Shared/search-datas-options.interface";
-import {nanoid} from "nanoid";
 import bcrypt from "bcrypt";
 import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { Providers } from "../../../../../generated/prisma/client";
+import crypto from "node:crypto";
 
 class PrismaAccountRepositories implements IAccountRepositories
 {

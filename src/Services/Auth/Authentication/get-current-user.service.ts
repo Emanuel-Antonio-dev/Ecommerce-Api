@@ -4,7 +4,7 @@ import { JwtOperations } from "../../../Common/Utils/AuthenticationsProcols/JwtO
 import { Prisma } from "../../../../generated/prisma/client";
 
 interface UserCredentials {
-  sub: string;
+  sub: number;
   user_type: "admin" | "client";
 }
 

@@ -1,6 +1,6 @@
 interface StripeIntentDatas
 {
-    order_id?: string,
+    order_id?: number,
     amount?: number,
     currency?: string,
     metadata?: Record<string, string>

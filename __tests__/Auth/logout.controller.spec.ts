@@ -1,21 +1,25 @@
 import { app } from "../../src/app";
 import req from "supertest"
-import { generateFakeEmail, generateFakePhoneNumber } from "../setup/utils/fake-datas";
+import { generateFakeEmail, generateFakePhoneNumber } from "../../tests-setup/utils/fake-datas";
 
 let datas: any
 let refreshToken: string;
 beforeEach(async () => {
     datas = {
-        first_name: "Emanuel",
-        last_name: "Rui",
-        user_type: "tourist",
-        gender: "male",
-        phone_number: generateFakePhoneNumber(),
-        nationality: "Angolana",
-        email: generateFakeEmail(),
-        password: "Emaricar16@",
-    };
-    
+      first_name:"Emanuel",
+      last_name:"Da Wizard",
+      email: generateFakeEmail(),
+      contacts:[{
+        phone_number: generateFakePhoneNumber()
+      }],
+      addresses:[{
+        city: "Luanda",
+        street: "Luanda"
+      }],
+      provider:"Local",
+      password:"Emaricar16@",
+      username:"xeeee"
+  };
     await req(app).post("/api.ecommerce/v1/auth/signup").send(datas);
     const loginResponse = await req(app).post("/api.ecommerce/v1/auth/signin").send({
         email: datas.email,

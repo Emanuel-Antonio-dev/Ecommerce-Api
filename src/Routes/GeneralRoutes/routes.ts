@@ -30,7 +30,7 @@ generalRoute.route("/auth/signin").post(limiterMiddleware("Tente novamente dentr
 generalRoute.route("/auth/refreshToken").post((req: Request, res:Response) =>{RefreshTokenController.newAcessToken(req, res)})
 generalRoute.route("/auth/password/request").post((req: Request, res: Response) =>{RequestPasswordController.requestPassword(req, res)})
 generalRoute.route("/auth/password/reset").put((req: Request, res: Response) =>{ResetPasswordController.resetPassword(req, res)})
-generalRoute.route("/auth/logout").post(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{LogoutController.logout(req, res)})
+generalRoute.route("/auth/logout").post((req: Request, res: Response) =>{LogoutController.logout(req, res)})
 generalRoute.route("/auth/otp/send").post((req: Request, res: Response) =>{SendOtpCodeController.send(req, res)})
 generalRoute.route("/auth/otp/verify-code").post(limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.",2,2),(req: Request, res: Response) =>{ValidateOtpCodeController.validate(req, res)})
 generalRoute.route("/auth/google/signin").get(passport.authenticate("google", {scope:["profile", "email"]}))

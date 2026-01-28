@@ -1,8 +1,7 @@
-import { nanoid } from "nanoid";
 import { Prisma, PrismaClient } from "../../../../../../generated/prisma/client";
 import { IProductsImages } from "../products-images-repositories";
 import { productsImagesDatas } from "../../../../../interfaces/Products/Images/interface";
-
+import crypto from "node:crypto"
 class PrismaProductsImages implements IProductsImages
 {
     constructor(private readonly prisma: PrismaClient){}
@@ -16,7 +15,7 @@ class PrismaProductsImages implements IProductsImages
         {
             const image = await client.productsImages.create({
                 data: {
-                    id_image: nanoid(),
+                    id_image: crypto.randomUUID(),
                     url: url,
                     id_product_fk: datas.id_product_fk
                 }

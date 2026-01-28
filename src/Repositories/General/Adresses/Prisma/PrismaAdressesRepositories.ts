@@ -1,7 +1,7 @@
 import { IAddressesRepositories } from "../adresses-repositories";
 import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { addressesDatas } from "../../../../interfaces/General/Adresses/interface";
-import { nanoid } from "nanoid";
+import crypto from "node:crypto";
 
 class PrismaAddressesRepositories implements IAddressesRepositories
 {
@@ -11,7 +11,7 @@ class PrismaAddressesRepositories implements IAddressesRepositories
     {
         const client = tx ?? this.prisma
         return await client.addresses.create({data:{
-            id_address: nanoid(),
+            id_address: crypto.randomUUID(),
             street: datas.street,
             city: datas.city,
             id_user_fk: datas.id_user_fk

@@ -1,7 +1,7 @@
 import { IContactsRepositories } from "../contact-repositories";
 import { Prisma, PrismaClient } from "../../../../../generated/prisma/client";
 import { contactsDatas } from "../../../../interfaces/General/Contacts/interface";
-import { nanoid } from "nanoid";
+import crypto from "node:crypto";
 
 class PrismaContactsRepositories implements IContactsRepositories
 {
@@ -11,7 +11,7 @@ class PrismaContactsRepositories implements IContactsRepositories
     {
         const client = tx || this.prisma
         return await client.contacts.create({data:{
-            id_contact: nanoid(),
+            id_contact: crypto.randomUUID(),
             phone_number: datas.phone_number,
             id_user_fk:datas.id_user_fk
         }})
