@@ -5,11 +5,14 @@ import { PrismaGeneralProductsRepositories } from "../../../Repositories/Product
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
+import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
 
 const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prismaService)
 const categoryRepository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
 const imagesRepository: PrismaProductsImages = new PrismaProductsImages(prismaService)
-const service: RegisterGeneralProductService = new RegisterGeneralProductService(prismaService,repository, imagesRepository, categoryRepository)
+const brandRepository: PrismaProductsBrands = new PrismaProductsBrands(prismaService)
+const service: RegisterGeneralProductService = new RegisterGeneralProductService(prismaService,repository, imagesRepository, categoryRepository, brandRepository)
+
 
 class RegisterProductsController
 {

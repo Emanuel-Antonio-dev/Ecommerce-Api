@@ -4,10 +4,12 @@ import { EditProductDatasService } from "../../../Services/Products/GeneralProdu
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
+import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
 
 const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prismaService)
 const categoryRepository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
-const service: EditProductDatasService = new EditProductDatasService(repository, categoryRepository)
+const brandRepository: PrismaProductsBrands = new PrismaProductsBrands(prismaService)
+const service: EditProductDatasService = new EditProductDatasService(repository, categoryRepository, brandRepository)
 
 class EditProductDatasController
 {

@@ -6,6 +6,7 @@ import { PrismaGeneralProductsRepositories } from "../../../Repositories/Product
 import { generalProductsDatas } from "../../../interfaces/Products/GeneralProducts/interface";
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
+import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
 
 class RegisterGeneralProductService
 {
@@ -13,7 +14,8 @@ class RegisterGeneralProductService
         private readonly prisma: typeof prismaService,
         private readonly repository: PrismaGeneralProductsRepositories,
         private readonly imagesRepository: PrismaProductsImages,
-        private readonly categoryRepository: PrismaProductsCategories
+        private readonly categoryRepository: PrismaProductsCategories,
+        private readonly brandRepository: PrismaProductsBrands
     ){}
 
     async registerProducts(datas: generalProductsDatas)
@@ -26,6 +28,7 @@ class RegisterGeneralProductService
                 || !datas.additional_info
                 || !datas.price
                 || !datas.id_category_fk
+                || !datas.id_brand_fk
                 || !datas.image_url
                 || !datas.stock
             )
@@ -59,6 +62,10 @@ class RegisterGeneralProductService
             if(!await this.categoryRepository.getCategoryData({action:"GetOnlyBasicsDatas"}, datas.id_category_fk, undefined))
             {
                 throw new HttpException(false, 409, "A categoria selecionada não existe");
+            }
+            if(!await this.brandRepository.getProductBrandData({action:"GetOnlyBasicsDatas"}, datas.id_brand_fk, undefined))
+            {
+                throw new HttpException(false, 409, "A marca selecionada não existe");
             }
             let uploadResult
             try
@@ -128,6 +135,7 @@ class RegisterGeneralProductService
                         product_description: product.description,
                         product_aditional_info: product.aditional_info,
                         id_product_category: datas.id_category_fk,
+                        id_product_brand: datas.id_brand_fk,
                         images: images,
                         available: product.available,
                         stock: datas.stock,

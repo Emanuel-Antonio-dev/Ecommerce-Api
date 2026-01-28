@@ -4,12 +4,14 @@ import { generalProductsDatas } from "../../../interfaces/Products/GeneralProduc
 import sanitize from "sanitize-html";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
+import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
 
 class EditProductDatasService
 {
     constructor(
         private readonly repository: PrismaGeneralProductsRepositories,
-        private readonly categoryRepository: PrismaProductsCategories
+        private readonly categoryRepository: PrismaProductsCategories,
+        private readonly brandRepository: PrismaProductsBrands
     ){}
     
     async editProductDatas(id_product: number, datas: Partial<generalProductsDatas>)
@@ -88,6 +90,10 @@ class EditProductDatasService
             }
             if(datas.id_brand_fk)
             {
+                if(await this.brandRepository.getProductBrandData({action:"GetOnlyBasicsDatas"},datas.id_brand_fk, undefined))
+                {
+                    throw new HttpException(false, 409, "A marca selecionada não existe");
+                }
                 productDatasToUpdate.id_brand_fk = datas.id_brand_fk
             }
             if(datas.stock)
