@@ -7,151 +7,126 @@ import { generalProductsDatas } from "../../../interfaces/Products/GeneralProduc
 import { PrismaProductsImages } from "../../../Repositories/Products/GeneralProducts/Images/Prisma/PrismaImagesRepositories";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
+import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/Tags/Prisma/prisma-tags-repositories";
 
-class RegisterGeneralProductService
-{
-    constructor(
-        private readonly prisma: typeof prismaService,
-        private readonly repository: PrismaGeneralProductsRepositories,
-        private readonly imagesRepository: PrismaProductsImages,
-        private readonly categoryRepository: PrismaProductsCategories,
-        private readonly brandRepository: PrismaProductsBrands
-    ){}
+class RegisterGeneralProductService {
+  constructor(
+    private readonly prisma: typeof prismaService,
+    private readonly repository: PrismaGeneralProductsRepositories,
+    private readonly imagesRepository: PrismaProductsImages,
+    private readonly categoryRepository: PrismaProductsCategories,
+    private readonly brandRepository: PrismaProductsBrands,
+    private readonly tagRepository: PrismaProductsTagsRepositories
+  ) {}
 
-    async registerProducts(datas: generalProductsDatas)
-    {
-        try
-        {
-            if(
-                !datas.name
-                || !datas.description 
-                || !datas.additional_info
-                || !datas.price
-                || !datas.id_category_fk
-                || !datas.id_brand_fk
-                || !datas.image_url
-                || !datas.stock
-            )
-            {
-                throw new HttpException(false, 400, "Informe todos os campos")
-            }
-            const existsProduct = await this.repository.getProductDatas({action: "GetOnlyBasicsDatas"}, undefined, sanitize(datas.name, {
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
-            }))
-            if(existsProduct)
-            {
-                throw new HttpException(false, 409, "Já existe um produto com este nome");
-            }
-            if(datas.name.length < 3)
-            {
-                throw new HttpException(false, 400, "Informe o nome do produto com pelo menos 3 caracteres")
-            }
-            if (datas.additional_info.length < 20)
-            {
-                throw new HttpException(false, 400, "Informe uma descrição para este produto com pelo menos 20 caracteres");
-            }
-            if (datas.price <= 0) {
-                throw new HttpException(false, 400, "O preço deve ser maior que 0");
-            }
-            if (!Array.isArray(datas.image_url) || datas.image_url.length === 0)
-            {
-                throw new HttpException(false, 400, "Informe pelo menos uma imagem");
-            }
-            if(!await this.categoryRepository.getCategoryData({action:"GetOnlyBasicsDatas"}, datas.id_category_fk, undefined))
-            {
-                throw new HttpException(false, 409, "A categoria selecionada não existe");
-            }
-            if(!await this.brandRepository.getProductBrandData({action:"GetOnlyBasicsDatas"}, datas.id_brand_fk, undefined))
-            {
-                throw new HttpException(false, 409, "A marca selecionada não existe");
-            }
-            let uploadResult
-            try
-            {
-                uploadResult = await Promise.all(
-                    datas.image_url.map(async(path: string, index: any)=>{
-                        const result = await cloudinary.uploader.upload(path, {
-                            folder: "ProductsImages",
-                            public_id: `image-${Date.now()}_${index}`,
-                            allowed_formats: ["jpg", "jpeg", "png", "webp"],
-                        });
-                        return result;
-                    })
-                )    
-            } catch (error)
-            {
-                console.error("Erro no upload para o Cloudinary:", error);
-                throw new HttpException( false, 400, "Falha ao enviar a imagem");
-            }
-            const transaction = await this.prisma.$transaction(async(tx)=>{
-                const product = await this.repository.register(
-                    {
-                        name: sanitize(datas.name.trim(), {
-                            allowedAttributes:{},
-                            allowedClasses:{},
-                            allowedTags:[]
-                        }),
-                        description: sanitize(datas.description.trim(),
-                            {
-                                allowedAttributes:{},
-                                allowedClasses:{},
-                                allowedTags:[]
-                            }
-                        ),
-                        additional_info: sanitize(datas.additional_info.trim(),{
-                            allowedAttributes:{},
-                            allowedClasses:{},
-                            allowedTags:[]
-                        }),
-                        id_category_fk: datas.id_category_fk,
-                        id_brand_fk: datas.id_brand_fk,
-                        price: datas.price
-                    }, tx
-                )
-                if (!product)
-                {
-                    throw new HttpException(false, 500, "Ocorreu um erro ao criar este produto")
-                }
+  async registerProducts(datas: generalProductsDatas) {
+    try {
+      if (
+        !datas.name ||
+        !datas.description ||
+        !datas.additional_info ||
+        !datas.price ||
+        !datas.id_category_fk ||
+        !datas.id_brand_fk ||
+        !datas.image_url?.length ||
+        !datas.id_tags?.length ||
+        !datas.stock
+      ) {
+        throw new HttpException(false, 400, "Informe todos os campos");
+      }
 
-                const images = await this.imagesRepository.registerImages({
-                image_url: uploadResult.map((urls)=> urls.secure_url),
-                id_product_fk: product.id_product
-                }, tx);
-                if (!images)
-                {
-                    throw new HttpException(false, 500, "Erro ao inserir imagem");
-                }
-                return {
-                    success: true,
-                    statusCode: 201,
-                    message:"Produto criado com sucesso",
-                    datas:{
-                        id_product: product.id_product,
-                        reference_code: product.reference_code,
-                        product_name: product.name,
-                        product_price: product.price,
-                        product_description: product.description,
-                        product_aditional_info: product.aditional_info,
-                        id_product_category: datas.id_category_fk,
-                        id_product_brand: datas.id_brand_fk,
-                        images: images,
-                        available: product.available,
-                        stock: datas.stock,
-                        created_at: product.created_at
-                    }
-                }
-            }, {timeout: 30000})
-            return {success: transaction.success, statusCode: transaction.statusCode, message: transaction.message, datas: transaction.datas}
-        } catch (error: any) {
-            if (error instanceof HttpException)
-            {
-                return {success: false, statusCode: error.statusCode, message: error.message}
-            }
-            console.log(error)
-            return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}
-        }
-        }
+      const nameSanitized = sanitize(datas.name.trim(), { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] });
+      const descriptionSanitized = sanitize(datas.description.trim(), { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] });
+      const additionalInfoSanitized = sanitize(datas.additional_info.trim(), { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] });
+
+      if (nameSanitized.length < 3) throw new HttpException(false, 400, "Nome do produto muito curto");
+      if (additionalInfoSanitized.length < 20) throw new HttpException(false, 400, "Descrição do produto muito curta");
+      if (datas.price <= 0) throw new HttpException(false, 400, "Preço deve ser maior que 0");
+
+      const existsProduct = await this.repository.getProductDatas({ action: "GetOnlyBasicsDatas" }, undefined, nameSanitized);
+      if (existsProduct) throw new HttpException(false, 409, "Produto já existe");
+
+      const categoryExists = await this.categoryRepository.getCategoryData({ action: "GetOnlyBasicsDatas" }, datas.id_category_fk, undefined);
+      if (!categoryExists) throw new HttpException(false, 404, "Categoria não existe");
+
+      const brandExists = await this.brandRepository.getProductBrandData({ action: "GetOnlyBasicsDatas" }, datas.id_brand_fk, undefined);
+      if (!brandExists) throw new HttpException(false, 404, "Marca não existe");
+
+      const uniqueTagIds = [...new Set(datas.id_tags as number[])];
+      const existingTags = await this.tagRepository.getTagDatas({action:"GetOnlyBasicsDatas"},undefined, uniqueTagIds);
+      if (existingTags.length !== uniqueTagIds.length) throw new HttpException(false, 404, "Uma ou mais tags não existem");
+
+      let uploadResult;
+      try {
+        uploadResult = await Promise.all(
+          datas.image_url.map((path: string, idx: number) =>
+            cloudinary.uploader.upload(path, {
+              folder: "ProductsImages",
+              public_id: `image-${Date.now()}_${idx}`,
+              allowed_formats: ["jpg", "jpeg", "png", "webp"],
+            })
+          )
+        );
+      } catch (error) {
+        console.error("Erro no upload para Cloudinary:", error);
+        throw new HttpException(false, 400, "Falha ao enviar imagens");
+      }
+
+      const transactionResult = await this.prisma.$transaction(async (tx) => {
+        const product = await this.repository.register(
+          {
+            name: nameSanitized,
+            description: descriptionSanitized,
+            additional_info: additionalInfoSanitized,
+            id_category_fk: datas.id_category_fk,
+            id_brand_fk: datas.id_brand_fk,
+            price: datas.price,
+            stock: datas.stock,
+            id_tags: datas.id_tags
+          },
+          tx
+        );
+        if (!product) throw new HttpException(false, 500, "Erro ao criar produto");
+        const tagsPerProductCreated = await Promise.all(
+          uniqueTagIds.map((tagId) =>
+            tx.tagsPerProducts.create({
+              data: { id_product_fk: product.id_product, id_tag_fk: Number(tagId) },
+            })
+          )
+        );
+        const images = await this.imagesRepository.registerImages(
+          { image_url: uploadResult.map((r) => r.secure_url), id_product_fk: product.id_product },
+          tx
+        );
+        return { product, tagsPerProductCreated, images };
+      },{timeout:45000});
+
+      return {
+        success: true,
+        statusCode: 201,
+        message: "Produto criado com sucesso",
+        datas: {
+          id_product: transactionResult.product.id_product,
+          reference_code: transactionResult.product.reference_code,
+          product_name: transactionResult.product.name,
+          product_price: transactionResult.product.price,
+          product_description: transactionResult.product.description,
+          product_aditional_info: transactionResult.product.additional_info,
+          id_product_category: datas.id_category_fk,
+          id_product_brand: datas.id_brand_fk,
+          id_tags: transactionResult.tagsPerProductCreated,
+          images: transactionResult.images,
+          available: transactionResult.product.available,
+          stock: transactionResult.product.stock,
+          created_at: transactionResult.product.created_at,
+        },
+      };
+    } catch (error: any) {
+      if (error instanceof HttpException) return { success: false, statusCode: error.statusCode, message: error.message };
+      console.error(error);
+      return { success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!" };
+    }
+  }
 }
+
 export{RegisterGeneralProductService}

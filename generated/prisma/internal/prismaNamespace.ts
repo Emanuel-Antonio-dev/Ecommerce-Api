@@ -393,6 +393,8 @@ export const ModelName = {
   Addresses: 'Addresses',
   ProductsCategories: 'ProductsCategories',
   Products: 'Products',
+  ProductTags: 'ProductTags',
+  TagsPerProducts: 'TagsPerProducts',
   ProductBrands: 'ProductBrands',
   ProductsImages: 'ProductsImages',
   ProductsReviews: 'ProductsReviews',
@@ -415,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "contacts" | "users" | "addresses" | "productsCategories" | "products" | "productBrands" | "productsImages" | "productsReviews" | "orders" | "orderItems" | "carts" | "cartItems"
+    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "contacts" | "users" | "addresses" | "productsCategories" | "products" | "productTags" | "tagsPerProducts" | "productBrands" | "productsImages" | "productsReviews" | "orders" | "orderItems" | "carts" | "cartItems"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1082,6 +1084,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProductsCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProductsCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProductTags: {
+      payload: Prisma.$ProductTagsPayload<ExtArgs>
+      fields: Prisma.ProductTagsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductTagsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductTagsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductTagsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductTagsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        findMany: {
+          args: Prisma.ProductTagsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>[]
+        }
+        create: {
+          args: Prisma.ProductTagsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        createMany: {
+          args: Prisma.ProductTagsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductTagsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductTagsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        update: {
+          args: Prisma.ProductTagsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductTagsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductTagsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductTagsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductTagsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductTagsPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductTagsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductTags>
+        }
+        groupBy: {
+          args: Prisma.ProductTagsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductTagsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductTagsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductTagsCountAggregateOutputType> | number
+        }
+      }
+    }
+    TagsPerProducts: {
+      payload: Prisma.$TagsPerProductsPayload<ExtArgs>
+      fields: Prisma.TagsPerProductsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagsPerProductsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagsPerProductsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        findFirst: {
+          args: Prisma.TagsPerProductsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagsPerProductsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        findMany: {
+          args: Prisma.TagsPerProductsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>[]
+        }
+        create: {
+          args: Prisma.TagsPerProductsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        createMany: {
+          args: Prisma.TagsPerProductsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagsPerProductsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>[]
+        }
+        delete: {
+          args: Prisma.TagsPerProductsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        update: {
+          args: Prisma.TagsPerProductsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        deleteMany: {
+          args: Prisma.TagsPerProductsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagsPerProductsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagsPerProductsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>[]
+        }
+        upsert: {
+          args: Prisma.TagsPerProductsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsPerProductsPayload>
+        }
+        aggregate: {
+          args: Prisma.TagsPerProductsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagsPerProducts>
+        }
+        groupBy: {
+          args: Prisma.TagsPerProductsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagsPerProductsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagsPerProductsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagsPerProductsCountAggregateOutputType> | number
         }
       }
     }
@@ -1769,6 +1919,27 @@ export const ProductsScalarFieldEnum = {
 export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
 
 
+export const ProductTagsScalarFieldEnum = {
+  id_tag: 'id_tag',
+  tag: 'tag',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ProductTagsScalarFieldEnum = (typeof ProductTagsScalarFieldEnum)[keyof typeof ProductTagsScalarFieldEnum]
+
+
+export const TagsPerProductsScalarFieldEnum = {
+  id_tag_per_product: 'id_tag_per_product',
+  id_product_fk: 'id_product_fk',
+  id_tag_fk: 'id_tag_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type TagsPerProductsScalarFieldEnum = (typeof TagsPerProductsScalarFieldEnum)[keyof typeof TagsPerProductsScalarFieldEnum]
+
+
 export const ProductBrandsScalarFieldEnum = {
   id_brand: 'id_brand',
   name: 'name',
@@ -2149,6 +2320,8 @@ export type GlobalOmitConfig = {
   addresses?: Prisma.AddressesOmit
   productsCategories?: Prisma.ProductsCategoriesOmit
   products?: Prisma.ProductsOmit
+  productTags?: Prisma.ProductTagsOmit
+  tagsPerProducts?: Prisma.TagsPerProductsOmit
   productBrands?: Prisma.ProductBrandsOmit
   productsImages?: Prisma.ProductsImagesOmit
   productsReviews?: Prisma.ProductsReviewsOmit

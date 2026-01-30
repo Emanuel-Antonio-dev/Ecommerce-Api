@@ -49,6 +49,7 @@ app.use(urlBase, productsRoutes)
 app.use(urlBase, cartRoutes)
 app.use(urlBase, producstOrders)
 
+
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({success:false, statusCode: 404, message: 'Não conseguimos encontrar esta página.'});
 });

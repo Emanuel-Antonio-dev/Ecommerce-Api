@@ -60,6 +60,8 @@ export const ModelName = {
   Addresses: 'Addresses',
   ProductsCategories: 'ProductsCategories',
   Products: 'Products',
+  ProductTags: 'ProductTags',
+  TagsPerProducts: 'TagsPerProducts',
   ProductBrands: 'ProductBrands',
   ProductsImages: 'ProductsImages',
   ProductsReviews: 'ProductsReviews',
@@ -210,6 +212,27 @@ export const ProductsScalarFieldEnum = {
 } as const
 
 export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
+
+
+export const ProductTagsScalarFieldEnum = {
+  id_tag: 'id_tag',
+  tag: 'tag',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ProductTagsScalarFieldEnum = (typeof ProductTagsScalarFieldEnum)[keyof typeof ProductTagsScalarFieldEnum]
+
+
+export const TagsPerProductsScalarFieldEnum = {
+  id_tag_per_product: 'id_tag_per_product',
+  id_product_fk: 'id_product_fk',
+  id_tag_fk: 'id_tag_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type TagsPerProductsScalarFieldEnum = (typeof TagsPerProductsScalarFieldEnum)[keyof typeof TagsPerProductsScalarFieldEnum]
 
 
 export const ProductBrandsScalarFieldEnum = {

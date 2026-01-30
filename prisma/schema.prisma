@@ -112,26 +112,27 @@ model ProductsCategories{
   updated_at  DateTime  @updatedAt
   @@map("tbl_products_categories")
 }
-model Products{
-  id_product   Int @id @default(autoincrement())
-  reference_code  String @unique
-  name         String
-  description  String?  @db.Text
-  price        Decimal @db.Decimal(10,2)
-  available_stock        Int @default(1)
-  available    Boolean @default(true)
-  additional_info String @db.Text
-  weight       Decimal? @db.Decimal(10,2)
-  id_category_fk Int
-  id_brand_fk  Int
-  images       ProductsImages[]
-  reviews      ProductsReviews[]
-  order_items  OrderItems[]
-  cart_items   CartItems[]
-  brand        ProductBrands @relation(fields: [id_brand_fk], references: [id_brand], onDelete: Cascade)
-  category     ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+model Products {
+  id_product      Int               @id @default(autoincrement())
+  reference_code  String            @unique
+  name            String
+  description     String?           @db.Text
+  price           Decimal           @db.Decimal(10,2)
+  available_stock Int               @default(1)
+  available       Boolean           @default(true)
+  additional_info String            @db.Text
+  weight          Decimal?          @db.Decimal(10,2)
+  id_category_fk  Int
+  id_brand_fk     Int
+  images          ProductsImages[]
+  reviews         ProductsReviews[]
+  order_items     OrderItems[]
+  cart_items      CartItems[]
+  tags            TagsPerProducts[]
+  brand           ProductBrands     @relation(fields: [id_brand_fk], references: [id_brand], onDelete: Cascade)
+  category        ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 
   @@index([id_category_fk])
   @@index([id_brand_fk])
@@ -139,6 +140,30 @@ model Products{
   @@index([available])
   @@map("tbl_products")
 }
+
+model ProductTags {
+  id_tag   Int    @id @default(autoincrement())
+  tag     String @unique
+  product   TagsPerProducts[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tbl_product_tags")
+}
+
+model TagsPerProducts {
+  id_tag_per_product Int @id @default(autoincrement())
+  id_product_fk Int
+  id_tag_fk     Int
+  product Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+  tag     ProductTags @relation(fields: [id_tag_fk], references: [id_tag], onDelete: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([id_product_fk, id_tag_fk])
+  @@map("tbl_tag_per_products")
+}
+
 model ProductBrands{
   id_brand    Int @id @default(autoincrement())
   name        String @unique
@@ -147,6 +172,7 @@ model ProductBrands{
   updated_at  DateTime  @updatedAt
   @@map("tbl_product_brands")
 }
+
 model ProductsImages{
   id_image     String @id
   url          String

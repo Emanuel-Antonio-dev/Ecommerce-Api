@@ -6,14 +6,14 @@ import { GetProductsBrandDatasService } from "../../../Services/Products/Brands/
 const repository:  PrismaProductsBrands= new PrismaProductsBrands(prismaService)
 const service: GetProductsBrandDatasService = new GetProductsBrandDatasService(repository)
 
-class GetProductsCategoriesController
+class GetProductBrandController
 {
     static async get(req: Request, res: Response):Promise<Response | any>
     {
         try
         {
-            const id_brand = Number(req.params.id_brand)
-            const result = await service.getBrand(id_brand)
+            const name = req.params.name
+            const result = await service.getBrand(name as string)
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)
@@ -23,4 +23,4 @@ class GetProductsCategoriesController
         }
     }
 }
-export {GetProductsCategoriesController}
+export {GetProductBrandController}

@@ -10,6 +10,7 @@ interface generalProductsDatas
     additional_info: string
     id_category_fk: number
     id_brand_fk: number
+    id_tags: number | number[] | any
     image_url?:string | string[] | any
     created_at?: Date
     updated_at?: Date

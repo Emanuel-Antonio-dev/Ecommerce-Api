@@ -83,6 +83,16 @@ export type ProductsCategories = Prisma.ProductsCategoriesModel
  */
 export type Products = Prisma.ProductsModel
 /**
+ * Model ProductTags
+ * 
+ */
+export type ProductTags = Prisma.ProductTagsModel
+/**
+ * Model TagsPerProducts
+ * 
+ */
+export type TagsPerProducts = Prisma.TagsPerProductsModel
+/**
  * Model ProductBrands
  * 
  */

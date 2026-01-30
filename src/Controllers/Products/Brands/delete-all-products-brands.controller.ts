@@ -12,8 +12,8 @@ class DeleteAllProductsBrandsController
     {
         try
         {
-            const categoriesDeleted = await service.deleteProductsBrands()
-            return res.status(categoriesDeleted.statusCode).json(categoriesDeleted)
+            const brandsDeleted = await service.deleteProductsBrands()
+            return res.status(brandsDeleted.statusCode).json(brandsDeleted)
         }
         catch (error: any)
         {
