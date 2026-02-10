@@ -1,6 +1,6 @@
 node_modules
 .env
-/src/generated/prisma
+generated
 dist/
 /distdocker/postgresql/data/
 prisma/migrations/
@@ -10,5 +10,6 @@ postgresql/data/
 docker/
 *.log
 *.pid
+logs
 npm-debug.log*
 src/Common/Utils/Uploads/ProductImages/
