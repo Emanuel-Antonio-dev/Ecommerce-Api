@@ -52,7 +52,6 @@ class InitSeoSettingsService {
                 og_image: seoDatas.og_image
                     ? sanitize(seoDatas.og_image, { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] })
                     : undefined,
-                    id_tour_fk: seoDatas.id_tour_fk,
                     seo_type: seoDatas.seo_type
             };
 

@@ -8,7 +8,6 @@ interface RegisterSeoSettingsDatas
     og_description?: string
     og_image?: string
     seo_type: "system"
-    id_tour_fk: number
     created_at?: Date | string
     updated_at?: Date | string
 }
