@@ -10,8 +10,13 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "types": ["node", "jest"]
   },
   "include":[
-    "./src/**/*.ts"
-, "src/server.ts"  ]
+    "./src/**/*.ts",
+    "src/server.ts",
+    "**/*.spec.ts", 
+    "**/*.test.ts"
+
+  ]
 }
