@@ -4,7 +4,6 @@ import { Prisma } from "../../../generated/prisma/client";
 import { RegisterSeoKeywordsDatas, RegisterSeoSettingsDatas } from "../../interfaces/Settings/interface";
 import { ISeoSettingsRepositories } from "../../Repositories/SystemSettings/Seo/ISystem-Seo-repositories";
 import { HttpException } from "../../Common/Middlewares/Filters/HttpException";
-
 import validator from 'validator';
 
 class InitSeoSettingsService {

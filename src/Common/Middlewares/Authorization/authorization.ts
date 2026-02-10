@@ -28,7 +28,7 @@ class MiddlewareAuthorization
         } catch (error: any)
         {
             console.log(error)
-            return res.status(500).json({ success: false, message: "Ocorreu um erro, por favor tente novamente." }) 
+            return res.status(500).json({ success: false, statusCode:500,message: "Ocorreu um erro, por favor tente novamente." }) 
         }
     }
 
