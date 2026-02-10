@@ -231,6 +231,7 @@ export type AccountsWhereInput = {
   created_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   authentication_details?: Prisma.AuthenticationsListRelationFilter
+  account_logs_details?: Prisma.SystemLogsListRelationFilter
   user_details?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.UsersWhereInput> | null
 }
 
@@ -247,6 +248,7 @@ export type AccountsOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   authentication_details?: Prisma.AuthenticationsOrderByRelationAggregateInput
+  account_logs_details?: Prisma.SystemLogsOrderByRelationAggregateInput
   user_details?: Prisma.UsersOrderByWithRelationInput
 }
 
@@ -266,6 +268,7 @@ export type AccountsWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   authentication_details?: Prisma.AuthenticationsListRelationFilter
+  account_logs_details?: Prisma.SystemLogsListRelationFilter
   user_details?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.UsersWhereInput> | null
 }, "id_account" | "email">
 
@@ -316,6 +319,7 @@ export type AccountsCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
+  account_logs_details?: Prisma.SystemLogsCreateNestedManyWithoutAccount_detailsInput
   user_details?: Prisma.UsersCreateNestedOneWithoutAccount_detailsInput
 }
 
@@ -332,6 +336,7 @@ export type AccountsUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
+  account_logs_details?: Prisma.SystemLogsUncheckedCreateNestedManyWithoutAccount_detailsInput
   user_details?: Prisma.UsersUncheckedCreateNestedOneWithoutAccount_detailsInput
 }
 
@@ -348,6 +353,7 @@ export type AccountsUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
+  account_logs_details?: Prisma.SystemLogsUpdateManyWithoutAccount_detailsNestedInput
   user_details?: Prisma.UsersUpdateOneWithoutAccount_detailsNestedInput
 }
 
@@ -364,6 +370,7 @@ export type AccountsUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
+  account_logs_details?: Prisma.SystemLogsUncheckedUpdateManyWithoutAccount_detailsNestedInput
   user_details?: Prisma.UsersUncheckedUpdateOneWithoutAccount_detailsNestedInput
 }
 
@@ -519,6 +526,20 @@ export type AccountsUpdateOneRequiredWithoutUser_detailsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountsUpdateToOneWithWhereWithoutUser_detailsInput, Prisma.AccountsUpdateWithoutUser_detailsInput>, Prisma.AccountsUncheckedUpdateWithoutUser_detailsInput>
 }
 
+export type AccountsCreateNestedOneWithoutAccount_logs_detailsInput = {
+  create?: Prisma.XOR<Prisma.AccountsCreateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedCreateWithoutAccount_logs_detailsInput>
+  connectOrCreate?: Prisma.AccountsCreateOrConnectWithoutAccount_logs_detailsInput
+  connect?: Prisma.AccountsWhereUniqueInput
+}
+
+export type AccountsUpdateOneRequiredWithoutAccount_logs_detailsNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountsCreateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedCreateWithoutAccount_logs_detailsInput>
+  connectOrCreate?: Prisma.AccountsCreateOrConnectWithoutAccount_logs_detailsInput
+  upsert?: Prisma.AccountsUpsertWithoutAccount_logs_detailsInput
+  connect?: Prisma.AccountsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountsUpdateToOneWithWhereWithoutAccount_logs_detailsInput, Prisma.AccountsUpdateWithoutAccount_logs_detailsInput>, Prisma.AccountsUncheckedUpdateWithoutAccount_logs_detailsInput>
+}
+
 export type AccountsCreateWithoutAuthentication_detailsInput = {
   id_account: string
   email: string
@@ -531,6 +552,7 @@ export type AccountsCreateWithoutAuthentication_detailsInput = {
   is_delected?: boolean | null
   created_at?: Date | string
   updated_at?: Date | string
+  account_logs_details?: Prisma.SystemLogsCreateNestedManyWithoutAccount_detailsInput
   user_details?: Prisma.UsersCreateNestedOneWithoutAccount_detailsInput
 }
 
@@ -546,6 +568,7 @@ export type AccountsUncheckedCreateWithoutAuthentication_detailsInput = {
   is_delected?: boolean | null
   created_at?: Date | string
   updated_at?: Date | string
+  account_logs_details?: Prisma.SystemLogsUncheckedCreateNestedManyWithoutAccount_detailsInput
   user_details?: Prisma.UsersUncheckedCreateNestedOneWithoutAccount_detailsInput
 }
 
@@ -577,6 +600,7 @@ export type AccountsUpdateWithoutAuthentication_detailsInput = {
   is_delected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_logs_details?: Prisma.SystemLogsUpdateManyWithoutAccount_detailsNestedInput
   user_details?: Prisma.UsersUpdateOneWithoutAccount_detailsNestedInput
 }
 
@@ -592,6 +616,7 @@ export type AccountsUncheckedUpdateWithoutAuthentication_detailsInput = {
   is_delected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_logs_details?: Prisma.SystemLogsUncheckedUpdateManyWithoutAccount_detailsNestedInput
   user_details?: Prisma.UsersUncheckedUpdateOneWithoutAccount_detailsNestedInput
 }
 
@@ -608,6 +633,7 @@ export type AccountsCreateWithoutUser_detailsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
+  account_logs_details?: Prisma.SystemLogsCreateNestedManyWithoutAccount_detailsInput
 }
 
 export type AccountsUncheckedCreateWithoutUser_detailsInput = {
@@ -623,6 +649,7 @@ export type AccountsUncheckedCreateWithoutUser_detailsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
+  account_logs_details?: Prisma.SystemLogsUncheckedCreateNestedManyWithoutAccount_detailsInput
 }
 
 export type AccountsCreateOrConnectWithoutUser_detailsInput = {
@@ -654,6 +681,7 @@ export type AccountsUpdateWithoutUser_detailsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
+  account_logs_details?: Prisma.SystemLogsUpdateManyWithoutAccount_detailsNestedInput
 }
 
 export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
@@ -669,6 +697,87 @@ export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
+  account_logs_details?: Prisma.SystemLogsUncheckedUpdateManyWithoutAccount_detailsNestedInput
+}
+
+export type AccountsCreateWithoutAccount_logs_detailsInput = {
+  id_account: string
+  email: string
+  password?: string | null
+  verified?: boolean
+  providerId?: string | null
+  provider?: $Enums.Providers
+  deleted_at?: Date | string | null
+  is_active?: boolean
+  is_delected?: boolean | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
+  user_details?: Prisma.UsersCreateNestedOneWithoutAccount_detailsInput
+}
+
+export type AccountsUncheckedCreateWithoutAccount_logs_detailsInput = {
+  id_account: string
+  email: string
+  password?: string | null
+  verified?: boolean
+  providerId?: string | null
+  provider?: $Enums.Providers
+  deleted_at?: Date | string | null
+  is_active?: boolean
+  is_delected?: boolean | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
+  user_details?: Prisma.UsersUncheckedCreateNestedOneWithoutAccount_detailsInput
+}
+
+export type AccountsCreateOrConnectWithoutAccount_logs_detailsInput = {
+  where: Prisma.AccountsWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountsCreateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedCreateWithoutAccount_logs_detailsInput>
+}
+
+export type AccountsUpsertWithoutAccount_logs_detailsInput = {
+  update: Prisma.XOR<Prisma.AccountsUpdateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedUpdateWithoutAccount_logs_detailsInput>
+  create: Prisma.XOR<Prisma.AccountsCreateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedCreateWithoutAccount_logs_detailsInput>
+  where?: Prisma.AccountsWhereInput
+}
+
+export type AccountsUpdateToOneWithWhereWithoutAccount_logs_detailsInput = {
+  where?: Prisma.AccountsWhereInput
+  data: Prisma.XOR<Prisma.AccountsUpdateWithoutAccount_logs_detailsInput, Prisma.AccountsUncheckedUpdateWithoutAccount_logs_detailsInput>
+}
+
+export type AccountsUpdateWithoutAccount_logs_detailsInput = {
+  id_account?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_delected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
+  user_details?: Prisma.UsersUpdateOneWithoutAccount_detailsNestedInput
+}
+
+export type AccountsUncheckedUpdateWithoutAccount_logs_detailsInput = {
+  id_account?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_delected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
+  user_details?: Prisma.UsersUncheckedUpdateOneWithoutAccount_detailsNestedInput
 }
 
 
@@ -678,10 +787,12 @@ export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
 
 export type AccountsCountOutputType = {
   authentication_details: number
+  account_logs_details: number
 }
 
 export type AccountsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authentication_details?: boolean | AccountsCountOutputTypeCountAuthentication_detailsArgs
+  account_logs_details?: boolean | AccountsCountOutputTypeCountAccount_logs_detailsArgs
 }
 
 /**
@@ -701,6 +812,13 @@ export type AccountsCountOutputTypeCountAuthentication_detailsArgs<ExtArgs exten
   where?: Prisma.AuthenticationsWhereInput
 }
 
+/**
+ * AccountsCountOutputType without action
+ */
+export type AccountsCountOutputTypeCountAccount_logs_detailsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SystemLogsWhereInput
+}
+
 
 export type AccountsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_account?: boolean
@@ -715,6 +833,7 @@ export type AccountsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   created_at?: boolean
   updated_at?: boolean
   authentication_details?: boolean | Prisma.Accounts$authentication_detailsArgs<ExtArgs>
+  account_logs_details?: boolean | Prisma.Accounts$account_logs_detailsArgs<ExtArgs>
   user_details?: boolean | Prisma.Accounts$user_detailsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accounts"]>
@@ -764,6 +883,7 @@ export type AccountsSelectScalar = {
 export type AccountsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_account" | "email" | "password" | "verified" | "providerId" | "provider" | "deleted_at" | "is_active" | "is_delected" | "created_at" | "updated_at", ExtArgs["result"]["accounts"]>
 export type AccountsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authentication_details?: boolean | Prisma.Accounts$authentication_detailsArgs<ExtArgs>
+  account_logs_details?: boolean | Prisma.Accounts$account_logs_detailsArgs<ExtArgs>
   user_details?: boolean | Prisma.Accounts$user_detailsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountsCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -774,6 +894,7 @@ export type $AccountsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Accounts"
   objects: {
     authentication_details: Prisma.$AuthenticationsPayload<ExtArgs>[]
+    account_logs_details: Prisma.$SystemLogsPayload<ExtArgs>[]
     user_details: Prisma.$UsersPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1183,6 +1304,7 @@ readonly fields: AccountsFieldRefs;
 export interface Prisma__AccountsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   authentication_details<T extends Prisma.Accounts$authentication_detailsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Accounts$authentication_detailsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuthenticationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  account_logs_details<T extends Prisma.Accounts$account_logs_detailsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Accounts$account_logs_detailsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SystemLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user_details<T extends Prisma.Accounts$user_detailsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Accounts$user_detailsArgs<ExtArgs>>): Prisma.Prisma__UsersClient<runtime.Types.Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1633,6 +1755,30 @@ export type Accounts$authentication_detailsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.AuthenticationsScalarFieldEnum | Prisma.AuthenticationsScalarFieldEnum[]
+}
+
+/**
+ * Accounts.account_logs_details
+ */
+export type Accounts$account_logs_detailsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SystemLogs
+   */
+  select?: Prisma.SystemLogsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SystemLogs
+   */
+  omit?: Prisma.SystemLogsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SystemLogsInclude<ExtArgs> | null
+  where?: Prisma.SystemLogsWhereInput
+  orderBy?: Prisma.SystemLogsOrderByWithRelationInput | Prisma.SystemLogsOrderByWithRelationInput[]
+  cursor?: Prisma.SystemLogsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SystemLogsScalarFieldEnum | Prisma.SystemLogsScalarFieldEnum[]
 }
 
 /**

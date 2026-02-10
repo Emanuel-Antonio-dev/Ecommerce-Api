@@ -6,7 +6,7 @@ const HOST = "0.0.0.0";
 
 function startServer() {
   app.listen(PORT, HOST, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}/api.ecommerce/v1`);
+    console.log(`🚀 This server is running on http://localhost:${PORT}/api.ecommerce/v1`);
   });
 }
 

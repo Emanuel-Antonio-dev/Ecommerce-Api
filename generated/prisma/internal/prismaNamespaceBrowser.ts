@@ -68,7 +68,11 @@ export const ModelName = {
   Orders: 'Orders',
   OrderItems: 'OrderItems',
   Carts: 'Carts',
-  CartItems: 'CartItems'
+  CartItems: 'CartItems',
+  SeoSettings: 'SeoSettings',
+  SeoKeywords: 'SeoKeywords',
+  UsersActions: 'UsersActions',
+  SystemLogs: 'SystemLogs'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -320,6 +324,56 @@ export const CartItemsScalarFieldEnum = {
 } as const
 
 export type CartItemsScalarFieldEnum = (typeof CartItemsScalarFieldEnum)[keyof typeof CartItemsScalarFieldEnum]
+
+
+export const SeoSettingsScalarFieldEnum = {
+  id_seo_setting: 'id_seo_setting',
+  seo_title: 'seo_title',
+  seo_description: 'seo_description',
+  canonical_url: 'canonical_url',
+  og_title: 'og_title',
+  og_description: 'og_description',
+  og_image: 'og_image',
+  seo_type: 'seo_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SeoSettingsScalarFieldEnum = (typeof SeoSettingsScalarFieldEnum)[keyof typeof SeoSettingsScalarFieldEnum]
+
+
+export const SeoKeywordsScalarFieldEnum = {
+  id_seo_keyword: 'id_seo_keyword',
+  keyword: 'keyword',
+  id_seo_setting_fk: 'id_seo_setting_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SeoKeywordsScalarFieldEnum = (typeof SeoKeywordsScalarFieldEnum)[keyof typeof SeoKeywordsScalarFieldEnum]
+
+
+export const UsersActionsScalarFieldEnum = {
+  id_user_action: 'id_user_action',
+  action_name: 'action_name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type UsersActionsScalarFieldEnum = (typeof UsersActionsScalarFieldEnum)[keyof typeof UsersActionsScalarFieldEnum]
+
+
+export const SystemLogsScalarFieldEnum = {
+  id_system_log: 'id_system_log',
+  system_agent: 'system_agent',
+  ip_address: 'ip_address',
+  id_user_action_fk: 'id_user_action_fk',
+  id_account_fk: 'id_account_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
 
 
 export const SortOrder = {

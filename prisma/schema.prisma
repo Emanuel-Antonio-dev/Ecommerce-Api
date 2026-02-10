@@ -23,6 +23,7 @@ model Accounts{
   is_active              Boolean           @default(true)
   is_delected            Boolean?
   authentication_details Authentications[]
+  account_logs_details   SystemLogs[]
   user_details  Users?
   created_at   DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -246,7 +247,57 @@ model CartItems{
   updated_at  DateTime  @updatedAt
   @@map("tbl_carts_items")
 }
+model SeoSettings {
+  id_seo_setting         String   @id 
+  seo_title              String   @unique
+  seo_description        String
+  canonical_url          String?
+  og_title               String?
+  og_description         String?
+  og_image               String?
+  seo_type               String? @default("system")
+  keywords_details       SeoKeywords[]
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
 
+  @@map("tbl_seo_settings")
+}
+model SeoKeywords {
+  id_seo_keyword     String   @id @default(cuid())
+  keyword            String
+  id_seo_setting_fk  String
+  seo_details        SeoSettings @relation(fields: [id_seo_setting_fk], references: [id_seo_setting], onDelete: Cascade)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  @@map("tbl_seo_keywords")
+}
+model UsersActions {
+  id_user_action      String       @id
+  action_name         String       @unique
+  created_at          DateTime     @default(now())
+  updated_at          DateTime     @updatedAt
+  system_logs_details SystemLogs[]
+
+  @@map("tbl_users_actions")
+}
+
+model SystemLogs {
+  id_system_log       Int          @id
+  system_agent        String
+  ip_address          String
+  id_user_action_fk   String
+  id_account_fk       String
+  created_at          DateTime     @default(now())
+  updated_at          DateTime     @updatedAt
+  account_details     Accounts     @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+  user_action_details UsersActions @relation(fields: [id_user_action_fk], references: [id_user_action], onDelete: Cascade)
+  
+  @@index([id_account_fk])
+  @@index([id_user_action_fk])
+  @@index([created_at])
+
+  @@map("tbl_system_logs")
+}
 enum UsersTypes {
   admin
   client

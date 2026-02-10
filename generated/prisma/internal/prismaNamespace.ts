@@ -401,7 +401,11 @@ export const ModelName = {
   Orders: 'Orders',
   OrderItems: 'OrderItems',
   Carts: 'Carts',
-  CartItems: 'CartItems'
+  CartItems: 'CartItems',
+  SeoSettings: 'SeoSettings',
+  SeoKeywords: 'SeoKeywords',
+  UsersActions: 'UsersActions',
+  SystemLogs: 'SystemLogs'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "contacts" | "users" | "addresses" | "productsCategories" | "products" | "productTags" | "tagsPerProducts" | "productBrands" | "productsImages" | "productsReviews" | "orders" | "orderItems" | "carts" | "cartItems"
+    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "contacts" | "users" | "addresses" | "productsCategories" | "products" | "productTags" | "tagsPerProducts" | "productBrands" | "productsImages" | "productsReviews" | "orders" | "orderItems" | "carts" | "cartItems" | "seoSettings" | "seoKeywords" | "usersActions" | "systemLogs"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1753,6 +1757,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SeoSettings: {
+      payload: Prisma.$SeoSettingsPayload<ExtArgs>
+      fields: Prisma.SeoSettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SeoSettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SeoSettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.SeoSettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SeoSettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        findMany: {
+          args: Prisma.SeoSettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>[]
+        }
+        create: {
+          args: Prisma.SeoSettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        createMany: {
+          args: Prisma.SeoSettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SeoSettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.SeoSettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        update: {
+          args: Prisma.SeoSettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SeoSettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SeoSettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SeoSettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SeoSettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoSettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.SeoSettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSeoSettings>
+        }
+        groupBy: {
+          args: Prisma.SeoSettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeoSettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SeoSettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeoSettingsCountAggregateOutputType> | number
+        }
+      }
+    }
+    SeoKeywords: {
+      payload: Prisma.$SeoKeywordsPayload<ExtArgs>
+      fields: Prisma.SeoKeywordsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SeoKeywordsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SeoKeywordsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        findFirst: {
+          args: Prisma.SeoKeywordsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SeoKeywordsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        findMany: {
+          args: Prisma.SeoKeywordsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>[]
+        }
+        create: {
+          args: Prisma.SeoKeywordsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        createMany: {
+          args: Prisma.SeoKeywordsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SeoKeywordsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>[]
+        }
+        delete: {
+          args: Prisma.SeoKeywordsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        update: {
+          args: Prisma.SeoKeywordsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SeoKeywordsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SeoKeywordsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SeoKeywordsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SeoKeywordsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeoKeywordsPayload>
+        }
+        aggregate: {
+          args: Prisma.SeoKeywordsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSeoKeywords>
+        }
+        groupBy: {
+          args: Prisma.SeoKeywordsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeoKeywordsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SeoKeywordsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeoKeywordsCountAggregateOutputType> | number
+        }
+      }
+    }
+    UsersActions: {
+      payload: Prisma.$UsersActionsPayload<ExtArgs>
+      fields: Prisma.UsersActionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UsersActionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UsersActionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        findFirst: {
+          args: Prisma.UsersActionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UsersActionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        findMany: {
+          args: Prisma.UsersActionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>[]
+        }
+        create: {
+          args: Prisma.UsersActionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        createMany: {
+          args: Prisma.UsersActionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UsersActionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>[]
+        }
+        delete: {
+          args: Prisma.UsersActionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        update: {
+          args: Prisma.UsersActionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.UsersActionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UsersActionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UsersActionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.UsersActionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersActionsPayload>
+        }
+        aggregate: {
+          args: Prisma.UsersActionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUsersActions>
+        }
+        groupBy: {
+          args: Prisma.UsersActionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UsersActionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UsersActionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UsersActionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    SystemLogs: {
+      payload: Prisma.$SystemLogsPayload<ExtArgs>
+      fields: Prisma.SystemLogsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SystemLogsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SystemLogsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        findFirst: {
+          args: Prisma.SystemLogsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SystemLogsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        findMany: {
+          args: Prisma.SystemLogsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>[]
+        }
+        create: {
+          args: Prisma.SystemLogsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        createMany: {
+          args: Prisma.SystemLogsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SystemLogsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>[]
+        }
+        delete: {
+          args: Prisma.SystemLogsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        update: {
+          args: Prisma.SystemLogsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SystemLogsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SystemLogsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SystemLogsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SystemLogsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemLogsPayload>
+        }
+        aggregate: {
+          args: Prisma.SystemLogsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSystemLogs>
+        }
+        groupBy: {
+          args: Prisma.SystemLogsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemLogsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SystemLogsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemLogsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2025,6 +2325,56 @@ export const CartItemsScalarFieldEnum = {
 } as const
 
 export type CartItemsScalarFieldEnum = (typeof CartItemsScalarFieldEnum)[keyof typeof CartItemsScalarFieldEnum]
+
+
+export const SeoSettingsScalarFieldEnum = {
+  id_seo_setting: 'id_seo_setting',
+  seo_title: 'seo_title',
+  seo_description: 'seo_description',
+  canonical_url: 'canonical_url',
+  og_title: 'og_title',
+  og_description: 'og_description',
+  og_image: 'og_image',
+  seo_type: 'seo_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SeoSettingsScalarFieldEnum = (typeof SeoSettingsScalarFieldEnum)[keyof typeof SeoSettingsScalarFieldEnum]
+
+
+export const SeoKeywordsScalarFieldEnum = {
+  id_seo_keyword: 'id_seo_keyword',
+  keyword: 'keyword',
+  id_seo_setting_fk: 'id_seo_setting_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SeoKeywordsScalarFieldEnum = (typeof SeoKeywordsScalarFieldEnum)[keyof typeof SeoKeywordsScalarFieldEnum]
+
+
+export const UsersActionsScalarFieldEnum = {
+  id_user_action: 'id_user_action',
+  action_name: 'action_name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type UsersActionsScalarFieldEnum = (typeof UsersActionsScalarFieldEnum)[keyof typeof UsersActionsScalarFieldEnum]
+
+
+export const SystemLogsScalarFieldEnum = {
+  id_system_log: 'id_system_log',
+  system_agent: 'system_agent',
+  ip_address: 'ip_address',
+  id_user_action_fk: 'id_user_action_fk',
+  id_account_fk: 'id_account_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2330,6 +2680,10 @@ export type GlobalOmitConfig = {
   orderItems?: Prisma.OrderItemsOmit
   carts?: Prisma.CartsOmit
   cartItems?: Prisma.CartItemsOmit
+  seoSettings?: Prisma.SeoSettingsOmit
+  seoKeywords?: Prisma.SeoKeywordsOmit
+  usersActions?: Prisma.UsersActionsOmit
+  systemLogs?: Prisma.SystemLogsOmit
 }
 
 /* Types for Logging */

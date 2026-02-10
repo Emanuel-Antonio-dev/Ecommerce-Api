@@ -127,3 +127,23 @@ export type Carts = Prisma.CartsModel
  * 
  */
 export type CartItems = Prisma.CartItemsModel
+/**
+ * Model SeoSettings
+ * 
+ */
+export type SeoSettings = Prisma.SeoSettingsModel
+/**
+ * Model SeoKeywords
+ * 
+ */
+export type SeoKeywords = Prisma.SeoKeywordsModel
+/**
+ * Model UsersActions
+ * 
+ */
+export type UsersActions = Prisma.UsersActionsModel
+/**
+ * Model SystemLogs
+ * 
+ */
+export type SystemLogs = Prisma.SystemLogsModel
