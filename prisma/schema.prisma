@@ -106,6 +106,7 @@ model Addresses{
 model ProductsCategories{
   id_category  Int @id @default(autoincrement())
   name         String @unique
+  slug         String @unique
   description  String?
   product     Products[]
   created_at   DateTime  @default(now())

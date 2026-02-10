@@ -9,11 +9,15 @@ class PrismaProductsCategories implements IProductsCategories
 
     async register(datas: productsCategoriesDatas): Promise<any>
     {
-        return await this.prisma.productsCategories.create({data:{...datas}})
+        return await this.prisma.productsCategories.create({data:{
+            name: datas.name,
+            slug: datas.slug!,
+            description: datas.description
+        }})
     }
-    async getCategoryData(mode: SearchDatasOptions,id_category?: number, name?: string): Promise<any>
+    async getCategoryData(mode: SearchDatasOptions,id_category?: number, name?: string, slug?: string): Promise<any>
     {
-        const where = id_category ? {id_category: id_category} : {name: name}
+        const where = id_category ? { id_category } : { OR: [{ name },{ slug }]}
         if(mode.action === "GetOnlyBasicsDatas")
         {
             return await this.prisma.productsCategories.findFirst({where})

@@ -1,5 +1,8 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
+import slugify from "slugify";
+import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+
 import sanitize from "sanitize-html";
 
 class RegisterProductCategoryService
@@ -14,29 +17,41 @@ class RegisterProductCategoryService
             {
                 return {success: false, statusCode: 400, message:"Preencha todos os campos"}
             }
-            if(await this.repository.getCategoryData({action:"GetOnlyBasicsDatas"}, undefined, datas.name))
+            const slugFormatted = slugify(datas.name, {lower: true,strict: true,trim: true});
+            if (!slugFormatted)
             {
-                return {success: false, statusCode: 409, message:"Já existe uma categoria com este nome"}
+                throw new HttpException(false, 400, "Não foi possível gerar o slug");
             }
-            const result = await this.repository.register({
-                name: sanitize(datas.name.trim(),
+            const alreadyExistsCategory = await this.repository.getCategoryData({ action: "GetOnlyBasicsDatas" }, undefined, datas.name, undefined);
+            if (alreadyExistsCategory)
             {
-                allowedClasses: {},
-                allowedAttributes:{},
-                allowedTags:[]
-            }),
-                description: sanitize(datas.description.trim(),
-            {
-                allowedClasses:{},
-                allowedAttributes:{},
-                allowedTags: []
-        })
-            })
-            if(!result)
-            {
-                return {success: false, statusCode: 400, message:"Ocorreu um erro ao cadastrar esta categoria"} 
+                throw new HttpException(false, 409, "Esta categoria já existe");
             }
-            return {success: true, statusCode: 201, message:"Categoria criada com sucesso", datas: result}
+            const alreadyExistsSlug = await this.repository.getCategoryData({ action: "GetOnlyBasicsDatas" },undefined,undefined,slugFormatted);
+            if (alreadyExistsSlug)
+            {
+                throw new HttpException(false, 409, "Este slug já está em uso");
+            }
+            const categoryResult = await this.repository.register({
+                name: sanitize(datas.name, {
+                    allowedTags: [],
+                    allowedAttributes: {},
+                }),
+                slug: sanitize(slugFormatted, {
+                    allowedTags: [],
+                    allowedAttributes: {},
+                }),
+                description: sanitize(datas.description, {
+                    allowedTags: [],
+                    allowedAttributes: {},
+                }),
+            });
+
+            if (!categoryResult)
+            {
+                throw new HttpException(false,500,"Ocorreu um erro ao criar esta categoria, tente novamente");
+            }
+            return {success: true, statusCode: 201, message:"Categoria criada com sucesso", datas: categoryResult}
         } catch (error: any)
         {
             console.log(error)

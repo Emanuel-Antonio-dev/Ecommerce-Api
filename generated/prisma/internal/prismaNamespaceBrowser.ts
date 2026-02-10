@@ -187,6 +187,7 @@ export type AddressesScalarFieldEnum = (typeof AddressesScalarFieldEnum)[keyof t
 export const ProductsCategoriesScalarFieldEnum = {
   id_category: 'id_category',
   name: 'name',
+  slug: 'slug',
   description: 'description',
   created_at: 'created_at',
   updated_at: 'updated_at'
