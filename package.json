@@ -6,7 +6,8 @@
     "Node",
     "js",
     "Ts",
-    "E-commerce"
+    "E-commerce",
+    "Emanuel António"
   ],
   "homepage": "https://github.com/Emaricarprogrammer/E-commerce#readme",
   "bugs": {
@@ -17,7 +18,7 @@
     "url": "git+https://github.com/Emaricarprogrammer/E-commerce.git"
   },
   "license": "MIT",
-  "author": "Emanuel António, xDevelopment",
+  "author": "Emanuel António, x-Development",
   "type": "commonjs",
   "main": "server.ts",
   "scripts": {
