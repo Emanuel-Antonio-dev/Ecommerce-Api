@@ -58,9 +58,9 @@ class PrismaProductsTagsRepositories implements IProductsTagsRepositories
         return null;
 
     }
-    async deleteTag(tag: string): Promise<any>
+    async deleteTag(id_tag: number): Promise<any>
     {
-        return await this.prisma.productTags.delete({where:{tag: tag}})    
+        return await this.prisma.productTags.delete({where:{id_tag: id_tag}})    
     }
     async editTagDatas(id_tag: number, datas: Partial<ProductsTagsDatas>): Promise<any>
     {

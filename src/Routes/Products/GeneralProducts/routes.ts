@@ -30,20 +30,20 @@ productsRoutes.route("/products/:id_product").patch(MiddlewareAuthorization.auth
 productsRoutes.route("/products/:id_product").get((req: Request, res: Response) => {GetProductDatasController.get(req, res)})
 productsRoutes.route("/products").get((req: Request, res: Response) => {GetAllProductDatasController.getAll(req, res)})
 
-productsRoutes.route("/products/reviews").post((req: Request, res: Response) => {RegisterProductReviewController.register(req, res)})
+productsRoutes.route("/products/reviews").post(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isClient,(req: Request, res: Response) => {RegisterProductReviewController.register(req, res)})
 productsRoutes.route("/products/:id_product_fk/reviews").get((req: Request, res: Response) => {GetAllProductReviewsController.get(req, res)})
 
-productsRoutes.route("/tags").post((req: Request, res: Response) => {RegisterProductsTagsController.register(req, res)})
+productsRoutes.route("/tags").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {RegisterProductsTagsController.register(req, res)})
 productsRoutes.route("/tags").get((req: Request, res: Response) => {GetAllProductTagsController.getAll(req, res)})
 productsRoutes.route("/tags/:tag").get((req: Request, res: Response) => {GetProductTagsController.get(req, res)})
 //productsRoutes.route("/tags/:id_prodcut_fk").get((req: Request, res: Response) => {GetAllTagsPerProductController.getAll(req, res)})
-productsRoutes.route("/tags/:tag").delete((req: Request, res: Response) => {DeleteProductTagController.delete(req, res)})
+productsRoutes.route("/tags/:id_tag").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {DeleteProductTagController.delete(req, res)})
 
-productsRoutes.route("/brands").post((req: Request, res: Response) => {RegisterProductBrandController.register(req, res)})
+productsRoutes.route("/brands").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {RegisterProductBrandController.register(req, res)})
 productsRoutes.route("/brands").get((req: Request, res: Response) => {GetAllProductsBrandsController.getAll(req, res)})
 productsRoutes.route("/brands/:name").get((req: Request, res: Response) => {GetProductBrandController.get(req, res)})
-productsRoutes.route("/brands/:id_brand").delete((req: Request, res: Response) => {DeleteProductBrandController.delete(req, res)})
-productsRoutes.route("/brands/:id_brand").put((req: Request, res: Response) => {EditProductBrandController.edit(req, res)})
-productsRoutes.route("/brands").delete((req: Request, res: Response) => {DeleteAllProductsBrandsController.deleteAll(req, res)})
+productsRoutes.route("/brands/:id_brand").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {DeleteProductBrandController.delete(req, res)})
+productsRoutes.route("/brands/:id_brand").put(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {EditProductBrandController.edit(req, res)})
+productsRoutes.route("/brands").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {DeleteAllProductsBrandsController.deleteAll(req, res)})
 
 export {productsRoutes}

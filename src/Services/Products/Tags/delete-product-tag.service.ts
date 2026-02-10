@@ -3,20 +3,20 @@ import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/T
 class DeleteProductTagService
 {
   constructor(private readonly repository: PrismaProductsTagsRepositories) {}
-  async deleteTag(tag: string)
+  async deleteTag(id_tag: number)
   {
     try
     {
-        if(!tag)
+        if(!id_tag)
         {
             return {success: false,statusCode: 400,message: "Informe a tag não."};   
         }
-        const exists = await this.repository.getTagDatas({action:"GetOnlyBasicsDatas"},tag,undefined);
+        const exists = await this.repository.getTagDatas({action:"GetOnlyBasicsDatas"},undefined,id_tag);
         if (!exists)
         {
             return {success: false,statusCode: 404,message: "Tag não encontrada.",};
         }
-        const result = await this.repository.deleteTag(tag);
+        const result = await this.repository.deleteTag(id_tag);
         if(!result)
         {
             return {success: false,statusCode: 500,message: "Ocorreu um erro ao remover essa tag."};

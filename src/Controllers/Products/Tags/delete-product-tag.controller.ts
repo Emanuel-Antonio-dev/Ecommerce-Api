@@ -12,8 +12,8 @@ class DeleteProductTagController
   {
     try
     {
-        const {tag} = req.params;
-        const result = await service.deleteTag(tag as string);
+        const id_tag = Number(req.params.id_tag);
+        const result = await service.deleteTag(id_tag);
         return res.status(result.statusCode).json(result);
     }
     catch (error: any)

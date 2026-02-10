@@ -4,7 +4,7 @@ import { SearchDatasOptions } from "../../../interfaces/Shared/search-datas-opti
 abstract class IProductsTagsRepositories {
   abstract register(datas: ProductsTagsDatas): Promise<any>;
   abstract getTagDatas(mode: SearchDatasOptions,tag?: string | string[], id_tag?: number | number[]): Promise<any>;
-  abstract deleteTag(tag: string): Promise<any>;
+  abstract deleteTag(id_tag: number): Promise<any>;
   abstract editTagDatas(id_tag: number, datas: Partial<ProductsTagsDatas>): Promise<any>;
   abstract getAllTagsPerProduct(id_product: number):Promise<any[]>
   abstract getAllTags():Promise<any[]>
