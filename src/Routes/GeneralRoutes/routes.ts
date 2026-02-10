@@ -44,8 +44,8 @@ generalRoute.get("/auth/google/callback",passport.authenticate("google", {sessio
 generalRoute.get("/auth/facebook/signin",passport.authenticate("facebook", { scope: ["email"] }));
 generalRoute.get("/auth/facebook/callback",passport.authenticate("facebook", {session: false,failureRedirect: `${FRONT_URL}/login?error=facebook_oauth_failed`}),oauthRedirect);
 
-generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
-generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
-generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
+generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
+generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
+generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
 
 export{generalRoute}
