@@ -59,26 +59,16 @@ async function registerAdmin() {
 
   const result = await userService.register(
     {
-      email: process.env.ADMIN_EMAIL!,
-      password: process.env.ADMIN_PASSWORD!
+      email: process.env.ADMIN_EMAIL as string,
+      password: process.env.ADMIN_PASSWORD as string,
+      provider:"Local"
     },
     {
       first_name: process.env.ADMIN_FIRST_NAME!,
       last_name: process.env.ADMIN_LAST_NAME!,
       user_type: "admin",
       username: process.env.ADMIN_USERNAME!
-    },
-    [
-      {
-        phone_number: process.env.ADMIN_PHONE_NUMBER!
-      }
-    ],
-    [
-      {
-        city: "Luanda",
-        street: "Luanda"
-      }
-    ]
+    }
   );
 
   if (!result.success) {

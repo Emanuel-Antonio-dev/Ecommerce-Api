@@ -20,7 +20,12 @@ class RegisterProductOrderController
                 id_user_fk: req.body.id_user_fk,
                 payment_method: req.body.payment_method || "cash",
                 status: "pending",
-                total_amount: req.body.total_amount
+                total_amount: req.body.total_amount,
+                shipping_city: req.body.shipping_city,
+                shipping_country: req.body.shipping_country  || "Angola",
+                shipping_phone_number: req.body.shipping_phone_number,
+                shipping_province: req.body.shipping_province,
+                shipping_street: req.body.shipping_street
             }
             const result = await service.registerOrder(orderDatas);
             return res.status(result.statusCode).json(result);

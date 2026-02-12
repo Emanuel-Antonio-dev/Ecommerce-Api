@@ -31,6 +31,17 @@ class RegisterAddressesService {
                             allowedClasses: {},
                             allowedTags: [],
                         }),
+                        province: sanitize(address.province,{
+                            allowedAttributes: {},
+                            allowedClasses: {},
+                            allowedTags: [],
+                        }),
+                        reference: sanitize(address.reference,{
+                            allowedAttributes: {},
+                            allowedClasses: {},
+                            allowedTags: [],
+                        }),
+                        is_default: address.is_default,
                         id_user_fk: address.id_user_fk,
                     },
                     tx

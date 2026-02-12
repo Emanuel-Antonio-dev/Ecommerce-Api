@@ -14,6 +14,9 @@ class PrismaAddressesRepositories implements IAddressesRepositories
             id_address: crypto.randomUUID(),
             street: datas.street,
             city: datas.city,
+            province: datas.province,
+            reference: datas.reference,
+            is_default: false,
             id_user_fk: datas.id_user_fk
         }})
     }

@@ -15,7 +15,12 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
                 total_amount: datas.total_amount,
                 id_user_fk: datas.id_user_fk,
                 status: datas.status,
-                payment_method: datas.payment_method
+                payment_method: datas.payment_method,
+                shipping_city: datas.shipping_city,
+                shipping_country: datas.shipping_country,
+                shipping_phone_number: datas.shipping_phone_number,
+                shipping_province: datas.shipping_province,
+                shipping_street: datas.shipping_street
             }
         })
     }

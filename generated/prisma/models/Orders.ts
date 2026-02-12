@@ -44,6 +44,11 @@ export type OrdersMinAggregateOutputType = {
   id_user_fk: number | null
   status: $Enums.OrderStatus | null
   payment_method: string | null
+  shipping_street: string | null
+  shipping_city: string | null
+  shipping_province: string | null
+  shipping_country: string | null
+  shipping_phone_number: string | null
   created_at: Date | null
   updated_at: Date | null
   delivered_at: Date | null
@@ -55,6 +60,11 @@ export type OrdersMaxAggregateOutputType = {
   id_user_fk: number | null
   status: $Enums.OrderStatus | null
   payment_method: string | null
+  shipping_street: string | null
+  shipping_city: string | null
+  shipping_province: string | null
+  shipping_country: string | null
+  shipping_phone_number: string | null
   created_at: Date | null
   updated_at: Date | null
   delivered_at: Date | null
@@ -66,6 +76,11 @@ export type OrdersCountAggregateOutputType = {
   id_user_fk: number
   status: number
   payment_method: number
+  shipping_street: number
+  shipping_city: number
+  shipping_province: number
+  shipping_country: number
+  shipping_phone_number: number
   created_at: number
   updated_at: number
   delivered_at: number
@@ -91,6 +106,11 @@ export type OrdersMinAggregateInputType = {
   id_user_fk?: true
   status?: true
   payment_method?: true
+  shipping_street?: true
+  shipping_city?: true
+  shipping_province?: true
+  shipping_country?: true
+  shipping_phone_number?: true
   created_at?: true
   updated_at?: true
   delivered_at?: true
@@ -102,6 +122,11 @@ export type OrdersMaxAggregateInputType = {
   id_user_fk?: true
   status?: true
   payment_method?: true
+  shipping_street?: true
+  shipping_city?: true
+  shipping_province?: true
+  shipping_country?: true
+  shipping_phone_number?: true
   created_at?: true
   updated_at?: true
   delivered_at?: true
@@ -113,6 +138,11 @@ export type OrdersCountAggregateInputType = {
   id_user_fk?: true
   status?: true
   payment_method?: true
+  shipping_street?: true
+  shipping_city?: true
+  shipping_province?: true
+  shipping_country?: true
+  shipping_phone_number?: true
   created_at?: true
   updated_at?: true
   delivered_at?: true
@@ -211,6 +241,11 @@ export type OrdersGroupByOutputType = {
   id_user_fk: number
   status: $Enums.OrderStatus
   payment_method: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at: Date
   updated_at: Date
   delivered_at: Date | null
@@ -245,6 +280,11 @@ export type OrdersWhereInput = {
   id_user_fk?: Prisma.IntFilter<"Orders"> | number
   status?: Prisma.EnumOrderStatusFilter<"Orders"> | $Enums.OrderStatus
   payment_method?: Prisma.StringFilter<"Orders"> | string
+  shipping_street?: Prisma.StringFilter<"Orders"> | string
+  shipping_city?: Prisma.StringFilter<"Orders"> | string
+  shipping_province?: Prisma.StringFilter<"Orders"> | string
+  shipping_country?: Prisma.StringFilter<"Orders"> | string
+  shipping_phone_number?: Prisma.StringFilter<"Orders"> | string
   created_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   delivered_at?: Prisma.DateTimeNullableFilter<"Orders"> | Date | string | null
@@ -258,6 +298,11 @@ export type OrdersOrderByWithRelationInput = {
   id_user_fk?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payment_method?: Prisma.SortOrder
+  shipping_street?: Prisma.SortOrder
+  shipping_city?: Prisma.SortOrder
+  shipping_province?: Prisma.SortOrder
+  shipping_country?: Prisma.SortOrder
+  shipping_phone_number?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   delivered_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -274,6 +319,11 @@ export type OrdersWhereUniqueInput = Prisma.AtLeast<{
   id_user_fk?: Prisma.IntFilter<"Orders"> | number
   status?: Prisma.EnumOrderStatusFilter<"Orders"> | $Enums.OrderStatus
   payment_method?: Prisma.StringFilter<"Orders"> | string
+  shipping_street?: Prisma.StringFilter<"Orders"> | string
+  shipping_city?: Prisma.StringFilter<"Orders"> | string
+  shipping_province?: Prisma.StringFilter<"Orders"> | string
+  shipping_country?: Prisma.StringFilter<"Orders"> | string
+  shipping_phone_number?: Prisma.StringFilter<"Orders"> | string
   created_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   delivered_at?: Prisma.DateTimeNullableFilter<"Orders"> | Date | string | null
@@ -287,6 +337,11 @@ export type OrdersOrderByWithAggregationInput = {
   id_user_fk?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payment_method?: Prisma.SortOrder
+  shipping_street?: Prisma.SortOrder
+  shipping_city?: Prisma.SortOrder
+  shipping_province?: Prisma.SortOrder
+  shipping_country?: Prisma.SortOrder
+  shipping_phone_number?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   delivered_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -306,6 +361,11 @@ export type OrdersScalarWhereWithAggregatesInput = {
   id_user_fk?: Prisma.IntWithAggregatesFilter<"Orders"> | number
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Orders"> | $Enums.OrderStatus
   payment_method?: Prisma.StringWithAggregatesFilter<"Orders"> | string
+  shipping_street?: Prisma.StringWithAggregatesFilter<"Orders"> | string
+  shipping_city?: Prisma.StringWithAggregatesFilter<"Orders"> | string
+  shipping_province?: Prisma.StringWithAggregatesFilter<"Orders"> | string
+  shipping_country?: Prisma.StringWithAggregatesFilter<"Orders"> | string
+  shipping_phone_number?: Prisma.StringWithAggregatesFilter<"Orders"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Orders"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Orders"> | Date | string
   delivered_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Orders"> | Date | string | null
@@ -315,6 +375,11 @@ export type OrdersCreateInput = {
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -328,6 +393,11 @@ export type OrdersUncheckedCreateInput = {
   id_user_fk: number
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -338,6 +408,11 @@ export type OrdersUpdateInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -351,6 +426,11 @@ export type OrdersUncheckedUpdateInput = {
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -363,6 +443,11 @@ export type OrdersCreateManyInput = {
   id_user_fk: number
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -372,6 +457,11 @@ export type OrdersUpdateManyMutationInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -383,6 +473,11 @@ export type OrdersUncheckedUpdateManyInput = {
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -404,6 +499,11 @@ export type OrdersCountOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payment_method?: Prisma.SortOrder
+  shipping_street?: Prisma.SortOrder
+  shipping_city?: Prisma.SortOrder
+  shipping_province?: Prisma.SortOrder
+  shipping_country?: Prisma.SortOrder
+  shipping_phone_number?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   delivered_at?: Prisma.SortOrder
@@ -421,6 +521,11 @@ export type OrdersMaxOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payment_method?: Prisma.SortOrder
+  shipping_street?: Prisma.SortOrder
+  shipping_city?: Prisma.SortOrder
+  shipping_province?: Prisma.SortOrder
+  shipping_country?: Prisma.SortOrder
+  shipping_phone_number?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   delivered_at?: Prisma.SortOrder
@@ -432,6 +537,11 @@ export type OrdersMinOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payment_method?: Prisma.SortOrder
+  shipping_street?: Prisma.SortOrder
+  shipping_city?: Prisma.SortOrder
+  shipping_province?: Prisma.SortOrder
+  shipping_country?: Prisma.SortOrder
+  shipping_phone_number?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   delivered_at?: Prisma.SortOrder
@@ -512,6 +622,11 @@ export type OrdersCreateWithoutUser_detailsInput = {
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -523,6 +638,11 @@ export type OrdersUncheckedCreateWithoutUser_detailsInput = {
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -564,6 +684,11 @@ export type OrdersScalarWhereInput = {
   id_user_fk?: Prisma.IntFilter<"Orders"> | number
   status?: Prisma.EnumOrderStatusFilter<"Orders"> | $Enums.OrderStatus
   payment_method?: Prisma.StringFilter<"Orders"> | string
+  shipping_street?: Prisma.StringFilter<"Orders"> | string
+  shipping_city?: Prisma.StringFilter<"Orders"> | string
+  shipping_province?: Prisma.StringFilter<"Orders"> | string
+  shipping_country?: Prisma.StringFilter<"Orders"> | string
+  shipping_phone_number?: Prisma.StringFilter<"Orders"> | string
   created_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Orders"> | Date | string
   delivered_at?: Prisma.DateTimeNullableFilter<"Orders"> | Date | string | null
@@ -573,6 +698,11 @@ export type OrdersCreateWithoutOrder_itemsInput = {
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -585,6 +715,11 @@ export type OrdersUncheckedCreateWithoutOrder_itemsInput = {
   id_user_fk: number
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -610,6 +745,11 @@ export type OrdersUpdateWithoutOrder_itemsInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -622,6 +762,11 @@ export type OrdersUncheckedUpdateWithoutOrder_itemsInput = {
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -632,6 +777,11 @@ export type OrdersCreateManyUser_detailsInput = {
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.OrderStatus
   payment_method?: string
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
   created_at?: Date | string
   updated_at?: Date | string
   delivered_at?: Date | string | null
@@ -641,6 +791,11 @@ export type OrdersUpdateWithoutUser_detailsInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -652,6 +807,11 @@ export type OrdersUncheckedUpdateWithoutUser_detailsInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -663,6 +823,11 @@ export type OrdersUncheckedUpdateManyWithoutUser_detailsInput = {
   total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   payment_method?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -705,6 +870,11 @@ export type OrdersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id_user_fk?: boolean
   status?: boolean
   payment_method?: boolean
+  shipping_street?: boolean
+  shipping_city?: boolean
+  shipping_province?: boolean
+  shipping_country?: boolean
+  shipping_phone_number?: boolean
   created_at?: boolean
   updated_at?: boolean
   delivered_at?: boolean
@@ -719,6 +889,11 @@ export type OrdersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id_user_fk?: boolean
   status?: boolean
   payment_method?: boolean
+  shipping_street?: boolean
+  shipping_city?: boolean
+  shipping_province?: boolean
+  shipping_country?: boolean
+  shipping_phone_number?: boolean
   created_at?: boolean
   updated_at?: boolean
   delivered_at?: boolean
@@ -731,6 +906,11 @@ export type OrdersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id_user_fk?: boolean
   status?: boolean
   payment_method?: boolean
+  shipping_street?: boolean
+  shipping_city?: boolean
+  shipping_province?: boolean
+  shipping_country?: boolean
+  shipping_phone_number?: boolean
   created_at?: boolean
   updated_at?: boolean
   delivered_at?: boolean
@@ -743,12 +923,17 @@ export type OrdersSelectScalar = {
   id_user_fk?: boolean
   status?: boolean
   payment_method?: boolean
+  shipping_street?: boolean
+  shipping_city?: boolean
+  shipping_province?: boolean
+  shipping_country?: boolean
+  shipping_phone_number?: boolean
   created_at?: boolean
   updated_at?: boolean
   delivered_at?: boolean
 }
 
-export type OrdersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_order" | "total_amount" | "id_user_fk" | "status" | "payment_method" | "created_at" | "updated_at" | "delivered_at", ExtArgs["result"]["orders"]>
+export type OrdersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_order" | "total_amount" | "id_user_fk" | "status" | "payment_method" | "shipping_street" | "shipping_city" | "shipping_province" | "shipping_country" | "shipping_phone_number" | "created_at" | "updated_at" | "delivered_at", ExtArgs["result"]["orders"]>
 export type OrdersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   order_items?: boolean | Prisma.Orders$order_itemsArgs<ExtArgs>
@@ -773,6 +958,11 @@ export type $OrdersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id_user_fk: number
     status: $Enums.OrderStatus
     payment_method: string
+    shipping_street: string
+    shipping_city: string
+    shipping_province: string
+    shipping_country: string
+    shipping_phone_number: string
     created_at: Date
     updated_at: Date
     delivered_at: Date | null
@@ -1206,6 +1396,11 @@ export interface OrdersFieldRefs {
   readonly id_user_fk: Prisma.FieldRef<"Orders", 'Int'>
   readonly status: Prisma.FieldRef<"Orders", 'OrderStatus'>
   readonly payment_method: Prisma.FieldRef<"Orders", 'String'>
+  readonly shipping_street: Prisma.FieldRef<"Orders", 'String'>
+  readonly shipping_city: Prisma.FieldRef<"Orders", 'String'>
+  readonly shipping_province: Prisma.FieldRef<"Orders", 'String'>
+  readonly shipping_country: Prisma.FieldRef<"Orders", 'String'>
+  readonly shipping_phone_number: Prisma.FieldRef<"Orders", 'String'>
   readonly created_at: Prisma.FieldRef<"Orders", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Orders", 'DateTime'>
   readonly delivered_at: Prisma.FieldRef<"Orders", 'DateTime'>

@@ -42,7 +42,7 @@ class PrismaSeoSettingsRepositories implements ISeoSettingsRepositories
     {
         if(id_seo_settings)
         {
-            return await this.prisma.seoSettings.findFirst({where:{id_seo_setting: id_seo_settings}, include:{keywords_details: true}})
+            return await this.prisma.seoSettings.findFirst({where:{id_seo_setting: id_seo_settings}, include:{keywords_details: {select:{keyword:true}}}})
         }
         return await this.prisma.seoSettings.findFirst({where:{seo_title: seo_title}, include:{keywords_details: true}})
     }

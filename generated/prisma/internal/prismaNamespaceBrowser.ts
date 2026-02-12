@@ -179,7 +179,10 @@ export const AddressesScalarFieldEnum = {
   id_address: 'id_address',
   street: 'street',
   city: 'city',
+  province: 'province',
   country: 'country',
+  reference: 'reference',
+  is_default: 'is_default',
   id_user_fk: 'id_user_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -280,6 +283,11 @@ export const OrdersScalarFieldEnum = {
   id_user_fk: 'id_user_fk',
   status: 'status',
   payment_method: 'payment_method',
+  shipping_street: 'shipping_street',
+  shipping_city: 'shipping_city',
+  shipping_province: 'shipping_province',
+  shipping_country: 'shipping_country',
+  shipping_phone_number: 'shipping_phone_number',
   created_at: 'created_at',
   updated_at: 'updated_at',
   delivered_at: 'delivered_at'

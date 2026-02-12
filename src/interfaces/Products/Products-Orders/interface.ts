@@ -3,7 +3,12 @@ interface productsOrdersDatas
 {
     id_order?: number
     total_amount: number
-    id_user_fk: number 
+    id_user_fk: number
+    shipping_street: string
+    shipping_city: string
+    shipping_province: string
+    shipping_country: string
+    shipping_phone_number: string
     status: "pending" | "completed" | "cancelled" |"failed"
     payment_method: "cash"
     created_at?: Date | string

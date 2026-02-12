@@ -97,7 +97,10 @@ model Addresses{
   id_address  String @id
   street      String
   city        String
+  province    String
   country     String @default("Angola")
+  reference   String?
+  is_default  Boolean @default(false)
   id_user_fk  Int 
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   created_at   DateTime  @default(now())
@@ -202,6 +205,11 @@ model Orders{
   id_user_fk   Int 
   status       OrderStatus @default(pending)
   payment_method String @default("cash")
+  shipping_street   String
+  shipping_city     String
+  shipping_province String
+  shipping_country  String
+  shipping_phone_number String 
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
   order_items  OrderItems[]
   created_at   DateTime  @default(now())
