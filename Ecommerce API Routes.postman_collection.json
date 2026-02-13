@@ -1,0 +1,1244 @@
+{
+	"info": {
+		"_postman_id": "ae8f3bc6-86c2-42cc-8827-118575a58e95",
+		"name": "Ecommerce API Routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19795716"
+	},
+	"item": [
+		{
+			"name": "Auth routes",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api.ecommerce/v1/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "local-signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"teste@gmail.com\",\n    \"password\":\"ADMIN@2025\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/refreshToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-new-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"emaricaroffice@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/password/request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"password",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\":\"Emaricar17@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/password/reset?authorization=355daa60d322b68d1255961ed85c1983d7fc1e740c43bce7bb236d0c4a130073",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"password",
+								"reset"
+							],
+							"query": [
+								{
+									"key": "authorization",
+									"value": "355daa60d322b68d1255961ed85c1983d7fc1e740c43bce7bb236d0c4a130073"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google-oauth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"emaricaroffice@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/google/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"google",
+								"signin"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Tags",
+					"item": [
+						{
+							"name": "register-tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tags\": [\n    { \"tag\": \"Novo\" },\n    { \"tag\": \"Promoção\" },\n    { \"tag\": \"Mais vendido\" },\n    { \"tag\": \"Exclusivo\" }\n  ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/tags",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-tag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/tags/novo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"tags",
+										"novo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-tags",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USN\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/tags?page1=1&limit=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"tags"
+									],
+									"query": [
+										{
+											"key": "page1",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "register-category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Creatina Booster M45\",\n    \"description\":\"Está é uma categoria só para teste\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-category",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Creatina Booster M\",\n    \"description\":\"Está é uma categoria só para teste\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-category",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Creatina Booster M\",\n    \"description\":\"Está é uma categoria só para teste\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/categories/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"categories",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit-category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Creatina Booster MMM\",\n    \"description\":\"Está é uma categoria só para teste\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/categories/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"categories",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Creatina Booster MMM\",\n    \"description\":\"Está é uma categoria só para teste\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/categories/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Brands",
+					"item": [
+						{
+							"name": "register-brand",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USNSS<h2>off</h2>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/brands",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"brands"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-brand",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/brands/USN",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"brands",
+										"USN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-brands",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USN\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/brands?page1=1&limit=12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"brands"
+									],
+									"query": [
+										{
+											"key": "page1",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit-tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USN-2<h1>tilal</h2>-cola\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/brands/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"brands",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-brand",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTM3MjY4LCJleHAiOjE3NzEwMjM2Njh9.czrCoSyMiRH63a4g18XFvQ_6c-ITLe5SQM54r75hszk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"USN-col-cola\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/brands/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"brands",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GeneralProducts",
+					"item": [
+						{
+							"name": "register-product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<h1>Crea000tina Bwooster1 para ficar yoga 2</h1>ssss",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<h1>Creatina que te faz ficar yoga em menos de 24h, agr, se vc morrer, a culpa nao e nossa</h1>",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "27500",
+											"type": "text"
+										},
+										{
+											"key": "id_category_fk",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "id_brand_fk",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "available_stock",
+											"value": "19",
+											"type": "text"
+										},
+										{
+											"key": "id_tags",
+											"value": "1,2,3",
+											"type": "text"
+										},
+										{
+											"key": "ProductImages",
+											"type": "file",
+											"src": [
+												"postman-cloud:///1f0e7e6c-2a8c-44a0-8a74-96ae2f017022",
+												"postman-cloud:///1f080e19-ca08-4d90-b885-84d6fedb28e6",
+												"postman-cloud:///1f07d1a2-3ffb-4e30-ba1e-375fb4a0fc14"
+											]
+										},
+										{
+											"key": "additional_info",
+											"value": "Sei la, vc usa so, e depois ve",
+											"type": "text"
+										},
+										{
+											"key": "is_featured",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "weight",
+											"value": "54.5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-products",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products?page=1&limit=12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<h1>Creatina Booster para ficar yoga 2</h1>",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<h1>Creatina que te faz ficar yoga em menos de 24h, agr, se vc morrer, a culpa nao e nossa</h1>",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "27500",
+											"type": "text"
+										},
+										{
+											"key": "id_category_fk",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "id_brand_fk",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "19",
+											"type": "text"
+										},
+										{
+											"key": "id_tags",
+											"value": "1,2,3",
+											"type": "text"
+										},
+										{
+											"key": "ProductImages",
+											"type": "file",
+											"src": [
+												"postman-cloud:///1f0e7e6c-2a8c-44a0-8a74-96ae2f017022",
+												"postman-cloud:///1f080e19-ca08-4d90-b885-84d6fedb28e6",
+												"postman-cloud:///1f07d1a2-3ffb-4e30-ba1e-375fb4a0fc14"
+											]
+										},
+										{
+											"key": "additional_info",
+											"value": "Sei la, vc usa so, e depois ve",
+											"type": "text"
+										},
+										{
+											"key": "is_featured",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit-product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Creatina Booster para ficar yoga 2",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<h1>Creatina que te faz ficar yoga em menos de 24h, agr, se vc morrer, a culpa nao e nossa</h1>",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "27500",
+											"type": "text"
+										},
+										{
+											"key": "id_category_fk",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "id_brand_fk",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "stock",
+											"value": "19",
+											"type": "text"
+										},
+										{
+											"key": "id_tags",
+											"value": "1,2,3",
+											"type": "text"
+										},
+										{
+											"key": "ProductImages",
+											"type": "file",
+											"src": [
+												"postman-cloud:///1f0e7e6c-2a8c-44a0-8a74-96ae2f017022",
+												"postman-cloud:///1f080e19-ca08-4d90-b885-84d6fedb28e6",
+												"postman-cloud:///1f07d1a2-3ffb-4e30-ba1e-375fb4a0fc14"
+											]
+										},
+										{
+											"key": "additional_info",
+											"value": "Sei la, vc usa so, e depois ve ssss",
+											"type": "text"
+										},
+										{
+											"key": "is_featured",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api.ecommerce/v1/products/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "init-seo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"settings",
+								"seo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-seo-settings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwNzQ5OTEwLCJleHAiOjE3NzA4MzYzMTB9.4gMUDpYyYBDQQaMXeSI2wUp8VsH8uTO69jvlwmyLf78",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo/0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"settings",
+								"seo",
+								"0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
