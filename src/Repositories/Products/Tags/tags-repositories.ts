@@ -7,8 +7,8 @@ abstract class IProductsTagsRepositories {
   abstract deleteTag(id_tag: number): Promise<any>;
   abstract editTagDatas(id_tag: number, datas: Partial<ProductsTagsDatas>): Promise<any>;
   abstract getAllTagsPerProduct(id_product: number):Promise<any[]>
-  abstract getAllTags():Promise<any[]>
-  
+  abstract getAllTags(take?: number, skip?: number):Promise<any[]>
+  abstract countTags():Promise<number>
 }
 
 export { IProductsTagsRepositories };

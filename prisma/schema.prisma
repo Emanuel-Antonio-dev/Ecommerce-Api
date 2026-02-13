@@ -21,7 +21,6 @@ model Accounts{
   provider               Providers         @default(Local)
   deleted_at             DateTime?
   is_active              Boolean           @default(true)
-  is_delected            Boolean?
   authentication_details Authentications[]
   account_logs_details   SystemLogs[]
   user_details  Users?
@@ -126,6 +125,7 @@ model Products {
   available_stock Int               @default(1)
   available       Boolean           @default(true)
   additional_info String            @db.Text
+  is_featured     Boolean           @default(false)
   weight          Decimal?          @db.Decimal(10,2)
   id_category_fk  Int
   id_brand_fk     Int
@@ -290,7 +290,7 @@ model UsersActions {
 }
 
 model SystemLogs {
-  id_system_log       Int          @id
+  id_system_log       Int          @id @default(autoincrement())
   system_agent        String
   ip_address          String
   id_user_action_fk   String

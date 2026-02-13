@@ -19,7 +19,7 @@ class RegisterProductBrandService
                 return {success: false, statusCode: 409, message:"Já existe uma marca com este nome"}
             }
             const result = await this.repository.register({
-                name: sanitize(datas.name.trim(),
+                name: sanitize(datas.name.trim().toLowerCase(),
             {
                 allowedClasses: {},
                 allowedAttributes:{},

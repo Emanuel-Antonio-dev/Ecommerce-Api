@@ -2101,7 +2101,6 @@ export const AccountsScalarFieldEnum = {
   provider: 'provider',
   deleted_at: 'deleted_at',
   is_active: 'is_active',
-  is_delected: 'is_delected',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -2213,6 +2212,7 @@ export const ProductsScalarFieldEnum = {
   available_stock: 'available_stock',
   available: 'available',
   additional_info: 'additional_info',
+  is_featured: 'is_featured',
   weight: 'weight',
   id_category_fk: 'id_category_fk',
   id_brand_fk: 'id_brand_fk',

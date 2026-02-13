@@ -22,12 +22,14 @@ class EditProductDatasController
                 name: req.body.name,
                 description: req.body.description,
                 additional_info: req.body.aditional_info,
-                price: req.body.price,
-                available: req.body.available,
+                price: Number(req.body.price),
+                available: Boolean(req.body.available),
                 image_url: req.file?.path,
-                stock: req.body.stock,
-                id_brand_fk: req.body.id_brand_fk,
-                id_category_fk: req.body.id_category_fk
+                available_stock: Number(req.body.available_stock),
+                id_brand_fk: Number(req.body.id_brand_fk),
+                id_category_fk: Number(req.body.id_category_fk),
+                weight: parseFloat(req.body.weight),
+                is_featured: Boolean(req.body.is_featured)
             }
             const result = await service.editProductDatas(id_product,productDatas)
             return res.status(result.statusCode).json(result)

@@ -22,17 +22,23 @@ class RegisterProductsController
     static async register(req: Request, res: Response): Promise<Response | any>
     {
         try{
-            const tagIds: number[] = Array.isArray(req.body.id_tags)? req.body.id_tags: [req.body.id_tags];
+            const tagIds: number[] = Array.isArray(req.body.id_tags)
+            ? req.body.id_tags.map(Number)
+            : req.body.id_tags
+            ? (req.body.id_tags as string).split(',').map(Number)
+            : [];
             const productDatas: generalProductsDatas =
             {
             name: req.body.name,
             description: req.body.description,
-            price: req.body.price,
-            additional_info: req.body.aditional_info,
-            id_category_fk: req.body.id_category_fk,
-            id_brand_fk: req.body.id_brand_fk,
-            stock: req.body.stock,
-            id_tags: tagIds
+            price: parseFloat(req.body.price),
+            additional_info: req.body.additional_info,
+            id_category_fk:Number(req.body.id_category_fk),
+            id_brand_fk: Number(req.body.id_brand_fk),
+            available_stock: Number(req.body.available_stock),
+            is_featured: req.body.is_featured,
+            id_tags: tagIds,
+            weight: parseFloat(req.body.weight)
         }
 
         const files = req.files as {[filedname: string]: Express.Multer.File[]};
@@ -46,9 +52,11 @@ class RegisterProductsController
             id_category_fk: productDatas.id_category_fk,
             id_brand_fk: productDatas.id_brand_fk,
             price: productDatas.price,
-            stock: productDatas.stock,
+            available_stock: productDatas.available_stock,
             image_url: imagesDatas.image_url,
-            id_tags: productDatas.id_tags
+            id_tags: productDatas.id_tags,
+            is_featured: Boolean(productDatas.is_featured),
+            weight: productDatas.weight
         });
         return res.status(result.statusCode).json(result);
         } catch (error: any)

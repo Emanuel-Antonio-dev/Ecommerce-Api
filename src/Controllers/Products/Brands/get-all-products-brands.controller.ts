@@ -12,7 +12,8 @@ class GetAllProductsBrandsController
     {
         try
         {
-            const result = await service.getAllBrands()
+            const{limit, page} =req.query
+            const result = await service.getAllBrands(Number(page), Number(limit))
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

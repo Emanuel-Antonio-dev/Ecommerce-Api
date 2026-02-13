@@ -18,11 +18,11 @@ class PrismaProductsBrands implements IProductsBrandsRepositories
         {
             return await this.prisma.productBrands.findFirst({where})
         }
-        return await this.prisma.productBrands.findFirst({where, include:{product: true}})    
+        return await this.prisma.productBrands.findFirst({where, include:{product: {select:{name: true, images:{select:{url: true}}}}}})    
     }
-    async getAllProductBrandsDatas(): Promise<any[]>
+    async getAllProductBrandsDatas(take: number, skip: number): Promise<any[]>
     {
-        return await this.prisma.productBrands.findMany({include:{product: true }})    
+        return await this.prisma.productBrands.findMany({include:{product: {select:{id_product: true,name: true, images:{select:{url: true}}}} }, take, skip})    
     }
     async updateProductBrandDatas(id_brand: number, datas: Partial<productBrandsDatas>): Promise<any>
     {
@@ -35,6 +35,9 @@ class PrismaProductsBrands implements IProductsBrandsRepositories
     async deleteAllProductBrands(): Promise<any>
     {
         return await this.prisma.productBrands.deleteMany()    
+    }
+    async countBrands(): Promise<number> {
+        return await this.prisma.productBrands.count()
     }
 }
 export{ PrismaProductsBrands}

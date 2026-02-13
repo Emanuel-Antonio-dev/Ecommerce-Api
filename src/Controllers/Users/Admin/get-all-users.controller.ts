@@ -12,7 +12,8 @@ class GetAllUsersController
     {
         try
         {
-            const result = await service.getAllUsers()
+            const {page, limit} = req.query
+            const result = await service.getAllUsers(Number(page), Number(limit))
             return res.status(result.statusCode).json(result)
                 
         }

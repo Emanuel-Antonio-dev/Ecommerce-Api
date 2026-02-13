@@ -24,9 +24,9 @@ class PrismaProductsCategories implements IProductsCategories
         }
         return await this.prisma.productsCategories.findFirst({where, include:{product:true}})    
     }
-    async getAllCategoriesDatas(): Promise<any[]>
+    async getAllCategoriesDatas(take?: number, skip?: number): Promise<any[]>
     {
-        return await this.prisma.productsCategories.findMany({include:{product: true }})    
+        return await this.prisma.productsCategories.findMany({orderBy:{created_at:"desc"}, take, skip})    
     }
     async updateCategoryDatas(id_category: number, datas: Partial<productsCategoriesDatas>): Promise<any>
     {
@@ -39,6 +39,9 @@ class PrismaProductsCategories implements IProductsCategories
     async deleteAllCategories(): Promise<any>
     {
         return await this.prisma.productsCategories.deleteMany()    
+    }
+    async countCategories(): Promise<number> {
+        return await this.prisma.productsCategories.count()
     }
 }
 export{ PrismaProductsCategories}

@@ -29,13 +29,13 @@ class EditProductBrandService
                 {
                     return {success: false, statusCode: 400, message:"Informe um nome válido para esta marca"}
                 }
-                productCategoryDatasToUpdate.name = sanitize(datas.name.trim(),{
+                productCategoryDatasToUpdate.name = sanitize(datas.name,{
                     allowedClasses:{},
                     allowedAttributes:{},
                     allowedTags:[]
                 })
             }
-            const brandUpdated = await this.repository.updateProductBrandDatas(id_brand, datas)
+            const brandUpdated = await this.repository.updateProductBrandDatas(id_brand, productCategoryDatasToUpdate)
             if(!brandUpdated)
             {
                 return {success: false, statusCode: 400, message: "Ocorreu um erro ao editar estes dados, tente novamente"}

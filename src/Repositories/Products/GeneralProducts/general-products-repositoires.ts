@@ -8,8 +8,9 @@ abstract class IGeneralProductsRepositories
     abstract editProduct(id_product: number, datas: Partial<generalProductsDatas>):Promise<any>
     abstract deleteProductDatas(id_product: number):Promise<any>
     abstract deleteAllProductsDatas():Promise<any>
-    abstract getAllProductsDatas():Promise<any[]>
+    abstract getAllProductsDatas(take?: number, skip?: number, is_futured?: boolean):Promise<any[]>
     abstract productAverage(id_product: number):Promise<any>
+    abstract countProducts(): Promise<number>
 }
 
 export {IGeneralProductsRepositories}

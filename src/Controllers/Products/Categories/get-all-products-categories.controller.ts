@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prismaService } from "../../../lib/prisma.service";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
-import { GetAllProductsCategoriesService } from "../../../Services/Products/Categories/find-all-services-categories.service";
+import { GetAllProductsCategoriesService } from "../../../Services/Products/Categories/get-all-services-categories.service";
 
 const repository: PrismaProductsCategories = new PrismaProductsCategories(prismaService)
 const getAllProductsCategories: GetAllProductsCategoriesService = new GetAllProductsCategoriesService(repository)
@@ -12,7 +12,8 @@ class GetAllProductsCategoriesController
     {
         try
         {
-            const result = await getAllProductsCategories.getAllCategories()
+            const{limit, page} =req.query
+            const result = await getAllProductsCategories.getAllCategories(Number(page),Number(limit))
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)

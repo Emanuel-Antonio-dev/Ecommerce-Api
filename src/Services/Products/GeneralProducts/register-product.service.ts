@@ -30,7 +30,9 @@ class RegisterGeneralProductService {
         !datas.id_brand_fk ||
         !datas.image_url?.length ||
         !datas.id_tags?.length ||
-        !datas.stock
+        !datas.available_stock ||
+        !datas.is_featured || 
+        !datas.weight
       ) {
         throw new HttpException(false, 400, "Informe todos os campos");
       }
@@ -39,18 +41,19 @@ class RegisterGeneralProductService {
       const descriptionSanitized = sanitize(datas.description.trim(), { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] });
       const additionalInfoSanitized = sanitize(datas.additional_info.trim(), { allowedAttributes: {}, allowedClasses: {}, allowedTags: [] });
 
-      if (nameSanitized.length < 3) throw new HttpException(false, 400, "Nome do produto muito curto");
-      if (additionalInfoSanitized.length < 20) throw new HttpException(false, 400, "Descrição do produto muito curta");
-      if (datas.price <= 0) throw new HttpException(false, 400, "Preço deve ser maior que 0");
-
+      if (nameSanitized.length < 3) throw new HttpException(false, 400, "O nome do produto muito curto");
+      if (additionalInfoSanitized.length < 20) throw new HttpException(false, 400, "A descrição do produto muito curta");
+      if (datas.price <= 0) throw new HttpException(false, 400, "O preço do produto deve ser maior que 0");
+      if (datas.weight <= 0) throw new HttpException(false, 400, "O peso do produto deve ser maior que 0");
+      if(datas.available_stock <= 0) throw new HttpException(false, 400, "A quantidade de stock disponivel deve ser maior que 0");
       const existsProduct = await this.repository.getProductDatas({ action: "GetOnlyBasicsDatas" }, undefined, nameSanitized);
-      if (existsProduct) throw new HttpException(false, 409, "Produto já existe");
+      if (existsProduct) throw new HttpException(false, 409, "Este produto já existe");
 
       const categoryExists = await this.categoryRepository.getCategoryData({ action: "GetOnlyBasicsDatas" }, datas.id_category_fk, undefined);
-      if (!categoryExists) throw new HttpException(false, 404, "Categoria não existe");
+      if (!categoryExists) throw new HttpException(false, 404, "A categoria selecionada não existe");
 
       const brandExists = await this.brandRepository.getProductBrandData({ action: "GetOnlyBasicsDatas" }, datas.id_brand_fk, undefined);
-      if (!brandExists) throw new HttpException(false, 404, "Marca não existe");
+      if (!brandExists) throw new HttpException(false, 404, "A marca selecionada não existe");
 
       const uniqueTagIds = [...new Set(datas.id_tags as number[])];
       const existingTags = await this.tagRepository.getTagDatas({action:"GetOnlyBasicsDatas"},undefined, uniqueTagIds);
@@ -81,8 +84,10 @@ class RegisterGeneralProductService {
             id_category_fk: datas.id_category_fk,
             id_brand_fk: datas.id_brand_fk,
             price: datas.price,
-            stock: datas.stock,
-            id_tags: datas.id_tags
+            is_featured: datas.is_featured,
+            available_stock: datas.available_stock,
+            id_tags: datas.id_tags,
+            weight: datas.weight
           },
           tx
         );
@@ -114,10 +119,16 @@ class RegisterGeneralProductService {
           product_aditional_info: transactionResult.product.additional_info,
           id_product_category: datas.id_category_fk,
           id_product_brand: datas.id_brand_fk,
-          id_tags: transactionResult.tagsPerProductCreated,
-          images: transactionResult.images,
+          is_featured: datas.is_featured,
+          id_tags: transactionResult.tagsPerProductCreated.map((ids)=>({
+            id_tag: ids.id_tag_fk
+          })),
+          images: transactionResult.images.map((urls: any)=>({
+            url: urls.url
+          })),
           available: transactionResult.product.available,
-          stock: transactionResult.product.stock,
+          available_stock: transactionResult.product.available_stock,
+          weight: transactionResult.product.weight,
           created_at: transactionResult.product.created_at,
         },
       };

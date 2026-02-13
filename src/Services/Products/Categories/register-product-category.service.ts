@@ -54,6 +54,8 @@ class RegisterProductCategoryService
             return {success: true, statusCode: 201, message:"Categoria criada com sucesso", datas: categoryResult}
         } catch (error: any)
         {
+            if (error instanceof HttpException) return { success: false, statusCode: error.statusCode, message: error.message };
+            
             console.log(error)
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}             
         }

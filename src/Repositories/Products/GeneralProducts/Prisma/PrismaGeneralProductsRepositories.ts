@@ -20,23 +20,29 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
                 reference_code: `RFP${year}-${crypto.randomInt(10000, 999999)}`,
                 available: true,
                 description: datas.description,
+                is_featured: datas.is_featured,
                 id_category_fk: datas.id_category_fk,
                 id_brand_fk: datas.id_brand_fk,
+                weight: datas.weight,
+                available_stock: datas.available_stock
             }
         })
     }
     async getProductDatas(mode: SearchDatasOptions, id_product?: number, name?: string): Promise<any>
     {
-        const where = id_product ? {id_product: id_product} : {name: name}    
+        const where = id_product ? {id_product: id_product} : {name: name} 
         if(mode.action === "GetOnlyBasicsDatas")
         {
+            if(id_product)
+            {
             return await this.prisma.products.findFirst({where: where})
+            }
         }
-        return await this.prisma.products.findFirst({where: where, include:{images: true, reviews: true, category: true}})
+        return await this.prisma.products.findFirst({where: where, include:{images: {select:{url:true}}, reviews: {select:{id_review: true,comment: true, rating: true,created_at: true,id_user_fk: true}}, category: {select:{id_category: true,name: true, slug: true, description: true,created_at: true}}}})
     }
-    async getAllProductsDatas(): Promise<any[]>
+    async getAllProductsDatas(take?: number, skip?: number): Promise<any[]>
     {
-        return await this.prisma.products.findMany({include:{images: true, reviews: true, category: true}, orderBy:{created_at:"desc"}})    
+        return await this.prisma.products.findMany({include:{images: {select:{url:true}}, reviews: {select:{id_review: true,comment: true, rating: true,created_at: true,id_user_fk: true}}, category: {select:{id_category: true,name: true, slug: true, description: true,created_at: true}}}, orderBy:{created_at:"desc"}, take, skip})    
     }
     async editProduct(id_product: number, datas: Partial<generalProductsDatas>): Promise<any>
     {
@@ -56,6 +62,9 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
             _avg:{rating: true},
             _count: {rating: true}
         })
+    }
+    async countProducts(): Promise<number> {
+        return await this.prisma.products.count()
     }
 }
 export {PrismaGeneralProductsRepositories}

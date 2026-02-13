@@ -1,30 +1,55 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
+class GetAllProductsDatasService {
+    constructor(private readonly repository: PrismaGeneralProductsRepositories) {}
 
-class GetAllProductsDatasService
+    async getAll(page?: number, limit?: number, is_futured?: boolean) {
+        try {
+            const take = limit && limit > 0 ? limit : 50
+            const currentPage = page && page > 0 ? page : 1
+            const skip = (currentPage - 1) * take
 
-{
-    constructor(private readonly repository: PrismaGeneralProductsRepositories){}
+            // Busca os produtos da página atual
+            const allProducts = await this.repository.getAllProductsDatas(take, skip)
 
-    async getAll()
-    {
-        try
-        {
-            const allProducts = await this.repository.getAllProductsDatas()
-            if(allProducts.length === 0)
-            {
-                throw new HttpException(true, 404, "De momento não existem produtos disponiveis")
+            if (allProducts.length === 0) {
+                throw new HttpException(true, 404, "De momento não existem produtos disponíveis")
             }
-            return {success: true, statusCode: 200, datas: allProducts}
-        } catch (error: any)
-        {
-            if (error instanceof HttpException)
-                {
-                    return {success: false, statusCode: error.statusCode, message: error.message}
+
+            // Conta o total de produtos no banco
+            const totalProducts = await this.repository.countProducts()
+            const totalPages = Math.ceil(totalProducts / take)
+            return {
+                success: true,
+                statusCode: 200,
+                datas: allProducts,
+                paginationDatas: {
+                    page: currentPage,
+                    limit: take,
+                    returned: allProducts.length,
+                    totalItems: totalProducts,
+                    totalPages
                 }
-                console.log(error)
-                return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}     
+            }
+
+        } catch (error: any) {
+
+            if (error instanceof HttpException) {
+                return {
+                    success: false,
+                    statusCode: error.statusCode,
+                    message: error.message
+                }
+            }
+
+            console.log(error)
+
+            return {
+                success: false,
+                statusCode: 500,
+                message: "Ocorreu um erro interno, tente novamente!"
+            }
         }
     }
 }
-export {GetAllProductsDatasService}
+export{GetAllProductsDatasService}

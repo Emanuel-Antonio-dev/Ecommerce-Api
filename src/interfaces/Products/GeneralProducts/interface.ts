@@ -5,8 +5,10 @@ interface generalProductsDatas
     name: string
     description: string
     price: number
-    stock?: number
+    available_stock?: number
+    is_featured: boolean
     available?: boolean
+    weight: number
     additional_info: string
     id_category_fk: number
     id_brand_fk: number

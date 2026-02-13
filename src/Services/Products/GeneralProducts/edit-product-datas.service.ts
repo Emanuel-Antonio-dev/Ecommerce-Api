@@ -30,9 +30,10 @@ class EditProductDatasService
             const productDatasToUpdate: Partial<generalProductsDatas> = {}
             if(datas.name)
             {
-                if(await this.repository.getProductDatas({action:"GetOnlyBasicsDatas"}, undefined, datas.name))
+                const existingProduct = await this.repository.getProductDatas({action:"GetOnlyBasicsDatas"}, undefined, datas.name);
+                if(existingProduct && existingProduct.id_product !== id_product)
                 {
-                    throw new HttpException(false, 409, "Já eiste um produto com este nome")
+                    throw new HttpException(false, 409, "Já existe um produto com este nome");
                 }
                 if(datas.name.length < 3)
                 {
@@ -68,10 +69,10 @@ class EditProductDatasService
                     allowedTags:[]
                 })
             }
-            if(datas.available)
-            {
-                productDatasToUpdate.available = datas.available
-            }
+            if(datas.available !== undefined)
+                {
+                    productDatasToUpdate.available = datas.available;
+                }
             if(datas.price)
             {
                 if(datas.price <= 0)
@@ -80,43 +81,60 @@ class EditProductDatasService
                 }
                 productDatasToUpdate.price = datas.price
             }
+            if(datas.weight)
+            {
+                if(datas.weight <= 0)
+                {
+                    throw new HttpException(false, 400, "O peso deve ser um inteiro (>= 0)");
+                }
+                productDatasToUpdate.price = datas.price
+            }
             if(datas.id_category_fk)
             {
-                if(await this.categoryRepository.getCategoryData({action:"GetOnlyBasicsDatas"},datas.id_category_fk), undefined)
+                if(await this.categoryRepository.getCategoryData({action:"GetOnlyBasicsDatas"},datas.id_category_fk, undefined))
                 {
                     throw new HttpException(false, 409, "A categoria selecionada não existe");
                 }
                 productDatasToUpdate.id_category_fk = datas.id_category_fk
             }
-            if(datas.id_brand_fk)
+            if(datas.is_featured !== undefined)
             {
-                if(await this.brandRepository.getProductBrandData({action:"GetOnlyBasicsDatas"},datas.id_brand_fk, undefined))
-                {
-                    throw new HttpException(false, 409, "A marca selecionada não existe");
-                }
-                productDatasToUpdate.id_brand_fk = datas.id_brand_fk
+                productDatasToUpdate.is_featured = datas.is_featured;
             }
-            if(datas.stock)
+            if(datas.id_brand_fk !== undefined)
             {
-                productDatasToUpdate.stock = datas.stock
+                const brandExists = await this.brandRepository.getProductBrandData({ action: "GetOnlyBasicsDatas" },datas.id_brand_fk);
+                if(!brandExists)
+                    {
+                        throw new HttpException(false, 404, "A marca selecionada não existe");
+                    }
+                    productDatasToUpdate.id_brand_fk = datas.id_brand_fk;
+            }
+            if(datas.available_stock)
+            {
+                if(datas.available_stock <= 0)
+                {
+                    throw new HttpException(false, 400, "A quantidade do stock deve ser um inteiro (>= 0)");
+                }
+                productDatasToUpdate.available_stock = datas.available_stock
             }
             if(datas.image_url)
             {
                 try
                 {
-                    const updateCloudinaryImage = await cloudinary.uploader.upload(datas.image_url,
-                        {
-                            folder: "ProductcsImages",
-                            public_id: `image-${Date.now()}`,
-                            allowed_formats: ["jpg", "jpeg", "png", "webp"],
-                        })
-                        datas.image_url = updateCloudinaryImage.secure_url
-                    } catch (error: any)
-                    {
-                        console.log(error)
-                        throw new HttpException(false, 500, "Ocorreu um erro ao atualizar esta imagm")
-                    }
+                    const updateCloudinaryImage = await cloudinary.uploader.upload(datas.image_url, {
+                        folder: "ProductcsImages",
+                        public_id: `image-${Date.now()}`,
+                        allowed_formats: ["jpg", "jpeg", "png", "webp"],
+                    });
+                    productDatasToUpdate.image_url = updateCloudinaryImage.secure_url;
                 }
+                catch (error: any)
+                {
+                    console.log(error);
+                    throw new HttpException(false, 500, "Ocorreu um erro ao atualizar esta imagem");
+                }
+            }
             if(Object.keys(productDatasToUpdate).length === 0)
             {
                 throw new HttpException(false, 400, "Informe pelo menos um campo par atualização")

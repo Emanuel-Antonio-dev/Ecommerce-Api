@@ -69,9 +69,12 @@ class PrismaProductsTagsRepositories implements IProductsTagsRepositories
     async getAllTagsPerProduct(id_product: number): Promise<any[]> {
         return await this.prisma.tagsPerProducts.findMany({where:{id_product_fk: id_product}, include:{product:true, tag:{select:{tag: true}}}})
     }
-    async getAllTags(): Promise<any[]>
+    async getAllTags(take?: number, skip?: number): Promise<any[]>
     {
-        return await this.prisma.productTags.findMany({include:{product:true}})
+        return await this.prisma.productTags.findMany({include:{product: {select:{product:{select:{name: true, images:{select:{url: true}}}}}}}, take, skip})
+    }
+    async countTags(): Promise<number> {
+        return await this.prisma.productTags.count()
     }
 }
 export{PrismaProductsTagsRepositories}

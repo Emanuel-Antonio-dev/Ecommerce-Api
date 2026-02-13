@@ -48,7 +48,7 @@ class EditProductCategoryService
             {
                 return {success: false, statusCode: 400, message: "Informe pelo menos um campo para atualizar"}
             }
-            const categoryUpdated = await this.repository.updateCategoryDatas(id_category, datas)
+            const categoryUpdated = await this.repository.updateCategoryDatas(id_category, productCategoryDatasToUpdate)
             if(!categoryUpdated)
             {
                 return {success: false, statusCode: 400, message: "Ocorreu um erro ao editar estes dados, tente novamente"}
