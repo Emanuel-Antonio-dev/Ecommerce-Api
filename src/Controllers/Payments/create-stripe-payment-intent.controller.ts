@@ -20,11 +20,11 @@ class CreatePaymentIntentController
             }
             const getTotalAmount = await productsOrderRepository.getOrderItemsByOrder(id_order)
             const paymentIntent = await this.service.paymentIntent({
-                amount: getTotalAmount.order.total_amount,
+                amount: Math.round(getTotalAmount.order.total_amount * 100),
                 metadata: {
                     id_order,
                 },
-                currency:"AOA"
+                currency:"aoa"
             });
             return res.status(paymentIntent.statusCode).json(paymentIntent);
         } catch (error: any)

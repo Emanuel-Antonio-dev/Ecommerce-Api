@@ -14,10 +14,7 @@ const emailSender: SendEmail = new SendEmail(emailProvider)
 const service = new SetOrdersStatusService (prismaService,repository,userRepository,emailSender)
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
-export const createStripeWebhookController = (
-  req: Request,
-  res: Response
-) => {
+export const createStripeWebhookController = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];
   let event;
 
@@ -28,44 +25,55 @@ export const createStripeWebhookController = (
       endpointSecret
     );
   } catch (err: any) {
+    console.error("❌ Webhook signature error:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
-  switch (event.type) {
-    case "payment_intent.succeeded":
-    let paymentIntent = event.data.object;
 
-      console.log("Pagamento confirmado:", paymentIntent.metadata.id_order);
-      service.setOrderStatus(Number(paymentIntent.metadata.id_order),"completed", Number(paymentIntent.metadata.id_user))
-      .then((success)=>{
-        return res.status(success.statusCode).json(success);
-      }).catch((failure)=>{
-        return res.status(failure.statusCode).json(failure);
-      })
-      break;
+  try {
+    switch (event.type) {
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object as any;
 
-    case "payment_intent.payment_failed":
-      paymentIntent = event.data.object;
+        await service.setOrderStatus(
+          Number(paymentIntent.metadata.id_order),
+          "completed",
+          Number(paymentIntent.metadata.id_user)
+        );
 
-      service.setOrderStatus( Number(paymentIntent.metadata.id_order),"failed", Number(paymentIntent.metadata.id_user))
-      .then((success)=>{
-        return res.status(success.statusCode).json(success);
-      }).catch((failure)=>{
-        return res.status(failure.statusCode).json(failure);
-      })
-      console.log("Pagamento falhou");
-      break;
-    
-      case "payment_intent.canceled":
-      paymentIntent = event.data.object;
-      service.setOrderStatus( Number(paymentIntent.metadata.id_order),"cancelled", Number(paymentIntent.metadata.id_user))
-      .then((success)=>{
-        return res.status(success.statusCode).json(success);
-      }).catch((failure)=>{
-        return res.status(failure.statusCode).json(failure);
-      })
-      console.log("Pagamento cancelado");
-      break;
+        break;
+      }
+
+      case "payment_intent.payment_failed": {
+        const paymentIntent = event.data.object as any;
+
+        await service.setOrderStatus(
+          Number(paymentIntent.metadata.id_order),
+          "failed",
+          Number(paymentIntent.metadata.id_user)
+        );
+
+        break;
+      }
+
+      case "payment_intent.canceled": {
+        const paymentIntent = event.data.object as any;
+
+        await service.setOrderStatus(
+          Number(paymentIntent.metadata.id_order),
+          "cancelled",
+          Number(paymentIntent.metadata.id_user)
+        );
+
+        break;
+      }
+
+      default:
+        console.log(`Evento ignorado: ${event.type}`);
+    }
+
+    return res.json({ received: true });
+  } catch (error) {
+    console.error("❌ Erro ao processar webhook:", error);
+    return res.status(500).json({ received: false });
   }
-
-  return res.json({ received: true });
 };
