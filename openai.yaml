@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
   title: Ecommerce API
+  description: Documentação oficial da API Ecommerce
   version: 1.0.0
-  description: API de E-commerce com autenticação JWT, gestão de produtos, marcas, categorias e SEO.
 
 servers:
-  - url: http://localhost:3000/api.ecommerce/v1
+  - url: http://localhost:3000
 
 components:
   securitySchemes:
@@ -14,129 +14,16 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
-  schemas:
-
-    SignupDTO:
-      type: object
-      required:
-        - first_name
-        - last_name
-        - email
-        - password
-        - username
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        provider:
-          type: string
-          example: Local
-        password:
-          type: string
-        username:
-          type: string
-
-    SigninDTO:
-      type: object
-      required:
-        - email
-        - password
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-
-    TagDTO:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: object
-            properties:
-              tag:
-                type: string
-
-    CategoryDTO:
-      type: object
-      required:
-        - name
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-
-    BrandDTO:
-      type: object
-      required:
-        - name
-      properties:
-        name:
-          type: string
-
-    ProductDTO:
-      type: object
-      required:
-        - name
-        - price
-        - id_category_fk
-        - id_brand_fk
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: number
-        id_category_fk:
-          type: integer
-        id_brand_fk:
-          type: integer
-        available_stock:
-          type: integer
-        id_tags:
-          type: string
-          example: "1,2,3"
-        additional_info:
-          type: string
-        is_featured:
-          type: boolean
-        weight:
-          type: number
-
-    SeoDTO:
-      type: object
-      properties:
-        seo_title:
-          type: string
-        seo_description:
-          type: string
-        canonical_url:
-          type: string
-        og_title:
-          type: string
-        og_description:
-          type: string
-        og_image:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
+tags:
+  - name: Auth
+  - name: Tags
+  - name: Categories
+  - name: Brands
+  - name: Products
 
 paths:
 
-  # =========================
-  # AUTH
-  # =========================
-
-  /auth/signup:
+  /api.ecommerce/v1/auth/signup:
     post:
       tags: [Auth]
       summary: Criar conta
@@ -145,12 +32,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SignupDTO'
+              type: object
+              required: [first_name, last_name, email, password, username]
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                provider:
+                  type: string
+                  example: Local
+                password:
+                  type: string
+                  format: password
+                username:
+                  type: string
       responses:
         201:
-          description: Conta criada com sucesso
+          description: Usuário criado
 
-  /auth/signin:
+  /api.ecommerce/v1/auth/signin:
     post:
       tags: [Auth]
       summary: Login local
@@ -159,36 +63,56 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SigninDTO'
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
       responses:
         200:
           description: Login efetuado
 
-  /auth/refreshToken:
+  /api.ecommerce/v1/auth/refreshToken:
     post:
       tags: [Auth]
-      summary: Gerar novo access token
+      summary: Renovar token
       responses:
         200:
           description: Token renovado
 
-  /auth/logout:
+  /api.ecommerce/v1/auth/logout:
     post:
       tags: [Auth]
       summary: Logout
+      security:
+        - bearerAuth: []
       responses:
-        200:
+        204:
           description: Logout efetuado
 
-  /auth/password/request:
+  /api.ecommerce/v1/auth/me:
+    get:
+      tags: [Auth]
+      summary: Obter usuário logado
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Usuário autenticado
+
+  /api.ecommerce/v1/auth/password/request:
     post:
       tags: [Auth]
-      summary: Solicitar redefinição de senha
+      summary: Solicitar reset de senha
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              required: [email]
               properties:
                 email:
                   type: string
@@ -196,21 +120,23 @@ paths:
         200:
           description: Email enviado
 
-  /auth/password/reset:
+  /api.ecommerce/v1/auth/password/reset:
     put:
       tags: [Auth]
       summary: Resetar senha
       parameters:
         - in: query
           name: authorization
-          required: true
           schema:
             type: string
+          required: true
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              required: [newPassword]
               properties:
                 newPassword:
                   type: string
@@ -218,29 +144,73 @@ paths:
         200:
           description: Senha redefinida
 
-  # =========================
-  # TAGS
-  # =========================
-
-  /tags:
+  /api.ecommerce/v1/auth/otp/send:
     post:
-      tags: [Tags]
+      tags: [Auth]
+      summary: Enviar código OTP
       security:
         - bearerAuth: []
-      summary: Registrar tags
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TagDTO'
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: OTP enviado
+
+  /api.ecommerce/v1/auth/otp/verify-code:
+    post:
+      tags: [Auth]
+      summary: Verificar código OTP
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, otp_code]
+              properties:
+                email:
+                  type: string
+                otp_code:
+                  type: string
+      responses:
+        200:
+          description: OTP verificado
+
+  /api.ecommerce/v1/tags:
+    post:
+      tags: [Tags]
+      summary: Criar tags
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
       responses:
         201:
           description: Tags criadas
-
     get:
       tags: [Tags]
-      security:
-        - bearerAuth: []
       summary: Listar tags
       parameters:
         - in: query
@@ -255,7 +225,7 @@ paths:
         200:
           description: Lista de tags
 
-  /tags/{slug}:
+  /api.ecommerce/v1/tags/{slug}:
     get:
       tags: [Tags]
       summary: Buscar tag por slug
@@ -269,39 +239,37 @@ paths:
         200:
           description: Tag encontrada
 
-  # =========================
-  # CATEGORIES
-  # =========================
-
-  /products/categories:
+  /api.ecommerce/v1/products/categories:
     post:
       tags: [Categories]
+      summary: Criar categoria
       security:
         - bearerAuth: []
-      summary: Criar categoria
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CategoryDTO'
+              type: object
+              required: [name, description]
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
       responses:
         201:
           description: Categoria criada
-
     get:
       tags: [Categories]
-      security:
-        - bearerAuth: []
       summary: Listar categorias
       responses:
         200:
           description: Lista de categorias
 
-  /products/categories/{id}:
+  /api.ecommerce/v1/products/categories/{id}:
     get:
       tags: [Categories]
-      security:
-        - bearerAuth: []
       summary: Buscar categoria
       parameters:
         - in: path
@@ -312,108 +280,141 @@ paths:
       responses:
         200:
           description: Categoria encontrada
-
     patch:
       tags: [Categories]
+      summary: Editar categoria
       security:
         - bearerAuth: []
-      summary: Atualizar categoria
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CategoryDTO'
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
       responses:
         200:
           description: Categoria atualizada
-
     delete:
       tags: [Categories]
+      summary: Deletar categoria
       security:
         - bearerAuth: []
-      summary: Remover categoria
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
-        200:
+        204:
           description: Categoria removida
 
-  # =========================
-  # BRANDS
-  # =========================
-
-  /brands:
+  /api.ecommerce/v1/brands:
     post:
       tags: [Brands]
+      summary: Criar marca
       security:
         - bearerAuth: []
-      summary: Criar marca
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BrandDTO'
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
       responses:
         201:
           description: Marca criada
-
     get:
       tags: [Brands]
-      security:
-        - bearerAuth: []
       summary: Listar marcas
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
       responses:
         200:
           description: Lista de marcas
 
-  /brands/{id}:
+  /api.ecommerce/v1/brands/{idOrSlug}:
     get:
       tags: [Brands]
-      security:
-        - bearerAuth: []
       summary: Buscar marca
       parameters:
         - in: path
-          name: id
+          name: idOrSlug
           required: true
           schema:
             type: string
       responses:
         200:
           description: Marca encontrada
-
     put:
       tags: [Brands]
+      summary: Editar marca
       security:
         - bearerAuth: []
-      summary: Atualizar marca
+      parameters:
+        - in: path
+          name: idOrSlug
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BrandDTO'
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
       responses:
         200:
           description: Marca atualizada
-
     delete:
       tags: [Brands]
+      summary: Deletar marca
       security:
         - bearerAuth: []
-      summary: Remover marca
+      parameters:
+        - in: path
+          name: idOrSlug
+          required: true
+          schema:
+            type: string
       responses:
-        200:
+        204:
           description: Marca removida
 
-  # =========================
-  # PRODUCTS
-  # =========================
-
-  /products:
+  /api.ecommerce/v1/products:
     post:
       tags: [Products]
+      summary: Criar produto
       security:
         - bearerAuth: []
-      summary: Criar produto
       requestBody:
+        required: true
         content:
           multipart/form-data:
             schema:
@@ -433,25 +434,24 @@ paths:
                   type: integer
                 id_tags:
                   type: string
+                  example: "1,2,3"
+                ProductImages:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
                 additional_info:
                   type: string
                 is_featured:
                   type: boolean
                 weight:
                   type: number
-                ProductImages:
-                  type: array
-                  items:
-                    type: string
-                    format: binary
       responses:
         201:
           description: Produto criado
 
     get:
       tags: [Products]
-      security:
-        - bearerAuth: []
       summary: Listar produtos
       parameters:
         - in: query
@@ -466,11 +466,9 @@ paths:
         200:
           description: Lista de produtos
 
-  /products/{id}:
+  /api.ecommerce/v1/products/{id}:
     get:
       tags: [Products]
-      security:
-        - bearerAuth: []
       summary: Buscar produto
       parameters:
         - in: path
@@ -484,42 +482,36 @@ paths:
 
     patch:
       tags: [Products]
+      summary: Editar produto
       security:
         - bearerAuth: []
-      summary: Atualizar produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
       responses:
         200:
           description: Produto atualizado
 
     delete:
       tags: [Products]
+      summary: Deletar produto
       security:
         - bearerAuth: []
-      summary: Remover produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
-        200:
+        204:
           description: Produto removido
-
-  # =========================
-  # SETTINGS
-  # =========================
-
-  /settings/seo:
-    post:
-      tags: [Settings]
-      summary: Inicializar configurações SEO
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SeoDTO'
-      responses:
-        201:
-          description: SEO configurado
-
-    get:
-      tags: [Settings]
-      summary: Buscar configurações SEO
-      responses:
-        200:
-          description: Dados SEO

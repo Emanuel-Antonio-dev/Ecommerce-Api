@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"teste@gmail.com\",\n    \"password\":\"ADMIN@2025\"\n}",
+							"raw": "{\n    \"email\":\"emaricaroffice11@gmail.com\",\n    \"password\":\"Emaricar16@\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,6 +234,126 @@
 							"body": null
 						}
 					]
+				},
+				{
+					"name": "get-current-user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api.ecommerce/v1/auth/me",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send-otp-code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"emaricaroffice11@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api.ecommerce/v1/auth/otp/send",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"otp",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-otp-code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"otp_code\":\"777123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api.ecommerce/v1/auth/otp/verify-code",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api.ecommerce",
+								"v1",
+								"auth",
+								"otp",
+								"verify-code"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1165,78 +1285,517 @@
 			]
 		},
 		{
-			"name": "Settings",
+			"name": "Users",
 			"item": [
 				{
-					"name": "init-seo",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "client",
+					"item": [
+						{
+							"name": "orders",
+							"item": [
+								{
+									"name": "register-order",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id_user_fk\": 1,\n  \"payment_method\": \"cash\",\n  \"status\": \"pending\",\n  \"total_amount\": 350.50,\n  \"shipping_street\": \"Rua da Liberdade, 123\",\n  \"shipping_city\": \"Luanda\",\n  \"shipping_province\": \"Luanda\",\n  \"shipping_country\": \"Angola\",\n  \"shipping_phone_number\": \"+244912345678\"\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/orders",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"orders"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "pay-with-stipe",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcxMDI2Nzg5LCJleHAiOjE3NzExMTMxODl9.NEn5-6S1xij7O3tXoh2v4uD5Pn9h6PMxz1-wnR_gQis",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id_order\":1\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/webhook/stripe",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"webhook",
+												"stripe"
+											]
+										}
+									},
+									"response": []
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api.ecommerce",
-								"v1",
-								"settings",
-								"seo"
 							]
+						},
+						{
+							"name": "Carts",
+							"item": [
+								{
+									"name": "register-cart",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id_user_fk\": 1,\n  \"cartItems\": [\n    {\n      \"id_product_fk\": 39,\n      \"quantity\": 8,\n      \"price\": 1500\n    }\n  ]\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/carts",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"carts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-cart-user-items",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id_user_fk\": 1,\n  \"cartItems\": [\n    {\n      \"id_product_fk\": 12,\n      \"quantity\": 2,\n      \"price\": 1500.00\n    },\n    {\n      \"id_product_fk\": 7,\n      \"quantity\": 1,\n      \"price\": 890.99\n    }\n  ]\n}\n"
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/carts/1",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"carts",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete-cart-user-items",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id_user_fk\": 1,\n  \"cartItems\": [\n    {\n      \"id_product_fk\": 12,\n      \"quantity\": 2,\n      \"price\": 1500.00\n    },\n    {\n      \"id_product_fk\": 7,\n      \"quantity\": 1,\n      \"price\": 890.99\n    }\n  ]\n}\n"
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/carts/1",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"carts",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit-cart-items",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"quantity\": 9\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/carts/items/7",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"carts",
+												"items",
+												"7"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete-all-cart-user-items",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMzc5MCwiZXhwIjoxNzcxMTEwMTkwfQ.dxPGofJ-SdDHnTx1nbzMf0VWkmRbn7UnFoAQupI4z1w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:3000/api.ecommerce/v1/carts/items/1",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"carts",
+												"items",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "profile",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwOTkyNTExLCJleHAiOjE3NzEwNzg5MTF9.agwQwPX-16_4wwujKVPaevMdgi7r72sMQHCXi22jS80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}"
+								},
+								"url": {
+									"raw": "localhost:3000/api.ecommerce/v1/users/1",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit-profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImNsaWVudCIsImlhdCI6MTc3MTAyMjY2NiwiZXhwIjoxNzcxMTA5MDY2fQ.PEuWwQPC2bSxEX4KPWOiRNL81OPzX6dvBqNoG6EbprE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"username\":\"@EJMAA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api.ecommerce/v1/users/1",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcxMDIzMjgwLCJleHAiOjE3NzExMDk2ODB9.PimOnTtinVAGxf9P-2t0SeEco6jRL0PjKzBgcgg0Uxo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api.ecommerce/v1/users/5",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "get-seo-settings",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+					"name": "admin",
+					"item": [
+						{
+							"name": "Settings",
+							"item": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwNzQ5OTEwLCJleHAiOjE3NzA4MzYzMTB9.4gMUDpYyYBDQQaMXeSI2wUp8VsH8uTO69jvlwmyLf78",
-									"type": "string"
+									"name": "init-seo",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"settings",
+												"seo"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-seo-settings",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcwNzQ5OTEwLCJleHAiOjE3NzA4MzYzMTB9.4gMUDpYyYBDQQaMXeSI2wUp8VsH8uTO69jvlwmyLf78",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo/0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api.ecommerce",
+												"v1",
+												"settings",
+												"seo",
+												"0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"seo_title\": \"Loja Online de Suplementos | Whey, Creatina e Vitaminas\",\n  \"seo_description\": \"Compre suplementos alimentares de qualidade: whey protein, creatina, pré-treino, vitaminas e muito mais. Entrega rápida e preços acessíveis.\",\n  \"canonical_url\": \"https://www.suplementospro.com\",\n  \"og_title\": \"Suplementos de Qualidade para Sua Performance\",\n  \"og_description\": \"Melhore seus resultados com suplementos certificados. Whey, creatina, pré-treino e vitaminas com entrega rápida.\",\n  \"og_image\": \"https://www.suplementospro.com/assets/og-image.jpg\",\n  \"keywords\": [\n    \"suplementos alimentares\",\n    \"whey protein\",\n    \"creatina\",\n    \"pré-treino\",\n    \"vitaminas\",\n    \"suplementos fitness\",\n    \"loja de suplementos\",\n    \"nutrição esportiva\"\n  ]\n}\n"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api.ecommerce/v1/settings/seo/0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api.ecommerce",
-								"v1",
-								"settings",
-								"seo",
-								"0fbb8c8b-7e9c-4d09-8afd-f4ea2f793cc3"
-							]
+						{
+							"name": "set-order-status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzcxMDI2Nzg5LCJleHAiOjE3NzExMTMxODl9.NEn5-6S1xij7O3tXoh2v4uD5Pn9h6PMxz1-wnR_gQis",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"completed\",\n    \"id_user\":1\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api.ecommerce/v1/orders/1/status",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api.ecommerce",
+										"v1",
+										"orders",
+										"1",
+										"status"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
