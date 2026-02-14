@@ -15,6 +15,7 @@ import yaml from "yamljs"
 import passport from 'passport';
 import "./Services/Auth/Authentication/Oauth-Google/oauth-google.service"
 import { settingsRoutes } from './Routes/Settings/routes';
+import { paymentRoutes } from './Routes/Payments/routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -50,6 +51,7 @@ app.use(urlBase, productsRoutes)
 app.use(urlBase, cartRoutes)
 app.use(urlBase, producstOrders)
 app.use(urlBase, settingsRoutes)
+app.use(urlBase, paymentRoutes)
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {

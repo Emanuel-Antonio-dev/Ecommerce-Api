@@ -9,11 +9,11 @@ class CreateStripePaymentIntentService
     {
         try
         {
-            if(!datas.amount || !datas.order_id)
+            if(!datas.amount || !datas.metadata?.id_order)
             {
                 return {success: false, statusCode: 400, message:"Informe todos os campos."}
             }
-            const existsOrder = await this.productsOrderRepository.getOrderItemsByOrder(datas.order_id)
+            const existsOrder = await this.productsOrderRepository.getOrderItemsByOrder(Number(datas.metadata.id_order))
             if(!existsOrder)
             {
                 return {success: false, statusCode: 404, message:"Pedido não encontrado."}
@@ -34,6 +34,7 @@ class CreateStripePaymentIntentService
             return {success: true, statusCode: 200, datas: {id_user: id_user, secret: paymentIntent.client_secret}}
         } catch (error: any)
         {
+            console.log(error)
             return {success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!"}   
         }
     }

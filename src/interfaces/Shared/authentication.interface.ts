@@ -1,3 +1,4 @@
+import { Request } from "express"
 interface AuthenticationDatas
 {
     type: "by_token"|"by_otp"
@@ -25,4 +26,11 @@ interface OtpDatas
     created_at?: Date | string
     updated_at?: Date | string
 }
+interface RequestWithCredentials extends Request {
+  credentials?: {
+    sub: number;
+    user_type: "admin" | "client";
+  };
+}
+
 export{AuthenticationDatas, TokenDatas, OtpDatas}

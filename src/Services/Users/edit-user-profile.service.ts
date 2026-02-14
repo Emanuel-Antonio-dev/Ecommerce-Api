@@ -27,11 +27,17 @@ class UsersEditProfileService
         userDatas:Partial<usersDatas>,
         accountDatas: Partial<accountDatas>,
         contactDatas: Partial<contactsDatas>,
-        addressDatas: Partial<addressesDatas>
+        addressDatas: Partial<addressesDatas>,
+        authUser?: { sub: number; user_type: "admin" | "client" }
+
     )
     {
         try
         {
+            if (authUser?.user_type === "client" && id_user !== authUser.sub)
+            {
+                throw new HttpException(false,403,"Você não tem permissão para editar este usuário")
+            }
             if(!id_user)
             {
                 throw new HttpException(false, 400, "Informe o perfil.")
@@ -44,7 +50,7 @@ class UsersEditProfileService
                 const usersDatasToUpdate: Partial<{first_name: string, last_name: string, }> = {}
                 const accountDatasToUpdate: Partial<{email: string, password: string}> = {}
                 const contactDatasToUpdate: Partial<{phone_number: string}> = {}
-                const addressDatasToUpdate: Partial<{city: string, street: string}> = {}
+                const addressDatasToUpdate: Partial<addressesDatas> = {}
 
                 if (userDatas.first_name)
                 {
@@ -129,6 +135,26 @@ class UsersEditProfileService
                             allowedClasses: {}
                         }
                     )
+                }
+                if(addressDatas.country)
+                {
+                    addressDatasToUpdate.country = sanitize(addressDatas.country,{
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        })
+                }
+                if(addressDatas.city)
+                {
+                    addressDatasToUpdate.city = sanitize(addressDatas.city,{
+                            allowedTags: [],
+                            allowedAttributes: {},
+                            allowedClasses: {}
+                        })
+                }
+                if(addressDatas.is_default !== undefined)
+                {
+                    addressDatasToUpdate.is_default = addressDatas.is_default
                 }
                 if(
                     Object.keys(accountDatasToUpdate).length === 0 

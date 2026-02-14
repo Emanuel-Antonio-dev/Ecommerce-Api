@@ -7,56 +7,68 @@ class EditCartItemsService {
     constructor(
         private readonly repository: PrismaCartRepositories,
         private readonly userRepository: PrismaUsersRepositories
-
     ) {}
 
-    async editCartItems(id_user_fk: number, datas: Partial<cartItemsDatas>)
-    {
+    async editCartItems(id_user_fk: number, datas: Partial<cartItemsDatas>) {
         try {
-        if(!id_user_fk )
-            {
-                throw new HttpException(false, 400, "Informe o usuário")
+            if (!id_user_fk) {
+                throw new HttpException(false, 400, "Informe o usuário");
             }
-            if(!await this.userRepository.getUsersProfileDatas(id_user_fk, "client"))
-            {
-                throw new HttpException(false, 404, "Não conseguimos encontrar este usuário")
-            }
-            const cartDatas = await this.repository.getCartItems(undefined,id_user_fk);
 
-            if (!cartDatas || !cartDatas.items[0].id_cart_item) {
-                throw new HttpException(
-                    false,
-                    404,
-                    "Você ainda não possui um carrinho, adicione o seu primeiro item."
-                );
+            // Verifica se o usuário existe
+            const userExists = await this.userRepository.getUsersProfileDatas(id_user_fk, "client");
+            if (!userExists) {
+                throw new HttpException(false, 404, "Não conseguimos encontrar este usuário");
             }
-            const cartIetemsToUpdate: Partial<cartItemsDatas> = {};
-            
-            if (datas.quantity)
-            {
-                if(datas.quantity > cartDatas.items[0].quantity)
-                {
-                    throw new HttpException(false, 400, "Este produto esta sem estoque suficiente.");
+
+            // Busca o carrinho e seus itens
+            const cartDatas = await this.repository.getCartItems(undefined, id_user_fk);
+            if (!cartDatas || !cartDatas.items || cartDatas.items.length === 0) {
+                throw new HttpException(false, 404, "Você ainda não possui um carrinho, adicione o seu primeiro item.");
+            }
+
+            // O usuário precisa informar qual item deseja atualizar
+            if (!datas.id_cart_item) {
+                throw new HttpException(false, 400, "Informe o item do carrinho que deseja atualizar.");
+            }
+
+            // Busca o item correto do carrinho
+            const itemToUpdate = cartDatas.items.find((item: any)  => item.id_cart_item === datas.id_cart_item);
+            if (!itemToUpdate) {
+                throw new HttpException(false, 404, "Item do carrinho não encontrado.");
+            }
+
+            const cartItemUpdate: Partial<cartItemsDatas> = {};
+
+            // Validação da quantidade com estoque real
+            if (datas.quantity !== undefined) {
+                if (datas.quantity > itemToUpdate.product_datas.available_stock) {
+                    throw new HttpException(
+                        false,
+                        400,
+                        `O produto ${itemToUpdate.product_datas.name} está sem estoque suficiente. Quantidade disponível: ${itemToUpdate.product_datas.available_stock}`
+                    );
                 }
-                cartIetemsToUpdate.quantity = datas.quantity;
+                cartItemUpdate.quantity = datas.quantity;
             }
-            if (datas.price)
-            {
-                cartIetemsToUpdate.price = datas.price;
+
+            if (Object.keys(cartItemUpdate).length === 0) {
+                throw new HttpException(false, 400, "Nenhum dado válido foi fornecido para atualização.");
             }
-            if (Object.keys(cartIetemsToUpdate).length === 0)
-            {
-                throw new HttpException(false, 400, "Nenhum dado foi fornecido para atualização.");
-            }
-            const updatedCartItem = await this.repository.editCartItems(cartDatas.items[0].id_cart_item, cartIetemsToUpdate);
+
+            // Atualiza o item
+            const updatedCartItem = await this.repository.editCartItems(itemToUpdate.id_cart_item, cartItemUpdate);
             if (!updatedCartItem) {
                 throw new HttpException(false, 500, "Ocorreu um erro ao atualizar o item do carrinho.");
             }
+
             return {
                 success: true,
                 statusCode: 200,
-                message: "Item do carrinho atualizado com sucesso."
+                message: "Item do carrinho atualizado com sucesso.",
+                datas: updatedCartItem
             };
+
         } catch (error: any) {
             if (error instanceof HttpException) {
                 return {
@@ -74,4 +86,5 @@ class EditCartItemsService {
         }
     }
 }
+
 export { EditCartItemsService };

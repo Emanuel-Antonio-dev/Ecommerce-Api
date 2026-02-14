@@ -17,6 +17,7 @@ import { ResetPasswordController } from "../../Controllers/Authentication/reset-
 import { UsersProfileController } from "../../Controllers/Users/profile-users.controller";
 import { UsersEditProfileController } from "../../Controllers/Users/edit-users-profile.controller";
 import { UsersDeleteProfileController } from "../../Controllers/Users/delete-users-profile.controller";
+import { authorizeRoles } from "../../Common/Middlewares/Authorization/authorize-roles";
 
 const generalRoute = Router();
 const FRONT_URL = process.env.REDIRECT_URI as string;
@@ -44,8 +45,8 @@ generalRoute.get("/auth/google/callback",passport.authenticate("google", {sessio
 generalRoute.get("/auth/facebook/signin",passport.authenticate("facebook", { scope: ["email"] }));
 generalRoute.get("/auth/facebook/callback",passport.authenticate("facebook", {session: false,failureRedirect: `${FRONT_URL}/login?error=facebook_oauth_failed`}),oauthRedirect);
 
-generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
-generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
-generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isAdmin, MiddlewareAuthorization.isClient,(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
+generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
+generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
+generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
 
 export{generalRoute}

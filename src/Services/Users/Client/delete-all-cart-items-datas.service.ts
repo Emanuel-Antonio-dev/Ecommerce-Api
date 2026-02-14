@@ -21,7 +21,7 @@ class DeleteAllCartItemsDatasService {
             if(cartDatas.length === 0) {
                 throw new HttpException(
                     true,
-                    200,
+                    404,
                     "Não possui itens no carrinho para serem deletados."
                 );
             }

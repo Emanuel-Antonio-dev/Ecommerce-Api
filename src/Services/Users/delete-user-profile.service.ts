@@ -11,15 +11,23 @@ class UsersDeleteProfileService
         private readonly accountRepository: PrismaAccountRepositories
     ){}
 
-    async deleteProfile(id_user: number)
+    async deleteProfile(id_user: number, authUser?: { sub: number; user_type: "admin" | "client" })
     {
         try
         {
+            if (authUser?.user_type === "client" && id_user !== authUser.sub)
+            {
+                throw new HttpException(false,403,"Você não tem permissão para eliminar este usuário")
+            }
+            if (authUser?.user_type === "admin" && id_user === authUser.sub)
+                {
+                    throw new HttpException(false, 403, "Administradores não podem eliminar a própria conta")
+                }
             if(!id_user)
             {
                 throw new HttpException(false, 400, "Informe o usuário.")
             }
-            const userExists = await this.repository.getUsersProfileDatas(id_user)
+            const userExists = await this.repository.getUsersProfileDatas(id_user, authUser?.user_type)
             if(!userExists)
             {
                 throw new HttpException(false,404,"Perfil não encontrado.")

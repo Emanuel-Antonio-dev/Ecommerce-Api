@@ -4,6 +4,7 @@ import { CreateStripePaymentIntentService } from "../../Services/Products/Paymen
 import { prismaService } from "../../lib/prisma.service";
 
 const productsOrderRepository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
+
 class CreatePaymentIntentController
 {
     private static service: CreateStripePaymentIntentService = new CreateStripePaymentIntentService(productsOrderRepository);
@@ -12,13 +13,14 @@ class CreatePaymentIntentController
     {
         try
         {
-            const {id_order, totalAmount } = req.body;
-            if(!totalAmount || !id_order)
+            const {id_order } = req.body;
+            if(!id_order)
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
             }
+            const getTotalAmount = await productsOrderRepository.getOrderItemsByOrder(id_order)
             const paymentIntent = await this.service.paymentIntent({
-                amount: totalAmount,
+                amount: getTotalAmount.order.total_amount,
                 metadata: {
                     id_order,
                 },

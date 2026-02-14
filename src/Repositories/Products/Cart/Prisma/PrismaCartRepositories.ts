@@ -21,7 +21,7 @@ class PrismaCartRepositories implements ICartRepositories
         const client = tx ??  this.prisma
         return await client.cartItems.create({
             data:{
-                price: datas.price,
+                price: datas.price!,
                 quantity: datas.quantity,
                 id_cart_fk: datas.id_cart_fk,
                 id_product_fk: datas.id_product_fk
@@ -32,7 +32,15 @@ class PrismaCartRepositories implements ICartRepositories
     {
         const client = tx ?? this.prisma
         const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}
-        const datas = await client.carts.findFirst({where: {...where, status:"active"}, include:{cart_items:{include:{product:true}}, user_details: true}})    
+        const datas = await client.carts.findFirst({where: {...where, status:"active"}, include:{cart_items:{include:{product:true}}, user_details: {
+            select: {
+                username: true,
+                first_name: true,
+                last_name: true,
+                user_type: true,
+                created_at: true
+            }
+        }}})    
         
         if(!datas)
         {

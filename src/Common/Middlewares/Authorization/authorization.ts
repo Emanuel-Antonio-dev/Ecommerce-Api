@@ -31,7 +31,6 @@ class MiddlewareAuthorization {
 
             // ✅ Guardando credentials diretamente no req
             req.credentials = verifiedToken.info as { sub: number; user_type: string; [key: string]: any }
-
             next();
         } catch (error: any) {
             console.log(error);
