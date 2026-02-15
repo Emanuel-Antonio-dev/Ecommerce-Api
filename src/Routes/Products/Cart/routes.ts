@@ -8,6 +8,7 @@ import { EditCartItemsController } from "../../../Controllers/Products/Cart/edit
 
 const cartRoutes: Router = Router()
 
+cartRoutes.route("/carts/guest").post((req: Request, res: Response) =>{RegisterCartController.register(req, res)})
 cartRoutes.route("/carts").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{RegisterCartController.register(req, res)})
 cartRoutes.route("/carts/:id_user_fk").get(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{GetCartDatasController.get(req, res)})
 cartRoutes.route("/carts/items/:id_user_fk").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient, (req: Request, res: Response) =>{DeleteCartItemController.delete(req, res)})

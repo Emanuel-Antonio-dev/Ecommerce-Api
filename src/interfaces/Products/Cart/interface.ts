@@ -2,7 +2,7 @@ import { Decimal } from "../../../../generated/prisma/internal/prismaNamespace"
 interface cartDatas
 {
     id_cart?: number
-    id_user_fk: number
+    id_user_fk?: number
     id_guest_cart?: string
     status: "waiting" | "active" | "ordered" | "cancelled"
     created_at?: Date | string
