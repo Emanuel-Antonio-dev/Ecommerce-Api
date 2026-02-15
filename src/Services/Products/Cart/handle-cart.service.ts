@@ -25,7 +25,20 @@ async function handleCart(id_guest_cart: string | undefined, id_user: number) {
     {
       const existingCart = await prismaService.carts.findFirst({
         where: { id_user_fk: id_user, status: "active" },
-        include: { cart_items: true },
+        include: {cart_items: {select:{
+          id_cart_item: true, 
+          id_cart_fk: true,
+          quantity: true,
+          product:{
+            select:{
+              id_product: true,
+              name: true,
+              images: {select:{url: true}},
+              price: true
+          }
+          },
+          created_at: true,
+        }} }
       });
       userCart = existingCart?.cart_items || [];
     }

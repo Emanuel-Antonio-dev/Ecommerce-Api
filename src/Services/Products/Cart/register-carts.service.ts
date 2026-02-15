@@ -143,8 +143,21 @@ class RegisterCartsService {
   async migrateGuestCartToUser(id_guest_cart: string, id_user: number) {
     return this.prisma.$transaction(async (tx) => {
       const guestCart = await tx.carts.findFirst({
-        where: { id_guest_cart, status: "active" },
-        include: { cart_items: true },
+        where: { id_guest_cart: id_guest_cart, status: "active" },
+        include: {cart_items: {select:{
+          id_cart_item: true, 
+          id_cart_fk: true,
+          quantity: true,
+          product:{
+            select:{
+              id_product: true,
+              name: true,
+              images: {select:{url: true}},
+              price: true
+          }
+          },
+          created_at: true,
+        }} }
       });
 
       if (!guestCart) return null;
@@ -168,7 +181,7 @@ class RegisterCartsService {
         const existingItem = await tx.cartItems.findFirst({
           where: {
             id_cart_fk: userCart.id_cart,
-            id_product_fk: item.id_product_fk,
+            id_product_fk: item.product.id_product,
           },
         });
 
@@ -181,9 +194,9 @@ class RegisterCartsService {
           await tx.cartItems.create({
             data: {
               id_cart_fk: userCart.id_cart,
-              id_product_fk: item.id_product_fk,
+              id_product_fk: item.product.id_product,
               quantity: item.quantity,
-              price: item.price,
+              price: item.product.price,
             },
           });
         }
@@ -193,7 +206,20 @@ class RegisterCartsService {
 
       return tx.carts.findFirst({
         where: { id_user_fk: id_user, status: "active" },
-        include: { cart_items: true },
+        include: {cart_items: {select:{
+          id_cart_item: true, 
+          id_cart_fk: true,
+          quantity: true,
+          product:{
+            select:{
+              id_product: true,
+              name: true,
+              images: {select:{url: true}},
+              price: true
+          }
+          },
+          created_at: true,
+        }} }
       });
     });
   }
