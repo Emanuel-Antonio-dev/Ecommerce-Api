@@ -21,7 +21,8 @@ class SignInController
     {
         try
         {
-            const {email, password, id_guest_cart} = req.body
+            const {email, password} = req.body
+            const id_guest_cart = req.cookies.id_guest_cart
             if (!email || !password)
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
