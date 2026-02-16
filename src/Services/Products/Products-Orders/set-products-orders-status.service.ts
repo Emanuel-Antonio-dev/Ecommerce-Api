@@ -31,7 +31,7 @@ class SetOrdersStatusService
             {
                 throw new HttpException(false, 404, "Pedido não encontrado")
             }
-            const orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
+            let orderResume;
 
             if(order.status !== "pending")
             {
@@ -40,12 +40,14 @@ class SetOrdersStatusService
             if(status === "completed")
             {
                 await this.repository.setOrderStatus(id_order, "completed")
+                orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
                 await this.emailProvider.sendEmail(userDatas.account_details.email,"Confirmar compra","<h1>Pedido aprovado</h1>")
                 return { success: true, statusCode: 200, message: "Pedido aprovado com sucesso.", datas: orderResume };
             }
             if(status === "failed")
             {
                 await this.repository.setOrderStatus(id_order, "failed")
+                orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
                 await this.emailProvider.sendEmail(userDatas.account_details.email,"O processamento da sua compra falhou","<h1>Pedido falhou</h1>")
                 return { success: true, statusCode: 200, message: "O processamento deste pedido falhou.", datas: orderResume };
             }
@@ -56,10 +58,10 @@ class SetOrdersStatusService
                     available_stock:{increment: item.quantity}
                 }})
             }
-            const updatedOrder = await this.repository.setOrderStatus(id_order, "cancelled")
+            await this.repository.setOrderStatus(id_order, "cancelled")
+            orderResume = await this.repository.getOrderItemsByOrder(order.id_order)
             await this.emailProvider.sendEmail(userDatas.account_details.email,"Pedido negado","<h1>Pedido negado</h1>")
             return { success: true, statusCode: 200, message: "Pedido negado.", datas: {
-                updatedOrder,
                 orderResume
             } };
         } catch (error: any)

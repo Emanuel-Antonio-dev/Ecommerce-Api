@@ -36,13 +36,14 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
             }
         })
     }
-    async setOrderStatus(id_order: number, status: "completed" | "cancelled" | "failed"): Promise<any>
+    async setOrderStatus(id_order: number, status: "completed" | "cancelled" | "failed", tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
-        return await this.prisma.orders.update({where:{id_order: id_order}, data:{status:status}})    
+        const client = tx ?? this.prisma
+        return await client.orders.update({where:{id_order: id_order}, data:{status:status}})    
     }
     async getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[] | any>
     {
-        return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk},omit:{id_order_fk: true, id_product_fk: true},include:{order:{omit:{id_user_fk: true},include:{user_details: {select:{id_user: true,first_name: true, last_name: true}}}},product: {select:{id_product: true,name: true, price: true, images:{select:{url: true}}}}}})
+        return await this.prisma.orderItems.findMany({where:{id_order_fk: id_order_fk},omit:{id_order_fk: true, id_product_fk: true},include:{order:{omit:{id_user_fk: true},include:{user_details: {select:{id_user: true,first_name: true, last_name: true}}}},product: {select:{id_product: true,name: true, price: true, images:{select:{url: true}}}}}})
     }
 }
 export {PrismaOrdersRepositories}
