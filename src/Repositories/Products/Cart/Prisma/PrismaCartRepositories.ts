@@ -28,41 +28,29 @@ class PrismaCartRepositories implements ICartRepositories
             }
         })
     }
-    async getCartItems(id_cart?:number, id_user_fk?:number, tx?: Omit<Prisma.TransactionClient, "$transaction"> ): Promise<any>
+    async getCartItems(id_cart?: number, id_user_fk?: number, tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
-        const client = tx ?? this.prisma
-        const where = id_cart ? {id_cart: id_cart} : {id_user_fk: id_user_fk}
-        const datas = await client.carts.findFirst({where: {...where, status:"active"}, include:{cart_items:{include:{product:true}}, user_details: {
-            select: {
-                username: true,
-                first_name: true,
-                last_name: true,
-                user_type: true,
-                created_at: true
-            }
-        }}})    
-        
-        if(!datas)
-        {
-            return null
-        }
-        return {
-            id_cart: datas?.id_cart,
-            id_user_fk: datas?.id_user_fk,
-            status: datas?.status,
-            created_at: datas?.created_at,
-            updated_at: datas?.updated_at,
-            user_datas: datas?.user_details,
-            items: datas?.cart_items.map(item => ({
-                id_cart_item: item.id_cart_item,
-                quantity: item.quantity,
-                price: item.price,
-                created_at: item.created_at,
-                updated_at: item.updated_at,
-                product_datas: item.product
-            }))
-        }
+        const client = tx ?? this.prisma;
+        const where = id_cart ? { id_cart } : { id_user_fk };
+        return await client.carts.findFirst({
+            where: { ...where, status: "active" },
+            omit: { id_user_fk: true},
+            include: {
+                cart_items: { include: { product: true }, omit:{id_product_fk: true}},
+                user_details: {
+                    select: {
+                        id_user: true,
+                        username: true,
+                        first_name: true,
+                        last_name: true,
+                        user_type: true,
+                        created_at: true,
+                    },
+                },
+            },
+        });
     }
+
     async editCartItems(id_cart_item:number, data: Partial<cartItemsDatas>): Promise<any>
     {
         return await this.prisma.cartItems.update({

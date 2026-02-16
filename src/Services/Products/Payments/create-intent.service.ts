@@ -9,23 +9,28 @@ class CreateStripePaymentIntentService
     {
         try
         {
-            if(!datas.amount || !datas.metadata?.id_order)
+            if(!datas.id_order)
             {
-                return {success: false, statusCode: 400, message:"Informe todos os campos."}
+                return {success: false, statusCode: 400, message:"Informe o seu pedido."}
             }
-            const existsOrder = await this.productsOrderRepository.getOrderItemsByOrder(Number(datas.metadata.id_order))
+            const existsOrder = await this.productsOrderRepository.getOrderItemsByOrder(Number(datas.id_order))
             if(!existsOrder)
             {
                 return {success: false, statusCode: 404, message:"Pedido não encontrado."}
             }
             const id_user = existsOrder.order.user_details.id_user
             const paymentIntent = await stripeConfig.paymentIntents.create({
-                amount: datas.amount,
-                currency: datas.currency || "AOA",
+                amount: existsOrder.order.total_amount,
+                currency: datas.currency || "aoa",
                 automatic_payment_methods: {
                     enabled: true,
                 },
-                metadata: datas.metadata
+                metadata: {
+                    id_user: id_user.toString(),
+                    id_order: datas.id_order.toString()
+                },
+                description: `Pagamento do pedido #${datas.id_order}`
+
             })
             if(!paymentIntent)
             {

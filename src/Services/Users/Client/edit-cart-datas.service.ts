@@ -37,11 +37,14 @@ class EditCartItemsService {
             if (!itemToUpdate) {
                 throw new HttpException(false, 404, "Item do carrinho não encontrado.");
             }
-
             const cartItemUpdate: Partial<cartItemsDatas> = {};
 
             // Validação da quantidade com estoque real
             if (datas.quantity !== undefined) {
+                if (datas.quantity <= 0)
+                {
+                    throw new HttpException(false, 400, "Quantidade inválida.");
+                }
                 if (datas.quantity > itemToUpdate.product_datas.available_stock) {
                     throw new HttpException(
                         false,
@@ -65,8 +68,7 @@ class EditCartItemsService {
             return {
                 success: true,
                 statusCode: 200,
-                message: "Item do carrinho atualizado com sucesso.",
-                datas: updatedCartItem
+                message: "Item do carrinho atualizado com sucesso."
             };
 
         } catch (error: any) {

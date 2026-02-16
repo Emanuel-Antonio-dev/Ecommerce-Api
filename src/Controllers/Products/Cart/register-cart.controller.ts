@@ -16,14 +16,14 @@ class RegisterCartController {
     try {
       const { cartItems } = req.body;
       const id_user_fk = req.credentials?.sub;
+      const id_guest_cart = req.cookies.id_guest_cart; // para guest, tenta pegar o id_guest_cart do cookie
 
       // Monta o cartDatas para service
       const cartDatas: cartDatas = id_user_fk
         ? { id_user_fk: Number(id_user_fk), status: "active" }
-        : { status: "active" }; // guest → service gera o id_guest_cart
+        : { status: "active", id_guest_cart }; // guest → service gera o id_guest_cart
 
       const cartItemsDatas: cartItemsDatas[] = Array.isArray(cartItems) ? cartItems : [];
-
       const result = await service.registerCart(cartDatas, cartItemsDatas);
 
       // Se for guest, salva o id_guest_cart em cookie

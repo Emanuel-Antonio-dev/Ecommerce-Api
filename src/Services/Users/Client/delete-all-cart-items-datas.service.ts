@@ -13,7 +13,7 @@ class DeleteAllCartItemsDatasService {
             {
                 throw new HttpException(false, 400, "Informe o carrinho")
             }
-            if(!await this.repository.getCartItems(undefined, id_cart))
+            if(!await this.repository.getCartItems(id_cart,undefined))
             {
                 throw new HttpException(false, 404, "Este carrinho não existe")
             }

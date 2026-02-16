@@ -39,15 +39,15 @@ class SetOrdersStatusService
             }
             if(status === "completed")
             {
-                const updatedOrder = await this.repository.setOrderStatus(id_order, "completed")
+                await this.repository.setOrderStatus(id_order, "completed")
                 await this.emailProvider.sendEmail(userDatas.account_details.email,"Confirmar compra","<h1>Pedido aprovado</h1>")
-                return { success: true, statusCode: 200, message: "O seu pedido foi aprovado com sucesso.", datas: orderResume };
+                return { success: true, statusCode: 200, message: "Pedido aprovado com sucesso.", datas: orderResume };
             }
             if(status === "failed")
             {
-                const updatedOrder = await this.repository.setOrderStatus(id_order, "failed")
+                await this.repository.setOrderStatus(id_order, "failed")
                 await this.emailProvider.sendEmail(userDatas.account_details.email,"O processamento da sua compra falhou","<h1>Pedido falhou</h1>")
-                return { success: true, statusCode: 200, message: "O processamento do seu pedido falhou.", datas: orderResume };
+                return { success: true, statusCode: 200, message: "O processamento deste pedido falhou.", datas: orderResume };
             }
             const orderItems = await this.prisma.orderItems.findMany({where:{id_order_fk: id_order}})
             for(const item of orderItems)
@@ -57,8 +57,8 @@ class SetOrdersStatusService
                 }})
             }
             const updatedOrder = await this.repository.setOrderStatus(id_order, "cancelled")
-            await this.emailProvider.sendEmail(userDatas.account_details.email,"Pedido negado","<h1>Pedido aprovado</h1>")
-            return { success: true, statusCode: 200, message: "O seu pedido foi negado.", datas: {
+            await this.emailProvider.sendEmail(userDatas.account_details.email,"Pedido negado","<h1>Pedido negado</h1>")
+            return { success: true, statusCode: 200, message: "Pedido negado.", datas: {
                 updatedOrder,
                 orderResume
             } };

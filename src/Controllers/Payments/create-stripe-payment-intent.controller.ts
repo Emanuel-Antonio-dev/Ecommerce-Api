@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { PrismaOrdersRepositories } from "../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { CreateStripePaymentIntentService } from "../../Services/Products/Payments/create-intent.service";
 import { prismaService } from "../../lib/prisma.service";
+import { RequestWithCredentials } from "../../Common/Middlewares/Authorization/authorization";
 
 const productsOrderRepository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
 
@@ -13,19 +14,12 @@ class CreatePaymentIntentController
     {
         try
         {
-            const {id_order } = req.body;
+            const {id_order} = req.body;
             if(!id_order)
             {
                 return res.status(400).json({success: false, statusCode: 400, message:"Informe todos os campos."})
             }
-            const getTotalAmount = await productsOrderRepository.getOrderItemsByOrder(id_order)
-            const paymentIntent = await this.service.paymentIntent({
-                amount: Math.round(getTotalAmount.order.total_amount * 100),
-                metadata: {
-                    id_order,
-                },
-                currency:"aoa"
-            });
+            const paymentIntent = await this.service.paymentIntent({id_order: id_order});
             return res.status(paymentIntent.statusCode).json(paymentIntent);
         } catch (error: any)
         {

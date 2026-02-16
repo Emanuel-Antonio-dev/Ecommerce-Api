@@ -42,7 +42,7 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
     }
     async getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[] | any>
     {
-        return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk}, include:{order:{include:{user_details: {select:{id_user: true,first_name: true, last_name: true}}}}}})
+        return await this.prisma.orderItems.findFirst({where:{id_order_fk: id_order_fk},omit:{id_order_fk: true, id_product_fk: true},include:{order:{omit:{id_user_fk: true},include:{user_details: {select:{id_user: true,first_name: true, last_name: true}}}},product: {select:{id_product: true,name: true, price: true, images:{select:{url: true}}}}}})
     }
 }
 export {PrismaOrdersRepositories}
