@@ -36,24 +36,11 @@ class RegisterUserService {
       =============================== */
 
       const sanitizedUser = {
-        first_name: sanitize(userDatas.first_name, {
-                            allowedAttributes: {},
-                            allowedClasses: {},
-                            allowedTags: [],
-        }),
-        last_name: sanitize(userDatas.last_name,{
-                            allowedAttributes: {},
-                            allowedClasses: {},
-                            allowedTags: [],
-        }),
-        username: sanitize(userDatas.username,{
-                            allowedAttributes: {},
-                            allowedClasses: {},
-                            allowedTags: [],
-        }),
+        first_name: sanitize(userDatas.first_name, {allowedAttributes: {},allowedClasses: {},allowedTags: [],}),
+        last_name: sanitize(userDatas.last_name,{allowedAttributes: {},allowedClasses: {},allowedTags: [],}),
+        username: sanitize(userDatas.username,{allowedAttributes: {},allowedClasses: {},allowedTags: [],}),
         user_type: userDatas.user_type ?? "client"
       }
-
       /* ===============================
          2️⃣ Validações básicas
       =============================== */

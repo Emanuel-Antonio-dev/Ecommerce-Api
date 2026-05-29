@@ -39,6 +39,8 @@ export type ProductsCategoriesMinAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  id_seo_setting_fk: string | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -48,6 +50,8 @@ export type ProductsCategoriesMaxAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  id_seo_setting_fk: string | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -57,6 +61,8 @@ export type ProductsCategoriesCountAggregateOutputType = {
   name: number
   slug: number
   description: number
+  id_seo_setting_fk: number
+  deleted_at: number
   created_at: number
   updated_at: number
   _all: number
@@ -76,6 +82,8 @@ export type ProductsCategoriesMinAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  id_seo_setting_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -85,6 +93,8 @@ export type ProductsCategoriesMaxAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  id_seo_setting_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -94,6 +104,8 @@ export type ProductsCategoriesCountAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  id_seo_setting_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -190,6 +202,8 @@ export type ProductsCategoriesGroupByOutputType = {
   name: string
   slug: string
   description: string | null
+  id_seo_setting_fk: string | null
+  deleted_at: Date | null
   created_at: Date
   updated_at: Date
   _count: ProductsCategoriesCountAggregateOutputType | null
@@ -222,8 +236,11 @@ export type ProductsCategoriesWhereInput = {
   name?: Prisma.StringFilter<"ProductsCategories"> | string
   slug?: Prisma.StringFilter<"ProductsCategories"> | string
   description?: Prisma.StringNullableFilter<"ProductsCategories"> | string | null
+  id_seo_setting_fk?: Prisma.StringNullableFilter<"ProductsCategories"> | string | null
+  deleted_at?: Prisma.DateTimeNullableFilter<"ProductsCategories"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"ProductsCategories"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsCategories"> | Date | string
+  seo_setting?: Prisma.XOR<Prisma.SeoSettingsNullableScalarRelationFilter, Prisma.SeoSettingsWhereInput> | null
   product?: Prisma.ProductsListRelationFilter
 }
 
@@ -232,8 +249,11 @@ export type ProductsCategoriesOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  id_seo_setting_fk?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  seo_setting?: Prisma.SeoSettingsOrderByWithRelationInput
   product?: Prisma.ProductsOrderByRelationAggregateInput
 }
 
@@ -241,20 +261,25 @@ export type ProductsCategoriesWhereUniqueInput = Prisma.AtLeast<{
   id_category?: number
   name?: string
   slug?: string
+  id_seo_setting_fk?: string
   AND?: Prisma.ProductsCategoriesWhereInput | Prisma.ProductsCategoriesWhereInput[]
   OR?: Prisma.ProductsCategoriesWhereInput[]
   NOT?: Prisma.ProductsCategoriesWhereInput | Prisma.ProductsCategoriesWhereInput[]
   description?: Prisma.StringNullableFilter<"ProductsCategories"> | string | null
+  deleted_at?: Prisma.DateTimeNullableFilter<"ProductsCategories"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"ProductsCategories"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsCategories"> | Date | string
+  seo_setting?: Prisma.XOR<Prisma.SeoSettingsNullableScalarRelationFilter, Prisma.SeoSettingsWhereInput> | null
   product?: Prisma.ProductsListRelationFilter
-}, "id_category" | "name" | "slug">
+}, "id_category" | "name" | "slug" | "id_seo_setting_fk">
 
 export type ProductsCategoriesOrderByWithAggregationInput = {
   id_category?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  id_seo_setting_fk?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.ProductsCategoriesCountOrderByAggregateInput
@@ -272,6 +297,8 @@ export type ProductsCategoriesScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"ProductsCategories"> | string
   slug?: Prisma.StringWithAggregatesFilter<"ProductsCategories"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"ProductsCategories"> | string | null
+  id_seo_setting_fk?: Prisma.StringNullableWithAggregatesFilter<"ProductsCategories"> | string | null
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductsCategories"> | Date | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsCategories"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsCategories"> | Date | string
 }
@@ -280,8 +307,10 @@ export type ProductsCategoriesCreateInput = {
   name: string
   slug: string
   description?: string | null
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
+  seo_setting?: Prisma.SeoSettingsCreateNestedOneWithoutProductsCategoriesInput
   product?: Prisma.ProductsCreateNestedManyWithoutCategoryInput
 }
 
@@ -290,6 +319,8 @@ export type ProductsCategoriesUncheckedCreateInput = {
   name: string
   slug: string
   description?: string | null
+  id_seo_setting_fk?: string | null
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   product?: Prisma.ProductsUncheckedCreateNestedManyWithoutCategoryInput
@@ -299,8 +330,10 @@ export type ProductsCategoriesUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seo_setting?: Prisma.SeoSettingsUpdateOneWithoutProductsCategoriesNestedInput
   product?: Prisma.ProductsUpdateManyWithoutCategoryNestedInput
 }
 
@@ -309,6 +342,8 @@ export type ProductsCategoriesUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_seo_setting_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductsUncheckedUpdateManyWithoutCategoryNestedInput
@@ -319,6 +354,8 @@ export type ProductsCategoriesCreateManyInput = {
   name: string
   slug: string
   description?: string | null
+  id_seo_setting_fk?: string | null
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -327,6 +364,7 @@ export type ProductsCategoriesUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -336,6 +374,8 @@ export type ProductsCategoriesUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_seo_setting_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,6 +385,8 @@ export type ProductsCategoriesCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  id_seo_setting_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -358,6 +400,8 @@ export type ProductsCategoriesMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  id_seo_setting_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -367,6 +411,8 @@ export type ProductsCategoriesMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  id_seo_setting_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -378,6 +424,11 @@ export type ProductsCategoriesSumOrderByAggregateInput = {
 export type ProductsCategoriesScalarRelationFilter = {
   is?: Prisma.ProductsCategoriesWhereInput
   isNot?: Prisma.ProductsCategoriesWhereInput
+}
+
+export type ProductsCategoriesNullableScalarRelationFilter = {
+  is?: Prisma.ProductsCategoriesWhereInput | null
+  isNot?: Prisma.ProductsCategoriesWhereInput | null
 }
 
 export type ProductsCategoriesCreateNestedOneWithoutProductInput = {
@@ -394,12 +445,46 @@ export type ProductsCategoriesUpdateOneRequiredWithoutProductNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductsCategoriesUpdateToOneWithWhereWithoutProductInput, Prisma.ProductsCategoriesUpdateWithoutProductInput>, Prisma.ProductsCategoriesUncheckedUpdateWithoutProductInput>
 }
 
+export type ProductsCategoriesCreateNestedOneWithoutSeo_settingInput = {
+  create?: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+  connectOrCreate?: Prisma.ProductsCategoriesCreateOrConnectWithoutSeo_settingInput
+  connect?: Prisma.ProductsCategoriesWhereUniqueInput
+}
+
+export type ProductsCategoriesUncheckedCreateNestedOneWithoutSeo_settingInput = {
+  create?: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+  connectOrCreate?: Prisma.ProductsCategoriesCreateOrConnectWithoutSeo_settingInput
+  connect?: Prisma.ProductsCategoriesWhereUniqueInput
+}
+
+export type ProductsCategoriesUpdateOneWithoutSeo_settingNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+  connectOrCreate?: Prisma.ProductsCategoriesCreateOrConnectWithoutSeo_settingInput
+  upsert?: Prisma.ProductsCategoriesUpsertWithoutSeo_settingInput
+  disconnect?: Prisma.ProductsCategoriesWhereInput | boolean
+  delete?: Prisma.ProductsCategoriesWhereInput | boolean
+  connect?: Prisma.ProductsCategoriesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductsCategoriesUpdateToOneWithWhereWithoutSeo_settingInput, Prisma.ProductsCategoriesUpdateWithoutSeo_settingInput>, Prisma.ProductsCategoriesUncheckedUpdateWithoutSeo_settingInput>
+}
+
+export type ProductsCategoriesUncheckedUpdateOneWithoutSeo_settingNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+  connectOrCreate?: Prisma.ProductsCategoriesCreateOrConnectWithoutSeo_settingInput
+  upsert?: Prisma.ProductsCategoriesUpsertWithoutSeo_settingInput
+  disconnect?: Prisma.ProductsCategoriesWhereInput | boolean
+  delete?: Prisma.ProductsCategoriesWhereInput | boolean
+  connect?: Prisma.ProductsCategoriesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductsCategoriesUpdateToOneWithWhereWithoutSeo_settingInput, Prisma.ProductsCategoriesUpdateWithoutSeo_settingInput>, Prisma.ProductsCategoriesUncheckedUpdateWithoutSeo_settingInput>
+}
+
 export type ProductsCategoriesCreateWithoutProductInput = {
   name: string
   slug: string
   description?: string | null
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
+  seo_setting?: Prisma.SeoSettingsCreateNestedOneWithoutProductsCategoriesInput
 }
 
 export type ProductsCategoriesUncheckedCreateWithoutProductInput = {
@@ -407,6 +492,8 @@ export type ProductsCategoriesUncheckedCreateWithoutProductInput = {
   name: string
   slug: string
   description?: string | null
+  id_seo_setting_fk?: string | null
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -431,8 +518,10 @@ export type ProductsCategoriesUpdateWithoutProductInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seo_setting?: Prisma.SeoSettingsUpdateOneWithoutProductsCategoriesNestedInput
 }
 
 export type ProductsCategoriesUncheckedUpdateWithoutProductInput = {
@@ -440,8 +529,68 @@ export type ProductsCategoriesUncheckedUpdateWithoutProductInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_seo_setting_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductsCategoriesCreateWithoutSeo_settingInput = {
+  name: string
+  slug: string
+  description?: string | null
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  product?: Prisma.ProductsCreateNestedManyWithoutCategoryInput
+}
+
+export type ProductsCategoriesUncheckedCreateWithoutSeo_settingInput = {
+  id_category?: number
+  name: string
+  slug: string
+  description?: string | null
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  product?: Prisma.ProductsUncheckedCreateNestedManyWithoutCategoryInput
+}
+
+export type ProductsCategoriesCreateOrConnectWithoutSeo_settingInput = {
+  where: Prisma.ProductsCategoriesWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+}
+
+export type ProductsCategoriesUpsertWithoutSeo_settingInput = {
+  update: Prisma.XOR<Prisma.ProductsCategoriesUpdateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedUpdateWithoutSeo_settingInput>
+  create: Prisma.XOR<Prisma.ProductsCategoriesCreateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedCreateWithoutSeo_settingInput>
+  where?: Prisma.ProductsCategoriesWhereInput
+}
+
+export type ProductsCategoriesUpdateToOneWithWhereWithoutSeo_settingInput = {
+  where?: Prisma.ProductsCategoriesWhereInput
+  data: Prisma.XOR<Prisma.ProductsCategoriesUpdateWithoutSeo_settingInput, Prisma.ProductsCategoriesUncheckedUpdateWithoutSeo_settingInput>
+}
+
+export type ProductsCategoriesUpdateWithoutSeo_settingInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductsUpdateManyWithoutCategoryNestedInput
+}
+
+export type ProductsCategoriesUncheckedUpdateWithoutSeo_settingInput = {
+  id_category?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductsUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 
@@ -480,8 +629,11 @@ export type ProductsCategoriesSelect<ExtArgs extends runtime.Types.Extensions.In
   name?: boolean
   slug?: boolean
   description?: boolean
+  id_seo_setting_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
   product?: boolean | Prisma.ProductsCategories$productArgs<ExtArgs>
   _count?: boolean | Prisma.ProductsCategoriesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productsCategories"]>
@@ -491,8 +643,11 @@ export type ProductsCategoriesSelectCreateManyAndReturn<ExtArgs extends runtime.
   name?: boolean
   slug?: boolean
   description?: boolean
+  id_seo_setting_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
 }, ExtArgs["result"]["productsCategories"]>
 
 export type ProductsCategoriesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -500,8 +655,11 @@ export type ProductsCategoriesSelectUpdateManyAndReturn<ExtArgs extends runtime.
   name?: boolean
   slug?: boolean
   description?: boolean
+  id_seo_setting_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
 }, ExtArgs["result"]["productsCategories"]>
 
 export type ProductsCategoriesSelectScalar = {
@@ -509,21 +667,29 @@ export type ProductsCategoriesSelectScalar = {
   name?: boolean
   slug?: boolean
   description?: boolean
+  id_seo_setting_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ProductsCategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_category" | "name" | "slug" | "description" | "created_at" | "updated_at", ExtArgs["result"]["productsCategories"]>
+export type ProductsCategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_category" | "name" | "slug" | "description" | "id_seo_setting_fk" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["productsCategories"]>
 export type ProductsCategoriesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
   product?: boolean | Prisma.ProductsCategories$productArgs<ExtArgs>
   _count?: boolean | Prisma.ProductsCategoriesCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ProductsCategoriesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ProductsCategoriesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ProductsCategoriesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
+}
+export type ProductsCategoriesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  seo_setting?: boolean | Prisma.ProductsCategories$seo_settingArgs<ExtArgs>
+}
 
 export type $ProductsCategoriesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductsCategories"
   objects: {
+    seo_setting: Prisma.$SeoSettingsPayload<ExtArgs> | null
     product: Prisma.$ProductsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -531,6 +697,8 @@ export type $ProductsCategoriesPayload<ExtArgs extends runtime.Types.Extensions.
     name: string
     slug: string
     description: string | null
+    id_seo_setting_fk: string | null
+    deleted_at: Date | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["productsCategories"]>
@@ -927,6 +1095,7 @@ readonly fields: ProductsCategoriesFieldRefs;
  */
 export interface Prisma__ProductsCategoriesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  seo_setting<T extends Prisma.ProductsCategories$seo_settingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductsCategories$seo_settingArgs<ExtArgs>>): Prisma.Prisma__SeoSettingsClient<runtime.Types.Result.GetResult<Prisma.$SeoSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.ProductsCategories$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductsCategories$productArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -961,6 +1130,8 @@ export interface ProductsCategoriesFieldRefs {
   readonly name: Prisma.FieldRef<"ProductsCategories", 'String'>
   readonly slug: Prisma.FieldRef<"ProductsCategories", 'String'>
   readonly description: Prisma.FieldRef<"ProductsCategories", 'String'>
+  readonly id_seo_setting_fk: Prisma.FieldRef<"ProductsCategories", 'String'>
+  readonly deleted_at: Prisma.FieldRef<"ProductsCategories", 'DateTime'>
   readonly created_at: Prisma.FieldRef<"ProductsCategories", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"ProductsCategories", 'DateTime'>
 }
@@ -1212,6 +1383,10 @@ export type ProductsCategoriesCreateManyAndReturnArgs<ExtArgs extends runtime.Ty
    */
   data: Prisma.ProductsCategoriesCreateManyInput | Prisma.ProductsCategoriesCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductsCategoriesIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1282,6 +1457,10 @@ export type ProductsCategoriesUpdateManyAndReturnArgs<ExtArgs extends runtime.Ty
    * Limit how many ProductsCategories to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductsCategoriesIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1348,6 +1527,25 @@ export type ProductsCategoriesDeleteManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many ProductsCategories to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductsCategories.seo_setting
+ */
+export type ProductsCategories$seo_settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SeoSettings
+   */
+  select?: Prisma.SeoSettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SeoSettings
+   */
+  omit?: Prisma.SeoSettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SeoSettingsInclude<ExtArgs> | null
+  where?: Prisma.SeoSettingsWhereInput
 }
 
 /**

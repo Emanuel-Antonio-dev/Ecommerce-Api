@@ -1,16 +1,16 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
+import { buildPagination, PaginatedResult, PaginationParams } from '../../../Common/Utils/helpers';
 class GetAllProductsDatasService {
     constructor(private readonly repository: PrismaGeneralProductsRepositories) {}
 
-    async getAll(page?: number, limit?: number, is_futured?: boolean) {
+    async getAll({ page, limit }: PaginationParams): Promise<PaginatedResult<any> | any>{
         try {
-            const take = limit && limit > 0 ? limit : 50
-            const currentPage = page && page > 0 ? page : 1
-            const skip = (currentPage - 1) * take
+
+            const pagination = buildPagination({ page, limit })
 
             // Busca os produtos da página atual
-            const allProducts = await this.repository.getAllProductsDatas(take, skip)
+            const allProducts = await this.repository.getAllProductsDatas(pagination.take, pagination.skip)
 
             if (allProducts.length === 0) {
                 throw new HttpException(true, 404, "De momento não existem produtos disponíveis")
@@ -18,20 +18,17 @@ class GetAllProductsDatasService {
 
             // Conta o total de produtos no banco
             const totalProducts = await this.repository.countProducts()
-            const totalPages = Math.ceil(totalProducts / take)
             return {
                 success: true,
                 statusCode: 200,
                 datas: allProducts,
-                paginationDatas: {
-                    page: currentPage,
-                    limit: take,
-                    returned: allProducts.length,
-                    totalItems: totalProducts,
-                    totalPages
+                meta: {
+                    total: totalProducts,
+                    page: pagination.page,
+                    limit: pagination.take,
+                    total_pages: Math.ceil(totalProducts / pagination.take)
                 }
             }
-
         } catch (error: any) {
 
             if (error instanceof HttpException) {
@@ -41,9 +38,7 @@ class GetAllProductsDatasService {
                     message: error.message
                 }
             }
-
             console.log(error)
-
             return {
                 success: false,
                 statusCode: 500,

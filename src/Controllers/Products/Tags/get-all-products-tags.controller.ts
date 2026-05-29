@@ -13,7 +13,7 @@ class GetAllProductTagsController
         try
         {
             const {page, limit} = req.query
-            const result = await service.getAllProductTagsService(Number(page), Number(limit))
+            const result = await service.getAllProductTagsService({page: Number(page) || 1, limit: Number(limit) || 50})
             return res.status(result.statusCode).json(result)
         } catch (error: any)
         {

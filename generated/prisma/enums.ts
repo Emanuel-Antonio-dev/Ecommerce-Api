@@ -17,24 +17,13 @@ export const UsersTypes = {
 export type UsersTypes = (typeof UsersTypes)[keyof typeof UsersTypes]
 
 
-export const OrderStatus = {
-  pending: 'pending',
-  completed: 'completed',
-  cancelled: 'cancelled',
-  failed: 'failed'
+export const Providers = {
+  Google: 'Google',
+  Facebook: 'Facebook',
+  Local: 'Local'
 } as const
 
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
-
-
-export const CartStatus = {
-  waiting: 'waiting',
-  active: 'active',
-  ordered: 'ordered',
-  cancelled: 'cancelled'
-} as const
-
-export type CartStatus = (typeof CartStatus)[keyof typeof CartStatus]
+export type Providers = (typeof Providers)[keyof typeof Providers]
 
 
 export const AuthenticationsTypes = {
@@ -53,10 +42,73 @@ export const TokenTypes = {
 export type TokenTypes = (typeof TokenTypes)[keyof typeof TokenTypes]
 
 
-export const Providers = {
-  Google: 'Google',
-  Facebook: 'Facebook',
-  Local: 'Local'
+export const CartStatus = {
+  waiting: 'waiting',
+  active: 'active',
+  ordered: 'ordered',
+  cancelled: 'cancelled'
 } as const
 
-export type Providers = (typeof Providers)[keyof typeof Providers]
+export type CartStatus = (typeof CartStatus)[keyof typeof CartStatus]
+
+
+export const OrderStatus = {
+  pending: 'pending',
+  completed: 'completed',
+  cancelled: 'cancelled',
+  failed: 'failed'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const PaymentMethods = {
+  cash: 'cash',
+  card: 'card',
+  transfer: 'transfer',
+  paypal: 'paypal',
+  stripe: 'stripe'
+} as const
+
+export type PaymentMethods = (typeof PaymentMethods)[keyof typeof PaymentMethods]
+
+
+export const PaymentStatus = {
+  pending: 'pending',
+  paid: 'paid',
+  failed: 'failed',
+  refunded: 'refunded',
+  cancelled: 'cancelled',
+  processing: 'processing'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentProviders = {
+  cash: 'cash',
+  stripe: 'stripe',
+  paypal: 'paypal',
+  express: 'express'
+} as const
+
+export type PaymentProviders = (typeof PaymentProviders)[keyof typeof PaymentProviders]
+
+
+export const ShipmentStatus = {
+  pending: 'pending',
+  processing: 'processing',
+  shipped: 'shipped',
+  delivered: 'delivered',
+  cancelled: 'cancelled'
+} as const
+
+export type ShipmentStatus = (typeof ShipmentStatus)[keyof typeof ShipmentStatus]
+
+
+export const DiscountType = {
+  percentage: 'percentage',
+  fixed: 'fixed'
+} as const
+
+export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]

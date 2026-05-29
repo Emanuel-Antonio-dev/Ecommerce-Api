@@ -1,3 +1,4 @@
+import { PaginationParams, PaginatedResult, buildPagination} from "../../../Common/Utils/helpers"
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories"
 import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/Tags/Prisma/prisma-tags-repositories"
@@ -8,32 +9,27 @@ class GetAllProductTagsService
         private readonly repository: PrismaProductsTagsRepositories,
     ){}
 
-    async getAllProductTagsService(page?: number, limit?: number)
+    async getAllProductTagsService({ page, limit }: PaginationParams):Promise<PaginatedResult<any> | any>
     {
         try
         {
-            const take = limit && limit > 0 ? limit : 50
-            const currentPage = page && page > 0 ? page : 1
-            const skip = (currentPage - 1) * take
-
-            const result = await this.repository.getAllTags(take, skip)
+            const pagination = buildPagination({ page, limit })
+            const result = await this.repository.getAllTags(pagination.take, pagination.skip)
             if(result.length === 0)
             {
-                return {success: true, statusCode: 404, message: "De momento não existem tasssgs"}
+                return {success: true, statusCode: 404, message: "De momento não existem tags"}
             }
-            const totalProducts = await this.repository.countTags()
-            const totalPages = Math.ceil(totalProducts / take)
+            const totalTags = await this.repository.countTags()
             return {
                 success: true,
                 statusCode: 200,
                 datas: result,
-                paginationDatas: {
-                    page: currentPage,
-                    limit: take,
-                    returned: result.length,
-                    totalItems: totalProducts,
-                    totalPages
-                },
+                meta: {
+                    total: totalTags,
+                    page: pagination.page,
+                    limit: pagination.take,
+                    total_pages: Math.ceil(totalTags / pagination.take)
+                }
             }
         } catch (error: any)
         {

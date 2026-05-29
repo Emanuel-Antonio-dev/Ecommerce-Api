@@ -1,0 +1,32 @@
+GetProductDatasService — por id
+GetAllProductsService — paginado com hash
+GetFeaturedProductsService
+GetAllCategoriesService
+GetCategoryService — por id
+GetAllBrandsService
+GetBrandService — por id
+GetAllTagsService
+GetVariantByIdService
+GetProductVariantsService — por produto
+GetCouponService — por id e por código
+GetAllCouponsService
+GetWishlistService — por utilizador com hash de paginação
+GetAllShipmentsService
+GetShipmentsService — por id, por order
+
+
+Invalidar (POST / PATCH / DELETE)
+
+RegisterGeneralProductService → invalidateProducts()
+EditProductService → invalidateProduct(id)
+DeleteProductService → invalidateProducts()
+RegisterCategoryService / EditCategoryService / DeleteCategoryService → invalidateCategories()
+RegisterBrandService / EditBrandService / DeleteBrandService → invalidateBrands()
+RegisterTagService / DeleteTagService → invalidateTags()
+RegisterProductVariantService → invalidateProduct(id_product)
+UpdateVariantStockService → invalidateVariant(id_variant, id_product)
+CreateCouponService / UpdateCouponService / DeleteCouponService → invalidateCoupon(id, code)
+ApplyCouponService → invalidateCoupon(id, code)
+AddToWishlistService / RemoveFromWishlistService / ClearWishlistService → invalidateWishlist(id_user)
+RegisterShipmentService / UpdateShipmentStatusService → invalidateShipment(id, id_order)
+Webhook payment_intent.succeeded → invalidateVariant para cada item do

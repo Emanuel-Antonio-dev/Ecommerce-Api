@@ -27,12 +27,11 @@ export type AggregateAuthentications = {
 export type AuthenticationsMinAggregateOutputType = {
   id_authentication: string | null
   type: $Enums.AuthenticationsTypes | null
-  expireIn: Date | null
+  expire_in: Date | null
   used: boolean | null
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
-  id_system_settings: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -40,12 +39,11 @@ export type AuthenticationsMinAggregateOutputType = {
 export type AuthenticationsMaxAggregateOutputType = {
   id_authentication: string | null
   type: $Enums.AuthenticationsTypes | null
-  expireIn: Date | null
+  expire_in: Date | null
   used: boolean | null
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
-  id_system_settings: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -53,12 +51,11 @@ export type AuthenticationsMaxAggregateOutputType = {
 export type AuthenticationsCountAggregateOutputType = {
   id_authentication: number
   type: number
-  expireIn: number
+  expire_in: number
   used: number
   temp_email: number
   temp_phone_number: number
   id_account_fk: number
-  id_system_settings: number
   created_at: number
   updated_at: number
   _all: number
@@ -68,12 +65,11 @@ export type AuthenticationsCountAggregateOutputType = {
 export type AuthenticationsMinAggregateInputType = {
   id_authentication?: true
   type?: true
-  expireIn?: true
+  expire_in?: true
   used?: true
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
-  id_system_settings?: true
   created_at?: true
   updated_at?: true
 }
@@ -81,12 +77,11 @@ export type AuthenticationsMinAggregateInputType = {
 export type AuthenticationsMaxAggregateInputType = {
   id_authentication?: true
   type?: true
-  expireIn?: true
+  expire_in?: true
   used?: true
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
-  id_system_settings?: true
   created_at?: true
   updated_at?: true
 }
@@ -94,12 +89,11 @@ export type AuthenticationsMaxAggregateInputType = {
 export type AuthenticationsCountAggregateInputType = {
   id_authentication?: true
   type?: true
-  expireIn?: true
+  expire_in?: true
   used?: true
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
-  id_system_settings?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -180,12 +174,11 @@ export type AuthenticationsGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type AuthenticationsGroupByOutputType = {
   id_authentication: string
   type: $Enums.AuthenticationsTypes
-  expireIn: Date
+  expire_in: Date
   used: boolean
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
-  id_system_settings: string | null
   created_at: Date
   updated_at: Date
   _count: AuthenticationsCountAggregateOutputType | null
@@ -214,12 +207,11 @@ export type AuthenticationsWhereInput = {
   NOT?: Prisma.AuthenticationsWhereInput | Prisma.AuthenticationsWhereInput[]
   id_authentication?: Prisma.StringFilter<"Authentications"> | string
   type?: Prisma.EnumAuthenticationsTypesFilter<"Authentications"> | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFilter<"Authentications"> | Date | string
+  expire_in?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   used?: Prisma.BoolFilter<"Authentications"> | boolean
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
-  id_system_settings?: Prisma.StringNullableFilter<"Authentications"> | string | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsNullableScalarRelationFilter, Prisma.AccountsWhereInput> | null
@@ -230,12 +222,11 @@ export type AuthenticationsWhereInput = {
 export type AuthenticationsOrderByWithRelationInput = {
   id_authentication?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expireIn?: Prisma.SortOrder
+  expire_in?: Prisma.SortOrder
   used?: Prisma.SortOrder
   temp_email?: Prisma.SortOrderInput | Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   id_account_fk?: Prisma.SortOrderInput | Prisma.SortOrder
-  id_system_settings?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   account_details?: Prisma.AccountsOrderByWithRelationInput
@@ -249,12 +240,11 @@ export type AuthenticationsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AuthenticationsWhereInput[]
   NOT?: Prisma.AuthenticationsWhereInput | Prisma.AuthenticationsWhereInput[]
   type?: Prisma.EnumAuthenticationsTypesFilter<"Authentications"> | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFilter<"Authentications"> | Date | string
+  expire_in?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   used?: Prisma.BoolFilter<"Authentications"> | boolean
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
-  id_system_settings?: Prisma.StringNullableFilter<"Authentications"> | string | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsNullableScalarRelationFilter, Prisma.AccountsWhereInput> | null
@@ -265,12 +255,11 @@ export type AuthenticationsWhereUniqueInput = Prisma.AtLeast<{
 export type AuthenticationsOrderByWithAggregationInput = {
   id_authentication?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expireIn?: Prisma.SortOrder
+  expire_in?: Prisma.SortOrder
   used?: Prisma.SortOrder
   temp_email?: Prisma.SortOrderInput | Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   id_account_fk?: Prisma.SortOrderInput | Prisma.SortOrder
-  id_system_settings?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.AuthenticationsCountOrderByAggregateInput
@@ -284,24 +273,22 @@ export type AuthenticationsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AuthenticationsScalarWhereWithAggregatesInput | Prisma.AuthenticationsScalarWhereWithAggregatesInput[]
   id_authentication?: Prisma.StringWithAggregatesFilter<"Authentications"> | string
   type?: Prisma.EnumAuthenticationsTypesWithAggregatesFilter<"Authentications"> | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
+  expire_in?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
   used?: Prisma.BoolWithAggregatesFilter<"Authentications"> | boolean
   temp_email?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
-  id_system_settings?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
 }
 
 export type AuthenticationsCreateInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -310,14 +297,13 @@ export type AuthenticationsCreateInput = {
 }
 
 export type AuthenticationsUncheckedCreateInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -327,11 +313,10 @@ export type AuthenticationsUncheckedCreateInput = {
 export type AuthenticationsUpdateInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -342,12 +327,11 @@ export type AuthenticationsUpdateInput = {
 export type AuthenticationsUncheckedUpdateInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -355,14 +339,13 @@ export type AuthenticationsUncheckedUpdateInput = {
 }
 
 export type AuthenticationsCreateManyInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -370,11 +353,10 @@ export type AuthenticationsCreateManyInput = {
 export type AuthenticationsUpdateManyMutationInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -382,12 +364,11 @@ export type AuthenticationsUpdateManyMutationInput = {
 export type AuthenticationsUncheckedUpdateManyInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -405,12 +386,11 @@ export type AuthenticationsOrderByRelationAggregateInput = {
 export type AuthenticationsCountOrderByAggregateInput = {
   id_authentication?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expireIn?: Prisma.SortOrder
+  expire_in?: Prisma.SortOrder
   used?: Prisma.SortOrder
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
-  id_system_settings?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -418,12 +398,11 @@ export type AuthenticationsCountOrderByAggregateInput = {
 export type AuthenticationsMaxOrderByAggregateInput = {
   id_authentication?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expireIn?: Prisma.SortOrder
+  expire_in?: Prisma.SortOrder
   used?: Prisma.SortOrder
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
-  id_system_settings?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -431,19 +410,13 @@ export type AuthenticationsMaxOrderByAggregateInput = {
 export type AuthenticationsMinOrderByAggregateInput = {
   id_authentication?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expireIn?: Prisma.SortOrder
+  expire_in?: Prisma.SortOrder
   used?: Prisma.SortOrder
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
-  id_system_settings?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-}
-
-export type AuthenticationsNullableScalarRelationFilter = {
-  is?: Prisma.AuthenticationsWhereInput | null
-  isNot?: Prisma.AuthenticationsWhereInput | null
 }
 
 export type AuthenticationsScalarRelationFilter = {
@@ -503,12 +476,10 @@ export type AuthenticationsCreateNestedOneWithoutToken_detailsInput = {
   connect?: Prisma.AuthenticationsWhereUniqueInput
 }
 
-export type AuthenticationsUpdateOneWithoutToken_detailsNestedInput = {
+export type AuthenticationsUpdateOneRequiredWithoutToken_detailsNestedInput = {
   create?: Prisma.XOR<Prisma.AuthenticationsCreateWithoutToken_detailsInput, Prisma.AuthenticationsUncheckedCreateWithoutToken_detailsInput>
   connectOrCreate?: Prisma.AuthenticationsCreateOrConnectWithoutToken_detailsInput
   upsert?: Prisma.AuthenticationsUpsertWithoutToken_detailsInput
-  disconnect?: Prisma.AuthenticationsWhereInput | boolean
-  delete?: Prisma.AuthenticationsWhereInput | boolean
   connect?: Prisma.AuthenticationsWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AuthenticationsUpdateToOneWithWhereWithoutToken_detailsInput, Prisma.AuthenticationsUpdateWithoutToken_detailsInput>, Prisma.AuthenticationsUncheckedUpdateWithoutToken_detailsInput>
 }
@@ -528,13 +499,12 @@ export type AuthenticationsUpdateOneRequiredWithoutTwo_factor_auth_detailsNested
 }
 
 export type AuthenticationsCreateWithoutAccount_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensCreateNestedOneWithoutAuthentication_detailsInput
@@ -542,13 +512,12 @@ export type AuthenticationsCreateWithoutAccount_detailsInput = {
 }
 
 export type AuthenticationsUncheckedCreateWithoutAccount_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -587,24 +556,22 @@ export type AuthenticationsScalarWhereInput = {
   NOT?: Prisma.AuthenticationsScalarWhereInput | Prisma.AuthenticationsScalarWhereInput[]
   id_authentication?: Prisma.StringFilter<"Authentications"> | string
   type?: Prisma.EnumAuthenticationsTypesFilter<"Authentications"> | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFilter<"Authentications"> | Date | string
+  expire_in?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   used?: Prisma.BoolFilter<"Authentications"> | boolean
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
-  id_system_settings?: Prisma.StringNullableFilter<"Authentications"> | string | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
 }
 
 export type AuthenticationsCreateWithoutToken_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -612,14 +579,13 @@ export type AuthenticationsCreateWithoutToken_detailsInput = {
 }
 
 export type AuthenticationsUncheckedCreateWithoutToken_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   two_factor_auth_details?: Prisma.TwoFactorAuthUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -644,11 +610,10 @@ export type AuthenticationsUpdateToOneWithWhereWithoutToken_detailsInput = {
 export type AuthenticationsUpdateWithoutToken_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -658,25 +623,23 @@ export type AuthenticationsUpdateWithoutToken_detailsInput = {
 export type AuthenticationsUncheckedUpdateWithoutToken_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   two_factor_auth_details?: Prisma.TwoFactorAuthUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
 }
 
 export type AuthenticationsCreateWithoutTwo_factor_auth_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -684,14 +647,13 @@ export type AuthenticationsCreateWithoutTwo_factor_auth_detailsInput = {
 }
 
 export type AuthenticationsUncheckedCreateWithoutTwo_factor_auth_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -716,11 +678,10 @@ export type AuthenticationsUpdateToOneWithWhereWithoutTwo_factor_auth_detailsInp
 export type AuthenticationsUpdateWithoutTwo_factor_auth_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -730,25 +691,23 @@ export type AuthenticationsUpdateWithoutTwo_factor_auth_detailsInput = {
 export type AuthenticationsUncheckedUpdateWithoutTwo_factor_auth_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
 }
 
 export type AuthenticationsCreateManyAccount_detailsInput = {
-  id_authentication: string
+  id_authentication?: string
   type?: $Enums.AuthenticationsTypes
-  expireIn: Date | string
+  expire_in: Date | string
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
-  id_system_settings?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -756,11 +715,10 @@ export type AuthenticationsCreateManyAccount_detailsInput = {
 export type AuthenticationsUpdateWithoutAccount_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUpdateOneWithoutAuthentication_detailsNestedInput
@@ -770,11 +728,10 @@ export type AuthenticationsUpdateWithoutAccount_detailsInput = {
 export type AuthenticationsUncheckedUpdateWithoutAccount_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -784,11 +741,10 @@ export type AuthenticationsUncheckedUpdateWithoutAccount_detailsInput = {
 export type AuthenticationsUncheckedUpdateManyWithoutAccount_detailsInput = {
   id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAuthenticationsTypesFieldUpdateOperationsInput | $Enums.AuthenticationsTypes
-  expireIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expire_in?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_system_settings?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -798,12 +754,11 @@ export type AuthenticationsUncheckedUpdateManyWithoutAccount_detailsInput = {
 export type AuthenticationsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_authentication?: boolean
   type?: boolean
-  expireIn?: boolean
+  expire_in?: boolean
   used?: boolean
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
-  id_system_settings?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -814,12 +769,11 @@ export type AuthenticationsSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type AuthenticationsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_authentication?: boolean
   type?: boolean
-  expireIn?: boolean
+  expire_in?: boolean
   used?: boolean
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
-  id_system_settings?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -828,12 +782,11 @@ export type AuthenticationsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type AuthenticationsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_authentication?: boolean
   type?: boolean
-  expireIn?: boolean
+  expire_in?: boolean
   used?: boolean
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
-  id_system_settings?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -842,17 +795,16 @@ export type AuthenticationsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type AuthenticationsSelectScalar = {
   id_authentication?: boolean
   type?: boolean
-  expireIn?: boolean
+  expire_in?: boolean
   used?: boolean
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
-  id_system_settings?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type AuthenticationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_authentication" | "type" | "expireIn" | "used" | "temp_email" | "temp_phone_number" | "id_account_fk" | "id_system_settings" | "created_at" | "updated_at", ExtArgs["result"]["authentications"]>
+export type AuthenticationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_authentication" | "type" | "expire_in" | "used" | "temp_email" | "temp_phone_number" | "id_account_fk" | "created_at" | "updated_at", ExtArgs["result"]["authentications"]>
 export type AuthenticationsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
   token_details?: boolean | Prisma.Authentications$token_detailsArgs<ExtArgs>
@@ -875,12 +827,11 @@ export type $AuthenticationsPayload<ExtArgs extends runtime.Types.Extensions.Int
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_authentication: string
     type: $Enums.AuthenticationsTypes
-    expireIn: Date
+    expire_in: Date
     used: boolean
     temp_email: string | null
     temp_phone_number: string | null
     id_account_fk: string | null
-    id_system_settings: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["authentications"]>
@@ -1311,12 +1262,11 @@ export interface Prisma__AuthenticationsClient<T, Null = never, ExtArgs extends 
 export interface AuthenticationsFieldRefs {
   readonly id_authentication: Prisma.FieldRef<"Authentications", 'String'>
   readonly type: Prisma.FieldRef<"Authentications", 'AuthenticationsTypes'>
-  readonly expireIn: Prisma.FieldRef<"Authentications", 'DateTime'>
+  readonly expire_in: Prisma.FieldRef<"Authentications", 'DateTime'>
   readonly used: Prisma.FieldRef<"Authentications", 'Boolean'>
   readonly temp_email: Prisma.FieldRef<"Authentications", 'String'>
   readonly temp_phone_number: Prisma.FieldRef<"Authentications", 'String'>
   readonly id_account_fk: Prisma.FieldRef<"Authentications", 'String'>
-  readonly id_system_settings: Prisma.FieldRef<"Authentications", 'String'>
   readonly created_at: Prisma.FieldRef<"Authentications", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Authentications", 'DateTime'>
 }

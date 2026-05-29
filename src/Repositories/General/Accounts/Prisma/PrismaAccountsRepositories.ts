@@ -43,7 +43,7 @@ class PrismaAccountRepositories implements IAccountRepositories
                 email: datas.email,
                 password: hashedPassword,
                 provider,
-                providerId: datas.providerId || null
+                provider_id: datas.providerId || null
             }
         })
         return {
@@ -55,7 +55,7 @@ class PrismaAccountRepositories implements IAccountRepositories
             verified: result.verified,
             is_active: result.is_active,
             provider: result.provider,
-            providerId: result.providerId ?? undefined
+            providerId: result.provider_id ?? undefined
         }
     }
     async updateAccount(id_account: string, datas: Partial<accountDatas>): Promise<any>

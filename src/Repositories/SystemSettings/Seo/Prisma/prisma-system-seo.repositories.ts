@@ -19,7 +19,7 @@ class PrismaSeoSettingsRepositories implements ISeoSettingsRepositories
                 og_title: datas.og_title,
                 og_description: datas.og_description,
                 og_image: datas.og_image,
-                seo_type: datas.seo_type!
+                entity_type: datas.seo_type!,
             }
         })    
     }

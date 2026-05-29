@@ -20,18 +20,25 @@ class PrismaUsersRepositories implements IUsersRepositories
             }
         })
     }
-    async getUsersProfileDatas(id_user: number,user_type?: "admin" | "client"): Promise<any>
-    {
-        let targetUserType = user_type;
-        if (!targetUserType && id_user)
-        {
-            const user = await this.prisma.users.findUnique({where: { id_user },select: { user_type: true }});
-    if (!user) return null;
-    targetUserType = user.user_type;
-  }
-
-  return await this.prisma.users.findUnique({
+async getUsersProfileDatas(
+  id_user: number,
+  user_type?: "admin" | "client"
+): Promise<any> {
+  const user = await this.prisma.users.findUnique({
     where: { id_user },
+    select: {
+      user_type: true,
+      id_user: true
+    }
+  });
+
+  if (!user) return null;
+
+  const targetUserType = user_type ?? user.user_type;
+
+  return this.prisma.users.findUnique({
+    where: { id_user },
+
     include: {
       account_details: {
         select: {
@@ -40,54 +47,72 @@ class PrismaUsersRepositories implements IUsersRepositories
           is_active: true,
           verified: true,
           provider: true,
-          providerId: true
+          provider_id: true
         }
       },
 
-      // 👇 Só inclui se for client
-      my_contacts: targetUserType === "client"
-        ? {
-            select: { phone_number: true }
+      // =========================
+      // CLIENT ONLY DATA
+      // =========================
+      ...(targetUserType === "client" && {
+        my_contacts: {
+          select: {
+            phone_number: true
           }
-        : false,
+        },
 
-      my_addresses: targetUserType === "client"
-        ? {
-            select: {
-              city: true,
-              country: true,
-              province: true,
-              reference: true,
-              street: true
-            }
+        my_addresses: {
+          select: {
+            city: true,
+            country: true,
+            province: true,
+            reference: true,
+            street: true
           }
-        : false,
+        },
 
-      my_cart: targetUserType === "client"
-        ? {
-            select: {
-              id_cart: true,
-              id_guest_cart: true,
-              status: true,
-              created_at: true,
-              cart_items: {
-                select: {
-                  id_cart_item: true,
-                  price: true,
-                  quantity: true,
-                  created_at: true,
-                  product: {
-                    select: {
-                      name: true,
-                      price: true,
-                      images: { select: { url: true } }
+        my_cart: {
+          select: {
+            id_cart: true,
+            id_guest_cart: true,
+            status: true,
+            created_at: true,
+
+            cart_items: {
+              select: {
+                id_cart_item: true,
+                price: true,
+                quantity: true,
+                created_at: true,
+
+                // 🔥 VARIANT BASED (corrigido)
+                variant: {
+                  select: {
+                    id_variant: true,
+                    sku: true,
+                    color: true,
+                    size: true,
+                    price: true,
+
+                    product: {
+                      select: {
+                        id_product: true,
+                        name: true,
+                        slug: true,
+                        images: {
+                          select: {
+                            url: true
+                          }
+                        }
+                      }
                     }
                   }
                 }
               }
             }
           }
-        : false
+        }
+      })
     }
   });
 }

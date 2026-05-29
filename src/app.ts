@@ -8,7 +8,7 @@ import { categoryRoutes } from './Routes/Products/Categories/routes';
 import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
 import { cartRoutes } from './Routes/Products/Cart/routes';
 import { producstOrders } from './Routes/Products/Products-Orders/routes';
-import { createStripeWebhookController } from './Controllers/Payments/create-stripe-webhook.controller';
+import { createStripeWebhookController } from './Controllers/Payments/PaymentByStripe/create-stripe-webhook.controller';
 import { swaggerConfig } from './docs/swagger';
 import swaggerUi from "swagger-ui-express"
 import yaml from "yamljs"
@@ -16,6 +16,10 @@ import passport from 'passport';
 import "./Services/Auth/Authentication/Oauth-Google/oauth-google.service"
 import { settingsRoutes } from './Routes/Settings/routes';
 import { paymentRoutes } from './Routes/Payments/routes';
+import { variantsRoutes } from './Routes/Products/Variants/routes';
+import { wishlistRoutes } from './Routes/Products/Whishlist/wishlist.routes';
+import { shipmentsRoutes } from './Routes/Products/Shipments/routes';
+import { systemLogsRoutes } from './Routes/Settings/system-logs.routes';
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
@@ -52,6 +56,10 @@ app.use(urlBase, cartRoutes)
 app.use(urlBase, producstOrders)
 app.use(urlBase, settingsRoutes)
 app.use(urlBase, paymentRoutes)
+app.use(urlBase, variantsRoutes)
+app.use(urlBase, wishlistRoutes)
+app.use(urlBase, shipmentsRoutes)
+app.use(urlBase, systemLogsRoutes)
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {

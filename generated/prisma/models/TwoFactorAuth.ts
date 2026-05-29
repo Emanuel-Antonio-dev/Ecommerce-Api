@@ -38,35 +38,35 @@ export type TwoFactorAuthSumAggregateOutputType = {
 
 export type TwoFactorAuthMinAggregateOutputType = {
   id_two_factor_auth: string | null
-  id_authentication_fk: string | null
+  otp_code_hash: string | null
   attempts: number | null
   max_attempts: number | null
   locked: boolean | null
+  id_authentication_fk: string | null
   created_at: Date | null
   updated_at: Date | null
-  otp_code_hash: string | null
 }
 
 export type TwoFactorAuthMaxAggregateOutputType = {
   id_two_factor_auth: string | null
-  id_authentication_fk: string | null
+  otp_code_hash: string | null
   attempts: number | null
   max_attempts: number | null
   locked: boolean | null
+  id_authentication_fk: string | null
   created_at: Date | null
   updated_at: Date | null
-  otp_code_hash: string | null
 }
 
 export type TwoFactorAuthCountAggregateOutputType = {
   id_two_factor_auth: number
-  id_authentication_fk: number
+  otp_code_hash: number
   attempts: number
   max_attempts: number
   locked: number
+  id_authentication_fk: number
   created_at: number
   updated_at: number
-  otp_code_hash: number
   _all: number
 }
 
@@ -83,35 +83,35 @@ export type TwoFactorAuthSumAggregateInputType = {
 
 export type TwoFactorAuthMinAggregateInputType = {
   id_two_factor_auth?: true
-  id_authentication_fk?: true
+  otp_code_hash?: true
   attempts?: true
   max_attempts?: true
   locked?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
-  otp_code_hash?: true
 }
 
 export type TwoFactorAuthMaxAggregateInputType = {
   id_two_factor_auth?: true
-  id_authentication_fk?: true
+  otp_code_hash?: true
   attempts?: true
   max_attempts?: true
   locked?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
-  otp_code_hash?: true
 }
 
 export type TwoFactorAuthCountAggregateInputType = {
   id_two_factor_auth?: true
-  id_authentication_fk?: true
+  otp_code_hash?: true
   attempts?: true
   max_attempts?: true
   locked?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
-  otp_code_hash?: true
   _all?: true
 }
 
@@ -203,13 +203,13 @@ export type TwoFactorAuthGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type TwoFactorAuthGroupByOutputType = {
   id_two_factor_auth: string
-  id_authentication_fk: string
+  otp_code_hash: string
   attempts: number
   max_attempts: number
   locked: boolean
+  id_authentication_fk: string
   created_at: Date
   updated_at: Date
-  otp_code_hash: string
   _count: TwoFactorAuthCountAggregateOutputType | null
   _avg: TwoFactorAuthAvgAggregateOutputType | null
   _sum: TwoFactorAuthSumAggregateOutputType | null
@@ -237,32 +237,32 @@ export type TwoFactorAuthWhereInput = {
   OR?: Prisma.TwoFactorAuthWhereInput[]
   NOT?: Prisma.TwoFactorAuthWhereInput | Prisma.TwoFactorAuthWhereInput[]
   id_two_factor_auth?: Prisma.StringFilter<"TwoFactorAuth"> | string
-  id_authentication_fk?: Prisma.StringFilter<"TwoFactorAuth"> | string
+  otp_code_hash?: Prisma.StringFilter<"TwoFactorAuth"> | string
   attempts?: Prisma.IntFilter<"TwoFactorAuth"> | number
   max_attempts?: Prisma.IntFilter<"TwoFactorAuth"> | number
   locked?: Prisma.BoolFilter<"TwoFactorAuth"> | boolean
+  id_authentication_fk?: Prisma.StringFilter<"TwoFactorAuth"> | string
   created_at?: Prisma.DateTimeFilter<"TwoFactorAuth"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"TwoFactorAuth"> | Date | string
-  otp_code_hash?: Prisma.StringFilter<"TwoFactorAuth"> | string
   authentication_details?: Prisma.XOR<Prisma.AuthenticationsScalarRelationFilter, Prisma.AuthenticationsWhereInput>
 }
 
 export type TwoFactorAuthOrderByWithRelationInput = {
   id_two_factor_auth?: Prisma.SortOrder
-  id_authentication_fk?: Prisma.SortOrder
+  otp_code_hash?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   max_attempts?: Prisma.SortOrder
   locked?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  otp_code_hash?: Prisma.SortOrder
   authentication_details?: Prisma.AuthenticationsOrderByWithRelationInput
 }
 
 export type TwoFactorAuthWhereUniqueInput = Prisma.AtLeast<{
   id_two_factor_auth?: string
-  id_authentication_fk?: string
   otp_code_hash?: string
+  id_authentication_fk?: string
   AND?: Prisma.TwoFactorAuthWhereInput | Prisma.TwoFactorAuthWhereInput[]
   OR?: Prisma.TwoFactorAuthWhereInput[]
   NOT?: Prisma.TwoFactorAuthWhereInput | Prisma.TwoFactorAuthWhereInput[]
@@ -272,17 +272,17 @@ export type TwoFactorAuthWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"TwoFactorAuth"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"TwoFactorAuth"> | Date | string
   authentication_details?: Prisma.XOR<Prisma.AuthenticationsScalarRelationFilter, Prisma.AuthenticationsWhereInput>
-}, "id_two_factor_auth" | "id_authentication_fk" | "otp_code_hash">
+}, "id_two_factor_auth" | "otp_code_hash" | "id_authentication_fk">
 
 export type TwoFactorAuthOrderByWithAggregationInput = {
   id_two_factor_auth?: Prisma.SortOrder
-  id_authentication_fk?: Prisma.SortOrder
+  otp_code_hash?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   max_attempts?: Prisma.SortOrder
   locked?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  otp_code_hash?: Prisma.SortOrder
   _count?: Prisma.TwoFactorAuthCountOrderByAggregateInput
   _avg?: Prisma.TwoFactorAuthAvgOrderByAggregateInput
   _max?: Prisma.TwoFactorAuthMaxOrderByAggregateInput
@@ -295,89 +295,89 @@ export type TwoFactorAuthScalarWhereWithAggregatesInput = {
   OR?: Prisma.TwoFactorAuthScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TwoFactorAuthScalarWhereWithAggregatesInput | Prisma.TwoFactorAuthScalarWhereWithAggregatesInput[]
   id_two_factor_auth?: Prisma.StringWithAggregatesFilter<"TwoFactorAuth"> | string
-  id_authentication_fk?: Prisma.StringWithAggregatesFilter<"TwoFactorAuth"> | string
+  otp_code_hash?: Prisma.StringWithAggregatesFilter<"TwoFactorAuth"> | string
   attempts?: Prisma.IntWithAggregatesFilter<"TwoFactorAuth"> | number
   max_attempts?: Prisma.IntWithAggregatesFilter<"TwoFactorAuth"> | number
   locked?: Prisma.BoolWithAggregatesFilter<"TwoFactorAuth"> | boolean
+  id_authentication_fk?: Prisma.StringWithAggregatesFilter<"TwoFactorAuth"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"TwoFactorAuth"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"TwoFactorAuth"> | Date | string
-  otp_code_hash?: Prisma.StringWithAggregatesFilter<"TwoFactorAuth"> | string
 }
 
 export type TwoFactorAuthCreateInput = {
-  id_two_factor_auth: string
+  id_two_factor_auth?: string
+  otp_code_hash: string
   attempts?: number
   max_attempts?: number
   locked?: boolean
   created_at?: Date | string
   updated_at?: Date | string
-  otp_code_hash: string
   authentication_details: Prisma.AuthenticationsCreateNestedOneWithoutTwo_factor_auth_detailsInput
 }
 
 export type TwoFactorAuthUncheckedCreateInput = {
-  id_two_factor_auth: string
-  id_authentication_fk: string
+  id_two_factor_auth?: string
+  otp_code_hash: string
   attempts?: number
   max_attempts?: number
   locked?: boolean
+  id_authentication_fk: string
   created_at?: Date | string
   updated_at?: Date | string
-  otp_code_hash: string
 }
 
 export type TwoFactorAuthUpdateInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   authentication_details?: Prisma.AuthenticationsUpdateOneRequiredWithoutTwo_factor_auth_detailsNestedInput
 }
 
 export type TwoFactorAuthUncheckedUpdateInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
-  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TwoFactorAuthCreateManyInput = {
-  id_two_factor_auth: string
-  id_authentication_fk: string
+  id_two_factor_auth?: string
+  otp_code_hash: string
   attempts?: number
   max_attempts?: number
   locked?: boolean
+  id_authentication_fk: string
   created_at?: Date | string
   updated_at?: Date | string
-  otp_code_hash: string
 }
 
 export type TwoFactorAuthUpdateManyMutationInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TwoFactorAuthUncheckedUpdateManyInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
-  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TwoFactorAuthNullableScalarRelationFilter = {
@@ -387,13 +387,13 @@ export type TwoFactorAuthNullableScalarRelationFilter = {
 
 export type TwoFactorAuthCountOrderByAggregateInput = {
   id_two_factor_auth?: Prisma.SortOrder
-  id_authentication_fk?: Prisma.SortOrder
+  otp_code_hash?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   max_attempts?: Prisma.SortOrder
   locked?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  otp_code_hash?: Prisma.SortOrder
 }
 
 export type TwoFactorAuthAvgOrderByAggregateInput = {
@@ -403,24 +403,24 @@ export type TwoFactorAuthAvgOrderByAggregateInput = {
 
 export type TwoFactorAuthMaxOrderByAggregateInput = {
   id_two_factor_auth?: Prisma.SortOrder
-  id_authentication_fk?: Prisma.SortOrder
+  otp_code_hash?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   max_attempts?: Prisma.SortOrder
   locked?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  otp_code_hash?: Prisma.SortOrder
 }
 
 export type TwoFactorAuthMinOrderByAggregateInput = {
   id_two_factor_auth?: Prisma.SortOrder
-  id_authentication_fk?: Prisma.SortOrder
+  otp_code_hash?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   max_attempts?: Prisma.SortOrder
   locked?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  otp_code_hash?: Prisma.SortOrder
 }
 
 export type TwoFactorAuthSumOrderByAggregateInput = {
@@ -469,23 +469,23 @@ export type IntFieldUpdateOperationsInput = {
 }
 
 export type TwoFactorAuthCreateWithoutAuthentication_detailsInput = {
-  id_two_factor_auth: string
+  id_two_factor_auth?: string
+  otp_code_hash: string
   attempts?: number
   max_attempts?: number
   locked?: boolean
   created_at?: Date | string
   updated_at?: Date | string
-  otp_code_hash: string
 }
 
 export type TwoFactorAuthUncheckedCreateWithoutAuthentication_detailsInput = {
-  id_two_factor_auth: string
+  id_two_factor_auth?: string
+  otp_code_hash: string
   attempts?: number
   max_attempts?: number
   locked?: boolean
   created_at?: Date | string
   updated_at?: Date | string
-  otp_code_hash: string
 }
 
 export type TwoFactorAuthCreateOrConnectWithoutAuthentication_detailsInput = {
@@ -506,74 +506,74 @@ export type TwoFactorAuthUpdateToOneWithWhereWithoutAuthentication_detailsInput 
 
 export type TwoFactorAuthUpdateWithoutAuthentication_detailsInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TwoFactorAuthUncheckedUpdateWithoutAuthentication_detailsInput = {
   id_two_factor_auth?: Prisma.StringFieldUpdateOperationsInput | string
+  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   max_attempts?: Prisma.IntFieldUpdateOperationsInput | number
   locked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  otp_code_hash?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type TwoFactorAuthSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_two_factor_auth?: boolean
-  id_authentication_fk?: boolean
+  otp_code_hash?: boolean
   attempts?: boolean
   max_attempts?: boolean
   locked?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  otp_code_hash?: boolean
   authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["twoFactorAuth"]>
 
 export type TwoFactorAuthSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_two_factor_auth?: boolean
-  id_authentication_fk?: boolean
+  otp_code_hash?: boolean
   attempts?: boolean
   max_attempts?: boolean
   locked?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  otp_code_hash?: boolean
   authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["twoFactorAuth"]>
 
 export type TwoFactorAuthSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_two_factor_auth?: boolean
-  id_authentication_fk?: boolean
+  otp_code_hash?: boolean
   attempts?: boolean
   max_attempts?: boolean
   locked?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  otp_code_hash?: boolean
   authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["twoFactorAuth"]>
 
 export type TwoFactorAuthSelectScalar = {
   id_two_factor_auth?: boolean
-  id_authentication_fk?: boolean
+  otp_code_hash?: boolean
   attempts?: boolean
   max_attempts?: boolean
   locked?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  otp_code_hash?: boolean
 }
 
-export type TwoFactorAuthOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_two_factor_auth" | "id_authentication_fk" | "attempts" | "max_attempts" | "locked" | "created_at" | "updated_at" | "otp_code_hash", ExtArgs["result"]["twoFactorAuth"]>
+export type TwoFactorAuthOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_two_factor_auth" | "otp_code_hash" | "attempts" | "max_attempts" | "locked" | "id_authentication_fk" | "created_at" | "updated_at", ExtArgs["result"]["twoFactorAuth"]>
 export type TwoFactorAuthInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }
@@ -591,13 +591,13 @@ export type $TwoFactorAuthPayload<ExtArgs extends runtime.Types.Extensions.Inter
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_two_factor_auth: string
-    id_authentication_fk: string
+    otp_code_hash: string
     attempts: number
     max_attempts: number
     locked: boolean
+    id_authentication_fk: string
     created_at: Date
     updated_at: Date
-    otp_code_hash: string
   }, ExtArgs["result"]["twoFactorAuth"]>
   composites: {}
 }
@@ -1023,13 +1023,13 @@ export interface Prisma__TwoFactorAuthClient<T, Null = never, ExtArgs extends ru
  */
 export interface TwoFactorAuthFieldRefs {
   readonly id_two_factor_auth: Prisma.FieldRef<"TwoFactorAuth", 'String'>
-  readonly id_authentication_fk: Prisma.FieldRef<"TwoFactorAuth", 'String'>
+  readonly otp_code_hash: Prisma.FieldRef<"TwoFactorAuth", 'String'>
   readonly attempts: Prisma.FieldRef<"TwoFactorAuth", 'Int'>
   readonly max_attempts: Prisma.FieldRef<"TwoFactorAuth", 'Int'>
   readonly locked: Prisma.FieldRef<"TwoFactorAuth", 'Boolean'>
+  readonly id_authentication_fk: Prisma.FieldRef<"TwoFactorAuth", 'String'>
   readonly created_at: Prisma.FieldRef<"TwoFactorAuth", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"TwoFactorAuth", 'DateTime'>
-  readonly otp_code_hash: Prisma.FieldRef<"TwoFactorAuth", 'String'>
 }
     
 

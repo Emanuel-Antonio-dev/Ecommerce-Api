@@ -246,16 +246,16 @@ export type CartsOrderByWithRelationInput = {
 export type CartsWhereUniqueInput = Prisma.AtLeast<{
   id_cart?: number
   id_user_fk?: number
+  id_guest_cart?: string
   AND?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
   OR?: Prisma.CartsWhereInput[]
   NOT?: Prisma.CartsWhereInput | Prisma.CartsWhereInput[]
-  id_guest_cart?: Prisma.StringNullableFilter<"Carts"> | string | null
   status?: Prisma.EnumCartStatusFilter<"Carts"> | $Enums.CartStatus
   created_at?: Prisma.DateTimeFilter<"Carts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Carts"> | Date | string
   user_details?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.UsersWhereInput> | null
   cart_items?: Prisma.CartItemsListRelationFilter
-}, "id_cart" | "id_user_fk">
+}, "id_cart" | "id_user_fk" | "id_guest_cart">
 
 export type CartsOrderByWithAggregationInput = {
   id_cart?: Prisma.SortOrder
@@ -427,14 +427,6 @@ export type CartsUncheckedUpdateOneWithoutUser_detailsNestedInput = {
 
 export type EnumCartStatusFieldUpdateOperationsInput = {
   set?: $Enums.CartStatus
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type CartsCreateNestedOneWithoutCart_itemsInput = {

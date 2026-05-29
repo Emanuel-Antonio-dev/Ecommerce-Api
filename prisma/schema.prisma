@@ -1,8 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ======================================================
+// PRISMA SCHEMA - ECOMMERCE REFACTORED BASE V2
+// ======================================================
 
 generator client {
   provider = "prisma-client"
@@ -12,327 +10,758 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
-model Accounts{
-  id_account             String            @id
-  email                  String            @unique
-  password               String?
-  verified               Boolean           @default(false)
-  providerId             String?
-  provider               Providers         @default(Local)
-  deleted_at             DateTime?
-  is_active              Boolean           @default(true)
+
+// ======================================================
+// ACCOUNTS / AUTH
+// ======================================================
+
+model Accounts {
+  id_account String @id @default(cuid())
+
+  email    String  @unique
+  password String?
+
+  verified Boolean @default(false)
+
+  provider    Providers @default(Local)
+  provider_id String?
+
+  is_active Boolean @default(true)
+
+  deleted_at DateTime?
+
   authentication_details Authentications[]
   account_logs_details   SystemLogs[]
-  user_details  Users?
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  user_details           Users?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   @@map("tbl_accounts")
 }
-model Authentications{
-  id_authentication String @id
+
+model Authentications {
+  id_authentication String @id @default(cuid())
+
   type AuthenticationsTypes @default(by_token)
-  expireIn  DateTime
-  used Boolean @default(false)
-  temp_email            String?
-  temp_phone_number     String?
-  id_account_fk String?
-  id_system_settings String?
+
+  expire_in DateTime
+  used      Boolean  @default(false)
+
+  temp_email        String?
+  temp_phone_number String?
+
+  id_account_fk   String?
   account_details Accounts? @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
-  token_details  Tokens?
+
+  token_details           Tokens?
   two_factor_auth_details TwoFactorAuth?
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_account_fk])
   @@map("tbl_authentications")
 }
-model Tokens{
-  id_token   String @id
-  token   String @db.Text @unique
-  token_type  TokenTypes
-  id_authentication String @unique
-  authentication_details Authentications? @relation(fields: [id_authentication], references: [id_authentication], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+model Tokens {
+  id_token String @id @default(cuid())
+
+  token      String     @unique @db.Text
+  token_type TokenTypes
+
+  id_authentication_fk   String          @unique
+  authentication_details Authentications @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   @@map("tbl_tokens")
 }
-model TwoFactorAuth{
-  id_two_factor_auth     String          @id
+
+model TwoFactorAuth {
+  id_two_factor_auth String @id @default(cuid())
+
+  otp_code_hash String @unique
+
+  attempts     Int @default(0)
+  max_attempts Int @default(5)
+
+  locked Boolean @default(false)
+
   id_authentication_fk   String          @unique
-  attempts           Int      @default(0)
-  max_attempts       Int      @default(5)
-  locked             Boolean  @default(false)
-  created_at             DateTime        @default(now())
-  updated_at             DateTime        @updatedAt
-  otp_code_hash          String          @unique(map: "tbl_two_factor_auth_otp_code_key")
   authentication_details Authentications @relation(fields: [id_authentication_fk], references: [id_authentication], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   @@map("tbl_two_factor_auth")
 }
-model Contacts{
-  id_contact  String  @id
-  phone_number     String @unique
-  id_user_fk  Int 
-  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_contacts")
-}
-model Users{
-  id_user     Int @id @default(autoincrement())
-  first_name  String
-  last_name   String
-  username    String @unique
-  user_type   UsersTypes @default(client)
-  id_account_fk String @unique
+
+// ======================================================
+// USERS
+// ======================================================
+
+model Users {
+  id_user Int @id @default(autoincrement())
+
+  first_name String
+  last_name  String
+
+  username String @unique
+
+  user_type UsersTypes @default(client)
+
+  id_account_fk   String   @unique
   account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+
   my_addresses Addresses[]
   my_contacts  Contacts[]
   my_orders    Orders[]
   my_cart      Carts?
-  my_reviews   ProductsReviews[]
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+  my_reviews ProductsReviews[]
+
+  wishlist_items WishlistItems[]
+
+  coupon_usages CouponUsages[]
+
+  deleted_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([username])
   @@map("tbl_users")
 }
-model Addresses{
-  id_address  String @id
-  street      String
-  city        String
-  province    String
-  country     String @default("Angola")
-  reference   String?
-  is_default  Boolean @default(false)
-  id_user_fk  Int 
+
+// ======================================================
+// CONTACTS / ADDRESSES
+// ======================================================
+
+model Contacts {
+  id_contact String @id @default(cuid())
+
+  phone_number String @unique
+
+  is_default Boolean @default(false)
+
+  id_user_fk   Int
   user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_user_fk])
+  @@map("tbl_contacts")
+}
+
+model Addresses {
+  id_address String @id @default(cuid())
+
+  street   String
+  city     String
+  province String
+
+  country String @default("Angola")
+
+  reference String?
+
+  is_default Boolean @default(false)
+
+  id_user_fk   Int
+  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_user_fk])
   @@map("tbl_addresses")
 }
-model ProductsCategories{
-  id_category  Int @id @default(autoincrement())
-  name         String @unique
-  slug         String @unique
-  description  String?
-  product     Products[]
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+// ======================================================
+// PRODUCTS CATEGORIES
+// ======================================================
+
+model ProductsCategories {
+  id_category Int @id @default(autoincrement())
+
+  name String @unique
+  slug String @unique
+
+  description String?
+
+  id_seo_setting_fk String?      @unique
+  seo_setting       SeoSettings? @relation(fields: [id_seo_setting_fk], references: [id_seo_setting])
+
+  product Products[]
+
+  deleted_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   @@map("tbl_products_categories")
 }
-model Products {
-  id_product      Int               @id @default(autoincrement())
-  reference_code  String            @unique
-  name            String
-  description     String?           @db.Text
-  price           Decimal           @db.Decimal(10,2)
-  available_stock Int               @default(1)
-  available       Boolean           @default(true)
-  additional_info String            @db.Text
-  is_featured     Boolean           @default(false)
-  weight          Decimal?          @db.Decimal(10,2)
-  id_category_fk  Int
-  id_brand_fk     Int
-  images          ProductsImages[]
-  reviews         ProductsReviews[]
-  order_items     OrderItems[]
-  cart_items      CartItems[]
-  tags            TagsPerProducts[]
-  brand           ProductBrands     @relation(fields: [id_brand_fk], references: [id_brand], onDelete: Cascade)
-  category        ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
-  created_at      DateTime  @default(now())
-  updated_at      DateTime  @updatedAt
 
-  @@index([id_category_fk])
-  @@index([id_brand_fk])
-  @@index([price])
+// ======================================================
+// PRODUCTS
+// ======================================================
+
+model Products {
+  id_product Int @id @default(autoincrement())
+
+  reference_code String @unique
+
+  name String
+  slug String @unique
+
+  description     String? @db.Text
+  additional_info String? @db.Text
+
+  price Decimal @db.Decimal(10, 2)
+
+  weight Decimal? @db.Decimal(10, 2)
+
+  available   Boolean @default(true)
+  is_featured Boolean @default(false)
+
+  views_count Int @default(0)
+  sales_count Int @default(0)
+
+  id_seo_setting_fk String?      @unique
+  seo_setting       SeoSettings? @relation(fields: [id_seo_setting_fk], references: [id_seo_setting])
+
+  id_category_fk Int
+  category       ProductsCategories @relation(fields: [id_category_fk], references: [id_category], onDelete: Cascade)
+
+  id_brand_fk Int
+  brand       ProductBrands @relation(fields: [id_brand_fk], references: [id_brand], onDelete: Cascade)
+
+  images   ProductsImages[]
+  reviews  ProductsReviews[]
+  variants ProductVariants[]
+  tags     TagsPerProducts[]
+
+  wishlist_items WishlistItems[]
+
+  deleted_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([slug])
+  @@index([reference_code])
   @@index([available])
+  @@index([is_featured])
   @@map("tbl_products")
 }
 
+model ProductVariants {
+  id_variant Int @id @default(autoincrement())
+
+  sku String @unique
+
+  color String?
+  size  String?
+
+  stock Int @default(0)
+
+  low_stock_alert Int @default(5)
+
+  price Decimal @db.Decimal(10, 2)
+
+  id_product_fk Int
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+
+  cart_items  CartItems[]
+  order_items OrderItems[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_product_fk])
+  @@index([sku])
+  @@index([stock])
+  @@map("tbl_product_variants")
+}
+
+// ======================================================
+// PRODUCTS IMAGES
+// ======================================================
+
+model ProductsImages {
+  id_image String @id @default(cuid())
+
+  url String
+
+  is_main       Boolean @default(false)
+  display_order Int     @default(0)
+
+  id_product_fk Int
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_product_fk])
+  @@map("tbl_products_images")
+}
+
+// ======================================================
+// PRODUCTS REVIEWS
+// ======================================================
+
+model ProductsReviews {
+  id_review Int @id @default(autoincrement())
+
+  rating  Int
+  comment String?
+
+  id_product_fk Int
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+
+  id_user_fk   Int
+  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  id_order_item_fk Int?        @unique
+  order_item       OrderItems? @relation(fields: [id_order_item_fk], references: [id_order_item], onDelete: SetNull)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_product_fk])
+  @@index([id_user_fk])
+  @@map("tbl_products_reviews")
+}
+
+// ======================================================
+// TAGS
+// ======================================================
+
 model ProductTags {
-  id_tag   Int    @id @default(autoincrement())
-  tag     String @unique
-  product   TagsPerProducts[]
+  id_tag Int @id @default(autoincrement())
+
+  tag String @unique
+
+  product TagsPerProducts[]
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("tbl_product_tags")
 }
 
-model TagsPerProducts {
-  id_tag_per_product Int @id @default(autoincrement())
-  id_product_fk Int
-  id_tag_fk     Int
-  product Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
-  tag     ProductTags @relation(fields: [id_tag_fk], references: [id_tag], onDelete: Cascade)
+model ProductBrands {
+  id_brand Int @id @default(autoincrement())
+
+  name String @unique
+
+  product Products[]
+
+  deleted_at DateTime?
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("tbl_product_brands")
+}
+
+model TagsPerProducts {
+  id_tag_per_product Int @id @default(autoincrement())
+
+  id_product_fk Int
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+
+  id_tag_fk Int
+  tag       ProductTags @relation(fields: [id_tag_fk], references: [id_tag], onDelete: Cascade)
+
+  created_at DateTime @default(now())
 
   @@unique([id_product_fk, id_tag_fk])
   @@map("tbl_tag_per_products")
 }
 
-model ProductBrands{
-  id_brand    Int @id @default(autoincrement())
-  name        String @unique
-  product    Products[]
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_product_brands")
-}
+// ======================================================
+// CART
+// ======================================================
 
-model ProductsImages{
-  id_image     String @id
-  url          String
-  id_product_fk Int
-  product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_products_images")
-}
-model ProductsReviews{
-  id_review    Int @id @default(autoincrement())
-  rating       Int
-  comment      String?
-  id_product_fk Int
-  id_user_fk    Int
-  user_details  Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
-  product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_products_reviews")
-}
-model Orders{
-  id_order     Int @id @default(autoincrement())
-  total_amount Decimal @db.Decimal(10,2)
-  id_user_fk   Int 
-  status       OrderStatus @default(pending)
-  payment_method String @default("cash")
-  shipping_street   String
-  shipping_city     String
-  shipping_province String
-  shipping_country  String
-  shipping_phone_number String 
-  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
-  order_items  OrderItems[]
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  delivered_at DateTime?
-  @@index([id_user_fk])
-  @@index([status])
-  @@map("tbl_orders")
-}
-model OrderItems{
-  id_order_item Int @id @default(autoincrement())
-  quantity      Int
-  price         Decimal? @db.Decimal(10, 2) 
-  id_order_fk   Int
-  order         Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
-  id_product_fk Int
-  product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_orders_items")
-}
-model Carts{
-  id_cart      Int @id @default(autoincrement())
-  id_user_fk   Int? @unique
-  id_guest_cart String?
+model Carts {
+  id_cart Int @id @default(autoincrement())
+
+  id_user_fk   Int?   @unique
   user_details Users? @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
-  cart_items   CartItems[]
-  status       CartStatus @default(waiting)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+
+  id_guest_cart String? @unique
+
+  cart_items CartItems[]
+
+  status CartStatus @default(waiting)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("tbl_carts")
 }
-model CartItems{
-  id_cart_item  Int @id @default(autoincrement())
-  quantity     Int
-  id_cart_fk   Int
-  price        Decimal @db.Decimal(10,2)
-  cart         Carts @relation(fields: [id_cart_fk], references: [id_cart], onDelete: Cascade)
-  id_product_fk Int
-  product      Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  @@map("tbl_carts_items")
+
+model CartItems {
+  id_cart_item Int @id @default(autoincrement())
+
+  quantity Int
+
+  price Decimal @db.Decimal(10, 2)
+
+  id_cart_fk Int
+  cart       Carts @relation(fields: [id_cart_fk], references: [id_cart], onDelete: Cascade)
+
+  id_variant_fk Int
+  variant       ProductVariants @relation(fields: [id_variant_fk], references: [id_variant], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([id_cart_fk, id_variant_fk])
+  @@map("tbl_cart_items")
 }
+
+// ======================================================
+// ORDERS
+// ======================================================
+
+model Orders {
+  id_order Int @id @default(autoincrement())
+
+  order_number String @unique
+
+  total_amount Decimal @db.Decimal(10, 2)
+
+  discount_amount Decimal @default(0) @db.Decimal(10, 2)
+
+  status OrderStatus @default(pending)
+
+  payment_method PaymentMethods
+
+  id_user_fk   Int
+  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  shipping_street       String
+  shipping_city         String
+  shipping_province     String
+  shipping_country      String
+  shipping_phone_number String
+
+  order_items OrderItems[]
+
+  payment  Payments?
+  shipment Shipments?
+
+  coupon_usage CouponUsages?
+
+  delivered_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_user_fk])
+  @@index([status])
+  @@index([created_at])
+  @@map("tbl_orders")
+}
+
+model OrderItems {
+  id_order_item Int @id @default(autoincrement())
+
+  quantity Int
+
+  price Decimal @db.Decimal(10, 2)
+
+  product_name  String
+  product_price Decimal @db.Decimal(10, 2)
+
+  id_order_fk Int
+  order       Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
+
+  id_variant_fk Int
+  variant       ProductVariants @relation(fields: [id_variant_fk], references: [id_variant], onDelete: Cascade)
+
+  review ProductsReviews?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tbl_order_items")
+}
+
+// ======================================================
+// PAYMENTS
+// ======================================================
+
+model Payments {
+  id_payment String @id @default(cuid())
+
+  amount Decimal @db.Decimal(10, 2)
+
+  currency String @default("AOA")
+
+  status PaymentStatus @default(pending)
+
+  provider PaymentProviders @default(cash)
+
+  provider_reference String? @unique
+
+  failure_reason String?
+
+  paid_at DateTime?
+
+  metadata Json?
+
+  id_order_fk Int    @unique
+  order       Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tbl_payments")
+}
+
+// ======================================================
+// SHIPMENTS
+// ======================================================
+
+model Shipments {
+  id_shipment String @id @default(cuid())
+
+  tracking_code String @unique
+
+  carrier String?
+
+  status ShipmentStatus @default(pending)
+
+  estimated_delivery DateTime?
+
+  shipped_at   DateTime?
+  delivered_at DateTime?
+
+  id_order_fk Int    @unique
+  order       Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("tbl_shipments")
+}
+
+// ======================================================
+// WISHLIST
+// ======================================================
+
+model WishlistItems {
+  id_wishlist_item Int @id @default(autoincrement())
+
+  id_user_fk Int
+  user       Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  id_product_fk Int
+  product       Products @relation(fields: [id_product_fk], references: [id_product], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+
+  @@unique([id_user_fk, id_product_fk])
+  @@map("tbl_wishlist_items")
+}
+
+// ======================================================
+// COUPONS
+// ======================================================
+
+model Coupons {
+  id_coupon String @id @default(cuid())
+
+  code        String  @unique
+  description String?
+
+  discount_type DiscountType
+
+  discount_value Decimal @db.Decimal(10, 2)
+
+  minimum_amount Decimal? @db.Decimal(10, 2)
+
+  usage_limit Int?
+
+  used_count Int @default(0)
+
+  starts_at  DateTime?
+  expires_at DateTime?
+
+  active Boolean @default(true)
+
+  usages CouponUsages[]
+
+  deleted_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([code])
+  @@index([active])
+  @@map("tbl_coupons")
+}
+
+model CouponUsages {
+  id_coupon_usage Int @id @default(autoincrement())
+
+  id_coupon_fk String
+  coupon       Coupons @relation(fields: [id_coupon_fk], references: [id_coupon], onDelete: Cascade)
+
+  id_order_fk Int    @unique
+  order       Orders @relation(fields: [id_order_fk], references: [id_order], onDelete: Cascade)
+
+  id_user_fk Int
+  user       Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  discount_applied Decimal @db.Decimal(10, 2)
+
+  created_at DateTime @default(now())
+
+  @@map("tbl_coupon_usages")
+}
+
+// ======================================================
+// SEO
+// ======================================================
+
 model SeoSettings {
-  id_seo_setting         String   @id 
-  seo_title              String   @unique
-  seo_description        String
-  canonical_url          String?
-  og_title               String?
-  og_description         String?
-  og_image               String?
-  seo_type               String? @default("system")
-  keywords_details       SeoKeywords[]
-  created_at             DateTime @default(now())
-  updated_at             DateTime @updatedAt
+  id_seo_setting String @id @default(cuid())
+
+  seo_title       String
+  seo_description String
+
+  canonical_url String?
+
+  og_title       String?
+  og_description String?
+  og_image       String?
+
+  entity_type String @default("system")
+  entity_id   Int?
+
+  keywords_details SeoKeywords[]
+
+  created_at         DateTime            @default(now())
+  updated_at         DateTime            @updatedAt
+  productsCategories ProductsCategories?
+  products           Products?
 
   @@map("tbl_seo_settings")
 }
+
 model SeoKeywords {
-  id_seo_keyword     String   @id @default(cuid())
-  keyword            String
-  id_seo_setting_fk  String
-  seo_details        SeoSettings @relation(fields: [id_seo_setting_fk], references: [id_seo_setting], onDelete: Cascade)
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  id_seo_keyword String @id @default(cuid())
+
+  keyword String
+
+  id_seo_setting_fk String
+  seo_details       SeoSettings @relation(fields: [id_seo_setting_fk], references: [id_seo_setting], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   @@map("tbl_seo_keywords")
 }
-model UsersActions {
-  id_user_action      String       @id
-  action_name         String       @unique
-  created_at          DateTime     @default(now())
-  updated_at          DateTime     @updatedAt
-  system_logs_details SystemLogs[]
 
-  @@map("tbl_users_actions")
-}
+// ======================================================
+// LOGS
+// ======================================================
 
 model SystemLogs {
-  id_system_log       Int          @id @default(autoincrement())
-  system_agent        String
-  ip_address          String
-  id_user_action_fk   String
-  id_account_fk       String
-  created_at          DateTime     @default(now())
-  updated_at          DateTime     @updatedAt
-  account_details     Accounts     @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
-  user_action_details UsersActions @relation(fields: [id_user_action_fk], references: [id_user_action], onDelete: Cascade)
-  
-  @@index([id_account_fk])
-  @@index([id_user_action_fk])
-  @@index([created_at])
+  id_system_log Int @id @default(autoincrement())
 
+  system_agent String
+  ip_address   String
+  action       String
+
+  id_account_fk   String
+  account_details Accounts @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+
+  @@index([id_account_fk])
+  @@index([created_at])
   @@map("tbl_system_logs")
 }
+
+// ======================================================
+// ENUMS
+// ======================================================
+
 enum UsersTypes {
   admin
   client
 }
-enum OrderStatus {
-  pending
-  completed
-  cancelled
-  failed
-}
-enum CartStatus {
-  waiting
-  active
-  ordered
-  cancelled
-}
-enum AuthenticationsTypes {
-  by_token
-  by_otp
-}
-enum TokenTypes {
-  refreshToken
-  resetPassword
-}
+
 enum Providers {
   Google
   Facebook
   Local
 }
 
+enum AuthenticationsTypes {
+  by_token
+  by_otp
+}
+
+enum TokenTypes {
+  refreshToken
+  resetPassword
+}
+
+enum CartStatus {
+  waiting
+  active
+  ordered
+  cancelled
+}
+
+enum OrderStatus {
+  pending
+  completed
+  cancelled
+  failed
+}
+
+enum PaymentMethods {
+  cash
+  card
+  transfer
+  paypal
+  stripe
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+  cancelled
+  processing
+}
+
+enum PaymentProviders {
+  cash
+  stripe
+  paypal
+  express
+}
+
+enum ShipmentStatus {
+  pending
+  processing
+  shipped
+  delivered
+  cancelled
+}
+
+enum DiscountType {
+  percentage
+  fixed
+}

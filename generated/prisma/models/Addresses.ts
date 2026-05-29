@@ -325,7 +325,7 @@ export type AddressesScalarWhereWithAggregatesInput = {
 }
 
 export type AddressesCreateInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string
@@ -338,7 +338,7 @@ export type AddressesCreateInput = {
 }
 
 export type AddressesUncheckedCreateInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string
@@ -377,7 +377,7 @@ export type AddressesUncheckedUpdateInput = {
 }
 
 export type AddressesCreateManyInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string
@@ -514,7 +514,7 @@ export type AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput = {
 }
 
 export type AddressesCreateWithoutUser_detailsInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string
@@ -526,7 +526,7 @@ export type AddressesCreateWithoutUser_detailsInput = {
 }
 
 export type AddressesUncheckedCreateWithoutUser_detailsInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string
@@ -580,7 +580,7 @@ export type AddressesScalarWhereInput = {
 }
 
 export type AddressesCreateManyUser_detailsInput = {
-  id_address: string
+  id_address?: string
   street: string
   city: string
   province: string

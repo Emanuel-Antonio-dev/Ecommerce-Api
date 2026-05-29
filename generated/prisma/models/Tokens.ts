@@ -28,7 +28,7 @@ export type TokensMinAggregateOutputType = {
   id_token: string | null
   token: string | null
   token_type: $Enums.TokenTypes | null
-  id_authentication: string | null
+  id_authentication_fk: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -37,7 +37,7 @@ export type TokensMaxAggregateOutputType = {
   id_token: string | null
   token: string | null
   token_type: $Enums.TokenTypes | null
-  id_authentication: string | null
+  id_authentication_fk: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -46,7 +46,7 @@ export type TokensCountAggregateOutputType = {
   id_token: number
   token: number
   token_type: number
-  id_authentication: number
+  id_authentication_fk: number
   created_at: number
   updated_at: number
   _all: number
@@ -57,7 +57,7 @@ export type TokensMinAggregateInputType = {
   id_token?: true
   token?: true
   token_type?: true
-  id_authentication?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
 }
@@ -66,7 +66,7 @@ export type TokensMaxAggregateInputType = {
   id_token?: true
   token?: true
   token_type?: true
-  id_authentication?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
 }
@@ -75,7 +75,7 @@ export type TokensCountAggregateInputType = {
   id_token?: true
   token?: true
   token_type?: true
-  id_authentication?: true
+  id_authentication_fk?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -157,7 +157,7 @@ export type TokensGroupByOutputType = {
   id_token: string
   token: string
   token_type: $Enums.TokenTypes
-  id_authentication: string
+  id_authentication_fk: string
   created_at: Date
   updated_at: Date
   _count: TokensCountAggregateOutputType | null
@@ -187,17 +187,17 @@ export type TokensWhereInput = {
   id_token?: Prisma.StringFilter<"Tokens"> | string
   token?: Prisma.StringFilter<"Tokens"> | string
   token_type?: Prisma.EnumTokenTypesFilter<"Tokens"> | $Enums.TokenTypes
-  id_authentication?: Prisma.StringFilter<"Tokens"> | string
+  id_authentication_fk?: Prisma.StringFilter<"Tokens"> | string
   created_at?: Prisma.DateTimeFilter<"Tokens"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Tokens"> | Date | string
-  authentication_details?: Prisma.XOR<Prisma.AuthenticationsNullableScalarRelationFilter, Prisma.AuthenticationsWhereInput> | null
+  authentication_details?: Prisma.XOR<Prisma.AuthenticationsScalarRelationFilter, Prisma.AuthenticationsWhereInput>
 }
 
 export type TokensOrderByWithRelationInput = {
   id_token?: Prisma.SortOrder
   token?: Prisma.SortOrder
   token_type?: Prisma.SortOrder
-  id_authentication?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   authentication_details?: Prisma.AuthenticationsOrderByWithRelationInput
@@ -206,21 +206,21 @@ export type TokensOrderByWithRelationInput = {
 export type TokensWhereUniqueInput = Prisma.AtLeast<{
   id_token?: string
   token?: string
-  id_authentication?: string
+  id_authentication_fk?: string
   AND?: Prisma.TokensWhereInput | Prisma.TokensWhereInput[]
   OR?: Prisma.TokensWhereInput[]
   NOT?: Prisma.TokensWhereInput | Prisma.TokensWhereInput[]
   token_type?: Prisma.EnumTokenTypesFilter<"Tokens"> | $Enums.TokenTypes
   created_at?: Prisma.DateTimeFilter<"Tokens"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Tokens"> | Date | string
-  authentication_details?: Prisma.XOR<Prisma.AuthenticationsNullableScalarRelationFilter, Prisma.AuthenticationsWhereInput> | null
-}, "id_token" | "token" | "id_authentication">
+  authentication_details?: Prisma.XOR<Prisma.AuthenticationsScalarRelationFilter, Prisma.AuthenticationsWhereInput>
+}, "id_token" | "token" | "id_authentication_fk">
 
 export type TokensOrderByWithAggregationInput = {
   id_token?: Prisma.SortOrder
   token?: Prisma.SortOrder
   token_type?: Prisma.SortOrder
-  id_authentication?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.TokensCountOrderByAggregateInput
@@ -235,25 +235,25 @@ export type TokensScalarWhereWithAggregatesInput = {
   id_token?: Prisma.StringWithAggregatesFilter<"Tokens"> | string
   token?: Prisma.StringWithAggregatesFilter<"Tokens"> | string
   token_type?: Prisma.EnumTokenTypesWithAggregatesFilter<"Tokens"> | $Enums.TokenTypes
-  id_authentication?: Prisma.StringWithAggregatesFilter<"Tokens"> | string
+  id_authentication_fk?: Prisma.StringWithAggregatesFilter<"Tokens"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Tokens"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Tokens"> | Date | string
 }
 
 export type TokensCreateInput = {
-  id_token: string
+  id_token?: string
   token: string
   token_type: $Enums.TokenTypes
   created_at?: Date | string
   updated_at?: Date | string
-  authentication_details?: Prisma.AuthenticationsCreateNestedOneWithoutToken_detailsInput
+  authentication_details: Prisma.AuthenticationsCreateNestedOneWithoutToken_detailsInput
 }
 
 export type TokensUncheckedCreateInput = {
-  id_token: string
+  id_token?: string
   token: string
   token_type: $Enums.TokenTypes
-  id_authentication: string
+  id_authentication_fk: string
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -264,23 +264,23 @@ export type TokensUpdateInput = {
   token_type?: Prisma.EnumTokenTypesFieldUpdateOperationsInput | $Enums.TokenTypes
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  authentication_details?: Prisma.AuthenticationsUpdateOneWithoutToken_detailsNestedInput
+  authentication_details?: Prisma.AuthenticationsUpdateOneRequiredWithoutToken_detailsNestedInput
 }
 
 export type TokensUncheckedUpdateInput = {
   id_token?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   token_type?: Prisma.EnumTokenTypesFieldUpdateOperationsInput | $Enums.TokenTypes
-  id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
+  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokensCreateManyInput = {
-  id_token: string
+  id_token?: string
   token: string
   token_type: $Enums.TokenTypes
-  id_authentication: string
+  id_authentication_fk: string
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -297,7 +297,7 @@ export type TokensUncheckedUpdateManyInput = {
   id_token?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   token_type?: Prisma.EnumTokenTypesFieldUpdateOperationsInput | $Enums.TokenTypes
-  id_authentication?: Prisma.StringFieldUpdateOperationsInput | string
+  id_authentication_fk?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -311,7 +311,7 @@ export type TokensCountOrderByAggregateInput = {
   id_token?: Prisma.SortOrder
   token?: Prisma.SortOrder
   token_type?: Prisma.SortOrder
-  id_authentication?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -320,7 +320,7 @@ export type TokensMaxOrderByAggregateInput = {
   id_token?: Prisma.SortOrder
   token?: Prisma.SortOrder
   token_type?: Prisma.SortOrder
-  id_authentication?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -329,7 +329,7 @@ export type TokensMinOrderByAggregateInput = {
   id_token?: Prisma.SortOrder
   token?: Prisma.SortOrder
   token_type?: Prisma.SortOrder
-  id_authentication?: Prisma.SortOrder
+  id_authentication_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -371,7 +371,7 @@ export type EnumTokenTypesFieldUpdateOperationsInput = {
 }
 
 export type TokensCreateWithoutAuthentication_detailsInput = {
-  id_token: string
+  id_token?: string
   token: string
   token_type: $Enums.TokenTypes
   created_at?: Date | string
@@ -379,7 +379,7 @@ export type TokensCreateWithoutAuthentication_detailsInput = {
 }
 
 export type TokensUncheckedCreateWithoutAuthentication_detailsInput = {
-  id_token: string
+  id_token?: string
   token: string
   token_type: $Enums.TokenTypes
   created_at?: Date | string
@@ -424,62 +424,62 @@ export type TokensSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id_token?: boolean
   token?: boolean
   token_type?: boolean
-  id_authentication?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tokens"]>
 
 export type TokensSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_token?: boolean
   token?: boolean
   token_type?: boolean
-  id_authentication?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tokens"]>
 
 export type TokensSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_token?: boolean
   token?: boolean
   token_type?: boolean
-  id_authentication?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tokens"]>
 
 export type TokensSelectScalar = {
   id_token?: boolean
   token?: boolean
   token_type?: boolean
-  id_authentication?: boolean
+  id_authentication_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type TokensOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_token" | "token" | "token_type" | "id_authentication" | "created_at" | "updated_at", ExtArgs["result"]["tokens"]>
+export type TokensOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_token" | "token" | "token_type" | "id_authentication_fk" | "created_at" | "updated_at", ExtArgs["result"]["tokens"]>
 export type TokensInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }
 export type TokensIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }
 export type TokensIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authentication_details?: boolean | Prisma.Tokens$authentication_detailsArgs<ExtArgs>
+  authentication_details?: boolean | Prisma.AuthenticationsDefaultArgs<ExtArgs>
 }
 
 export type $TokensPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Tokens"
   objects: {
-    authentication_details: Prisma.$AuthenticationsPayload<ExtArgs> | null
+    authentication_details: Prisma.$AuthenticationsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_token: string
     token: string
     token_type: $Enums.TokenTypes
-    id_authentication: string
+    id_authentication_fk: string
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["tokens"]>
@@ -876,7 +876,7 @@ readonly fields: TokensFieldRefs;
  */
 export interface Prisma__TokensClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  authentication_details<T extends Prisma.Tokens$authentication_detailsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tokens$authentication_detailsArgs<ExtArgs>>): Prisma.Prisma__AuthenticationsClient<runtime.Types.Result.GetResult<Prisma.$AuthenticationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  authentication_details<T extends Prisma.AuthenticationsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AuthenticationsDefaultArgs<ExtArgs>>): Prisma.Prisma__AuthenticationsClient<runtime.Types.Result.GetResult<Prisma.$AuthenticationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -909,7 +909,7 @@ export interface TokensFieldRefs {
   readonly id_token: Prisma.FieldRef<"Tokens", 'String'>
   readonly token: Prisma.FieldRef<"Tokens", 'String'>
   readonly token_type: Prisma.FieldRef<"Tokens", 'TokenTypes'>
-  readonly id_authentication: Prisma.FieldRef<"Tokens", 'String'>
+  readonly id_authentication_fk: Prisma.FieldRef<"Tokens", 'String'>
   readonly created_at: Prisma.FieldRef<"Tokens", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Tokens", 'DateTime'>
 }
@@ -1305,25 +1305,6 @@ export type TokensDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Tokens to delete.
    */
   limit?: number
-}
-
-/**
- * Tokens.authentication_details
- */
-export type Tokens$authentication_detailsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Authentications
-   */
-  select?: Prisma.AuthenticationsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Authentications
-   */
-  omit?: Prisma.AuthenticationsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AuthenticationsInclude<ExtArgs> | null
-  where?: Prisma.AuthenticationsWhereInput
 }
 
 /**

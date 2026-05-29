@@ -31,6 +31,7 @@ export type ProductsReviewsAvgAggregateOutputType = {
   rating: number | null
   id_product_fk: number | null
   id_user_fk: number | null
+  id_order_item_fk: number | null
 }
 
 export type ProductsReviewsSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type ProductsReviewsSumAggregateOutputType = {
   rating: number | null
   id_product_fk: number | null
   id_user_fk: number | null
+  id_order_item_fk: number | null
 }
 
 export type ProductsReviewsMinAggregateOutputType = {
@@ -46,6 +48,7 @@ export type ProductsReviewsMinAggregateOutputType = {
   comment: string | null
   id_product_fk: number | null
   id_user_fk: number | null
+  id_order_item_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -56,6 +59,7 @@ export type ProductsReviewsMaxAggregateOutputType = {
   comment: string | null
   id_product_fk: number | null
   id_user_fk: number | null
+  id_order_item_fk: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -66,6 +70,7 @@ export type ProductsReviewsCountAggregateOutputType = {
   comment: number
   id_product_fk: number
   id_user_fk: number
+  id_order_item_fk: number
   created_at: number
   updated_at: number
   _all: number
@@ -77,6 +82,7 @@ export type ProductsReviewsAvgAggregateInputType = {
   rating?: true
   id_product_fk?: true
   id_user_fk?: true
+  id_order_item_fk?: true
 }
 
 export type ProductsReviewsSumAggregateInputType = {
@@ -84,6 +90,7 @@ export type ProductsReviewsSumAggregateInputType = {
   rating?: true
   id_product_fk?: true
   id_user_fk?: true
+  id_order_item_fk?: true
 }
 
 export type ProductsReviewsMinAggregateInputType = {
@@ -92,6 +99,7 @@ export type ProductsReviewsMinAggregateInputType = {
   comment?: true
   id_product_fk?: true
   id_user_fk?: true
+  id_order_item_fk?: true
   created_at?: true
   updated_at?: true
 }
@@ -102,6 +110,7 @@ export type ProductsReviewsMaxAggregateInputType = {
   comment?: true
   id_product_fk?: true
   id_user_fk?: true
+  id_order_item_fk?: true
   created_at?: true
   updated_at?: true
 }
@@ -112,6 +121,7 @@ export type ProductsReviewsCountAggregateInputType = {
   comment?: true
   id_product_fk?: true
   id_user_fk?: true
+  id_order_item_fk?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -209,6 +219,7 @@ export type ProductsReviewsGroupByOutputType = {
   comment: string | null
   id_product_fk: number
   id_user_fk: number
+  id_order_item_fk: number | null
   created_at: Date
   updated_at: Date
   _count: ProductsReviewsCountAggregateOutputType | null
@@ -242,10 +253,12 @@ export type ProductsReviewsWhereInput = {
   comment?: Prisma.StringNullableFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
+  id_order_item_fk?: Prisma.IntNullableFilter<"ProductsReviews"> | number | null
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
-  user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
   product?: Prisma.XOR<Prisma.ProductsScalarRelationFilter, Prisma.ProductsWhereInput>
+  user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
+  order_item?: Prisma.XOR<Prisma.OrderItemsNullableScalarRelationFilter, Prisma.OrderItemsWhereInput> | null
 }
 
 export type ProductsReviewsOrderByWithRelationInput = {
@@ -254,14 +267,17 @@ export type ProductsReviewsOrderByWithRelationInput = {
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  user_details?: Prisma.UsersOrderByWithRelationInput
   product?: Prisma.ProductsOrderByWithRelationInput
+  user_details?: Prisma.UsersOrderByWithRelationInput
+  order_item?: Prisma.OrderItemsOrderByWithRelationInput
 }
 
 export type ProductsReviewsWhereUniqueInput = Prisma.AtLeast<{
   id_review?: number
+  id_order_item_fk?: number
   AND?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
   OR?: Prisma.ProductsReviewsWhereInput[]
   NOT?: Prisma.ProductsReviewsWhereInput | Prisma.ProductsReviewsWhereInput[]
@@ -271,9 +287,10 @@ export type ProductsReviewsWhereUniqueInput = Prisma.AtLeast<{
   id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
-  user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
   product?: Prisma.XOR<Prisma.ProductsScalarRelationFilter, Prisma.ProductsWhereInput>
-}, "id_review">
+  user_details?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>
+  order_item?: Prisma.XOR<Prisma.OrderItemsNullableScalarRelationFilter, Prisma.OrderItemsWhereInput> | null
+}, "id_review" | "id_order_item_fk">
 
 export type ProductsReviewsOrderByWithAggregationInput = {
   id_review?: Prisma.SortOrder
@@ -281,6 +298,7 @@ export type ProductsReviewsOrderByWithAggregationInput = {
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.ProductsReviewsCountOrderByAggregateInput
@@ -299,6 +317,7 @@ export type ProductsReviewsScalarWhereWithAggregatesInput = {
   comment?: Prisma.StringNullableWithAggregatesFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
   id_user_fk?: Prisma.IntWithAggregatesFilter<"ProductsReviews"> | number
+  id_order_item_fk?: Prisma.IntNullableWithAggregatesFilter<"ProductsReviews"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsReviews"> | Date | string
 }
@@ -308,8 +327,9 @@ export type ProductsReviewsCreateInput = {
   comment?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  user_details: Prisma.UsersCreateNestedOneWithoutMy_reviewsInput
   product: Prisma.ProductsCreateNestedOneWithoutReviewsInput
+  user_details: Prisma.UsersCreateNestedOneWithoutMy_reviewsInput
+  order_item?: Prisma.OrderItemsCreateNestedOneWithoutReviewInput
 }
 
 export type ProductsReviewsUncheckedCreateInput = {
@@ -318,6 +338,7 @@ export type ProductsReviewsUncheckedCreateInput = {
   comment?: string | null
   id_product_fk: number
   id_user_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -327,8 +348,9 @@ export type ProductsReviewsUpdateInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_reviewsNestedInput
   product?: Prisma.ProductsUpdateOneRequiredWithoutReviewsNestedInput
+  user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_reviewsNestedInput
+  order_item?: Prisma.OrderItemsUpdateOneWithoutReviewNestedInput
 }
 
 export type ProductsReviewsUncheckedUpdateInput = {
@@ -337,6 +359,7 @@ export type ProductsReviewsUncheckedUpdateInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -347,6 +370,7 @@ export type ProductsReviewsCreateManyInput = {
   comment?: string | null
   id_product_fk: number
   id_user_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -364,6 +388,7 @@ export type ProductsReviewsUncheckedUpdateManyInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,6 +409,7 @@ export type ProductsReviewsCountOrderByAggregateInput = {
   comment?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -393,6 +419,7 @@ export type ProductsReviewsAvgOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrder
 }
 
 export type ProductsReviewsMaxOrderByAggregateInput = {
@@ -401,6 +428,7 @@ export type ProductsReviewsMaxOrderByAggregateInput = {
   comment?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -411,6 +439,7 @@ export type ProductsReviewsMinOrderByAggregateInput = {
   comment?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -420,6 +449,12 @@ export type ProductsReviewsSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
+  id_order_item_fk?: Prisma.SortOrder
+}
+
+export type ProductsReviewsNullableScalarRelationFilter = {
+  is?: Prisma.ProductsReviewsWhereInput | null
+  isNot?: Prisma.ProductsReviewsWhereInput | null
 }
 
 export type ProductsReviewsCreateNestedManyWithoutUser_detailsInput = {
@@ -506,12 +541,53 @@ export type ProductsReviewsUncheckedUpdateManyWithoutProductNestedInput = {
   deleteMany?: Prisma.ProductsReviewsScalarWhereInput | Prisma.ProductsReviewsScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type ProductsReviewsCreateNestedOneWithoutOrder_itemInput = {
+  create?: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+  connectOrCreate?: Prisma.ProductsReviewsCreateOrConnectWithoutOrder_itemInput
+  connect?: Prisma.ProductsReviewsWhereUniqueInput
+}
+
+export type ProductsReviewsUncheckedCreateNestedOneWithoutOrder_itemInput = {
+  create?: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+  connectOrCreate?: Prisma.ProductsReviewsCreateOrConnectWithoutOrder_itemInput
+  connect?: Prisma.ProductsReviewsWhereUniqueInput
+}
+
+export type ProductsReviewsUpdateOneWithoutOrder_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+  connectOrCreate?: Prisma.ProductsReviewsCreateOrConnectWithoutOrder_itemInput
+  upsert?: Prisma.ProductsReviewsUpsertWithoutOrder_itemInput
+  disconnect?: Prisma.ProductsReviewsWhereInput | boolean
+  delete?: Prisma.ProductsReviewsWhereInput | boolean
+  connect?: Prisma.ProductsReviewsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductsReviewsUpdateToOneWithWhereWithoutOrder_itemInput, Prisma.ProductsReviewsUpdateWithoutOrder_itemInput>, Prisma.ProductsReviewsUncheckedUpdateWithoutOrder_itemInput>
+}
+
+export type ProductsReviewsUncheckedUpdateOneWithoutOrder_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+  connectOrCreate?: Prisma.ProductsReviewsCreateOrConnectWithoutOrder_itemInput
+  upsert?: Prisma.ProductsReviewsUpsertWithoutOrder_itemInput
+  disconnect?: Prisma.ProductsReviewsWhereInput | boolean
+  delete?: Prisma.ProductsReviewsWhereInput | boolean
+  connect?: Prisma.ProductsReviewsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductsReviewsUpdateToOneWithWhereWithoutOrder_itemInput, Prisma.ProductsReviewsUpdateWithoutOrder_itemInput>, Prisma.ProductsReviewsUncheckedUpdateWithoutOrder_itemInput>
+}
+
 export type ProductsReviewsCreateWithoutUser_detailsInput = {
   rating: number
   comment?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   product: Prisma.ProductsCreateNestedOneWithoutReviewsInput
+  order_item?: Prisma.OrderItemsCreateNestedOneWithoutReviewInput
 }
 
 export type ProductsReviewsUncheckedCreateWithoutUser_detailsInput = {
@@ -519,6 +595,7 @@ export type ProductsReviewsUncheckedCreateWithoutUser_detailsInput = {
   rating: number
   comment?: string | null
   id_product_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -558,6 +635,7 @@ export type ProductsReviewsScalarWhereInput = {
   comment?: Prisma.StringNullableFilter<"ProductsReviews"> | string | null
   id_product_fk?: Prisma.IntFilter<"ProductsReviews"> | number
   id_user_fk?: Prisma.IntFilter<"ProductsReviews"> | number
+  id_order_item_fk?: Prisma.IntNullableFilter<"ProductsReviews"> | number | null
   created_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsReviews"> | Date | string
 }
@@ -568,6 +646,7 @@ export type ProductsReviewsCreateWithoutProductInput = {
   created_at?: Date | string
   updated_at?: Date | string
   user_details: Prisma.UsersCreateNestedOneWithoutMy_reviewsInput
+  order_item?: Prisma.OrderItemsCreateNestedOneWithoutReviewInput
 }
 
 export type ProductsReviewsUncheckedCreateWithoutProductInput = {
@@ -575,6 +654,7 @@ export type ProductsReviewsUncheckedCreateWithoutProductInput = {
   rating: number
   comment?: string | null
   id_user_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -605,11 +685,66 @@ export type ProductsReviewsUpdateManyWithWhereWithoutProductInput = {
   data: Prisma.XOR<Prisma.ProductsReviewsUpdateManyMutationInput, Prisma.ProductsReviewsUncheckedUpdateManyWithoutProductInput>
 }
 
+export type ProductsReviewsCreateWithoutOrder_itemInput = {
+  rating: number
+  comment?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  product: Prisma.ProductsCreateNestedOneWithoutReviewsInput
+  user_details: Prisma.UsersCreateNestedOneWithoutMy_reviewsInput
+}
+
+export type ProductsReviewsUncheckedCreateWithoutOrder_itemInput = {
+  id_review?: number
+  rating: number
+  comment?: string | null
+  id_product_fk: number
+  id_user_fk: number
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type ProductsReviewsCreateOrConnectWithoutOrder_itemInput = {
+  where: Prisma.ProductsReviewsWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+}
+
+export type ProductsReviewsUpsertWithoutOrder_itemInput = {
+  update: Prisma.XOR<Prisma.ProductsReviewsUpdateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedUpdateWithoutOrder_itemInput>
+  create: Prisma.XOR<Prisma.ProductsReviewsCreateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedCreateWithoutOrder_itemInput>
+  where?: Prisma.ProductsReviewsWhereInput
+}
+
+export type ProductsReviewsUpdateToOneWithWhereWithoutOrder_itemInput = {
+  where?: Prisma.ProductsReviewsWhereInput
+  data: Prisma.XOR<Prisma.ProductsReviewsUpdateWithoutOrder_itemInput, Prisma.ProductsReviewsUncheckedUpdateWithoutOrder_itemInput>
+}
+
+export type ProductsReviewsUpdateWithoutOrder_itemInput = {
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductsUpdateOneRequiredWithoutReviewsNestedInput
+  user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_reviewsNestedInput
+}
+
+export type ProductsReviewsUncheckedUpdateWithoutOrder_itemInput = {
+  id_review?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ProductsReviewsCreateManyUser_detailsInput = {
   id_review?: number
   rating: number
   comment?: string | null
   id_product_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -620,6 +755,7 @@ export type ProductsReviewsUpdateWithoutUser_detailsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductsUpdateOneRequiredWithoutReviewsNestedInput
+  order_item?: Prisma.OrderItemsUpdateOneWithoutReviewNestedInput
 }
 
 export type ProductsReviewsUncheckedUpdateWithoutUser_detailsInput = {
@@ -627,6 +763,7 @@ export type ProductsReviewsUncheckedUpdateWithoutUser_detailsInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -636,6 +773,7 @@ export type ProductsReviewsUncheckedUpdateManyWithoutUser_detailsInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -645,6 +783,7 @@ export type ProductsReviewsCreateManyProductInput = {
   rating: number
   comment?: string | null
   id_user_fk: number
+  id_order_item_fk?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -655,6 +794,7 @@ export type ProductsReviewsUpdateWithoutProductInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_reviewsNestedInput
+  order_item?: Prisma.OrderItemsUpdateOneWithoutReviewNestedInput
 }
 
 export type ProductsReviewsUncheckedUpdateWithoutProductInput = {
@@ -662,6 +802,7 @@ export type ProductsReviewsUncheckedUpdateWithoutProductInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -671,6 +812,7 @@ export type ProductsReviewsUncheckedUpdateManyWithoutProductInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  id_order_item_fk?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -683,10 +825,12 @@ export type ProductsReviewsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   comment?: boolean
   id_product_fk?: boolean
   id_user_fk?: boolean
+  id_order_item_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }, ExtArgs["result"]["productsReviews"]>
 
 export type ProductsReviewsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -695,10 +839,12 @@ export type ProductsReviewsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   comment?: boolean
   id_product_fk?: boolean
   id_user_fk?: boolean
+  id_order_item_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }, ExtArgs["result"]["productsReviews"]>
 
 export type ProductsReviewsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -707,10 +853,12 @@ export type ProductsReviewsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   comment?: boolean
   id_product_fk?: boolean
   id_user_fk?: boolean
+  id_order_item_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }, ExtArgs["result"]["productsReviews"]>
 
 export type ProductsReviewsSelectScalar = {
@@ -719,29 +867,34 @@ export type ProductsReviewsSelectScalar = {
   comment?: boolean
   id_product_fk?: boolean
   id_user_fk?: boolean
+  id_order_item_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ProductsReviewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_review" | "rating" | "comment" | "id_product_fk" | "id_user_fk" | "created_at" | "updated_at", ExtArgs["result"]["productsReviews"]>
+export type ProductsReviewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_review" | "rating" | "comment" | "id_product_fk" | "id_user_fk" | "id_order_item_fk" | "created_at" | "updated_at", ExtArgs["result"]["productsReviews"]>
 export type ProductsReviewsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }
 export type ProductsReviewsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }
 export type ProductsReviewsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
+  user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
+  order_item?: boolean | Prisma.ProductsReviews$order_itemArgs<ExtArgs>
 }
 
 export type $ProductsReviewsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductsReviews"
   objects: {
-    user_details: Prisma.$UsersPayload<ExtArgs>
     product: Prisma.$ProductsPayload<ExtArgs>
+    user_details: Prisma.$UsersPayload<ExtArgs>
+    order_item: Prisma.$OrderItemsPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_review: number
@@ -749,6 +902,7 @@ export type $ProductsReviewsPayload<ExtArgs extends runtime.Types.Extensions.Int
     comment: string | null
     id_product_fk: number
     id_user_fk: number
+    id_order_item_fk: number | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["productsReviews"]>
@@ -1145,8 +1299,9 @@ readonly fields: ProductsReviewsFieldRefs;
  */
 export interface Prisma__ProductsReviewsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user_details<T extends Prisma.UsersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsersDefaultArgs<ExtArgs>>): Prisma.Prisma__UsersClient<runtime.Types.Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.ProductsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductsDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductsClient<runtime.Types.Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user_details<T extends Prisma.UsersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsersDefaultArgs<ExtArgs>>): Prisma.Prisma__UsersClient<runtime.Types.Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  order_item<T extends Prisma.ProductsReviews$order_itemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductsReviews$order_itemArgs<ExtArgs>>): Prisma.Prisma__OrderItemsClient<runtime.Types.Result.GetResult<Prisma.$OrderItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1181,6 +1336,7 @@ export interface ProductsReviewsFieldRefs {
   readonly comment: Prisma.FieldRef<"ProductsReviews", 'String'>
   readonly id_product_fk: Prisma.FieldRef<"ProductsReviews", 'Int'>
   readonly id_user_fk: Prisma.FieldRef<"ProductsReviews", 'Int'>
+  readonly id_order_item_fk: Prisma.FieldRef<"ProductsReviews", 'Int'>
   readonly created_at: Prisma.FieldRef<"ProductsReviews", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"ProductsReviews", 'DateTime'>
 }
@@ -1576,6 +1732,25 @@ export type ProductsReviewsDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many ProductsReviews to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductsReviews.order_item
+ */
+export type ProductsReviews$order_itemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderItems
+   */
+  select?: Prisma.OrderItemsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderItems
+   */
+  omit?: Prisma.OrderItemsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderItemsInclude<ExtArgs> | null
+  where?: Prisma.OrderItemsWhereInput
 }
 
 /**

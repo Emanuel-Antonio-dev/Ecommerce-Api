@@ -58,15 +58,15 @@ export type Tokens = Prisma.TokensModel
  */
 export type TwoFactorAuth = Prisma.TwoFactorAuthModel
 /**
- * Model Contacts
- * 
- */
-export type Contacts = Prisma.ContactsModel
-/**
  * Model Users
  * 
  */
 export type Users = Prisma.UsersModel
+/**
+ * Model Contacts
+ * 
+ */
+export type Contacts = Prisma.ContactsModel
 /**
  * Model Addresses
  * 
@@ -83,20 +83,10 @@ export type ProductsCategories = Prisma.ProductsCategoriesModel
  */
 export type Products = Prisma.ProductsModel
 /**
- * Model ProductTags
+ * Model ProductVariants
  * 
  */
-export type ProductTags = Prisma.ProductTagsModel
-/**
- * Model TagsPerProducts
- * 
- */
-export type TagsPerProducts = Prisma.TagsPerProductsModel
-/**
- * Model ProductBrands
- * 
- */
-export type ProductBrands = Prisma.ProductBrandsModel
+export type ProductVariants = Prisma.ProductVariantsModel
 /**
  * Model ProductsImages
  * 
@@ -108,15 +98,20 @@ export type ProductsImages = Prisma.ProductsImagesModel
  */
 export type ProductsReviews = Prisma.ProductsReviewsModel
 /**
- * Model Orders
+ * Model ProductTags
  * 
  */
-export type Orders = Prisma.OrdersModel
+export type ProductTags = Prisma.ProductTagsModel
 /**
- * Model OrderItems
+ * Model ProductBrands
  * 
  */
-export type OrderItems = Prisma.OrderItemsModel
+export type ProductBrands = Prisma.ProductBrandsModel
+/**
+ * Model TagsPerProducts
+ * 
+ */
+export type TagsPerProducts = Prisma.TagsPerProductsModel
 /**
  * Model Carts
  * 
@@ -128,6 +123,41 @@ export type Carts = Prisma.CartsModel
  */
 export type CartItems = Prisma.CartItemsModel
 /**
+ * Model Orders
+ * 
+ */
+export type Orders = Prisma.OrdersModel
+/**
+ * Model OrderItems
+ * 
+ */
+export type OrderItems = Prisma.OrderItemsModel
+/**
+ * Model Payments
+ * 
+ */
+export type Payments = Prisma.PaymentsModel
+/**
+ * Model Shipments
+ * 
+ */
+export type Shipments = Prisma.ShipmentsModel
+/**
+ * Model WishlistItems
+ * 
+ */
+export type WishlistItems = Prisma.WishlistItemsModel
+/**
+ * Model Coupons
+ * 
+ */
+export type Coupons = Prisma.CouponsModel
+/**
+ * Model CouponUsages
+ * 
+ */
+export type CouponUsages = Prisma.CouponUsagesModel
+/**
  * Model SeoSettings
  * 
  */
@@ -137,11 +167,6 @@ export type SeoSettings = Prisma.SeoSettingsModel
  * 
  */
 export type SeoKeywords = Prisma.SeoKeywordsModel
-/**
- * Model UsersActions
- * 
- */
-export type UsersActions = Prisma.UsersActionsModel
 /**
  * Model SystemLogs
  * 

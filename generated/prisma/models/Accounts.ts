@@ -29,10 +29,10 @@ export type AccountsMinAggregateOutputType = {
   email: string | null
   password: string | null
   verified: boolean | null
-  providerId: string | null
   provider: $Enums.Providers | null
-  deleted_at: Date | null
+  provider_id: string | null
   is_active: boolean | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -42,10 +42,10 @@ export type AccountsMaxAggregateOutputType = {
   email: string | null
   password: string | null
   verified: boolean | null
-  providerId: string | null
   provider: $Enums.Providers | null
-  deleted_at: Date | null
+  provider_id: string | null
   is_active: boolean | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -55,10 +55,10 @@ export type AccountsCountAggregateOutputType = {
   email: number
   password: number
   verified: number
-  providerId: number
   provider: number
-  deleted_at: number
+  provider_id: number
   is_active: number
+  deleted_at: number
   created_at: number
   updated_at: number
   _all: number
@@ -70,10 +70,10 @@ export type AccountsMinAggregateInputType = {
   email?: true
   password?: true
   verified?: true
-  providerId?: true
   provider?: true
-  deleted_at?: true
+  provider_id?: true
   is_active?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -83,10 +83,10 @@ export type AccountsMaxAggregateInputType = {
   email?: true
   password?: true
   verified?: true
-  providerId?: true
   provider?: true
-  deleted_at?: true
+  provider_id?: true
   is_active?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -96,10 +96,10 @@ export type AccountsCountAggregateInputType = {
   email?: true
   password?: true
   verified?: true
-  providerId?: true
   provider?: true
-  deleted_at?: true
+  provider_id?: true
   is_active?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -182,10 +182,10 @@ export type AccountsGroupByOutputType = {
   email: string
   password: string | null
   verified: boolean
-  providerId: string | null
   provider: $Enums.Providers
-  deleted_at: Date | null
+  provider_id: string | null
   is_active: boolean
+  deleted_at: Date | null
   created_at: Date
   updated_at: Date
   _count: AccountsCountAggregateOutputType | null
@@ -216,10 +216,10 @@ export type AccountsWhereInput = {
   email?: Prisma.StringFilter<"Accounts"> | string
   password?: Prisma.StringNullableFilter<"Accounts"> | string | null
   verified?: Prisma.BoolFilter<"Accounts"> | boolean
-  providerId?: Prisma.StringNullableFilter<"Accounts"> | string | null
   provider?: Prisma.EnumProvidersFilter<"Accounts"> | $Enums.Providers
-  deleted_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
+  provider_id?: Prisma.StringNullableFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolFilter<"Accounts"> | boolean
+  deleted_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   authentication_details?: Prisma.AuthenticationsListRelationFilter
@@ -232,10 +232,10 @@ export type AccountsOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   verified?: Prisma.SortOrder
-  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider_id?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   authentication_details?: Prisma.AuthenticationsOrderByRelationAggregateInput
@@ -251,10 +251,10 @@ export type AccountsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AccountsWhereInput | Prisma.AccountsWhereInput[]
   password?: Prisma.StringNullableFilter<"Accounts"> | string | null
   verified?: Prisma.BoolFilter<"Accounts"> | boolean
-  providerId?: Prisma.StringNullableFilter<"Accounts"> | string | null
   provider?: Prisma.EnumProvidersFilter<"Accounts"> | $Enums.Providers
-  deleted_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
+  provider_id?: Prisma.StringNullableFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolFilter<"Accounts"> | boolean
+  deleted_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Accounts"> | Date | string
   authentication_details?: Prisma.AuthenticationsListRelationFilter
@@ -267,10 +267,10 @@ export type AccountsOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   verified?: Prisma.SortOrder
-  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider_id?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.AccountsCountOrderByAggregateInput
@@ -286,23 +286,23 @@ export type AccountsScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Accounts"> | string
   password?: Prisma.StringNullableWithAggregatesFilter<"Accounts"> | string | null
   verified?: Prisma.BoolWithAggregatesFilter<"Accounts"> | boolean
-  providerId?: Prisma.StringNullableWithAggregatesFilter<"Accounts"> | string | null
   provider?: Prisma.EnumProvidersWithAggregatesFilter<"Accounts"> | $Enums.Providers
-  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Accounts"> | Date | string | null
+  provider_id?: Prisma.StringNullableWithAggregatesFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolWithAggregatesFilter<"Accounts"> | boolean
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Accounts"> | Date | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Accounts"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Accounts"> | Date | string
 }
 
 export type AccountsCreateInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
@@ -311,14 +311,14 @@ export type AccountsCreateInput = {
 }
 
 export type AccountsUncheckedCreateInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
@@ -331,10 +331,10 @@ export type AccountsUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
@@ -347,10 +347,10 @@ export type AccountsUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
@@ -359,14 +359,14 @@ export type AccountsUncheckedUpdateInput = {
 }
 
 export type AccountsCreateManyInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -376,10 +376,10 @@ export type AccountsUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -389,10 +389,10 @@ export type AccountsUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -402,10 +402,10 @@ export type AccountsCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
-  providerId?: Prisma.SortOrder
   provider?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
+  provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -415,10 +415,10 @@ export type AccountsMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
-  providerId?: Prisma.SortOrder
   provider?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
+  provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -428,10 +428,10 @@ export type AccountsMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
-  providerId?: Prisma.SortOrder
   provider?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
+  provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -515,14 +515,14 @@ export type AccountsUpdateOneRequiredWithoutAccount_logs_detailsNestedInput = {
 }
 
 export type AccountsCreateWithoutAuthentication_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_logs_details?: Prisma.SystemLogsCreateNestedManyWithoutAccount_detailsInput
@@ -530,14 +530,14 @@ export type AccountsCreateWithoutAuthentication_detailsInput = {
 }
 
 export type AccountsUncheckedCreateWithoutAuthentication_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_logs_details?: Prisma.SystemLogsUncheckedCreateNestedManyWithoutAccount_detailsInput
@@ -565,10 +565,10 @@ export type AccountsUpdateWithoutAuthentication_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_logs_details?: Prisma.SystemLogsUpdateManyWithoutAccount_detailsNestedInput
@@ -580,10 +580,10 @@ export type AccountsUncheckedUpdateWithoutAuthentication_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_logs_details?: Prisma.SystemLogsUncheckedUpdateManyWithoutAccount_detailsNestedInput
@@ -591,14 +591,14 @@ export type AccountsUncheckedUpdateWithoutAuthentication_detailsInput = {
 }
 
 export type AccountsCreateWithoutUser_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
@@ -606,14 +606,14 @@ export type AccountsCreateWithoutUser_detailsInput = {
 }
 
 export type AccountsUncheckedCreateWithoutUser_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
@@ -641,10 +641,10 @@ export type AccountsUpdateWithoutUser_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
@@ -656,10 +656,10 @@ export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
@@ -667,14 +667,14 @@ export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
 }
 
 export type AccountsCreateWithoutAccount_logs_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsCreateNestedManyWithoutAccount_detailsInput
@@ -682,14 +682,14 @@ export type AccountsCreateWithoutAccount_logs_detailsInput = {
 }
 
 export type AccountsUncheckedCreateWithoutAccount_logs_detailsInput = {
-  id_account: string
+  id_account?: string
   email: string
   password?: string | null
   verified?: boolean
-  providerId?: string | null
   provider?: $Enums.Providers
-  deleted_at?: Date | string | null
+  provider_id?: string | null
   is_active?: boolean
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedCreateNestedManyWithoutAccount_detailsInput
@@ -717,10 +717,10 @@ export type AccountsUpdateWithoutAccount_logs_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUpdateManyWithoutAccount_detailsNestedInput
@@ -732,10 +732,10 @@ export type AccountsUncheckedUpdateWithoutAccount_logs_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authentication_details?: Prisma.AuthenticationsUncheckedUpdateManyWithoutAccount_detailsNestedInput
@@ -787,10 +787,10 @@ export type AccountsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   password?: boolean
   verified?: boolean
-  providerId?: boolean
   provider?: boolean
-  deleted_at?: boolean
+  provider_id?: boolean
   is_active?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
   authentication_details?: boolean | Prisma.Accounts$authentication_detailsArgs<ExtArgs>
@@ -804,10 +804,10 @@ export type AccountsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   verified?: boolean
-  providerId?: boolean
   provider?: boolean
-  deleted_at?: boolean
+  provider_id?: boolean
   is_active?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["accounts"]>
@@ -817,10 +817,10 @@ export type AccountsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   verified?: boolean
-  providerId?: boolean
   provider?: boolean
-  deleted_at?: boolean
+  provider_id?: boolean
   is_active?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["accounts"]>
@@ -830,15 +830,15 @@ export type AccountsSelectScalar = {
   email?: boolean
   password?: boolean
   verified?: boolean
-  providerId?: boolean
   provider?: boolean
-  deleted_at?: boolean
+  provider_id?: boolean
   is_active?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type AccountsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_account" | "email" | "password" | "verified" | "providerId" | "provider" | "deleted_at" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["accounts"]>
+export type AccountsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_account" | "email" | "password" | "verified" | "provider" | "provider_id" | "is_active" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["accounts"]>
 export type AccountsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authentication_details?: boolean | Prisma.Accounts$authentication_detailsArgs<ExtArgs>
   account_logs_details?: boolean | Prisma.Accounts$account_logs_detailsArgs<ExtArgs>
@@ -860,10 +860,10 @@ export type $AccountsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     email: string
     password: string | null
     verified: boolean
-    providerId: string | null
     provider: $Enums.Providers
-    deleted_at: Date | null
+    provider_id: string | null
     is_active: boolean
+    deleted_at: Date | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["accounts"]>
@@ -1296,10 +1296,10 @@ export interface AccountsFieldRefs {
   readonly email: Prisma.FieldRef<"Accounts", 'String'>
   readonly password: Prisma.FieldRef<"Accounts", 'String'>
   readonly verified: Prisma.FieldRef<"Accounts", 'Boolean'>
-  readonly providerId: Prisma.FieldRef<"Accounts", 'String'>
   readonly provider: Prisma.FieldRef<"Accounts", 'Providers'>
-  readonly deleted_at: Prisma.FieldRef<"Accounts", 'DateTime'>
+  readonly provider_id: Prisma.FieldRef<"Accounts", 'String'>
   readonly is_active: Prisma.FieldRef<"Accounts", 'Boolean'>
+  readonly deleted_at: Prisma.FieldRef<"Accounts", 'DateTime'>
   readonly created_at: Prisma.FieldRef<"Accounts", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Accounts", 'DateTime'>
 }

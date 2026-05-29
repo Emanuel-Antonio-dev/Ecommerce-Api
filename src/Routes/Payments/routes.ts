@@ -1,5 +1,5 @@
 import { Router, Request, Response} from "express";
-import { CreatePaymentIntentController } from "../../Controllers/Payments/create-stripe-payment-intent.controller";
+import { CreatePaymentIntentController } from "../../Controllers/Payments/PaymentByStripe/create-stripe-payment-intent.controller";
 import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";
 
 const paymentRoutes = Router();

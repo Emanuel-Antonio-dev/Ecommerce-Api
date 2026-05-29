@@ -41,6 +41,7 @@ export type UsersMinAggregateOutputType = {
   username: string | null
   user_type: $Enums.UsersTypes | null
   id_account_fk: string | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -52,6 +53,7 @@ export type UsersMaxAggregateOutputType = {
   username: string | null
   user_type: $Enums.UsersTypes | null
   id_account_fk: string | null
+  deleted_at: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -63,6 +65,7 @@ export type UsersCountAggregateOutputType = {
   username: number
   user_type: number
   id_account_fk: number
+  deleted_at: number
   created_at: number
   updated_at: number
   _all: number
@@ -84,6 +87,7 @@ export type UsersMinAggregateInputType = {
   username?: true
   user_type?: true
   id_account_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -95,6 +99,7 @@ export type UsersMaxAggregateInputType = {
   username?: true
   user_type?: true
   id_account_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
 }
@@ -106,6 +111,7 @@ export type UsersCountAggregateInputType = {
   username?: true
   user_type?: true
   id_account_fk?: true
+  deleted_at?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -204,6 +210,7 @@ export type UsersGroupByOutputType = {
   username: string
   user_type: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at: Date | null
   created_at: Date
   updated_at: Date
   _count: UsersCountAggregateOutputType | null
@@ -238,6 +245,7 @@ export type UsersWhereInput = {
   username?: Prisma.StringFilter<"Users"> | string
   user_type?: Prisma.EnumUsersTypesFilter<"Users"> | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFilter<"Users"> | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Users"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Users"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Users"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsScalarRelationFilter, Prisma.AccountsWhereInput>
@@ -246,6 +254,8 @@ export type UsersWhereInput = {
   my_orders?: Prisma.OrdersListRelationFilter
   my_cart?: Prisma.XOR<Prisma.CartsNullableScalarRelationFilter, Prisma.CartsWhereInput> | null
   my_reviews?: Prisma.ProductsReviewsListRelationFilter
+  wishlist_items?: Prisma.WishlistItemsListRelationFilter
+  coupon_usages?: Prisma.CouponUsagesListRelationFilter
 }
 
 export type UsersOrderByWithRelationInput = {
@@ -255,6 +265,7 @@ export type UsersOrderByWithRelationInput = {
   username?: Prisma.SortOrder
   user_type?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   account_details?: Prisma.AccountsOrderByWithRelationInput
@@ -263,6 +274,8 @@ export type UsersOrderByWithRelationInput = {
   my_orders?: Prisma.OrdersOrderByRelationAggregateInput
   my_cart?: Prisma.CartsOrderByWithRelationInput
   my_reviews?: Prisma.ProductsReviewsOrderByRelationAggregateInput
+  wishlist_items?: Prisma.WishlistItemsOrderByRelationAggregateInput
+  coupon_usages?: Prisma.CouponUsagesOrderByRelationAggregateInput
 }
 
 export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -275,6 +288,7 @@ export type UsersWhereUniqueInput = Prisma.AtLeast<{
   first_name?: Prisma.StringFilter<"Users"> | string
   last_name?: Prisma.StringFilter<"Users"> | string
   user_type?: Prisma.EnumUsersTypesFilter<"Users"> | $Enums.UsersTypes
+  deleted_at?: Prisma.DateTimeNullableFilter<"Users"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Users"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Users"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsScalarRelationFilter, Prisma.AccountsWhereInput>
@@ -283,6 +297,8 @@ export type UsersWhereUniqueInput = Prisma.AtLeast<{
   my_orders?: Prisma.OrdersListRelationFilter
   my_cart?: Prisma.XOR<Prisma.CartsNullableScalarRelationFilter, Prisma.CartsWhereInput> | null
   my_reviews?: Prisma.ProductsReviewsListRelationFilter
+  wishlist_items?: Prisma.WishlistItemsListRelationFilter
+  coupon_usages?: Prisma.CouponUsagesListRelationFilter
 }, "id_user" | "username" | "id_account_fk">
 
 export type UsersOrderByWithAggregationInput = {
@@ -292,6 +308,7 @@ export type UsersOrderByWithAggregationInput = {
   username?: Prisma.SortOrder
   user_type?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.UsersCountOrderByAggregateInput
@@ -311,6 +328,7 @@ export type UsersScalarWhereWithAggregatesInput = {
   username?: Prisma.StringWithAggregatesFilter<"Users"> | string
   user_type?: Prisma.EnumUsersTypesWithAggregatesFilter<"Users"> | $Enums.UsersTypes
   id_account_fk?: Prisma.StringWithAggregatesFilter<"Users"> | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Users"> | Date | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Users"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Users"> | Date | string
 }
@@ -320,6 +338,7 @@ export type UsersCreateInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
@@ -328,6 +347,8 @@ export type UsersCreateInput = {
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateInput = {
@@ -337,6 +358,7 @@ export type UsersUncheckedCreateInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
@@ -344,6 +366,8 @@ export type UsersUncheckedCreateInput = {
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersUpdateInput = {
@@ -351,6 +375,7 @@ export type UsersUpdateInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
@@ -359,6 +384,8 @@ export type UsersUpdateInput = {
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateInput = {
@@ -368,6 +395,7 @@ export type UsersUncheckedUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
@@ -375,6 +403,8 @@ export type UsersUncheckedUpdateInput = {
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsersCreateManyInput = {
@@ -384,6 +414,7 @@ export type UsersCreateManyInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -393,6 +424,7 @@ export type UsersUpdateManyMutationInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,6 +436,7 @@ export type UsersUncheckedUpdateManyInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -413,11 +446,6 @@ export type UsersNullableScalarRelationFilter = {
   isNot?: Prisma.UsersWhereInput | null
 }
 
-export type UsersScalarRelationFilter = {
-  is?: Prisma.UsersWhereInput
-  isNot?: Prisma.UsersWhereInput
-}
-
 export type UsersCountOrderByAggregateInput = {
   id_user?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
@@ -425,6 +453,7 @@ export type UsersCountOrderByAggregateInput = {
   username?: Prisma.SortOrder
   user_type?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -440,6 +469,7 @@ export type UsersMaxOrderByAggregateInput = {
   username?: Prisma.SortOrder
   user_type?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -451,12 +481,18 @@ export type UsersMinOrderByAggregateInput = {
   username?: Prisma.SortOrder
   user_type?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type UsersSumOrderByAggregateInput = {
   id_user?: Prisma.SortOrder
+}
+
+export type UsersScalarRelationFilter = {
+  is?: Prisma.UsersWhereInput
+  isNot?: Prisma.UsersWhereInput
 }
 
 export type UsersCreateNestedOneWithoutAccount_detailsInput = {
@@ -491,6 +527,10 @@ export type UsersUncheckedUpdateOneWithoutAccount_detailsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutAccount_detailsInput, Prisma.UsersUpdateWithoutAccount_detailsInput>, Prisma.UsersUncheckedUpdateWithoutAccount_detailsInput>
 }
 
+export type EnumUsersTypesFieldUpdateOperationsInput = {
+  set?: $Enums.UsersTypes
+}
+
 export type UsersCreateNestedOneWithoutMy_contactsInput = {
   create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_contactsInput, Prisma.UsersUncheckedCreateWithoutMy_contactsInput>
   connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_contactsInput
@@ -503,10 +543,6 @@ export type UsersUpdateOneRequiredWithoutMy_contactsNestedInput = {
   upsert?: Prisma.UsersUpsertWithoutMy_contactsInput
   connect?: Prisma.UsersWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutMy_contactsInput, Prisma.UsersUpdateWithoutMy_contactsInput>, Prisma.UsersUncheckedUpdateWithoutMy_contactsInput>
-}
-
-export type EnumUsersTypesFieldUpdateOperationsInput = {
-  set?: $Enums.UsersTypes
 }
 
 export type UsersCreateNestedOneWithoutMy_addressesInput = {
@@ -537,20 +573,6 @@ export type UsersUpdateOneRequiredWithoutMy_reviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutMy_reviewsInput, Prisma.UsersUpdateWithoutMy_reviewsInput>, Prisma.UsersUncheckedUpdateWithoutMy_reviewsInput>
 }
 
-export type UsersCreateNestedOneWithoutMy_ordersInput = {
-  create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
-  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_ordersInput
-  connect?: Prisma.UsersWhereUniqueInput
-}
-
-export type UsersUpdateOneRequiredWithoutMy_ordersNestedInput = {
-  create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
-  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_ordersInput
-  upsert?: Prisma.UsersUpsertWithoutMy_ordersInput
-  connect?: Prisma.UsersWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutMy_ordersInput, Prisma.UsersUpdateWithoutMy_ordersInput>, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
-}
-
 export type UsersCreateNestedOneWithoutMy_cartInput = {
   create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_cartInput, Prisma.UsersUncheckedCreateWithoutMy_cartInput>
   connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_cartInput
@@ -567,11 +589,54 @@ export type UsersUpdateOneWithoutMy_cartNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutMy_cartInput, Prisma.UsersUpdateWithoutMy_cartInput>, Prisma.UsersUncheckedUpdateWithoutMy_cartInput>
 }
 
+export type UsersCreateNestedOneWithoutMy_ordersInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_ordersInput
+  connect?: Prisma.UsersWhereUniqueInput
+}
+
+export type UsersUpdateOneRequiredWithoutMy_ordersNestedInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutMy_ordersInput
+  upsert?: Prisma.UsersUpsertWithoutMy_ordersInput
+  connect?: Prisma.UsersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutMy_ordersInput, Prisma.UsersUpdateWithoutMy_ordersInput>, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
+}
+
+export type UsersCreateNestedOneWithoutWishlist_itemsInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutWishlist_itemsInput, Prisma.UsersUncheckedCreateWithoutWishlist_itemsInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutWishlist_itemsInput
+  connect?: Prisma.UsersWhereUniqueInput
+}
+
+export type UsersUpdateOneRequiredWithoutWishlist_itemsNestedInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutWishlist_itemsInput, Prisma.UsersUncheckedCreateWithoutWishlist_itemsInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutWishlist_itemsInput
+  upsert?: Prisma.UsersUpsertWithoutWishlist_itemsInput
+  connect?: Prisma.UsersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutWishlist_itemsInput, Prisma.UsersUpdateWithoutWishlist_itemsInput>, Prisma.UsersUncheckedUpdateWithoutWishlist_itemsInput>
+}
+
+export type UsersCreateNestedOneWithoutCoupon_usagesInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutCoupon_usagesInput, Prisma.UsersUncheckedCreateWithoutCoupon_usagesInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutCoupon_usagesInput
+  connect?: Prisma.UsersWhereUniqueInput
+}
+
+export type UsersUpdateOneRequiredWithoutCoupon_usagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutCoupon_usagesInput, Prisma.UsersUncheckedCreateWithoutCoupon_usagesInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutCoupon_usagesInput
+  upsert?: Prisma.UsersUpsertWithoutCoupon_usagesInput
+  connect?: Prisma.UsersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutCoupon_usagesInput, Prisma.UsersUpdateWithoutCoupon_usagesInput>, Prisma.UsersUncheckedUpdateWithoutCoupon_usagesInput>
+}
+
 export type UsersCreateWithoutAccount_detailsInput = {
   first_name: string
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
@@ -579,6 +644,8 @@ export type UsersCreateWithoutAccount_detailsInput = {
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateWithoutAccount_detailsInput = {
@@ -587,6 +654,7 @@ export type UsersUncheckedCreateWithoutAccount_detailsInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
@@ -594,6 +662,8 @@ export type UsersUncheckedCreateWithoutAccount_detailsInput = {
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersCreateOrConnectWithoutAccount_detailsInput = {
@@ -617,6 +687,7 @@ export type UsersUpdateWithoutAccount_detailsInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
@@ -624,6 +695,8 @@ export type UsersUpdateWithoutAccount_detailsInput = {
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
@@ -632,6 +705,7 @@ export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
@@ -639,6 +713,8 @@ export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsersCreateWithoutMy_contactsInput = {
@@ -646,6 +722,7 @@ export type UsersCreateWithoutMy_contactsInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
@@ -653,6 +730,8 @@ export type UsersCreateWithoutMy_contactsInput = {
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateWithoutMy_contactsInput = {
@@ -662,12 +741,15 @@ export type UsersUncheckedCreateWithoutMy_contactsInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersCreateOrConnectWithoutMy_contactsInput = {
@@ -691,6 +773,7 @@ export type UsersUpdateWithoutMy_contactsInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
@@ -698,6 +781,8 @@ export type UsersUpdateWithoutMy_contactsInput = {
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_contactsInput = {
@@ -707,12 +792,15 @@ export type UsersUncheckedUpdateWithoutMy_contactsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsersCreateWithoutMy_addressesInput = {
@@ -720,6 +808,7 @@ export type UsersCreateWithoutMy_addressesInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
@@ -727,6 +816,8 @@ export type UsersCreateWithoutMy_addressesInput = {
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateWithoutMy_addressesInput = {
@@ -736,12 +827,15 @@ export type UsersUncheckedCreateWithoutMy_addressesInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersCreateOrConnectWithoutMy_addressesInput = {
@@ -765,6 +859,7 @@ export type UsersUpdateWithoutMy_addressesInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
@@ -772,6 +867,8 @@ export type UsersUpdateWithoutMy_addressesInput = {
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_addressesInput = {
@@ -781,12 +878,15 @@ export type UsersUncheckedUpdateWithoutMy_addressesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsersCreateWithoutMy_reviewsInput = {
@@ -794,6 +894,7 @@ export type UsersCreateWithoutMy_reviewsInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
@@ -801,6 +902,8 @@ export type UsersCreateWithoutMy_reviewsInput = {
   my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateWithoutMy_reviewsInput = {
@@ -810,12 +913,15 @@ export type UsersUncheckedCreateWithoutMy_reviewsInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
   my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersCreateOrConnectWithoutMy_reviewsInput = {
@@ -839,6 +945,7 @@ export type UsersUpdateWithoutMy_reviewsInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
@@ -846,6 +953,8 @@ export type UsersUpdateWithoutMy_reviewsInput = {
   my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
@@ -855,86 +964,15 @@ export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
-}
-
-export type UsersCreateWithoutMy_ordersInput = {
-  first_name: string
-  last_name: string
-  username: string
-  user_type?: $Enums.UsersTypes
-  created_at?: Date | string
-  updated_at?: Date | string
-  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
-  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
-  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
-  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
-  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
-}
-
-export type UsersUncheckedCreateWithoutMy_ordersInput = {
-  id_user?: number
-  first_name: string
-  last_name: string
-  username: string
-  user_type?: $Enums.UsersTypes
-  id_account_fk: string
-  created_at?: Date | string
-  updated_at?: Date | string
-  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
-  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
-  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
-  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
-}
-
-export type UsersCreateOrConnectWithoutMy_ordersInput = {
-  where: Prisma.UsersWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
-}
-
-export type UsersUpsertWithoutMy_ordersInput = {
-  update: Prisma.XOR<Prisma.UsersUpdateWithoutMy_ordersInput, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
-  create: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
-  where?: Prisma.UsersWhereInput
-}
-
-export type UsersUpdateToOneWithWhereWithoutMy_ordersInput = {
-  where?: Prisma.UsersWhereInput
-  data: Prisma.XOR<Prisma.UsersUpdateWithoutMy_ordersInput, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
-}
-
-export type UsersUpdateWithoutMy_ordersInput = {
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
-  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
-  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
-  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
-  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
-}
-
-export type UsersUncheckedUpdateWithoutMy_ordersInput = {
-  id_user?: Prisma.IntFieldUpdateOperationsInput | number
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
-  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
-  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
-  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
-  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsersCreateWithoutMy_cartInput = {
@@ -942,6 +980,7 @@ export type UsersCreateWithoutMy_cartInput = {
   last_name: string
   username: string
   user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
@@ -949,6 +988,8 @@ export type UsersCreateWithoutMy_cartInput = {
   my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
 }
 
 export type UsersUncheckedCreateWithoutMy_cartInput = {
@@ -958,12 +999,15 @@ export type UsersUncheckedCreateWithoutMy_cartInput = {
   username: string
   user_type?: $Enums.UsersTypes
   id_account_fk: string
+  deleted_at?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
   my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
   my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsersCreateOrConnectWithoutMy_cartInput = {
@@ -987,6 +1031,7 @@ export type UsersUpdateWithoutMy_cartInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
@@ -994,6 +1039,8 @@ export type UsersUpdateWithoutMy_cartInput = {
   my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_cartInput = {
@@ -1003,12 +1050,273 @@ export type UsersUncheckedUpdateWithoutMy_cartInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
   id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsersCreateWithoutMy_ordersInput = {
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
+  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+}
+
+export type UsersUncheckedCreateWithoutMy_ordersInput = {
+  id_user?: number
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  id_account_fk: string
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsersCreateOrConnectWithoutMy_ordersInput = {
+  where: Prisma.UsersWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
+}
+
+export type UsersUpsertWithoutMy_ordersInput = {
+  update: Prisma.XOR<Prisma.UsersUpdateWithoutMy_ordersInput, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
+  create: Prisma.XOR<Prisma.UsersCreateWithoutMy_ordersInput, Prisma.UsersUncheckedCreateWithoutMy_ordersInput>
+  where?: Prisma.UsersWhereInput
+}
+
+export type UsersUpdateToOneWithWhereWithoutMy_ordersInput = {
+  where?: Prisma.UsersWhereInput
+  data: Prisma.XOR<Prisma.UsersUpdateWithoutMy_ordersInput, Prisma.UsersUncheckedUpdateWithoutMy_ordersInput>
+}
+
+export type UsersUpdateWithoutMy_ordersInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
+  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+}
+
+export type UsersUncheckedUpdateWithoutMy_ordersInput = {
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsersCreateWithoutWishlist_itemsInput = {
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
+  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+}
+
+export type UsersUncheckedCreateWithoutWishlist_itemsInput = {
+  id_user?: number
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  id_account_fk: string
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsersCreateOrConnectWithoutWishlist_itemsInput = {
+  where: Prisma.UsersWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsersCreateWithoutWishlist_itemsInput, Prisma.UsersUncheckedCreateWithoutWishlist_itemsInput>
+}
+
+export type UsersUpsertWithoutWishlist_itemsInput = {
+  update: Prisma.XOR<Prisma.UsersUpdateWithoutWishlist_itemsInput, Prisma.UsersUncheckedUpdateWithoutWishlist_itemsInput>
+  create: Prisma.XOR<Prisma.UsersCreateWithoutWishlist_itemsInput, Prisma.UsersUncheckedCreateWithoutWishlist_itemsInput>
+  where?: Prisma.UsersWhereInput
+}
+
+export type UsersUpdateToOneWithWhereWithoutWishlist_itemsInput = {
+  where?: Prisma.UsersWhereInput
+  data: Prisma.XOR<Prisma.UsersUpdateWithoutWishlist_itemsInput, Prisma.UsersUncheckedUpdateWithoutWishlist_itemsInput>
+}
+
+export type UsersUpdateWithoutWishlist_itemsInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
+  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+}
+
+export type UsersUncheckedUpdateWithoutWishlist_itemsInput = {
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsersCreateWithoutCoupon_usagesInput = {
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
+  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+}
+
+export type UsersUncheckedCreateWithoutCoupon_usagesInput = {
+  id_user?: number
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  id_account_fk: string
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsersCreateOrConnectWithoutCoupon_usagesInput = {
+  where: Prisma.UsersWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsersCreateWithoutCoupon_usagesInput, Prisma.UsersUncheckedCreateWithoutCoupon_usagesInput>
+}
+
+export type UsersUpsertWithoutCoupon_usagesInput = {
+  update: Prisma.XOR<Prisma.UsersUpdateWithoutCoupon_usagesInput, Prisma.UsersUncheckedUpdateWithoutCoupon_usagesInput>
+  create: Prisma.XOR<Prisma.UsersCreateWithoutCoupon_usagesInput, Prisma.UsersUncheckedCreateWithoutCoupon_usagesInput>
+  where?: Prisma.UsersWhereInput
+}
+
+export type UsersUpdateToOneWithWhereWithoutCoupon_usagesInput = {
+  where?: Prisma.UsersWhereInput
+  data: Prisma.XOR<Prisma.UsersUpdateWithoutCoupon_usagesInput, Prisma.UsersUncheckedUpdateWithoutCoupon_usagesInput>
+}
+
+export type UsersUpdateWithoutCoupon_usagesInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
+  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+}
+
+export type UsersUncheckedUpdateWithoutCoupon_usagesInput = {
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1021,6 +1329,8 @@ export type UsersCountOutputType = {
   my_contacts: number
   my_orders: number
   my_reviews: number
+  wishlist_items: number
+  coupon_usages: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1028,6 +1338,8 @@ export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   my_contacts?: boolean | UsersCountOutputTypeCountMy_contactsArgs
   my_orders?: boolean | UsersCountOutputTypeCountMy_ordersArgs
   my_reviews?: boolean | UsersCountOutputTypeCountMy_reviewsArgs
+  wishlist_items?: boolean | UsersCountOutputTypeCountWishlist_itemsArgs
+  coupon_usages?: boolean | UsersCountOutputTypeCountCoupon_usagesArgs
 }
 
 /**
@@ -1068,6 +1380,20 @@ export type UsersCountOutputTypeCountMy_reviewsArgs<ExtArgs extends runtime.Type
   where?: Prisma.ProductsReviewsWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountWishlist_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WishlistItemsWhereInput
+}
+
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountCoupon_usagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CouponUsagesWhereInput
+}
+
 
 export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_user?: boolean
@@ -1076,6 +1402,7 @@ export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   username?: boolean
   user_type?: boolean
   id_account_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.AccountsDefaultArgs<ExtArgs>
@@ -1084,6 +1411,8 @@ export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   my_orders?: boolean | Prisma.Users$my_ordersArgs<ExtArgs>
   my_cart?: boolean | Prisma.Users$my_cartArgs<ExtArgs>
   my_reviews?: boolean | Prisma.Users$my_reviewsArgs<ExtArgs>
+  wishlist_items?: boolean | Prisma.Users$wishlist_itemsArgs<ExtArgs>
+  coupon_usages?: boolean | Prisma.Users$coupon_usagesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -1094,6 +1423,7 @@ export type UsersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   username?: boolean
   user_type?: boolean
   id_account_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.AccountsDefaultArgs<ExtArgs>
@@ -1106,6 +1436,7 @@ export type UsersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   username?: boolean
   user_type?: boolean
   id_account_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.AccountsDefaultArgs<ExtArgs>
@@ -1118,11 +1449,12 @@ export type UsersSelectScalar = {
   username?: boolean
   user_type?: boolean
   id_account_fk?: boolean
+  deleted_at?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type UsersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_user" | "first_name" | "last_name" | "username" | "user_type" | "id_account_fk" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
+export type UsersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_user" | "first_name" | "last_name" | "username" | "user_type" | "id_account_fk" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
 export type UsersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account_details?: boolean | Prisma.AccountsDefaultArgs<ExtArgs>
   my_addresses?: boolean | Prisma.Users$my_addressesArgs<ExtArgs>
@@ -1130,6 +1462,8 @@ export type UsersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   my_orders?: boolean | Prisma.Users$my_ordersArgs<ExtArgs>
   my_cart?: boolean | Prisma.Users$my_cartArgs<ExtArgs>
   my_reviews?: boolean | Prisma.Users$my_reviewsArgs<ExtArgs>
+  wishlist_items?: boolean | Prisma.Users$wishlist_itemsArgs<ExtArgs>
+  coupon_usages?: boolean | Prisma.Users$coupon_usagesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1148,6 +1482,8 @@ export type $UsersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     my_orders: Prisma.$OrdersPayload<ExtArgs>[]
     my_cart: Prisma.$CartsPayload<ExtArgs> | null
     my_reviews: Prisma.$ProductsReviewsPayload<ExtArgs>[]
+    wishlist_items: Prisma.$WishlistItemsPayload<ExtArgs>[]
+    coupon_usages: Prisma.$CouponUsagesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_user: number
@@ -1156,6 +1492,7 @@ export type $UsersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     username: string
     user_type: $Enums.UsersTypes
     id_account_fk: string
+    deleted_at: Date | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["users"]>
@@ -1558,6 +1895,8 @@ export interface Prisma__UsersClient<T, Null = never, ExtArgs extends runtime.Ty
   my_orders<T extends Prisma.Users$my_ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$my_ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrdersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   my_cart<T extends Prisma.Users$my_cartArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$my_cartArgs<ExtArgs>>): Prisma.Prisma__CartsClient<runtime.Types.Result.GetResult<Prisma.$CartsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   my_reviews<T extends Prisma.Users$my_reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$my_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductsReviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  wishlist_items<T extends Prisma.Users$wishlist_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$wishlist_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WishlistItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  coupon_usages<T extends Prisma.Users$coupon_usagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$coupon_usagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponUsagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1593,6 +1932,7 @@ export interface UsersFieldRefs {
   readonly username: Prisma.FieldRef<"Users", 'String'>
   readonly user_type: Prisma.FieldRef<"Users", 'UsersTypes'>
   readonly id_account_fk: Prisma.FieldRef<"Users", 'String'>
+  readonly deleted_at: Prisma.FieldRef<"Users", 'DateTime'>
   readonly created_at: Prisma.FieldRef<"Users", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Users", 'DateTime'>
 }
@@ -2103,6 +2443,54 @@ export type Users$my_reviewsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ProductsReviewsScalarFieldEnum | Prisma.ProductsReviewsScalarFieldEnum[]
+}
+
+/**
+ * Users.wishlist_items
+ */
+export type Users$wishlist_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WishlistItems
+   */
+  select?: Prisma.WishlistItemsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WishlistItems
+   */
+  omit?: Prisma.WishlistItemsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WishlistItemsInclude<ExtArgs> | null
+  where?: Prisma.WishlistItemsWhereInput
+  orderBy?: Prisma.WishlistItemsOrderByWithRelationInput | Prisma.WishlistItemsOrderByWithRelationInput[]
+  cursor?: Prisma.WishlistItemsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WishlistItemsScalarFieldEnum | Prisma.WishlistItemsScalarFieldEnum[]
+}
+
+/**
+ * Users.coupon_usages
+ */
+export type Users$coupon_usagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CouponUsages
+   */
+  select?: Prisma.CouponUsagesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CouponUsages
+   */
+  omit?: Prisma.CouponUsagesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponUsagesInclude<ExtArgs> | null
+  where?: Prisma.CouponUsagesWhereInput
+  orderBy?: Prisma.CouponUsagesOrderByWithRelationInput | Prisma.CouponUsagesOrderByWithRelationInput[]
+  cursor?: Prisma.CouponUsagesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CouponUsagesScalarFieldEnum | Prisma.CouponUsagesScalarFieldEnum[]
 }
 
 /**

@@ -23,7 +23,7 @@
   "main": "server.ts",
   "scripts": {
     "start:prod": "node ./dist/src/server.js",
-    "db:seed": "node ./dist/src/Common/Seeds/register-admin.seed.js",
+    "db:seed": "node ./dist/src/Common/Seeds/seed.js",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
     "test": "jest --runInBand"
@@ -51,6 +51,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "nanoid": "^5.1.5",
+    "node-cache": "^5.1.2",
     "nodemailer": "^7.0.6",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",

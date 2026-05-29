@@ -43,7 +43,6 @@ export type TagsPerProductsMinAggregateOutputType = {
   id_product_fk: number | null
   id_tag_fk: number | null
   created_at: Date | null
-  updated_at: Date | null
 }
 
 export type TagsPerProductsMaxAggregateOutputType = {
@@ -51,7 +50,6 @@ export type TagsPerProductsMaxAggregateOutputType = {
   id_product_fk: number | null
   id_tag_fk: number | null
   created_at: Date | null
-  updated_at: Date | null
 }
 
 export type TagsPerProductsCountAggregateOutputType = {
@@ -59,7 +57,6 @@ export type TagsPerProductsCountAggregateOutputType = {
   id_product_fk: number
   id_tag_fk: number
   created_at: number
-  updated_at: number
   _all: number
 }
 
@@ -81,7 +78,6 @@ export type TagsPerProductsMinAggregateInputType = {
   id_product_fk?: true
   id_tag_fk?: true
   created_at?: true
-  updated_at?: true
 }
 
 export type TagsPerProductsMaxAggregateInputType = {
@@ -89,7 +85,6 @@ export type TagsPerProductsMaxAggregateInputType = {
   id_product_fk?: true
   id_tag_fk?: true
   created_at?: true
-  updated_at?: true
 }
 
 export type TagsPerProductsCountAggregateInputType = {
@@ -97,7 +92,6 @@ export type TagsPerProductsCountAggregateInputType = {
   id_product_fk?: true
   id_tag_fk?: true
   created_at?: true
-  updated_at?: true
   _all?: true
 }
 
@@ -192,7 +186,6 @@ export type TagsPerProductsGroupByOutputType = {
   id_product_fk: number
   id_tag_fk: number
   created_at: Date
-  updated_at: Date
   _count: TagsPerProductsCountAggregateOutputType | null
   _avg: TagsPerProductsAvgAggregateOutputType | null
   _sum: TagsPerProductsSumAggregateOutputType | null
@@ -223,7 +216,6 @@ export type TagsPerProductsWhereInput = {
   id_product_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   id_tag_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   created_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
   product?: Prisma.XOR<Prisma.ProductsScalarRelationFilter, Prisma.ProductsWhereInput>
   tag?: Prisma.XOR<Prisma.ProductTagsScalarRelationFilter, Prisma.ProductTagsWhereInput>
 }
@@ -233,7 +225,6 @@ export type TagsPerProductsOrderByWithRelationInput = {
   id_product_fk?: Prisma.SortOrder
   id_tag_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
   product?: Prisma.ProductsOrderByWithRelationInput
   tag?: Prisma.ProductTagsOrderByWithRelationInput
 }
@@ -247,7 +238,6 @@ export type TagsPerProductsWhereUniqueInput = Prisma.AtLeast<{
   id_product_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   id_tag_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   created_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
   product?: Prisma.XOR<Prisma.ProductsScalarRelationFilter, Prisma.ProductsWhereInput>
   tag?: Prisma.XOR<Prisma.ProductTagsScalarRelationFilter, Prisma.ProductTagsWhereInput>
 }, "id_tag_per_product" | "id_product_fk_id_tag_fk">
@@ -257,7 +247,6 @@ export type TagsPerProductsOrderByWithAggregationInput = {
   id_product_fk?: Prisma.SortOrder
   id_tag_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
   _count?: Prisma.TagsPerProductsCountOrderByAggregateInput
   _avg?: Prisma.TagsPerProductsAvgOrderByAggregateInput
   _max?: Prisma.TagsPerProductsMaxOrderByAggregateInput
@@ -273,12 +262,10 @@ export type TagsPerProductsScalarWhereWithAggregatesInput = {
   id_product_fk?: Prisma.IntWithAggregatesFilter<"TagsPerProducts"> | number
   id_tag_fk?: Prisma.IntWithAggregatesFilter<"TagsPerProducts"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"TagsPerProducts"> | Date | string
-  updated_at?: Prisma.DateTimeWithAggregatesFilter<"TagsPerProducts"> | Date | string
 }
 
 export type TagsPerProductsCreateInput = {
   created_at?: Date | string
-  updated_at?: Date | string
   product: Prisma.ProductsCreateNestedOneWithoutTagsInput
   tag: Prisma.ProductTagsCreateNestedOneWithoutProductInput
 }
@@ -288,12 +275,10 @@ export type TagsPerProductsUncheckedCreateInput = {
   id_product_fk: number
   id_tag_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductsUpdateOneRequiredWithoutTagsNestedInput
   tag?: Prisma.ProductTagsUpdateOneRequiredWithoutProductNestedInput
 }
@@ -303,7 +288,6 @@ export type TagsPerProductsUncheckedUpdateInput = {
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   id_tag_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsCreateManyInput = {
@@ -311,12 +295,10 @@ export type TagsPerProductsCreateManyInput = {
   id_product_fk: number
   id_tag_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsUpdateManyMutationInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsUncheckedUpdateManyInput = {
@@ -324,7 +306,6 @@ export type TagsPerProductsUncheckedUpdateManyInput = {
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   id_tag_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsListRelationFilter = {
@@ -347,7 +328,6 @@ export type TagsPerProductsCountOrderByAggregateInput = {
   id_product_fk?: Prisma.SortOrder
   id_tag_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
 }
 
 export type TagsPerProductsAvgOrderByAggregateInput = {
@@ -361,7 +341,6 @@ export type TagsPerProductsMaxOrderByAggregateInput = {
   id_product_fk?: Prisma.SortOrder
   id_tag_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
 }
 
 export type TagsPerProductsMinOrderByAggregateInput = {
@@ -369,7 +348,6 @@ export type TagsPerProductsMinOrderByAggregateInput = {
   id_product_fk?: Prisma.SortOrder
   id_tag_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
 }
 
 export type TagsPerProductsSumOrderByAggregateInput = {
@@ -464,7 +442,6 @@ export type TagsPerProductsUncheckedUpdateManyWithoutTagNestedInput = {
 
 export type TagsPerProductsCreateWithoutProductInput = {
   created_at?: Date | string
-  updated_at?: Date | string
   tag: Prisma.ProductTagsCreateNestedOneWithoutProductInput
 }
 
@@ -472,7 +449,6 @@ export type TagsPerProductsUncheckedCreateWithoutProductInput = {
   id_tag_per_product?: number
   id_tag_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsCreateOrConnectWithoutProductInput = {
@@ -509,12 +485,10 @@ export type TagsPerProductsScalarWhereInput = {
   id_product_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   id_tag_fk?: Prisma.IntFilter<"TagsPerProducts"> | number
   created_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"TagsPerProducts"> | Date | string
 }
 
 export type TagsPerProductsCreateWithoutTagInput = {
   created_at?: Date | string
-  updated_at?: Date | string
   product: Prisma.ProductsCreateNestedOneWithoutTagsInput
 }
 
@@ -522,7 +496,6 @@ export type TagsPerProductsUncheckedCreateWithoutTagInput = {
   id_tag_per_product?: number
   id_product_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsCreateOrConnectWithoutTagInput = {
@@ -555,12 +528,10 @@ export type TagsPerProductsCreateManyProductInput = {
   id_tag_per_product?: number
   id_tag_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsUpdateWithoutProductInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tag?: Prisma.ProductTagsUpdateOneRequiredWithoutProductNestedInput
 }
 
@@ -568,26 +539,22 @@ export type TagsPerProductsUncheckedUpdateWithoutProductInput = {
   id_tag_per_product?: Prisma.IntFieldUpdateOperationsInput | number
   id_tag_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsUncheckedUpdateManyWithoutProductInput = {
   id_tag_per_product?: Prisma.IntFieldUpdateOperationsInput | number
   id_tag_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsCreateManyTagInput = {
   id_tag_per_product?: number
   id_product_fk: number
   created_at?: Date | string
-  updated_at?: Date | string
 }
 
 export type TagsPerProductsUpdateWithoutTagInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductsUpdateOneRequiredWithoutTagsNestedInput
 }
 
@@ -595,14 +562,12 @@ export type TagsPerProductsUncheckedUpdateWithoutTagInput = {
   id_tag_per_product?: Prisma.IntFieldUpdateOperationsInput | number
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagsPerProductsUncheckedUpdateManyWithoutTagInput = {
   id_tag_per_product?: Prisma.IntFieldUpdateOperationsInput | number
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -612,7 +577,6 @@ export type TagsPerProductsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id_product_fk?: boolean
   id_tag_fk?: boolean
   created_at?: boolean
-  updated_at?: boolean
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
   tag?: boolean | Prisma.ProductTagsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tagsPerProducts"]>
@@ -622,7 +586,6 @@ export type TagsPerProductsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   id_product_fk?: boolean
   id_tag_fk?: boolean
   created_at?: boolean
-  updated_at?: boolean
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
   tag?: boolean | Prisma.ProductTagsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tagsPerProducts"]>
@@ -632,7 +595,6 @@ export type TagsPerProductsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   id_product_fk?: boolean
   id_tag_fk?: boolean
   created_at?: boolean
-  updated_at?: boolean
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
   tag?: boolean | Prisma.ProductTagsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tagsPerProducts"]>
@@ -642,10 +604,9 @@ export type TagsPerProductsSelectScalar = {
   id_product_fk?: boolean
   id_tag_fk?: boolean
   created_at?: boolean
-  updated_at?: boolean
 }
 
-export type TagsPerProductsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_tag_per_product" | "id_product_fk" | "id_tag_fk" | "created_at" | "updated_at", ExtArgs["result"]["tagsPerProducts"]>
+export type TagsPerProductsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_tag_per_product" | "id_product_fk" | "id_tag_fk" | "created_at", ExtArgs["result"]["tagsPerProducts"]>
 export type TagsPerProductsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
   tag?: boolean | Prisma.ProductTagsDefaultArgs<ExtArgs>
@@ -670,7 +631,6 @@ export type $TagsPerProductsPayload<ExtArgs extends runtime.Types.Extensions.Int
     id_product_fk: number
     id_tag_fk: number
     created_at: Date
-    updated_at: Date
   }, ExtArgs["result"]["tagsPerProducts"]>
   composites: {}
 }
@@ -1100,7 +1060,6 @@ export interface TagsPerProductsFieldRefs {
   readonly id_product_fk: Prisma.FieldRef<"TagsPerProducts", 'Int'>
   readonly id_tag_fk: Prisma.FieldRef<"TagsPerProducts", 'Int'>
   readonly created_at: Prisma.FieldRef<"TagsPerProducts", 'DateTime'>
-  readonly updated_at: Prisma.FieldRef<"TagsPerProducts", 'DateTime'>
 }
     
 

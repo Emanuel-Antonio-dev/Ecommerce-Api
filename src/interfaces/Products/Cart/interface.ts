@@ -14,7 +14,7 @@ interface cartItemsDatas
     quantity: number
     id_cart_fk: number
     price?: number | Decimal
-    id_product_fk: number
+    id_variant_fk: number
     created_at?: Date | string
     updated_at?: Date | string
 }

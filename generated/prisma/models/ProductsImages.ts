@@ -27,16 +27,20 @@ export type AggregateProductsImages = {
 }
 
 export type ProductsImagesAvgAggregateOutputType = {
+  display_order: number | null
   id_product_fk: number | null
 }
 
 export type ProductsImagesSumAggregateOutputType = {
+  display_order: number | null
   id_product_fk: number | null
 }
 
 export type ProductsImagesMinAggregateOutputType = {
   id_image: string | null
   url: string | null
+  is_main: boolean | null
+  display_order: number | null
   id_product_fk: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -45,6 +49,8 @@ export type ProductsImagesMinAggregateOutputType = {
 export type ProductsImagesMaxAggregateOutputType = {
   id_image: string | null
   url: string | null
+  is_main: boolean | null
+  display_order: number | null
   id_product_fk: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -53,6 +59,8 @@ export type ProductsImagesMaxAggregateOutputType = {
 export type ProductsImagesCountAggregateOutputType = {
   id_image: number
   url: number
+  is_main: number
+  display_order: number
   id_product_fk: number
   created_at: number
   updated_at: number
@@ -61,16 +69,20 @@ export type ProductsImagesCountAggregateOutputType = {
 
 
 export type ProductsImagesAvgAggregateInputType = {
+  display_order?: true
   id_product_fk?: true
 }
 
 export type ProductsImagesSumAggregateInputType = {
+  display_order?: true
   id_product_fk?: true
 }
 
 export type ProductsImagesMinAggregateInputType = {
   id_image?: true
   url?: true
+  is_main?: true
+  display_order?: true
   id_product_fk?: true
   created_at?: true
   updated_at?: true
@@ -79,6 +91,8 @@ export type ProductsImagesMinAggregateInputType = {
 export type ProductsImagesMaxAggregateInputType = {
   id_image?: true
   url?: true
+  is_main?: true
+  display_order?: true
   id_product_fk?: true
   created_at?: true
   updated_at?: true
@@ -87,6 +101,8 @@ export type ProductsImagesMaxAggregateInputType = {
 export type ProductsImagesCountAggregateInputType = {
   id_image?: true
   url?: true
+  is_main?: true
+  display_order?: true
   id_product_fk?: true
   created_at?: true
   updated_at?: true
@@ -182,6 +198,8 @@ export type ProductsImagesGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type ProductsImagesGroupByOutputType = {
   id_image: string
   url: string
+  is_main: boolean
+  display_order: number
   id_product_fk: number
   created_at: Date
   updated_at: Date
@@ -213,6 +231,8 @@ export type ProductsImagesWhereInput = {
   NOT?: Prisma.ProductsImagesWhereInput | Prisma.ProductsImagesWhereInput[]
   id_image?: Prisma.StringFilter<"ProductsImages"> | string
   url?: Prisma.StringFilter<"ProductsImages"> | string
+  is_main?: Prisma.BoolFilter<"ProductsImages"> | boolean
+  display_order?: Prisma.IntFilter<"ProductsImages"> | number
   id_product_fk?: Prisma.IntFilter<"ProductsImages"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
@@ -222,6 +242,8 @@ export type ProductsImagesWhereInput = {
 export type ProductsImagesOrderByWithRelationInput = {
   id_image?: Prisma.SortOrder
   url?: Prisma.SortOrder
+  is_main?: Prisma.SortOrder
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -234,6 +256,8 @@ export type ProductsImagesWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProductsImagesWhereInput[]
   NOT?: Prisma.ProductsImagesWhereInput | Prisma.ProductsImagesWhereInput[]
   url?: Prisma.StringFilter<"ProductsImages"> | string
+  is_main?: Prisma.BoolFilter<"ProductsImages"> | boolean
+  display_order?: Prisma.IntFilter<"ProductsImages"> | number
   id_product_fk?: Prisma.IntFilter<"ProductsImages"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
@@ -243,6 +267,8 @@ export type ProductsImagesWhereUniqueInput = Prisma.AtLeast<{
 export type ProductsImagesOrderByWithAggregationInput = {
   id_image?: Prisma.SortOrder
   url?: Prisma.SortOrder
+  is_main?: Prisma.SortOrder
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -259,22 +285,28 @@ export type ProductsImagesScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductsImagesScalarWhereWithAggregatesInput | Prisma.ProductsImagesScalarWhereWithAggregatesInput[]
   id_image?: Prisma.StringWithAggregatesFilter<"ProductsImages"> | string
   url?: Prisma.StringWithAggregatesFilter<"ProductsImages"> | string
+  is_main?: Prisma.BoolWithAggregatesFilter<"ProductsImages"> | boolean
+  display_order?: Prisma.IntWithAggregatesFilter<"ProductsImages"> | number
   id_product_fk?: Prisma.IntWithAggregatesFilter<"ProductsImages"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsImages"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"ProductsImages"> | Date | string
 }
 
 export type ProductsImagesCreateInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   created_at?: Date | string
   updated_at?: Date | string
   product: Prisma.ProductsCreateNestedOneWithoutImagesInput
 }
 
 export type ProductsImagesUncheckedCreateInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   id_product_fk: number
   created_at?: Date | string
   updated_at?: Date | string
@@ -283,6 +315,8 @@ export type ProductsImagesUncheckedCreateInput = {
 export type ProductsImagesUpdateInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductsUpdateOneRequiredWithoutImagesNestedInput
@@ -291,14 +325,18 @@ export type ProductsImagesUpdateInput = {
 export type ProductsImagesUncheckedUpdateInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductsImagesCreateManyInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   id_product_fk: number
   created_at?: Date | string
   updated_at?: Date | string
@@ -307,6 +345,8 @@ export type ProductsImagesCreateManyInput = {
 export type ProductsImagesUpdateManyMutationInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -314,6 +354,8 @@ export type ProductsImagesUpdateManyMutationInput = {
 export type ProductsImagesUncheckedUpdateManyInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   id_product_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -332,18 +374,23 @@ export type ProductsImagesOrderByRelationAggregateInput = {
 export type ProductsImagesCountOrderByAggregateInput = {
   id_image?: Prisma.SortOrder
   url?: Prisma.SortOrder
+  is_main?: Prisma.SortOrder
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type ProductsImagesAvgOrderByAggregateInput = {
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
 }
 
 export type ProductsImagesMaxOrderByAggregateInput = {
   id_image?: Prisma.SortOrder
   url?: Prisma.SortOrder
+  is_main?: Prisma.SortOrder
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -352,12 +399,15 @@ export type ProductsImagesMaxOrderByAggregateInput = {
 export type ProductsImagesMinOrderByAggregateInput = {
   id_image?: Prisma.SortOrder
   url?: Prisma.SortOrder
+  is_main?: Prisma.SortOrder
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type ProductsImagesSumOrderByAggregateInput = {
+  display_order?: Prisma.SortOrder
   id_product_fk?: Prisma.SortOrder
 }
 
@@ -404,15 +454,19 @@ export type ProductsImagesUncheckedUpdateManyWithoutProductNestedInput = {
 }
 
 export type ProductsImagesCreateWithoutProductInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ProductsImagesUncheckedCreateWithoutProductInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -449,14 +503,18 @@ export type ProductsImagesScalarWhereInput = {
   NOT?: Prisma.ProductsImagesScalarWhereInput | Prisma.ProductsImagesScalarWhereInput[]
   id_image?: Prisma.StringFilter<"ProductsImages"> | string
   url?: Prisma.StringFilter<"ProductsImages"> | string
+  is_main?: Prisma.BoolFilter<"ProductsImages"> | boolean
+  display_order?: Prisma.IntFilter<"ProductsImages"> | number
   id_product_fk?: Prisma.IntFilter<"ProductsImages"> | number
   created_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ProductsImages"> | Date | string
 }
 
 export type ProductsImagesCreateManyProductInput = {
-  id_image: string
+  id_image?: string
   url: string
+  is_main?: boolean
+  display_order?: number
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -464,6 +522,8 @@ export type ProductsImagesCreateManyProductInput = {
 export type ProductsImagesUpdateWithoutProductInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -471,6 +531,8 @@ export type ProductsImagesUpdateWithoutProductInput = {
 export type ProductsImagesUncheckedUpdateWithoutProductInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,6 +540,8 @@ export type ProductsImagesUncheckedUpdateWithoutProductInput = {
 export type ProductsImagesUncheckedUpdateManyWithoutProductInput = {
   id_image?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  is_main?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  display_order?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -487,6 +551,8 @@ export type ProductsImagesUncheckedUpdateManyWithoutProductInput = {
 export type ProductsImagesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_image?: boolean
   url?: boolean
+  is_main?: boolean
+  display_order?: boolean
   id_product_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -496,6 +562,8 @@ export type ProductsImagesSelect<ExtArgs extends runtime.Types.Extensions.Intern
 export type ProductsImagesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_image?: boolean
   url?: boolean
+  is_main?: boolean
+  display_order?: boolean
   id_product_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -505,6 +573,8 @@ export type ProductsImagesSelectCreateManyAndReturn<ExtArgs extends runtime.Type
 export type ProductsImagesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_image?: boolean
   url?: boolean
+  is_main?: boolean
+  display_order?: boolean
   id_product_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -514,12 +584,14 @@ export type ProductsImagesSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type ProductsImagesSelectScalar = {
   id_image?: boolean
   url?: boolean
+  is_main?: boolean
+  display_order?: boolean
   id_product_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ProductsImagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_image" | "url" | "id_product_fk" | "created_at" | "updated_at", ExtArgs["result"]["productsImages"]>
+export type ProductsImagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_image" | "url" | "is_main" | "display_order" | "id_product_fk" | "created_at" | "updated_at", ExtArgs["result"]["productsImages"]>
 export type ProductsImagesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductsDefaultArgs<ExtArgs>
 }
@@ -538,6 +610,8 @@ export type $ProductsImagesPayload<ExtArgs extends runtime.Types.Extensions.Inte
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_image: string
     url: string
+    is_main: boolean
+    display_order: number
     id_product_fk: number
     created_at: Date
     updated_at: Date
@@ -967,6 +1041,8 @@ export interface Prisma__ProductsImagesClient<T, Null = never, ExtArgs extends r
 export interface ProductsImagesFieldRefs {
   readonly id_image: Prisma.FieldRef<"ProductsImages", 'String'>
   readonly url: Prisma.FieldRef<"ProductsImages", 'String'>
+  readonly is_main: Prisma.FieldRef<"ProductsImages", 'Boolean'>
+  readonly display_order: Prisma.FieldRef<"ProductsImages", 'Int'>
   readonly id_product_fk: Prisma.FieldRef<"ProductsImages", 'Int'>
   readonly created_at: Prisma.FieldRef<"ProductsImages", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"ProductsImages", 'DateTime'>

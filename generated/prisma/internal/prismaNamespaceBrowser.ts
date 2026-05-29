@@ -55,23 +55,28 @@ export const ModelName = {
   Authentications: 'Authentications',
   Tokens: 'Tokens',
   TwoFactorAuth: 'TwoFactorAuth',
-  Contacts: 'Contacts',
   Users: 'Users',
+  Contacts: 'Contacts',
   Addresses: 'Addresses',
   ProductsCategories: 'ProductsCategories',
   Products: 'Products',
-  ProductTags: 'ProductTags',
-  TagsPerProducts: 'TagsPerProducts',
-  ProductBrands: 'ProductBrands',
+  ProductVariants: 'ProductVariants',
   ProductsImages: 'ProductsImages',
   ProductsReviews: 'ProductsReviews',
-  Orders: 'Orders',
-  OrderItems: 'OrderItems',
+  ProductTags: 'ProductTags',
+  ProductBrands: 'ProductBrands',
+  TagsPerProducts: 'TagsPerProducts',
   Carts: 'Carts',
   CartItems: 'CartItems',
+  Orders: 'Orders',
+  OrderItems: 'OrderItems',
+  Payments: 'Payments',
+  Shipments: 'Shipments',
+  WishlistItems: 'WishlistItems',
+  Coupons: 'Coupons',
+  CouponUsages: 'CouponUsages',
   SeoSettings: 'SeoSettings',
   SeoKeywords: 'SeoKeywords',
-  UsersActions: 'UsersActions',
   SystemLogs: 'SystemLogs'
 } as const
 
@@ -96,10 +101,10 @@ export const AccountsScalarFieldEnum = {
   email: 'email',
   password: 'password',
   verified: 'verified',
-  providerId: 'providerId',
   provider: 'provider',
-  deleted_at: 'deleted_at',
+  provider_id: 'provider_id',
   is_active: 'is_active',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -110,12 +115,11 @@ export type AccountsScalarFieldEnum = (typeof AccountsScalarFieldEnum)[keyof typ
 export const AuthenticationsScalarFieldEnum = {
   id_authentication: 'id_authentication',
   type: 'type',
-  expireIn: 'expireIn',
+  expire_in: 'expire_in',
   used: 'used',
   temp_email: 'temp_email',
   temp_phone_number: 'temp_phone_number',
   id_account_fk: 'id_account_fk',
-  id_system_settings: 'id_system_settings',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -127,7 +131,7 @@ export const TokensScalarFieldEnum = {
   id_token: 'id_token',
   token: 'token',
   token_type: 'token_type',
-  id_authentication: 'id_authentication',
+  id_authentication_fk: 'id_authentication_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -137,27 +141,16 @@ export type TokensScalarFieldEnum = (typeof TokensScalarFieldEnum)[keyof typeof 
 
 export const TwoFactorAuthScalarFieldEnum = {
   id_two_factor_auth: 'id_two_factor_auth',
-  id_authentication_fk: 'id_authentication_fk',
+  otp_code_hash: 'otp_code_hash',
   attempts: 'attempts',
   max_attempts: 'max_attempts',
   locked: 'locked',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  otp_code_hash: 'otp_code_hash'
-} as const
-
-export type TwoFactorAuthScalarFieldEnum = (typeof TwoFactorAuthScalarFieldEnum)[keyof typeof TwoFactorAuthScalarFieldEnum]
-
-
-export const ContactsScalarFieldEnum = {
-  id_contact: 'id_contact',
-  phone_number: 'phone_number',
-  id_user_fk: 'id_user_fk',
+  id_authentication_fk: 'id_authentication_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
-export type ContactsScalarFieldEnum = (typeof ContactsScalarFieldEnum)[keyof typeof ContactsScalarFieldEnum]
+export type TwoFactorAuthScalarFieldEnum = (typeof TwoFactorAuthScalarFieldEnum)[keyof typeof TwoFactorAuthScalarFieldEnum]
 
 
 export const UsersScalarFieldEnum = {
@@ -167,11 +160,24 @@ export const UsersScalarFieldEnum = {
   username: 'username',
   user_type: 'user_type',
   id_account_fk: 'id_account_fk',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const ContactsScalarFieldEnum = {
+  id_contact: 'id_contact',
+  phone_number: 'phone_number',
+  is_default: 'is_default',
+  id_user_fk: 'id_user_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ContactsScalarFieldEnum = (typeof ContactsScalarFieldEnum)[keyof typeof ContactsScalarFieldEnum]
 
 
 export const AddressesScalarFieldEnum = {
@@ -195,6 +201,8 @@ export const ProductsCategoriesScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
+  id_seo_setting_fk: 'id_seo_setting_fk',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -206,15 +214,19 @@ export const ProductsScalarFieldEnum = {
   id_product: 'id_product',
   reference_code: 'reference_code',
   name: 'name',
+  slug: 'slug',
   description: 'description',
-  price: 'price',
-  available_stock: 'available_stock',
-  available: 'available',
   additional_info: 'additional_info',
-  is_featured: 'is_featured',
+  price: 'price',
   weight: 'weight',
+  available: 'available',
+  is_featured: 'is_featured',
+  views_count: 'views_count',
+  sales_count: 'sales_count',
+  id_seo_setting_fk: 'id_seo_setting_fk',
   id_category_fk: 'id_category_fk',
   id_brand_fk: 'id_brand_fk',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -222,40 +234,27 @@ export const ProductsScalarFieldEnum = {
 export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
 
 
-export const ProductTagsScalarFieldEnum = {
-  id_tag: 'id_tag',
-  tag: 'tag',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type ProductTagsScalarFieldEnum = (typeof ProductTagsScalarFieldEnum)[keyof typeof ProductTagsScalarFieldEnum]
-
-
-export const TagsPerProductsScalarFieldEnum = {
-  id_tag_per_product: 'id_tag_per_product',
+export const ProductVariantsScalarFieldEnum = {
+  id_variant: 'id_variant',
+  sku: 'sku',
+  color: 'color',
+  size: 'size',
+  stock: 'stock',
+  low_stock_alert: 'low_stock_alert',
+  price: 'price',
   id_product_fk: 'id_product_fk',
-  id_tag_fk: 'id_tag_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
-export type TagsPerProductsScalarFieldEnum = (typeof TagsPerProductsScalarFieldEnum)[keyof typeof TagsPerProductsScalarFieldEnum]
-
-
-export const ProductBrandsScalarFieldEnum = {
-  id_brand: 'id_brand',
-  name: 'name',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type ProductBrandsScalarFieldEnum = (typeof ProductBrandsScalarFieldEnum)[keyof typeof ProductBrandsScalarFieldEnum]
+export type ProductVariantsScalarFieldEnum = (typeof ProductVariantsScalarFieldEnum)[keyof typeof ProductVariantsScalarFieldEnum]
 
 
 export const ProductsImagesScalarFieldEnum = {
   id_image: 'id_image',
   url: 'url',
+  is_main: 'is_main',
+  display_order: 'display_order',
   id_product_fk: 'id_product_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -270,6 +269,7 @@ export const ProductsReviewsScalarFieldEnum = {
   comment: 'comment',
   id_product_fk: 'id_product_fk',
   id_user_fk: 'id_user_fk',
+  id_order_item_fk: 'id_order_item_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -277,36 +277,35 @@ export const ProductsReviewsScalarFieldEnum = {
 export type ProductsReviewsScalarFieldEnum = (typeof ProductsReviewsScalarFieldEnum)[keyof typeof ProductsReviewsScalarFieldEnum]
 
 
-export const OrdersScalarFieldEnum = {
-  id_order: 'id_order',
-  total_amount: 'total_amount',
-  id_user_fk: 'id_user_fk',
-  status: 'status',
-  payment_method: 'payment_method',
-  shipping_street: 'shipping_street',
-  shipping_city: 'shipping_city',
-  shipping_province: 'shipping_province',
-  shipping_country: 'shipping_country',
-  shipping_phone_number: 'shipping_phone_number',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  delivered_at: 'delivered_at'
-} as const
-
-export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
-
-
-export const OrderItemsScalarFieldEnum = {
-  id_order_item: 'id_order_item',
-  quantity: 'quantity',
-  price: 'price',
-  id_order_fk: 'id_order_fk',
-  id_product_fk: 'id_product_fk',
+export const ProductTagsScalarFieldEnum = {
+  id_tag: 'id_tag',
+  tag: 'tag',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
-export type OrderItemsScalarFieldEnum = (typeof OrderItemsScalarFieldEnum)[keyof typeof OrderItemsScalarFieldEnum]
+export type ProductTagsScalarFieldEnum = (typeof ProductTagsScalarFieldEnum)[keyof typeof ProductTagsScalarFieldEnum]
+
+
+export const ProductBrandsScalarFieldEnum = {
+  id_brand: 'id_brand',
+  name: 'name',
+  deleted_at: 'deleted_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ProductBrandsScalarFieldEnum = (typeof ProductBrandsScalarFieldEnum)[keyof typeof ProductBrandsScalarFieldEnum]
+
+
+export const TagsPerProductsScalarFieldEnum = {
+  id_tag_per_product: 'id_tag_per_product',
+  id_product_fk: 'id_product_fk',
+  id_tag_fk: 'id_tag_fk',
+  created_at: 'created_at'
+} as const
+
+export type TagsPerProductsScalarFieldEnum = (typeof TagsPerProductsScalarFieldEnum)[keyof typeof TagsPerProductsScalarFieldEnum]
 
 
 export const CartsScalarFieldEnum = {
@@ -324,14 +323,126 @@ export type CartsScalarFieldEnum = (typeof CartsScalarFieldEnum)[keyof typeof Ca
 export const CartItemsScalarFieldEnum = {
   id_cart_item: 'id_cart_item',
   quantity: 'quantity',
-  id_cart_fk: 'id_cart_fk',
   price: 'price',
-  id_product_fk: 'id_product_fk',
+  id_cart_fk: 'id_cart_fk',
+  id_variant_fk: 'id_variant_fk',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type CartItemsScalarFieldEnum = (typeof CartItemsScalarFieldEnum)[keyof typeof CartItemsScalarFieldEnum]
+
+
+export const OrdersScalarFieldEnum = {
+  id_order: 'id_order',
+  order_number: 'order_number',
+  total_amount: 'total_amount',
+  discount_amount: 'discount_amount',
+  status: 'status',
+  payment_method: 'payment_method',
+  id_user_fk: 'id_user_fk',
+  shipping_street: 'shipping_street',
+  shipping_city: 'shipping_city',
+  shipping_province: 'shipping_province',
+  shipping_country: 'shipping_country',
+  shipping_phone_number: 'shipping_phone_number',
+  delivered_at: 'delivered_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
+
+
+export const OrderItemsScalarFieldEnum = {
+  id_order_item: 'id_order_item',
+  quantity: 'quantity',
+  price: 'price',
+  product_name: 'product_name',
+  product_price: 'product_price',
+  id_order_fk: 'id_order_fk',
+  id_variant_fk: 'id_variant_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type OrderItemsScalarFieldEnum = (typeof OrderItemsScalarFieldEnum)[keyof typeof OrderItemsScalarFieldEnum]
+
+
+export const PaymentsScalarFieldEnum = {
+  id_payment: 'id_payment',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  provider: 'provider',
+  provider_reference: 'provider_reference',
+  failure_reason: 'failure_reason',
+  paid_at: 'paid_at',
+  metadata: 'metadata',
+  id_order_fk: 'id_order_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
+
+
+export const ShipmentsScalarFieldEnum = {
+  id_shipment: 'id_shipment',
+  tracking_code: 'tracking_code',
+  carrier: 'carrier',
+  status: 'status',
+  estimated_delivery: 'estimated_delivery',
+  shipped_at: 'shipped_at',
+  delivered_at: 'delivered_at',
+  id_order_fk: 'id_order_fk',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ShipmentsScalarFieldEnum = (typeof ShipmentsScalarFieldEnum)[keyof typeof ShipmentsScalarFieldEnum]
+
+
+export const WishlistItemsScalarFieldEnum = {
+  id_wishlist_item: 'id_wishlist_item',
+  id_user_fk: 'id_user_fk',
+  id_product_fk: 'id_product_fk',
+  created_at: 'created_at'
+} as const
+
+export type WishlistItemsScalarFieldEnum = (typeof WishlistItemsScalarFieldEnum)[keyof typeof WishlistItemsScalarFieldEnum]
+
+
+export const CouponsScalarFieldEnum = {
+  id_coupon: 'id_coupon',
+  code: 'code',
+  description: 'description',
+  discount_type: 'discount_type',
+  discount_value: 'discount_value',
+  minimum_amount: 'minimum_amount',
+  usage_limit: 'usage_limit',
+  used_count: 'used_count',
+  starts_at: 'starts_at',
+  expires_at: 'expires_at',
+  active: 'active',
+  deleted_at: 'deleted_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CouponsScalarFieldEnum = (typeof CouponsScalarFieldEnum)[keyof typeof CouponsScalarFieldEnum]
+
+
+export const CouponUsagesScalarFieldEnum = {
+  id_coupon_usage: 'id_coupon_usage',
+  id_coupon_fk: 'id_coupon_fk',
+  id_order_fk: 'id_order_fk',
+  id_user_fk: 'id_user_fk',
+  discount_applied: 'discount_applied',
+  created_at: 'created_at'
+} as const
+
+export type CouponUsagesScalarFieldEnum = (typeof CouponUsagesScalarFieldEnum)[keyof typeof CouponUsagesScalarFieldEnum]
 
 
 export const SeoSettingsScalarFieldEnum = {
@@ -342,7 +453,8 @@ export const SeoSettingsScalarFieldEnum = {
   og_title: 'og_title',
   og_description: 'og_description',
   og_image: 'og_image',
-  seo_type: 'seo_type',
+  entity_type: 'entity_type',
+  entity_id: 'entity_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -361,24 +473,13 @@ export const SeoKeywordsScalarFieldEnum = {
 export type SeoKeywordsScalarFieldEnum = (typeof SeoKeywordsScalarFieldEnum)[keyof typeof SeoKeywordsScalarFieldEnum]
 
 
-export const UsersActionsScalarFieldEnum = {
-  id_user_action: 'id_user_action',
-  action_name: 'action_name',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type UsersActionsScalarFieldEnum = (typeof UsersActionsScalarFieldEnum)[keyof typeof UsersActionsScalarFieldEnum]
-
-
 export const SystemLogsScalarFieldEnum = {
   id_system_log: 'id_system_log',
   system_agent: 'system_agent',
   ip_address: 'ip_address',
-  id_user_action_fk: 'id_user_action_fk',
+  action: 'action',
   id_account_fk: 'id_account_fk',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 } as const
 
 export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
@@ -390,6 +491,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -406,4 +515,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

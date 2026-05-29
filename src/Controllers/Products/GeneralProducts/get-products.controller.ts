@@ -5,7 +5,7 @@ import { GetProductDatasService } from "../../../Services/Products/GeneralProduc
 import { GetAllProductsDatasService } from "../../../Services/Products/GeneralProducts/get-all-products-datas.service";
 
 const repository: PrismaGeneralProductsRepositories = new PrismaGeneralProductsRepositories(prismaService)
-const service: GetProductDatasService = new GetProductDatasService(repository)
+const service: GetProductDatasService = new GetProductDatasService(repository, prismaService)
 const getAllProductsService: GetAllProductsDatasService = new GetAllProductsDatasService(repository)
 
 class GetProductDatasController

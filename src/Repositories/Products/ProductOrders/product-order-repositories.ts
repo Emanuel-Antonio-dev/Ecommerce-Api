@@ -8,5 +8,6 @@ abstract class IProductOrderRepositories
    //abstract getOrdersByUser(id_user_fk: number): Promise<productsOrdersDatas[]>
    abstract getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[]>
    abstract setOrderStatus(id_order: number, status:"completed"|"cancelled"):Promise<any>
+   abstract getOrder(id_order: number):Promise<any>
 }
 export {IProductOrderRepositories}

@@ -31,13 +31,18 @@ class PrismaAdminRepositories implements IAdminRepositories
                             id_order_item: true,
                             price: true, 
                             quantity: true,
-                            product:{
+                            variant:{
+                                select:{
+                                    product:{
                                 select:{
                                     name: true, 
                                     images:{
                                         select:{
                                             url:true
-                                        }}}}}}}}
+                                        }}}
+                                }
+                            }
+                            }}}}}
             }, orderBy:{created_at:"desc"}, take, skip})
     }
     async getAllOrders(take?: number, skip?: number): Promise<any[]> {
@@ -55,16 +60,20 @@ class PrismaAdminRepositories implements IAdminRepositories
                 select:{
                     id_order_item: true,
                     quantity: true,
-                    product:{
+                    variant:{
+                        select:{
+                            product:{
                         select:{
                             id_product: true,
                             reference_code: true,
                             name: true,
                             price: true,
-                            is_featured: true, 
-                            available_stock: true,
+                            is_featured: true,
+                            available: true,
                             created_at: true,
                             images:{select:{url: true}}
+                        }
+                    }
                         }
                     }
                 },take, skip}}})

@@ -4,7 +4,7 @@ import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Pris
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import sanitize from "sanitize-html";
 import { productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
-import crypto from "node:crypto"
+import crypto from "node:crypto";
 
 class RegisterProductOrderService {
   constructor(
@@ -34,23 +34,54 @@ class RegisterProductOrderService {
       }
 
       return await this.prisma.$transaction(async (tx) => {
-        // Buscar carrinho ativo
+
+        // 🔥 buscar carrinho com VARIANTES
         const cart = await tx.carts.findFirst({
-          where: { id_user_fk, status: "active" },
-          include: { cart_items: { include: { product: true } } }
+          where: {
+            id_user_fk,
+            status: "active"
+          },
+          include: {
+            cart_items: {
+              include: {
+                variant: {
+                  include: {
+                    product: true
+                  }
+                }
+              }
+            }
+          }
         });
 
-        if (!cart) throw new HttpException(false, 404, "Carrinho não encontrado ou já processado.");
+        if (!cart) {
+          throw new HttpException(false, 404, "Carrinho não encontrado ou já processado.");
+        }
 
-        // Validar estoque
+        if (cart.cart_items.length === 0) {
+          throw new HttpException(false, 400, "Carrinho vazio.");
+        }
+
+        // 🔥 validar estoque por VARIANTE
         for (const item of cart.cart_items) {
-          if (!item.product.available || item.product.available_stock < item.quantity) {
-            throw new HttpException(false, 400, `Produto ${item.product.name} está sem estoque suficiente.`);
+          if (!item.variant) {
+            throw new HttpException(false, 400, "Variante inválida no carrinho.");
+          }
+
+          if (item.variant.stock < item.quantity) {
+            throw new HttpException(
+              false,
+              400,
+              `Estoque insuficiente para ${item.variant.product.name}`
+            );
           }
         }
 
-        // Validar/registrar contacto se necessário
-        const existingContact = await tx.contacts.findFirst({ where: { id_user_fk } });
+        // 🔥 contacto
+        const existingContact = await tx.contacts.findFirst({
+          where: { id_user_fk }
+        });
+
         if (!existingContact && !shipping_phone_number) {
           throw new HttpException(false, 400, "Informe um número de contacto para envio.");
         }
@@ -58,73 +89,95 @@ class RegisterProductOrderService {
         if (!existingContact && shipping_phone_number) {
           await tx.contacts.create({
             data: {
-                id_contact: crypto.randomUUID(),
-              phone_number: sanitize(shipping_phone_number,{
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+              id_contact: crypto.randomUUID(),
+              phone_number: sanitize(shipping_phone_number, {
+                allowedTags: [],
+                allowedAttributes: {},
+                allowedClasses: {}
               }),
               id_user_fk
             }
           });
         }
 
-        // Criar pedido
+        // 🔥 calcular total baseado em VARIANTE
+        const totalAmount = cart.cart_items.reduce((sum, item) => {
+          const price = Number(item.variant.price);
+          return sum + price * item.quantity;
+        }, 0);
+
+        // 🔥 criar order
         const order = await this.repository.registerOrder(
           {
             id_user_fk,
-            total_amount: cart.cart_items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0),
+            total_amount: totalAmount,
             status: "pending",
             payment_method,
             shipping_street: sanitize(shipping_street, {
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+              allowedTags: [],
+              allowedAttributes: {},
+              allowedClasses: {}
             }),
-            shipping_city: sanitize(shipping_city,{
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+            shipping_city: sanitize(shipping_city, {
+              allowedTags: [],
+              allowedAttributes: {},
+              allowedClasses: {}
             }),
-            shipping_province: sanitize(shipping_province,{
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+            shipping_province: sanitize(shipping_province, {
+              allowedTags: [],
+              allowedAttributes: {},
+              allowedClasses: {}
             }),
-            shipping_country: sanitize(shipping_country,{
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+            shipping_country: sanitize(shipping_country, {
+              allowedTags: [],
+              allowedAttributes: {},
+              allowedClasses: {}
             }),
-            shipping_phone_number: sanitize(shipping_phone_number,{
-                allowedAttributes:{},
-                allowedClasses:{},
-                allowedTags:[]
+            shipping_phone_number: sanitize(shipping_phone_number || "", {
+              allowedTags: [],
+              allowedAttributes: {},
+              allowedClasses: {}
             })
           },
           tx
         );
 
-        // Registrar itens do pedido e atualizar estoque
+        // 🔥 criar order items baseado em VARIANT
         for (const item of cart.cart_items) {
           await this.repository.registerOrderItems(
             {
               id_order_fk: order.id_order,
-              id_product_fk: item.id_product_fk,
+
+              id_variant_fk: item.variant.id_product_fk, // produto base
+
               quantity: item.quantity,
-              price: item.price
+
+              price: item.variant.price,
+
+              product_name: item.variant.product.name,
+              product_price: item.variant.price
             },
             tx
           );
 
-          await tx.products.update({
-            where: { id_product: item.id_product_fk },
-            data: { available_stock: { decrement: item.quantity } }
+          // 🔥 diminuir stock da VARIANTE (NÃO do produto)
+          await tx.productVariants.update({
+            where: {
+              id_variant: item.id_variant_fk!
+            },
+            data: {
+              stock: {
+                decrement: item.quantity
+              }
+            }
           });
         }
 
-        // Atualizar status do carrinho
-        await tx.carts.update({ where: { id_cart: cart.id_cart }, data: { status: "ordered" } });
+        // 🔥 atualizar carrinho
+        await tx.carts.update({
+          where: { id_cart: cart.id_cart },
+          data: { status: "ordered" }
+        });
 
         return {
           success: true,
@@ -133,12 +186,22 @@ class RegisterProductOrderService {
           datas: { order }
         };
       });
+
     } catch (error: any) {
       if (error instanceof HttpException) {
-        return { success: false, statusCode: error.statusCode, message: error.message };
+        return {
+          success: false,
+          statusCode: error.statusCode,
+          message: error.message
+        };
       }
+
       console.error(error);
-      return { success: false, statusCode: 500, message: "Ocorreu um erro interno, tente novamente!" };
+      return {
+        success: false,
+        statusCode: 500,
+        message: "Ocorreu um erro interno, tente novamente!"
+      };
     }
   }
 }

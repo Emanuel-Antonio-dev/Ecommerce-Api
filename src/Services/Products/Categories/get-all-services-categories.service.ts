@@ -1,35 +1,32 @@
+import { buildPagination, PaginationParams, PaginatedResult} from "../../../Common/Utils/helpers"
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
 
 class GetAllProductsCategoriesService
 {
     constructor(private readonly repository: PrismaProductsCategories){}
 
-    async getAllCategories(page?: number, limit?: number)
+    async getAllCategories({limit, page}:PaginationParams):Promise<PaginatedResult<any> | any>
     {
         try
         {
-            const take = limit && limit > 0 ? limit : 50
-            const currentPage = page && page > 0 ? page : 1
-            const skip = (currentPage - 1) * take
+            const pagination = buildPagination({limit, page})
 
-            const categoriesResult = await this.repository.getAllCategoriesDatas(take, skip)
+            const categoriesResult = await this.repository.getAllCategoriesDatas(pagination.take, pagination.skip)
             if(categoriesResult.length === 0)
             {
                 return {success: true, statusCode: 404, message: "De momento não existem categorias"}
             }
             const totalProducts = await this.repository.countCategories()
-            const totalPages = Math.ceil(totalProducts / take)
 
             return {
                 success: true, 
                 statusCode: 200,
                 datas: categoriesResult,
-                paginationDatas:{
-                page: currentPage,
-                    limit: take,
-                    returned: categoriesResult.length,
-                    totalItems: totalProducts,
-                    totalPages
+                meta: {
+                    total: totalProducts,
+                    page: pagination.page,
+                    limit: pagination.take,
+                    total_pages: Math.ceil(totalProducts / pagination.take)
                 }
             }
         } catch (error: any)

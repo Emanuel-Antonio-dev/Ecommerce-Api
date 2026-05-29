@@ -24,7 +24,7 @@ class PrismaCartRepositories implements ICartRepositories
                 price: datas.price!,
                 quantity: datas.quantity,
                 id_cart_fk: datas.id_cart_fk,
-                id_product_fk: datas.id_product_fk
+                id_variant_fk: datas.id_variant_fk
             }
         })
     }
@@ -36,7 +36,7 @@ class PrismaCartRepositories implements ICartRepositories
             where: { ...where, status: "active" },
             omit: { id_user_fk: true},
             include: {
-                cart_items: { include: { product: true }, omit:{id_product_fk: true}},
+                cart_items: { include: { variant: true }, omit:{id_variant_fk: true}},
                 user_details: {
                     select: {
                         id_user: true,
@@ -70,7 +70,7 @@ class PrismaCartRepositories implements ICartRepositories
     }
     async getAllCartItems(id_cart:number): Promise<any>
     {
-        return await this.prisma.cartItems.findMany({where:{id_cart_fk:id_cart}, include:{product:true, cart:true}})
+        return await this.prisma.cartItems.findMany({where:{id_cart_fk:id_cart}, include:{variant:{select:{product: true}}, cart:true}})
     }
 }
 export {PrismaCartRepositories}

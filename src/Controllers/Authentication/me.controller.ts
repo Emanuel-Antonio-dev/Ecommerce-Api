@@ -34,7 +34,7 @@ class MeController {
           return res.status(401).json({
             success: false,
             statusCode: 401,
-            message: "Token expirado ou inválido.",
+            message: "Sessão inválida.",
           });
         }
       }
@@ -49,9 +49,7 @@ class MeController {
       return res.status(200).json({
         success: true,
         statusCode: 200,
-        user: result.user,
-        accessToken: result.accessToken,
-        message: "Usuário autenticado com sucesso.",
+        datas: result.user,
       });
     } catch (error: any) {
       console.error("Erro no MeController:", error);

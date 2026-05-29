@@ -13,7 +13,7 @@ class GetAllProductDatasController
         try
         {
             const{limit, page} = req.query
-            const result = await getAllProductsService.getAll(Number(page), Number(limit))
+            const result = await getAllProductsService.getAll({ page: Number(page) || 1, limit: Number(limit) || 50 })
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)

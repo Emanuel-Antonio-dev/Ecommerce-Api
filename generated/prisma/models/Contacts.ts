@@ -37,6 +37,7 @@ export type ContactsSumAggregateOutputType = {
 export type ContactsMinAggregateOutputType = {
   id_contact: string | null
   phone_number: string | null
+  is_default: boolean | null
   id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -45,6 +46,7 @@ export type ContactsMinAggregateOutputType = {
 export type ContactsMaxAggregateOutputType = {
   id_contact: string | null
   phone_number: string | null
+  is_default: boolean | null
   id_user_fk: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -53,6 +55,7 @@ export type ContactsMaxAggregateOutputType = {
 export type ContactsCountAggregateOutputType = {
   id_contact: number
   phone_number: number
+  is_default: number
   id_user_fk: number
   created_at: number
   updated_at: number
@@ -71,6 +74,7 @@ export type ContactsSumAggregateInputType = {
 export type ContactsMinAggregateInputType = {
   id_contact?: true
   phone_number?: true
+  is_default?: true
   id_user_fk?: true
   created_at?: true
   updated_at?: true
@@ -79,6 +83,7 @@ export type ContactsMinAggregateInputType = {
 export type ContactsMaxAggregateInputType = {
   id_contact?: true
   phone_number?: true
+  is_default?: true
   id_user_fk?: true
   created_at?: true
   updated_at?: true
@@ -87,6 +92,7 @@ export type ContactsMaxAggregateInputType = {
 export type ContactsCountAggregateInputType = {
   id_contact?: true
   phone_number?: true
+  is_default?: true
   id_user_fk?: true
   created_at?: true
   updated_at?: true
@@ -182,6 +188,7 @@ export type ContactsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type ContactsGroupByOutputType = {
   id_contact: string
   phone_number: string
+  is_default: boolean
   id_user_fk: number
   created_at: Date
   updated_at: Date
@@ -213,6 +220,7 @@ export type ContactsWhereInput = {
   NOT?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
   id_contact?: Prisma.StringFilter<"Contacts"> | string
   phone_number?: Prisma.StringFilter<"Contacts"> | string
+  is_default?: Prisma.BoolFilter<"Contacts"> | boolean
   id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
@@ -222,6 +230,7 @@ export type ContactsWhereInput = {
 export type ContactsOrderByWithRelationInput = {
   id_contact?: Prisma.SortOrder
   phone_number?: Prisma.SortOrder
+  is_default?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -234,6 +243,7 @@ export type ContactsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
   OR?: Prisma.ContactsWhereInput[]
   NOT?: Prisma.ContactsWhereInput | Prisma.ContactsWhereInput[]
+  is_default?: Prisma.BoolFilter<"Contacts"> | boolean
   id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
@@ -243,6 +253,7 @@ export type ContactsWhereUniqueInput = Prisma.AtLeast<{
 export type ContactsOrderByWithAggregationInput = {
   id_contact?: Prisma.SortOrder
   phone_number?: Prisma.SortOrder
+  is_default?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -259,22 +270,25 @@ export type ContactsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ContactsScalarWhereWithAggregatesInput | Prisma.ContactsScalarWhereWithAggregatesInput[]
   id_contact?: Prisma.StringWithAggregatesFilter<"Contacts"> | string
   phone_number?: Prisma.StringWithAggregatesFilter<"Contacts"> | string
+  is_default?: Prisma.BoolWithAggregatesFilter<"Contacts"> | boolean
   id_user_fk?: Prisma.IntWithAggregatesFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Contacts"> | Date | string
 }
 
 export type ContactsCreateInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   user_details: Prisma.UsersCreateNestedOneWithoutMy_contactsInput
 }
 
 export type ContactsUncheckedCreateInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
@@ -283,6 +297,7 @@ export type ContactsUncheckedCreateInput = {
 export type ContactsUpdateInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_contactsNestedInput
@@ -291,14 +306,16 @@ export type ContactsUpdateInput = {
 export type ContactsUncheckedUpdateInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ContactsCreateManyInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   id_user_fk: number
   created_at?: Date | string
   updated_at?: Date | string
@@ -307,6 +324,7 @@ export type ContactsCreateManyInput = {
 export type ContactsUpdateManyMutationInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -314,14 +332,26 @@ export type ContactsUpdateManyMutationInput = {
 export type ContactsUncheckedUpdateManyInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ContactsListRelationFilter = {
+  every?: Prisma.ContactsWhereInput
+  some?: Prisma.ContactsWhereInput
+  none?: Prisma.ContactsWhereInput
+}
+
+export type ContactsOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type ContactsCountOrderByAggregateInput = {
   id_contact?: Prisma.SortOrder
   phone_number?: Prisma.SortOrder
+  is_default?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -334,6 +364,7 @@ export type ContactsAvgOrderByAggregateInput = {
 export type ContactsMaxOrderByAggregateInput = {
   id_contact?: Prisma.SortOrder
   phone_number?: Prisma.SortOrder
+  is_default?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -342,6 +373,7 @@ export type ContactsMaxOrderByAggregateInput = {
 export type ContactsMinOrderByAggregateInput = {
   id_contact?: Prisma.SortOrder
   phone_number?: Prisma.SortOrder
+  is_default?: Prisma.SortOrder
   id_user_fk?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -349,16 +381,6 @@ export type ContactsMinOrderByAggregateInput = {
 
 export type ContactsSumOrderByAggregateInput = {
   id_user_fk?: Prisma.SortOrder
-}
-
-export type ContactsListRelationFilter = {
-  every?: Prisma.ContactsWhereInput
-  some?: Prisma.ContactsWhereInput
-  none?: Prisma.ContactsWhereInput
-}
-
-export type ContactsOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type ContactsCreateNestedManyWithoutUser_detailsInput = {
@@ -404,15 +426,17 @@ export type ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput = {
 }
 
 export type ContactsCreateWithoutUser_detailsInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ContactsUncheckedCreateWithoutUser_detailsInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -449,14 +473,16 @@ export type ContactsScalarWhereInput = {
   NOT?: Prisma.ContactsScalarWhereInput | Prisma.ContactsScalarWhereInput[]
   id_contact?: Prisma.StringFilter<"Contacts"> | string
   phone_number?: Prisma.StringFilter<"Contacts"> | string
+  is_default?: Prisma.BoolFilter<"Contacts"> | boolean
   id_user_fk?: Prisma.IntFilter<"Contacts"> | number
   created_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Contacts"> | Date | string
 }
 
 export type ContactsCreateManyUser_detailsInput = {
-  id_contact: string
+  id_contact?: string
   phone_number: string
+  is_default?: boolean
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -464,6 +490,7 @@ export type ContactsCreateManyUser_detailsInput = {
 export type ContactsUpdateWithoutUser_detailsInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -471,6 +498,7 @@ export type ContactsUpdateWithoutUser_detailsInput = {
 export type ContactsUncheckedUpdateWithoutUser_detailsInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,6 +506,7 @@ export type ContactsUncheckedUpdateWithoutUser_detailsInput = {
 export type ContactsUncheckedUpdateManyWithoutUser_detailsInput = {
   id_contact?: Prisma.StringFieldUpdateOperationsInput | string
   phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  is_default?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -487,6 +516,7 @@ export type ContactsUncheckedUpdateManyWithoutUser_detailsInput = {
 export type ContactsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_contact?: boolean
   phone_number?: boolean
+  is_default?: boolean
   id_user_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -496,6 +526,7 @@ export type ContactsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type ContactsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_contact?: boolean
   phone_number?: boolean
+  is_default?: boolean
   id_user_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -505,6 +536,7 @@ export type ContactsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type ContactsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_contact?: boolean
   phone_number?: boolean
+  is_default?: boolean
   id_user_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
@@ -514,12 +546,13 @@ export type ContactsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type ContactsSelectScalar = {
   id_contact?: boolean
   phone_number?: boolean
+  is_default?: boolean
   id_user_fk?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ContactsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_contact" | "phone_number" | "id_user_fk" | "created_at" | "updated_at", ExtArgs["result"]["contacts"]>
+export type ContactsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_contact" | "phone_number" | "is_default" | "id_user_fk" | "created_at" | "updated_at", ExtArgs["result"]["contacts"]>
 export type ContactsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user_details?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
 }
@@ -538,6 +571,7 @@ export type $ContactsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_contact: string
     phone_number: string
+    is_default: boolean
     id_user_fk: number
     created_at: Date
     updated_at: Date
@@ -967,6 +1001,7 @@ export interface Prisma__ContactsClient<T, Null = never, ExtArgs extends runtime
 export interface ContactsFieldRefs {
   readonly id_contact: Prisma.FieldRef<"Contacts", 'String'>
   readonly phone_number: Prisma.FieldRef<"Contacts", 'String'>
+  readonly is_default: Prisma.FieldRef<"Contacts", 'Boolean'>
   readonly id_user_fk: Prisma.FieldRef<"Contacts", 'Int'>
   readonly created_at: Prisma.FieldRef<"Contacts", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Contacts", 'DateTime'>
