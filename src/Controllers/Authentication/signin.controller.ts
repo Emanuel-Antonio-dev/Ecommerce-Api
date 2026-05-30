@@ -48,6 +48,13 @@ class SignInController
             }
             
             res.cookie("refreshToken", refreshToken, cookieOptions)
+            res.cookie("accessToken", authenticationResult.accessToken, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: isProduction ? "none" : "lax",
+                maxAge: this.AccessTokenDate
+             }
+            )
             await prismaService.$transaction(async(tx)=>{
                 const id_account = await tx.accounts.findUnique({where:{email: email}})
                 if(!id_account)
@@ -81,7 +88,6 @@ class SignInController
             return res.status(authenticationResult.statusCode).json({
                 success: authenticationResult.success, 
                 statusCode: authenticationResult.statusCode, 
-                accessToken: authenticationResult.accessToken, 
                 message: authenticationResult.message,
                 ...(authenticationResult.user_datas.user_type === "client" && {cart_items: authenticationResult.userCartItems}),
             })

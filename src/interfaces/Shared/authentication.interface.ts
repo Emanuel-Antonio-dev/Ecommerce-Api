@@ -26,11 +26,17 @@ interface OtpDatas
     created_at?: Date | string
     updated_at?: Date | string
 }
+enum ClientType {
+  WEB = "web",
+  MOBILE = "mobile",
+  DESKTOP = "desktop"
+}
 interface RequestWithCredentials extends Request {
   credentials?: {
     sub: number;
     user_type: "admin" | "client";
   };
+  clientType?: ClientType;
 }
 
-export{AuthenticationDatas, TokenDatas, OtpDatas}
+export{AuthenticationDatas, TokenDatas, OtpDatas, RequestWithCredentials, ClientType}

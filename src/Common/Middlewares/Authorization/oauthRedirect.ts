@@ -8,7 +8,7 @@ function oauthRedirect(req: Request, res: Response) {
   const isProduction = process.env.NODE_ENV === "production"
 
   if (data?.newUser) {
-    return res.redirect(`${FRONT_URL}/signup?session_datas=${data.token}`)
+    return res.redirect(`${FRONT_URL}/signup?t=${data.token}`)
   }
 
   res.cookie("refreshToken", data.refreshToken, {
@@ -19,7 +19,14 @@ function oauthRedirect(req: Request, res: Response) {
     path: "/"
   })
 
-  return res.redirect(`${FRONT_URL}/perfil?t=${data.accessToken}`)
+    res.cookie("accessToken", data.accessToken, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: 15 * 60 * 1000,
+    path: "/"
+  })
+  return res.redirect(`${FRONT_URL}/profile`)
 }
 
 export {oauthRedirect}
