@@ -58,6 +58,17 @@ class ValidateOtpCodeService {
                 await this.repository.editAuthenticationDatas(otpRecord.authentication_details.id_authentication, true, tx);
                 await this.repository.invalidateActiveAuthentications({email, phone_number}, tx)
                 await this.repository.deleteOtpCodeDatas(otpRecord.id_two_factor_auth, tx);
+                if(otpRecord.authentication_details.type === "by_otp" && otpRecord.authentication_details.context === "signup_verification")
+                {
+                    await tx.accounts.update({
+                        where: {
+                            id_account: otpRecord.authentication_details.id_account_fk!
+                        },
+                        data: {
+                            verified: true,
+                            verified_at: new Date()
+                        }})
+                    }
             }, {maxWait: 30000, timeout: 45000});
 
             return { success: true, statusCode: 200, message: "Código validado com sucesso." };

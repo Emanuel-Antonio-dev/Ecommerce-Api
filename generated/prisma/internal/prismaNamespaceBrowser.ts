@@ -101,6 +101,7 @@ export const AccountsScalarFieldEnum = {
   email: 'email',
   password: 'password',
   verified: 'verified',
+  verified_at: 'verified_at',
   provider: 'provider',
   provider_id: 'provider_id',
   is_active: 'is_active',
@@ -120,6 +121,7 @@ export const AuthenticationsScalarFieldEnum = {
   temp_email: 'temp_email',
   temp_phone_number: 'temp_phone_number',
   id_account_fk: 'id_account_fk',
+  context: 'context',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

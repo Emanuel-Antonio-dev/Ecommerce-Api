@@ -30,9 +30,14 @@ async function handleCart(id_guest_cart: string | undefined, id_user: number) {
       },
       include: {
         cart_items: {
+          omit:{id_variant_fk: true},
           include: {
             variant:{
               select:{
+                id_variant: true,
+                sku: true,
+                color: true,
+                size: true,
                 product: {
                   select: {
                     id_product: true,

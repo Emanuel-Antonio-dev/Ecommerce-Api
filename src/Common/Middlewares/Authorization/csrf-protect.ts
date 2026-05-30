@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express"
 
 const allowedOrigins = [
   "http://localhost:3000",
+  "https://app.seudominio.com"
 ]
+
 const ignoredRoutes = new Set([
   "/auth/google",
   "/auth/google/callback"
@@ -19,26 +21,27 @@ export function csrfProtection(
     "PATCH",
     "DELETE"
   ]
-  if(ignoredRoutes.has(req.path)) {
+
+  if (ignoredRoutes.has(req.path)) {
     return next()
   }
+
   if (!methods.includes(req.method)) {
     return next()
   }
 
   const origin = req.header("Origin")
+  console.log("Origin:", origin, "Path:", req.path, "Method:", req.method)
 
-  if (!origin) {
+  // Se existe Origin, valida
+  if (origin && !allowedOrigins.includes(origin)) {
     return res.status(403).json({
-      message: "Origin ausente"
+      success: false,
+      statusCode: 403,
+      message: "Requisição não autorizada"
     })
   }
 
-  if (!allowedOrigins.includes(origin)) {
-    return res.status(403).json({
-      message: "Origin não autorizada"
-    })
-  }
-
-  next()
+  // Sem Origin ou Origin válida
+  return next()
 }

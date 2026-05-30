@@ -51,7 +51,8 @@ class RefreshTokenController
                 type: "by_token",
                 used: false,
                 expireIn: new Date(Date.now() + REFRESH_TOKEN_TTL),
-                id_account_fk: accountId
+                id_account_fk: accountId,
+                context: "refresh_token"
               }, tx)
 
               await authenticationRepositories.registerToken({
@@ -73,8 +74,15 @@ class RefreshTokenController
             }
             
             res.cookie("refreshToken", newRefreshToken, cookieOptions)
+            res.cookie("accessToken", newAccessToken, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: isProduction ? "none" : "lax",
+                maxAge: 15 * 60 * 1000
+             }
+            )
 
-            return res.status(200).json({success: true, statusCode: 200, datas:{accessToken: newAccessToken}})
+            return res.status(200).json({success: true, statusCode: 200})
         } catch (error:any)
         {
             if (error.name === "TokenExpiredError") {

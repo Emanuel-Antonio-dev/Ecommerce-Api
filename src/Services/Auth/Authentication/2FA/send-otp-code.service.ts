@@ -1,4 +1,5 @@
 import { PrismaClient } from "../../../../../generated/prisma/client";
+import { AuthContext } from "../../../../../generated/prisma/client";
 import { PrismaAuthenticationsRepositories } from "../../../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories";
 import { OtpGeneratorService } from "../../../../Common/Utils/AuthenticationsProcols/2FA/generate-otp-code.protocol";
 import { InitAuthenticationsService } from "../init-autentication.service";
@@ -15,10 +16,14 @@ class SendOtpCodesService
         private emailSender: SendEmail
     ){}
 
-    async sendOtpCode(email?: string, phone_number?: string)
+    async sendOtpCode(context: AuthContext, email?: string, phone_number?: string)
     {
         try
         {
+            if(!context)
+            {
+                return {success: false, statusCode: 400, message: "Contexto de autenticação inválido."}
+            }
             if(!email && !phone_number)
             {
                 return {success: false, statusCode: 400, message: "Informe o seu email ou o seu número de telefone."}
@@ -31,7 +36,8 @@ class SendOtpCodesService
                     used:false,
                     expireIn: new Date(Date.now() +  15 * 60 * 1000),
                     temp_email: email,
-                    temp_phone_number: phone_number
+                    temp_phone_number: phone_number,
+                    context: context
                 }, tx)
                 const result = await this.repository.registerOtpCode({
                     id_authentication_fk: authentication.id_authentication,

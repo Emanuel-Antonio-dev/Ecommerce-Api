@@ -20,16 +20,33 @@ class GetCurrentUserService {
       }
       
       const include: Prisma.UsersInclude = user_type === "client" ? {
-        account_details: true,
-        my_addresses: true,
-        my_contacts: true,
+        account_details: {
+          select: {
+            email: true,
+          },
+        },
+        my_addresses: {
+          select: {
+            street: true,
+            city: true,
+            country: true,
+            is_default: true,
+            province: true,
+          },
+        },
+        my_contacts: {
+          select: {
+            phone_number: true,
+            is_default: true,
+          },
+        },
         my_cart: {
-          include: {
+          select: {
             cart_items: true,
           },
         },
         my_orders: {
-          include: {
+          select: {
             order_items: true,
           },
           take: 5,
@@ -37,10 +54,20 @@ class GetCurrentUserService {
             created_at: Prisma.SortOrder.desc,
           },
         },
-        my_reviews: true,
+        my_reviews: {
+          select: {
+            rating: true,
+            comment: true,
+            created_at: true,
+          },
+        },
       }
     : {
-        account_details: true,
+        account_details: {
+          select: {
+            email: true,
+          },
+        },
       };
 
       const user = await this.prisma.users.findUnique({where: { id_user: sub }, include});

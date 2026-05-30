@@ -9,7 +9,6 @@ import { productsRoutes } from './Routes/Products/GeneralProducts/routes';
 import { cartRoutes } from './Routes/Products/Cart/routes';
 import { producstOrders } from './Routes/Products/Products-Orders/routes';
 import { createStripeWebhookController } from './Controllers/Payments/PaymentByStripe/create-stripe-webhook.controller';
-import { swaggerConfig } from './docs/swagger';
 import swaggerUi from "swagger-ui-express"
 import yaml from "yamljs"
 import passport from 'passport';
@@ -26,7 +25,7 @@ import { limiterMiddleware } from './Common/Middlewares/Limiters/requests-limite
 
 const app = express();
 const urlBase = '/api.ecommerce/v1';
-const swaggerYamlDocument = yaml.load("./openai.yaml")
+const swaggerYamlDocument = yaml.load("./docs.yaml")
 const apiLimiter = limiterMiddleware("Muitas requisições. Tente novamente mais tarde.", 1, 100)
 
 app.use(helmet(

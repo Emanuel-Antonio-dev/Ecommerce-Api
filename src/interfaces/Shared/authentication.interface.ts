@@ -1,7 +1,9 @@
 import { Request } from "express"
+import { AuthContext } from "../../../generated/prisma/enums"
 interface AuthenticationDatas
 {
     type: "by_token"|"by_otp"
+    context: AuthContext
     used: boolean
     expireIn: Date | string | number
     id_account_fk?: string

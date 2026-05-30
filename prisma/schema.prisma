@@ -22,6 +22,7 @@ model Accounts {
   password String?
 
   verified Boolean @default(false)
+  verified_at DateTime?
 
   provider    Providers @default(Local)
   provider_id String?
@@ -52,6 +53,7 @@ model Authentications {
   temp_phone_number String?
 
   id_account_fk   String?
+  context          AuthContext?
   account_details Accounts? @relation(fields: [id_account_fk], references: [id_account], onDelete: Cascade)
 
   token_details           Tokens?
@@ -764,4 +766,13 @@ enum ShipmentStatus {
 enum DiscountType {
   percentage
   fixed
+}
+
+enum AuthContext {
+  signup_verification
+  login_otp
+  password_reset
+  two_factor
+  initial_sign_in
+  refresh_token
 }

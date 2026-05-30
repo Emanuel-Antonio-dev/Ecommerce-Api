@@ -112,3 +112,15 @@ export const DiscountType = {
 } as const
 
 export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
+
+
+export const AuthContext = {
+  signup_verification: 'signup_verification',
+  login_otp: 'login_otp',
+  password_reset: 'password_reset',
+  two_factor: 'two_factor',
+  initial_sign_in: 'initial_sign_in',
+  refresh_token: 'refresh_token'
+} as const
+
+export type AuthContext = (typeof AuthContext)[keyof typeof AuthContext]

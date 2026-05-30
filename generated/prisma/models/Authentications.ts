@@ -32,6 +32,7 @@ export type AuthenticationsMinAggregateOutputType = {
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
+  context: $Enums.AuthContext | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -44,6 +45,7 @@ export type AuthenticationsMaxAggregateOutputType = {
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
+  context: $Enums.AuthContext | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -56,6 +58,7 @@ export type AuthenticationsCountAggregateOutputType = {
   temp_email: number
   temp_phone_number: number
   id_account_fk: number
+  context: number
   created_at: number
   updated_at: number
   _all: number
@@ -70,6 +73,7 @@ export type AuthenticationsMinAggregateInputType = {
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
+  context?: true
   created_at?: true
   updated_at?: true
 }
@@ -82,6 +86,7 @@ export type AuthenticationsMaxAggregateInputType = {
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
+  context?: true
   created_at?: true
   updated_at?: true
 }
@@ -94,6 +99,7 @@ export type AuthenticationsCountAggregateInputType = {
   temp_email?: true
   temp_phone_number?: true
   id_account_fk?: true
+  context?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -179,6 +185,7 @@ export type AuthenticationsGroupByOutputType = {
   temp_email: string | null
   temp_phone_number: string | null
   id_account_fk: string | null
+  context: $Enums.AuthContext | null
   created_at: Date
   updated_at: Date
   _count: AuthenticationsCountAggregateOutputType | null
@@ -212,6 +219,7 @@ export type AuthenticationsWhereInput = {
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
+  context?: Prisma.EnumAuthContextNullableFilter<"Authentications"> | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsNullableScalarRelationFilter, Prisma.AccountsWhereInput> | null
@@ -227,6 +235,7 @@ export type AuthenticationsOrderByWithRelationInput = {
   temp_email?: Prisma.SortOrderInput | Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   id_account_fk?: Prisma.SortOrderInput | Prisma.SortOrder
+  context?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   account_details?: Prisma.AccountsOrderByWithRelationInput
@@ -245,6 +254,7 @@ export type AuthenticationsWhereUniqueInput = Prisma.AtLeast<{
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
+  context?: Prisma.EnumAuthContextNullableFilter<"Authentications"> | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   account_details?: Prisma.XOR<Prisma.AccountsNullableScalarRelationFilter, Prisma.AccountsWhereInput> | null
@@ -260,6 +270,7 @@ export type AuthenticationsOrderByWithAggregationInput = {
   temp_email?: Prisma.SortOrderInput | Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   id_account_fk?: Prisma.SortOrderInput | Prisma.SortOrder
+  context?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.AuthenticationsCountOrderByAggregateInput
@@ -278,6 +289,7 @@ export type AuthenticationsScalarWhereWithAggregatesInput = {
   temp_email?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableWithAggregatesFilter<"Authentications"> | string | null
+  context?: Prisma.EnumAuthContextNullableWithAggregatesFilter<"Authentications"> | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Authentications"> | Date | string
 }
@@ -289,6 +301,7 @@ export type AuthenticationsCreateInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -304,6 +317,7 @@ export type AuthenticationsUncheckedCreateInput = {
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -317,6 +331,7 @@ export type AuthenticationsUpdateInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -332,6 +347,7 @@ export type AuthenticationsUncheckedUpdateInput = {
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -346,6 +362,7 @@ export type AuthenticationsCreateManyInput = {
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -357,6 +374,7 @@ export type AuthenticationsUpdateManyMutationInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -369,6 +387,7 @@ export type AuthenticationsUncheckedUpdateManyInput = {
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,6 +410,7 @@ export type AuthenticationsCountOrderByAggregateInput = {
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  context?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -403,6 +423,7 @@ export type AuthenticationsMaxOrderByAggregateInput = {
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  context?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -415,6 +436,7 @@ export type AuthenticationsMinOrderByAggregateInput = {
   temp_email?: Prisma.SortOrder
   temp_phone_number?: Prisma.SortOrder
   id_account_fk?: Prisma.SortOrder
+  context?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -470,6 +492,10 @@ export type EnumAuthenticationsTypesFieldUpdateOperationsInput = {
   set?: $Enums.AuthenticationsTypes
 }
 
+export type NullableEnumAuthContextFieldUpdateOperationsInput = {
+  set?: $Enums.AuthContext | null
+}
+
 export type AuthenticationsCreateNestedOneWithoutToken_detailsInput = {
   create?: Prisma.XOR<Prisma.AuthenticationsCreateWithoutToken_detailsInput, Prisma.AuthenticationsUncheckedCreateWithoutToken_detailsInput>
   connectOrCreate?: Prisma.AuthenticationsCreateOrConnectWithoutToken_detailsInput
@@ -505,6 +531,7 @@ export type AuthenticationsCreateWithoutAccount_detailsInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensCreateNestedOneWithoutAuthentication_detailsInput
@@ -518,6 +545,7 @@ export type AuthenticationsUncheckedCreateWithoutAccount_detailsInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -561,6 +589,7 @@ export type AuthenticationsScalarWhereInput = {
   temp_email?: Prisma.StringNullableFilter<"Authentications"> | string | null
   temp_phone_number?: Prisma.StringNullableFilter<"Authentications"> | string | null
   id_account_fk?: Prisma.StringNullableFilter<"Authentications"> | string | null
+  context?: Prisma.EnumAuthContextNullableFilter<"Authentications"> | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Authentications"> | Date | string
 }
@@ -572,6 +601,7 @@ export type AuthenticationsCreateWithoutToken_detailsInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -586,6 +616,7 @@ export type AuthenticationsUncheckedCreateWithoutToken_detailsInput = {
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   two_factor_auth_details?: Prisma.TwoFactorAuthUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -614,6 +645,7 @@ export type AuthenticationsUpdateWithoutToken_detailsInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -628,6 +660,7 @@ export type AuthenticationsUncheckedUpdateWithoutToken_detailsInput = {
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   two_factor_auth_details?: Prisma.TwoFactorAuthUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -640,6 +673,7 @@ export type AuthenticationsCreateWithoutTwo_factor_auth_detailsInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   account_details?: Prisma.AccountsCreateNestedOneWithoutAuthentication_detailsInput
@@ -654,6 +688,7 @@ export type AuthenticationsUncheckedCreateWithoutTwo_factor_auth_detailsInput = 
   temp_email?: string | null
   temp_phone_number?: string | null
   id_account_fk?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
   token_details?: Prisma.TokensUncheckedCreateNestedOneWithoutAuthentication_detailsInput
@@ -682,6 +717,7 @@ export type AuthenticationsUpdateWithoutTwo_factor_auth_detailsInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account_details?: Prisma.AccountsUpdateOneWithoutAuthentication_detailsNestedInput
@@ -696,6 +732,7 @@ export type AuthenticationsUncheckedUpdateWithoutTwo_factor_auth_detailsInput = 
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_account_fk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -708,6 +745,7 @@ export type AuthenticationsCreateManyAccount_detailsInput = {
   used?: boolean
   temp_email?: string | null
   temp_phone_number?: string | null
+  context?: $Enums.AuthContext | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -719,6 +757,7 @@ export type AuthenticationsUpdateWithoutAccount_detailsInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUpdateOneWithoutAuthentication_detailsNestedInput
@@ -732,6 +771,7 @@ export type AuthenticationsUncheckedUpdateWithoutAccount_detailsInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   token_details?: Prisma.TokensUncheckedUpdateOneWithoutAuthentication_detailsNestedInput
@@ -745,6 +785,7 @@ export type AuthenticationsUncheckedUpdateManyWithoutAccount_detailsInput = {
   used?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temp_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temp_phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  context?: Prisma.NullableEnumAuthContextFieldUpdateOperationsInput | $Enums.AuthContext | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -759,6 +800,7 @@ export type AuthenticationsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
+  context?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -774,6 +816,7 @@ export type AuthenticationsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
+  context?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -787,6 +830,7 @@ export type AuthenticationsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
+  context?: boolean
   created_at?: boolean
   updated_at?: boolean
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
@@ -800,11 +844,12 @@ export type AuthenticationsSelectScalar = {
   temp_email?: boolean
   temp_phone_number?: boolean
   id_account_fk?: boolean
+  context?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type AuthenticationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_authentication" | "type" | "expire_in" | "used" | "temp_email" | "temp_phone_number" | "id_account_fk" | "created_at" | "updated_at", ExtArgs["result"]["authentications"]>
+export type AuthenticationsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_authentication" | "type" | "expire_in" | "used" | "temp_email" | "temp_phone_number" | "id_account_fk" | "context" | "created_at" | "updated_at", ExtArgs["result"]["authentications"]>
 export type AuthenticationsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account_details?: boolean | Prisma.Authentications$account_detailsArgs<ExtArgs>
   token_details?: boolean | Prisma.Authentications$token_detailsArgs<ExtArgs>
@@ -832,6 +877,7 @@ export type $AuthenticationsPayload<ExtArgs extends runtime.Types.Extensions.Int
     temp_email: string | null
     temp_phone_number: string | null
     id_account_fk: string | null
+    context: $Enums.AuthContext | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["authentications"]>
@@ -1267,6 +1313,7 @@ export interface AuthenticationsFieldRefs {
   readonly temp_email: Prisma.FieldRef<"Authentications", 'String'>
   readonly temp_phone_number: Prisma.FieldRef<"Authentications", 'String'>
   readonly id_account_fk: Prisma.FieldRef<"Authentications", 'String'>
+  readonly context: Prisma.FieldRef<"Authentications", 'AuthContext'>
   readonly created_at: Prisma.FieldRef<"Authentications", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Authentications", 'DateTime'>
 }

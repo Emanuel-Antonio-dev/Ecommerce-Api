@@ -12,7 +12,7 @@ class MeController {
 
       // Se não tiver credenciais válidas do middleware, tenta usar o refreshToken do cookie
       if (!credentials) {
-        const refreshToken = req.cookies?.mulembe_refresh;
+        const refreshToken = req.cookies?.refreshToken;
 
         if (!refreshToken) {
           return res.status(401).json({

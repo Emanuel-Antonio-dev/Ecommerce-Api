@@ -65,7 +65,8 @@ class SignInController
                     type: "by_token",
                     used:false,
                     expireIn: new Date(Date.now() + this.RefreshTokenDate),
-                    id_account_fk: id_account.id_account
+                    id_account_fk: id_account.id_account,
+                    context: "initial_sign_in"
                 }, tx)
                 const alreadyExistsRefreshToken = await authenticationsRepositories.findToken(authenticationResult.refreshToken, "refreshToken")
                 if(alreadyExistsRefreshToken)

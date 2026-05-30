@@ -1,0 +1,1554 @@
+openapi: 3.0.3
+info:
+  title: E-Commerce API
+  description: API REST para plataforma de e-commerce com produtos, carrinho, pedidos, pagamentos Stripe, envios, cupões, wishlist e logs de sistema.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@yourstore.com
+
+servers:
+  - url: http://localhost:3000
+    description: Desenvolvimento local
+  - url: https://api.yourstore.com
+    description: Produção
+
+tags:
+  - name: Auth
+  - name: Users
+  - name: Products
+  - name: Categories
+  - name: Brands
+  - name: Tags
+  - name: Variants
+  - name: Images
+  - name: Cart
+  - name: Orders
+  - name: Payments
+  - name: Shipments
+  - name: Coupons
+  - name: Wishlist
+  - name: Reviews
+  - name: SystemLogs
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        statusCode: { type: integer, example: 200 }
+        message: { type: string }
+        datas: { type: object }
+
+    ErrorResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        statusCode: { type: integer }
+        message: { type: string }
+
+    PaginationMeta:
+      type: object
+      properties:
+        total: { type: integer }
+        page: { type: integer }
+        limit: { type: integer }
+        total_pages: { type: integer }
+
+    Product:
+      type: object
+      properties:
+        id_product: { type: integer }
+        reference_code: { type: string }
+        name: { type: string }
+        slug: { type: string }
+        description: { type: string }
+        additional_info: { type: string }
+        price: { type: number }
+        weight: { type: number }
+        available: { type: boolean }
+        is_featured: { type: boolean }
+        views_count: { type: integer }
+        sales_count: { type: integer }
+        created_at: { type: string, format: date-time }
+
+    ProductVariant:
+      type: object
+      properties:
+        id_variant: { type: integer }
+        sku: { type: string }
+        color: { type: string }
+        size: { type: string }
+        stock: { type: integer }
+        low_stock_alert: { type: integer }
+        price: { type: number }
+
+    Shipment:
+      type: object
+      properties:
+        id_shipment: { type: string }
+        tracking_code: { type: string }
+        carrier: { type: string }
+        status:
+          type: string
+          enum: [pending, processing, shipped, delivered, cancelled]
+        estimated_delivery: { type: string, format: date-time }
+        shipped_at: { type: string, format: date-time }
+        delivered_at: { type: string, format: date-time }
+
+    Coupon:
+      type: object
+      properties:
+        id_coupon: { type: string }
+        code: { type: string }
+        description: { type: string }
+        discount_type:
+          type: string
+          enum: [percentage, fixed]
+        discount_value: { type: number }
+        minimum_amount: { type: number }
+        usage_limit: { type: integer }
+        used_count: { type: integer }
+        starts_at: { type: string, format: date-time }
+        expires_at: { type: string, format: date-time }
+        active: { type: boolean }
+
+    Order:
+      type: object
+      properties:
+        id_order: { type: integer }
+        order_number: { type: string }
+        total_amount: { type: number }
+        discount_amount: { type: number }
+        status:
+          type: string
+          enum: [pending, completed, cancelled, failed]
+        payment_method:
+          type: string
+          enum: [cash, card, transfer, paypal, stripe]
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PATHS
+# ══════════════════════════════════════════════════════════════════════════════
+paths:
+
+  # ── AUTH ──────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/auth/signup:
+    post:
+      tags: [Auth]
+      summary: Registar novo utilizador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [first_name, last_name, email, password]
+              properties:
+                first_name: { type: string, example: Paulo }
+                last_name: { type: string, example: Joaquim }
+                email: { type: string, format: email, example: user@example.com }
+                password: { type: string, example: "Secure16@" }
+                contacts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      phone_number: { type: string, example: "944395940" }
+                addresses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      city: { type: string, example: Luanda }
+                      street: { type: string, example: "Rua 30 24" }
+      responses:
+        '201': { description: Conta criada com sucesso }
+        '409': { description: Email já registado }
+        '400': { description: Dados inválidos }
+
+  /api.ecommerce/v1/auth/local-signin:
+    post:
+      tags: [Auth]
+      summary: Login com email e password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email, example: user@example.com }
+                password: { type: string, example: "Secure16@" }
+                id_guest_cart:
+                  type: string
+                  description: UUID do carrinho guest para migração após login
+                  example: "41216da5-07db-4558-a111-373377bd49c8"
+      responses:
+        '200':
+          description: Login bem sucedido — access token no body, refresh token em cookie httpOnly
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  statusCode: { type: integer }
+                  accessToken: { type: string }
+        '401': { description: Credenciais inválidas }
+        '403': { description: Conta não verificada ou suspensa }
+
+  /api.ecommerce/v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout — invalida refresh token no servidor
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Sessão terminada }
+
+  /api.ecommerce/v1/auth/refreshToken:
+    post:
+      tags: [Auth]
+      summary: Renovar access token via refresh token em cookie
+      description: Usa o cookie httpOnly `refreshToken` para emitir novo access token.
+      responses:
+        '200':
+          description: Novo access token emitido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken: { type: string }
+        '401': { description: Refresh token inválido ou expirado }
+
+  /api.ecommerce/v1/auth/request-new-password:
+    post:
+      tags: [Auth]
+      summary: Solicitar reset de password por email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string, format: email, example: user@example.com }
+      responses:
+        '200': { description: Email de reset enviado }
+        '404': { description: Conta não encontrada }
+
+  /api.ecommerce/v1/auth/reset-password:
+    patch:
+      tags: [Auth]
+      summary: Definir nova password via token de reset
+      parameters:
+        - in: query
+          name: authorization
+          required: true
+          schema: { type: string }
+          description: Token de reset enviado por email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [newPassword]
+              properties:
+                newPassword: { type: string, example: "NewSecure16@" }
+      responses:
+        '200': { description: Password actualizada }
+        '400': { description: Token inválido ou expirado }
+
+  # ── USERS ─────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/users/profile/{id_account}:
+    get:
+      tags: [Users]
+      summary: Obter perfil de utilizador
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_account
+          required: true
+          schema: { type: string }
+          example: fHz7Xci41jRqSbdUu0dq0
+      responses:
+        '200': { description: Dados do perfil }
+        '404': { description: Utilizador não encontrado }
+
+  /api.ecommerce/v1/users/edit-profile/{id_account}:
+    patch:
+      tags: [Users]
+      summary: Editar perfil de utilizador
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_account
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name: { type: string }
+                last_name: { type: string }
+                username: { type: string }
+      responses:
+        '200': { description: Perfil actualizado }
+        '400': { description: Dados inválidos }
+
+  /api.ecommerce/v1/users/delete-profile/{id_account}:
+    delete:
+      tags: [Users]
+      summary: Eliminar conta de utilizador (soft delete)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_account
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Conta eliminada }
+        '404': { description: Utilizador não encontrado }
+
+  /api.ecommerce/v1/products/categories/register-category:
+    post:
+      tags: [Categories]
+      summary: Criar categoria (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, example: Suplementos }
+                description: { type: string, example: "Categoria de suplementos desportivos" }
+      responses:
+        '201': { description: Categoria criada }
+        '409': { description: Categoria já existe }
+
+  /api.ecommerce/v1/products/categories/get-all-categories:
+    get:
+      tags: [Categories]
+      summary: Listar todas as categorias
+      responses:
+        '200': { description: Lista de categorias }
+
+  /api.ecommerce/v1/products/categories/delete-all-categories:
+    delete:
+      tags: [Categories]
+      summary: Eliminar todas as categorias (Admin)
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Todas as categorias eliminadas }
+
+  /api.ecommerce/v1/products/categories/{id_category}:
+    get:
+      tags: [Categories]
+      summary: Obter categoria por id
+      parameters:
+        - in: path
+          name: id_category
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados da categoria }
+        '404': { description: Categoria não encontrada }
+
+  /api.ecommerce/v1/products/categories/edit-category/{id_category}:
+    patch:
+      tags: [Categories]
+      summary: Editar categoria (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_category
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                description: { type: string }
+      responses:
+        '200': { description: Categoria actualizada }
+
+  /api.ecommerce/v1/products/categories/delete-category/{id_category}:
+    delete:
+      tags: [Categories]
+      summary: Eliminar categoria (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_category
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Categoria eliminada }
+
+  # ── GENERAL PRODUCTS (paths do Insomnia) ──────────────────────────────────
+  /api.ecommerce/v1/products/register-product:
+    post:
+      tags: [Products]
+      summary: Criar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [name, description, additional_info, price, weight, id_category_fk, id_brand_fk]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                additional_info: { type: string }
+                price: { type: number, example: 25000 }
+                weight: { type: number, example: 0.5 }
+                id_category_fk: { type: integer }
+                id_brand_fk: { type: integer }
+                id_tags: { type: string, description: "IDs separados por vírgula ou array" }
+                is_featured: { type: boolean }
+                color: { type: string }
+                size: { type: string }
+                stock: { type: integer, example: 1000 }
+                ProductImages:
+                  type: array
+                  items: { type: string, format: binary }
+      responses:
+        '201': { description: Produto criado }
+        '400': { description: Dados inválidos }
+        '409': { description: Produto já existe }
+
+  /api.ecommerce/v1/products/get-all-products:
+    get:
+      tags: [Products]
+      summary: Listar todos os produtos (paginado)
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Lista de produtos }
+
+  /api.ecommerce/v1/products/get-product/{id_product}:
+    get:
+      tags: [Products]
+      summary: Obter produto por id (incrementa views_count)
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados completos do produto }
+        '404': { description: Produto não encontrado }
+
+  /api.ecommerce/v1/products/edit-product/{id_product}:
+    patch:
+      tags: [Products]
+      summary: Editar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                description: { type: string }
+                price: { type: number }
+                available: { type: boolean }
+                is_featured: { type: boolean }
+                weight: { type: number }
+      responses:
+        '200': { description: Produto actualizado }
+        '404': { description: Produto não encontrado }
+
+  /api.ecommerce/v1/products/delete-product/{id_product}:
+    delete:
+      tags: [Products]
+      summary: Eliminar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Produto eliminado }
+        '404': { description: Produto não encontrado }
+
+  # ── REVIEWS ───────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/products/reviews/register-review:
+    post:
+      tags: [Reviews]
+      summary: Registar avaliação de produto (Autenticado)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_product_fk, rating]
+              properties:
+                id_product_fk: { type: integer, example: 1 }
+                rating: { type: integer, minimum: 1, maximum: 5, example: 4 }
+                comment: { type: string, example: "Bom produto, chegou rápido!" }
+                id_order_item_fk: { type: integer, description: "Opcional — liga a review ao item comprado" }
+      responses:
+        '201': { description: Review registada }
+        '400': { description: Rating inválido }
+        '409': { description: Já avaliou este produto }
+
+  /api.ecommerce/v1/products/reviews/get-all-reviews/{id_product}:
+    get:
+      tags: [Reviews]
+      summary: Listar avaliações de um produto
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Lista de avaliações com média }
+        '404': { description: Produto não encontrado }
+
+  # ── CART (paths do Insomnia) ───────────────────────────────────────────────
+  /api.ecommerce/v1/carts/register-cart-items:
+    post:
+      tags: [Cart]
+      summary: Criar ou adicionar items ao carrinho (guest ou autenticado)
+      description: |
+        Para utilizador guest envia `id_guest_cart`.
+        Para utilizador autenticado, o `id_user_fk` é extraído do token JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_guest_cart:
+                  type: string
+                  description: UUID do carrinho guest
+                  example: "41216da5-07db-4558-a111-373377bd49c8"
+                cartItems:
+                  type: array
+                  items:
+                    type: object
+                    required: [id_variant_fk, quantity, price]
+                    properties:
+                      id_variant_fk: { type: integer, example: 1 }
+                      quantity: { type: integer, example: 3 }
+                      price: { type: number, example: 1000 }
+      responses:
+        '201': { description: Carrinho criado/actualizado }
+        '400': { description: Stock insuficiente }
+
+  /api.ecommerce/v1/carts/get-cart-items/{id_user}:
+    get:
+      tags: [Cart]
+      summary: Obter carrinho de um utilizador
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_user
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Itens do carrinho }
+        '404': { description: Carrinho não encontrado }
+
+  /api.ecommerce/v1/carts/edit-cart-items/{id_user}:
+    put:
+      tags: [Cart]
+      summary: Actualizar quantidade de item no carrinho
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_user
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [quantity]
+              properties:
+                quantity: { type: integer, minimum: 1, example: 2 }
+      responses:
+        '200': { description: Item actualizado }
+
+  /api.ecommerce/v1/carts/delete-cart-items/{id_user}:
+    delete:
+      tags: [Cart]
+      summary: Remover item específico do carrinho
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_user
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Item removido }
+
+  /api.ecommerce/v1/carts/delete-all-cart-items/{id_user}:
+    delete:
+      tags: [Cart]
+      summary: Limpar todos os items do carrinho
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_user
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Carrinho limpo }
+
+  # ── ORDERS (paths do Insomnia) ─────────────────────────────────────────────
+  /api.ecommerce/v1/orders/register-order:
+    post:
+      tags: [Orders]
+      summary: Criar pedido a partir do carrinho
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [payment_method, shipping_street, shipping_city, shipping_province, shipping_country]
+              properties:
+                payment_method:
+                  type: string
+                  enum: [cash, card, transfer, paypal, stripe]
+                shipping_street: { type: string }
+                shipping_city: { type: string }
+                shipping_province: { type: string }
+                shipping_country: { type: string, default: Angola }
+                shipping_phone_number: { type: string }
+      responses:
+        '201': { description: Pedido criado }
+        '400': { description: Carrinho vazio ou stock insuficiente }
+
+  /api.ecommerce/v1/orders/set-order-status/{id_user}:
+    put:
+      tags: [Orders]
+      summary: Actualizar status do pedido (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_user
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status, id_user]
+              properties:
+                status:
+                  type: string
+                  enum: [completed, cancelled, failed]
+                id_user: { type: string }
+      responses:
+        '200': { description: Status actualizado }
+        '400': { description: Transição inválida }
+        '404': { description: Pedido não encontrado }
+
+    get:
+      tags: [Products]
+      summary: Lista todos os produtos (paginado)
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      meta: { $ref: '#/components/schemas/PaginationMeta' }
+    post:
+      tags: [Products]
+      summary: Criar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [name, description, additional_info, price, weight, id_category_fk, id_brand_fk, id_tags]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                additional_info: { type: string }
+                price: { type: number }
+                weight: { type: number }
+                id_category_fk: { type: integer }
+                id_brand_fk: { type: integer }
+                id_tags: { type: array, items: { type: integer } }
+                is_featured: { type: boolean }
+                color: { type: string }
+                size: { type: string }
+                stock: { type: integer }
+                ProductImages:
+                  type: array
+                  items: { type: string, format: binary }
+      responses:
+        '201': { description: Produto criado }
+        '400': { description: Dados inválidos }
+        '409': { description: Produto já existe }
+
+  /api.ecommerce/v1/products/{id_product}:
+    get:
+      tags: [Products]
+      summary: Obter produto por id
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados do produto }
+        '404': { description: Produto não encontrado }
+    patch:
+      tags: [Products]
+      summary: Editar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                description: { type: string }
+                price: { type: number }
+                available: { type: boolean }
+                is_featured: { type: boolean }
+      responses:
+        '200': { description: Produto actualizado }
+        '404': { description: Produto não encontrado }
+    delete:
+      tags: [Products]
+      summary: Eliminar produto (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Produto eliminado }
+        '404': { description: Produto não encontrado }
+
+  /api.ecommerce/v1/products/featured:
+    get:
+      tags: [Products]
+      summary: Produtos em destaque
+      responses:
+        '200': { description: Lista de produtos em destaque }
+
+  # ── CATEGORIES ────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/products/categories:
+    get:
+      tags: [Categories]
+      summary: Listar todas as categorias
+      responses:
+        '200': { description: Lista de categorias }
+    post:
+      tags: [Categories]
+      summary: Criar categoria (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+      responses:
+        '201': { description: Categoria criada }
+        '409': { description: Categoria já existe }
+    delete:
+      tags: [Categories]
+      summary: Eliminar todas as categorias (Admin)
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Categorias eliminadas }
+
+  # ── BRANDS ────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/products/brands:
+    get:
+      tags: [Brands]
+      summary: Listar todas as marcas
+      responses:
+        '200': { description: Lista de marcas }
+    post:
+      tags: [Brands]
+      summary: Criar marca (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+      responses:
+        '201': { description: Marca criada }
+
+  /api.ecommerce/v1/products/brands/{id_brand}:
+    get:
+      tags: [Brands]
+      summary: Obter marca por id
+      parameters:
+        - in: path
+          name: id_brand
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados da marca }
+        '404': { description: Marca não encontrada }
+    patch:
+      tags: [Brands]
+      summary: Editar marca (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_brand
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+      responses:
+        '200': { description: Marca actualizada }
+    delete:
+      tags: [Brands]
+      summary: Eliminar marca (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_brand
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Marca eliminada }
+
+  # ── TAGS ──────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/products/tags:
+    get:
+      tags: [Tags]
+      summary: Listar todas as tags
+      responses:
+        '200': { description: Lista de tags }
+    post:
+      tags: [Tags]
+      summary: Criar tag (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tag]
+              properties:
+                tag: { type: string }
+      responses:
+        '201': { description: Tag criada }
+
+  /api.ecommerce/v1/products/tags/{id_tag}:
+    delete:
+      tags: [Tags]
+      summary: Eliminar tag (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_tag
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Tag eliminada }
+
+  # ── VARIANTS ──────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/products/variants:
+    post:
+      tags: [Variants]
+      summary: Criar variante de produto (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_product_fk, sku, price]
+              properties:
+                id_product_fk: { type: integer }
+                sku: { type: string }
+                color: { type: string }
+                size: { type: string }
+                stock: { type: integer }
+                price: { type: number }
+      responses:
+        '201': { description: Variante criada }
+        '400': { description: Dados inválidos }
+
+  /api.ecommerce/v1/products/variants/product/{id_product}:
+    get:
+      tags: [Variants]
+      summary: Listar variantes de um produto
+      parameters:
+        - in: path
+          name: id_product
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Lista de variantes }
+        '404': { description: Produto não encontrado }
+
+  /api.ecommerce/v1/products/variants/{id_variant}:
+    get:
+      tags: [Variants]
+      summary: Obter variante por id
+      parameters:
+        - in: path
+          name: id_variant
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados da variante }
+        '404': { description: Variante não encontrada }
+
+  /api.ecommerce/v1/products/variants/{id_variant}/stock:
+    patch:
+      tags: [Variants]
+      summary: Actualizar stock de variante (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_variant
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [stock]
+              properties:
+                stock: { type: integer, minimum: 0 }
+      responses:
+        '200': { description: Stock actualizado }
+        '404': { description: Variante não encontrada }
+
+  # ── CART ──────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/carts:
+    post:
+      tags: [Cart]
+      summary: Criar/adicionar ao carrinho
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cartItems:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id_variant_fk: { type: integer }
+                      quantity: { type: integer }
+      responses:
+        '201': { description: Carrinho criado/actualizado }
+    get:
+      tags: [Cart]
+      summary: Obter carrinho do utilizador autenticado
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Dados do carrinho }
+        '404': { description: Carrinho não encontrado }
+
+  /api.ecommerce/v1/carts/{id_cart_item}:
+    patch:
+      tags: [Cart]
+      summary: Actualizar quantidade de item no carrinho
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_cart_item
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [quantity]
+              properties:
+                quantity: { type: integer, minimum: 1 }
+      responses:
+        '200': { description: Item actualizado }
+    delete:
+      tags: [Cart]
+      summary: Remover item do carrinho
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_cart_item
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Item removido }
+
+  # ── ORDERS ────────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/orders:
+    post:
+      tags: [Orders]
+      summary: Criar pedido a partir do carrinho
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [payment_method, shipping_street, shipping_city, shipping_province, shipping_country]
+              properties:
+                payment_method:
+                  type: string
+                  enum: [cash, card, transfer, paypal, stripe]
+                shipping_street: { type: string }
+                shipping_city: { type: string }
+                shipping_province: { type: string }
+                shipping_country: { type: string }
+                shipping_phone_number: { type: string }
+      responses:
+        '201': { description: Pedido criado }
+        '400': { description: Carrinho vazio ou stock insuficiente }
+    get:
+      tags: [Orders]
+      summary: Listar pedidos do utilizador autenticado
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Lista de pedidos }
+
+  /api.ecommerce/v1/orders/{id_order}:
+    get:
+      tags: [Orders]
+      summary: Obter pedido por id
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_order
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados do pedido }
+        '404': { description: Pedido não encontrado }
+
+  /api.ecommerce/v1/orders/{id_order}/status:
+    patch:
+      tags: [Orders]
+      summary: Actualizar status do pedido (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_order
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [completed, cancelled, failed]
+      responses:
+        '200': { description: Status actualizado }
+        '400': { description: Transição inválida }
+
+  # ── PAYMENTS ──────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/payments/stripe/intent:
+    post:
+      tags: [Payments]
+      summary: Criar Stripe Payment Intent
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_order]
+              properties:
+                id_order: { type: integer }
+                currency: { type: string, default: aoa }
+      responses:
+        '200':
+          description: Payment Intent criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret: { type: string }
+                  payment_id: { type: string }
+        '404': { description: Pedido não encontrado }
+
+  /api.ecommerce/v1/payments/stripe/webhook:
+    post:
+      tags: [Payments]
+      summary: Webhook Stripe (uso interno)
+      description: Endpoint chamado pelo Stripe. Valida assinatura e processa payment_intent.succeeded, payment_intent.payment_failed, payment_intent.canceled.
+      responses:
+        '200': { description: Webhook processado }
+        '400': { description: Assinatura inválida }
+
+  # ── SHIPMENTS ─────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/shipments:
+    get:
+      tags: [Shipments]
+      summary: Listar todos os envios (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Lista de envios }
+    post:
+      tags: [Shipments]
+      summary: Registar envio (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tracking_code, id_order_fk, status]
+              properties:
+                tracking_code: { type: string }
+                carrier: { type: string }
+                id_order_fk: { type: integer }
+                status:
+                  type: string
+                  enum: [pending, processing, shipped, delivered, cancelled]
+                estimated_delivery: { type: string, format: date-time }
+                shipped_at: { type: string, format: date-time }
+                delivered_at: { type: string, format: date-time }
+      responses:
+        '201': { description: Envio registado }
+        '400': { description: Dados inválidos ou pedido não pago }
+
+  /api.ecommerce/v1/shipments/find:
+    get:
+      tags: [Shipments]
+      summary: Buscar envio por id ou tracking code
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: id
+          schema: { type: string }
+        - in: query
+          name: code
+          schema: { type: string }
+      responses:
+        '200': { description: Dados do envio }
+        '404': { description: Envio não encontrado }
+
+  /api.ecommerce/v1/shipments/order/{id_order}:
+    get:
+      tags: [Shipments]
+      summary: Buscar envio pelo id do pedido
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_order
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Dados do envio }
+        '404': { description: Envio não encontrado }
+
+  /api.ecommerce/v1/shipments/{id_shipment}/status:
+    patch:
+      tags: [Shipments]
+      summary: Actualizar status do envio (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_shipment
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [processing, shipped, delivered, cancelled]
+      responses:
+        '200': { description: Status actualizado }
+        '400': { description: Transição de estado inválida }
+        '404': { description: Envio não encontrado }
+
+  # ── COUPONS ───────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/coupons:
+    get:
+      tags: [Coupons]
+      summary: Listar todos os cupões (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Lista de cupões }
+    post:
+      tags: [Coupons]
+      summary: Criar cupão (Admin)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, discount_type, discount_value]
+              properties:
+                code: { type: string }
+                description: { type: string }
+                discount_type:
+                  type: string
+                  enum: [percentage, fixed]
+                discount_value: { type: number }
+                minimum_amount: { type: number }
+                usage_limit: { type: integer }
+                starts_at: { type: string, format: date-time }
+                expires_at: { type: string, format: date-time }
+      responses:
+        '201': { description: Cupão criado }
+        '409': { description: Código já existe }
+
+  /api.ecommerce/v1/coupons/find:
+    get:
+      tags: [Coupons]
+      summary: Buscar cupão por código (Autenticado)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: code
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Dados do cupão }
+        '404': { description: Cupão não encontrado }
+
+  /api.ecommerce/v1/coupons/apply:
+    post:
+      tags: [Coupons]
+      summary: Aplicar cupão a um pedido (Autenticado)
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, id_order_fk, order_total]
+              properties:
+                code: { type: string }
+                id_order_fk: { type: integer }
+                order_total: { type: number }
+      responses:
+        '200': { description: Cupão aplicado com desconto calculado }
+        '400': { description: Cupão inválido, expirado ou já utilizado }
+
+  /api.ecommerce/v1/coupons/{id_coupon}:
+    get:
+      tags: [Coupons]
+      summary: Obter cupão por id (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_coupon
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Dados do cupão }
+        '404': { description: Cupão não encontrado }
+    patch:
+      tags: [Coupons]
+      summary: Editar cupão (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_coupon
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Coupon'
+      responses:
+        '200': { description: Cupão actualizado }
+    delete:
+      tags: [Coupons]
+      summary: Eliminar cupão — soft delete (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_coupon
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Cupão removido }
+
+  # ── WISHLIST ──────────────────────────────────────────────────────────────
+  /api.ecommerce/v1/wishlist:
+    get:
+      tags: [Wishlist]
+      summary: Obter wishlist do utilizador autenticado
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 10 }
+      responses:
+        '200': { description: Wishlist paginada }
+    post:
+      tags: [Wishlist]
+      summary: Adicionar produto à wishlist
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_product_fk]
+              properties:
+                id_product_fk: { type: integer }
+      responses:
+        '201': { description: Produto adicionado }
+        '409': { description: Produto já está na wishlist }
+
+  /api.ecommerce/v1/wishlist/clear:
+    delete:
+      tags: [Wishlist]
+      summary: Limpar wishlist inteira
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Wishlist limpa }
+
+  /api.ecommerce/v1/wishlist/{id_product_fk}:
+    delete:
+      tags: [Wishlist]
+      summary: Remover produto específico da wishlist
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_product_fk
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Produto removido }
+        '404': { description: Produto não está na wishlist }
+
+  # ── SYSTEM LOGS ───────────────────────────────────────────────────────────
+  /api.ecommerce/v1/system-logs:
+    get:
+      tags: [SystemLogs]
+      summary: Listar todos os logs (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 20, maximum: 100 }
+        - in: query
+          name: id_account_fk
+          schema: { type: string }
+        - in: query
+          name: action
+          schema: { type: string }
+        - in: query
+          name: ip_address
+          schema: { type: string }
+        - in: query
+          name: from
+          schema: { type: string, format: date }
+        - in: query
+          name: to
+          schema: { type: string, format: date }
+      responses:
+        '200': { description: Lista de logs com paginação }
+
+  /api.ecommerce/v1/system-logs/me:
+    get:
+      tags: [SystemLogs]
+      summary: Logs do utilizador autenticado
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 20 }
+      responses:
+        '200': { description: Logs da própria conta }
+
+  /api.ecommerce/v1/system-logs/account/{id_account}:
+    get:
+      tags: [SystemLogs]
+      summary: Logs de uma conta específica (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_account
+          required: true
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 20 }
+      responses:
+        '200': { description: Logs da conta }
+        '404': { description: Conta não encontrada }
+    delete:
+      tags: [SystemLogs]
+      summary: Eliminar logs de uma conta — GDPR (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id_account
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Logs da conta eliminados }
+
+  /api.ecommerce/v1/system-logs/purge:
+    delete:
+      tags: [SystemLogs]
+      summary: Purge de logs por retenção (Admin)
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: days
+          required: true
+          schema: { type: integer, minimum: 7 }
+          description: Elimina logs mais antigos que N dias (mínimo 7)
+      responses:
+        '200': { description: Logs eliminados com contagem }
+        '400': { description: Retenção mínima não respeitada }
+
+  /api.ecommerce/v1/system-logs/all:
+    delete:
+      tags: [SystemLogs]
+      summary: Eliminar todos os logs — operação nuclear (Admin)
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200': { description: Todos os logs eliminados }

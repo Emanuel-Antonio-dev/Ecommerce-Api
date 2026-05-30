@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { prismaService } from "../../lib/prisma.service"
 import { ValidateOtpCodeService } from "../../Services/Auth/Authentication/2FA/validate-otp-code.service"
-import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
 
 const repository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)

@@ -2472,6 +2472,7 @@ export const AccountsScalarFieldEnum = {
   email: 'email',
   password: 'password',
   verified: 'verified',
+  verified_at: 'verified_at',
   provider: 'provider',
   provider_id: 'provider_id',
   is_active: 'is_active',
@@ -2491,6 +2492,7 @@ export const AuthenticationsScalarFieldEnum = {
   temp_email: 'temp_email',
   temp_phone_number: 'temp_phone_number',
   id_account_fk: 'id_account_fk',
+  context: 'context',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -2925,20 +2927,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Providers'
- */
-export type EnumProvidersFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Providers'>
-    
-
-
-/**
- * Reference to a field of type 'Providers[]'
- */
-export type ListEnumProvidersFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Providers[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2953,6 +2941,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Providers'
+ */
+export type EnumProvidersFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Providers'>
+    
+
+
+/**
+ * Reference to a field of type 'Providers[]'
+ */
+export type ListEnumProvidersFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Providers[]'>
+    
+
+
+/**
  * Reference to a field of type 'AuthenticationsTypes'
  */
 export type EnumAuthenticationsTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthenticationsTypes'>
@@ -2963,6 +2965,20 @@ export type EnumAuthenticationsTypesFieldRefInput<$PrismaModel> = FieldRefInputT
  * Reference to a field of type 'AuthenticationsTypes[]'
  */
 export type ListEnumAuthenticationsTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthenticationsTypes[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AuthContext'
+ */
+export type EnumAuthContextFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthContext'>
+    
+
+
+/**
+ * Reference to a field of type 'AuthContext[]'
+ */
+export type ListEnumAuthContextFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthContext[]'>
     
 
 

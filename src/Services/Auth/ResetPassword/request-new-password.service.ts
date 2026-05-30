@@ -34,7 +34,8 @@ class RequestNewPasswordService
                     type:"by_token",
                     used:false,
                     expireIn: new Date(Date.now() + 3600000),
-                    id_account_fk: existsAccount.id_account
+                    id_account_fk: existsAccount.id_account,
+                    context: "password_reset"
                 }, tx)
                 if (!authentication)
                 {

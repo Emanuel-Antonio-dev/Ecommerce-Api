@@ -29,6 +29,7 @@ export type AccountsMinAggregateOutputType = {
   email: string | null
   password: string | null
   verified: boolean | null
+  verified_at: Date | null
   provider: $Enums.Providers | null
   provider_id: string | null
   is_active: boolean | null
@@ -42,6 +43,7 @@ export type AccountsMaxAggregateOutputType = {
   email: string | null
   password: string | null
   verified: boolean | null
+  verified_at: Date | null
   provider: $Enums.Providers | null
   provider_id: string | null
   is_active: boolean | null
@@ -55,6 +57,7 @@ export type AccountsCountAggregateOutputType = {
   email: number
   password: number
   verified: number
+  verified_at: number
   provider: number
   provider_id: number
   is_active: number
@@ -70,6 +73,7 @@ export type AccountsMinAggregateInputType = {
   email?: true
   password?: true
   verified?: true
+  verified_at?: true
   provider?: true
   provider_id?: true
   is_active?: true
@@ -83,6 +87,7 @@ export type AccountsMaxAggregateInputType = {
   email?: true
   password?: true
   verified?: true
+  verified_at?: true
   provider?: true
   provider_id?: true
   is_active?: true
@@ -96,6 +101,7 @@ export type AccountsCountAggregateInputType = {
   email?: true
   password?: true
   verified?: true
+  verified_at?: true
   provider?: true
   provider_id?: true
   is_active?: true
@@ -182,6 +188,7 @@ export type AccountsGroupByOutputType = {
   email: string
   password: string | null
   verified: boolean
+  verified_at: Date | null
   provider: $Enums.Providers
   provider_id: string | null
   is_active: boolean
@@ -216,6 +223,7 @@ export type AccountsWhereInput = {
   email?: Prisma.StringFilter<"Accounts"> | string
   password?: Prisma.StringNullableFilter<"Accounts"> | string | null
   verified?: Prisma.BoolFilter<"Accounts"> | boolean
+  verified_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
   provider?: Prisma.EnumProvidersFilter<"Accounts"> | $Enums.Providers
   provider_id?: Prisma.StringNullableFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolFilter<"Accounts"> | boolean
@@ -232,6 +240,7 @@ export type AccountsOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   verified?: Prisma.SortOrder
+  verified_at?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
   provider_id?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
@@ -251,6 +260,7 @@ export type AccountsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AccountsWhereInput | Prisma.AccountsWhereInput[]
   password?: Prisma.StringNullableFilter<"Accounts"> | string | null
   verified?: Prisma.BoolFilter<"Accounts"> | boolean
+  verified_at?: Prisma.DateTimeNullableFilter<"Accounts"> | Date | string | null
   provider?: Prisma.EnumProvidersFilter<"Accounts"> | $Enums.Providers
   provider_id?: Prisma.StringNullableFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolFilter<"Accounts"> | boolean
@@ -267,6 +277,7 @@ export type AccountsOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   verified?: Prisma.SortOrder
+  verified_at?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
   provider_id?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
@@ -286,6 +297,7 @@ export type AccountsScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Accounts"> | string
   password?: Prisma.StringNullableWithAggregatesFilter<"Accounts"> | string | null
   verified?: Prisma.BoolWithAggregatesFilter<"Accounts"> | boolean
+  verified_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Accounts"> | Date | string | null
   provider?: Prisma.EnumProvidersWithAggregatesFilter<"Accounts"> | $Enums.Providers
   provider_id?: Prisma.StringNullableWithAggregatesFilter<"Accounts"> | string | null
   is_active?: Prisma.BoolWithAggregatesFilter<"Accounts"> | boolean
@@ -299,6 +311,7 @@ export type AccountsCreateInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -315,6 +328,7 @@ export type AccountsUncheckedCreateInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -331,6 +345,7 @@ export type AccountsUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -347,6 +362,7 @@ export type AccountsUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -363,6 +379,7 @@ export type AccountsCreateManyInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -376,6 +393,7 @@ export type AccountsUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -389,6 +407,7 @@ export type AccountsUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -402,6 +421,7 @@ export type AccountsCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  verified_at?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
@@ -415,6 +435,7 @@ export type AccountsMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  verified_at?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
@@ -428,6 +449,7 @@ export type AccountsMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  verified_at?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   provider_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
@@ -458,12 +480,12 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type EnumProvidersFieldUpdateOperationsInput = {
-  set?: $Enums.Providers
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type EnumProvidersFieldUpdateOperationsInput = {
+  set?: $Enums.Providers
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -519,6 +541,7 @@ export type AccountsCreateWithoutAuthentication_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -534,6 +557,7 @@ export type AccountsUncheckedCreateWithoutAuthentication_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -565,6 +589,7 @@ export type AccountsUpdateWithoutAuthentication_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -580,6 +605,7 @@ export type AccountsUncheckedUpdateWithoutAuthentication_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -595,6 +621,7 @@ export type AccountsCreateWithoutUser_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -610,6 +637,7 @@ export type AccountsUncheckedCreateWithoutUser_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -641,6 +669,7 @@ export type AccountsUpdateWithoutUser_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -656,6 +685,7 @@ export type AccountsUncheckedUpdateWithoutUser_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -671,6 +701,7 @@ export type AccountsCreateWithoutAccount_logs_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -686,6 +717,7 @@ export type AccountsUncheckedCreateWithoutAccount_logs_detailsInput = {
   email: string
   password?: string | null
   verified?: boolean
+  verified_at?: Date | string | null
   provider?: $Enums.Providers
   provider_id?: string | null
   is_active?: boolean
@@ -717,6 +749,7 @@ export type AccountsUpdateWithoutAccount_logs_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -732,6 +765,7 @@ export type AccountsUncheckedUpdateWithoutAccount_logs_detailsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verified_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   provider?: Prisma.EnumProvidersFieldUpdateOperationsInput | $Enums.Providers
   provider_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -787,6 +821,7 @@ export type AccountsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   password?: boolean
   verified?: boolean
+  verified_at?: boolean
   provider?: boolean
   provider_id?: boolean
   is_active?: boolean
@@ -804,6 +839,7 @@ export type AccountsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   verified?: boolean
+  verified_at?: boolean
   provider?: boolean
   provider_id?: boolean
   is_active?: boolean
@@ -817,6 +853,7 @@ export type AccountsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   verified?: boolean
+  verified_at?: boolean
   provider?: boolean
   provider_id?: boolean
   is_active?: boolean
@@ -830,6 +867,7 @@ export type AccountsSelectScalar = {
   email?: boolean
   password?: boolean
   verified?: boolean
+  verified_at?: boolean
   provider?: boolean
   provider_id?: boolean
   is_active?: boolean
@@ -838,7 +876,7 @@ export type AccountsSelectScalar = {
   updated_at?: boolean
 }
 
-export type AccountsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_account" | "email" | "password" | "verified" | "provider" | "provider_id" | "is_active" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["accounts"]>
+export type AccountsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_account" | "email" | "password" | "verified" | "verified_at" | "provider" | "provider_id" | "is_active" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["accounts"]>
 export type AccountsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authentication_details?: boolean | Prisma.Accounts$authentication_detailsArgs<ExtArgs>
   account_logs_details?: boolean | Prisma.Accounts$account_logs_detailsArgs<ExtArgs>
@@ -860,6 +898,7 @@ export type $AccountsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     email: string
     password: string | null
     verified: boolean
+    verified_at: Date | null
     provider: $Enums.Providers
     provider_id: string | null
     is_active: boolean
@@ -1296,6 +1335,7 @@ export interface AccountsFieldRefs {
   readonly email: Prisma.FieldRef<"Accounts", 'String'>
   readonly password: Prisma.FieldRef<"Accounts", 'String'>
   readonly verified: Prisma.FieldRef<"Accounts", 'Boolean'>
+  readonly verified_at: Prisma.FieldRef<"Accounts", 'DateTime'>
   readonly provider: Prisma.FieldRef<"Accounts", 'Providers'>
   readonly provider_id: Prisma.FieldRef<"Accounts", 'String'>
   readonly is_active: Prisma.FieldRef<"Accounts", 'Boolean'>
