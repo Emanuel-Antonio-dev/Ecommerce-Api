@@ -25,3 +25,53 @@ export function buildPagination(params: PaginationParams): {
 }
 
 export const COUPON_CODE_REGEX = /^[A-Z0-9_-]{3,30}$/;
+const ADMIN_DEFAULT_LIMIT = 50;
+const ADMIN_MAX_LIMIT     = 100;
+
+interface AdminPagination {
+  take: number;
+  skip: number;
+  page: number;
+}
+
+function buildAdminPagination(page?: number, limit?: number): AdminPagination {
+  const safePage  = page  && page  > 0 ? page  : 1;
+  const safeLimit = limit && limit > 0
+    ? Math.min(limit, ADMIN_MAX_LIMIT)
+    : ADMIN_DEFAULT_LIMIT;
+
+  return {
+    take: safeLimit,
+    skip: (safePage - 1) * safeLimit,
+    page: safePage,
+  };
+}
+
+function buildAdminMeta(total: number, pagination: AdminPagination, returned: number) {
+  return {
+    page:        pagination.page,
+    limit:       pagination.take,
+    returned,
+    totalItems:  total,
+    totalPages:  Math.ceil(total / pagination.take),
+  };
+}
+
+// valida intervalo de datas — janela máxima de 180 dias
+function validateDateRange(from?: string | Date, to?: string | Date): void {
+  if (!from && !to) return;
+
+  const f = from ? new Date(from) : null;
+  const t = to   ? new Date(to)   : null;
+
+  if (f && isNaN(f.getTime())) throw new Error("Data 'from' inválida");
+  if (t && isNaN(t.getTime())) throw new Error("Data 'to' inválida");
+  if (f && t && t < f)         throw new Error("'to' não pode ser anterior a 'from'");
+
+  if (f && t) {
+    const days = (t.getTime() - f.getTime()) / (1000 * 60 * 60 * 24);
+    if (days > 180) throw new Error("Intervalo máximo de consulta: 180 dias");
+  }
+}
+
+export { buildAdminPagination, buildAdminMeta, validateDateRange, ADMIN_DEFAULT_LIMIT, ADMIN_MAX_LIMIT };

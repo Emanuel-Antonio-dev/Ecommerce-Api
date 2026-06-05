@@ -31,8 +31,6 @@ export function csrfProtection(
   }
 
   const origin = req.header("Origin")
-  console.log("Origin:", origin, "Path:", req.path, "Method:", req.method)
-
   // Se existe Origin, valida
   if (origin && !allowedOrigins.includes(origin)) {
     return res.status(403).json({

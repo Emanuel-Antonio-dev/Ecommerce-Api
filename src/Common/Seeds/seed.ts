@@ -507,8 +507,8 @@ async function main() {
 
       console.log("\n✅ Seed concluído com sucesso!");
       console.log("─────────────────────────────────────────");
-      console.log(`   👤 Admin:   admin@ecommerce.ao`);
-      console.log(`   👤 Cliente: joao@exemplo.ao`);
+      console.log(`   👤 Admin:   admin@gmail.com`);
+      console.log(`   👤 Cliente: teste@gmail.com`);
       console.log(`   📦 ${createdProducts.length} produtos criados`);
       console.log(`   🏷️  ${BRANDS.length} marcas | 📂 ${CATEGORIES.length} categorias`);
       console.log(`   🎟️  2 cupões activos`);
