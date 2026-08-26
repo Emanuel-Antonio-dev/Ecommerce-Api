@@ -23,7 +23,7 @@
   "main": "server.ts",
   "scripts": {
     "start:prod": "node ./dist/src/server.js",
-    "db:seed": "node ./dist/src/Common/Seeds/seed.js",
+    "seed": "node ./dist/src/Common/Seeds/seed.js",
     "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
     "test": "jest --runInBand"

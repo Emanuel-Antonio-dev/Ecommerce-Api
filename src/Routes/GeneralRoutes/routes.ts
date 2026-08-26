@@ -22,6 +22,15 @@ import { authorizeRoles } from "../../Common/Middlewares/Authorization/authorize
 const generalRoute = Router();
 const FRONT_URL = process.env.REDIRECT_URI as string;
 
+// Limiters dedicados por sensibilidade (mensagem, janela em min, máx. pedidos)
+const signupLimiter = limiterMiddleware("Muitas tentativas de registo. Tente novamente mais tarde.", 15, 5);
+const signinLimiter = limiterMiddleware("Por motivos de segurança, bloqueamos temporariamente a sua sessão. Tente novamente dentro de 2 minutos.", 2, 5);
+const refreshLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 5, 10);
+const passwordRequestLimiter = limiterMiddleware("Muitos pedidos. Tente novamente mais tarde.", 15, 3);
+const passwordResetLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 15, 5);
+const otpSendLimiter = limiterMiddleware("Muitos pedidos de código. Tente novamente mais tarde.", 5, 3);
+const otpVerifyLimiter = limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.", 2, 3);
+
 generalRoute.get("/health", (_req: Request, res: Response) => {
   return res.json({
     status: "OK",
@@ -31,22 +40,40 @@ generalRoute.get("/health", (_req: Request, res: Response) => {
   });
 });
 
-generalRoute.get("/auth/me",MiddlewareAuthorization.authorization,(req, res) => MeController.getCurrentUser(req, res));
-generalRoute.post("/auth/signup", (req, res) =>RegisterUsersController.register(req, res));
-generalRoute.post("/auth/signin",limiterMiddleware("Por motivos de segurança, bloqueamos temporariamente a sua sessão. Tente novamente dentro de 2 minutos"),(req, res) => SignInController.signIn(req, res));
-generalRoute.post("/auth/refreshToken", (req, res) =>RefreshTokenController.newAcessToken(req, res));
-generalRoute.post("/auth/logout", (req, res) =>LogoutController.logout(req, res));
-generalRoute.post("/auth/password/request", (req, res) =>RequestPasswordController.requestPassword(req, res));
-generalRoute.put("/auth/password/reset", (req, res) =>ResetPasswordController.resetPassword(req, res));
-generalRoute.post("/auth/otp/send", (req, res) =>SendOtpCodeController.send(req, res));
-generalRoute.post("/auth/otp/verify-code",limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.", 2, 3),(req, res) => ValidateOtpCodeController.validate(req, res));
-generalRoute.get("/auth/google/signin",passport.authenticate("google", { scope: ["profile", "email"] }));
-generalRoute.get("/auth/google/callback",passport.authenticate("google", {session: false,failureRedirect: `${FRONT_URL}/login?error=google_oauth_failed`}),oauthRedirect);
-generalRoute.get("/auth/facebook/signin",passport.authenticate("facebook", { scope: ["email"] }));
-generalRoute.get("/auth/facebook/callback",passport.authenticate("facebook", {session: false,failureRedirect: `${FRONT_URL}/login?error=facebook_oauth_failed`}),oauthRedirect);
+generalRoute.get("/auth/me", MiddlewareAuthorization.authorization, (req, res) => MeController.getCurrentUser(req, res));
 
-generalRoute.route("/users/:id_user").get(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersProfileController.profile(req, res)})
-generalRoute.route("/users/:id_user").patch(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersEditProfileController.edit(req, res)})
-generalRoute.route("/users/:id_user").delete(MiddlewareAuthorization.authorization,authorizeRoles("admin", "client"),(req: Request, res: Response) =>{UsersDeleteProfileController.delete(req, res)})
+generalRoute.post("/auth/signup", signupLimiter, (req, res) => RegisterUsersController.register(req, res));
+generalRoute.post("/auth/signin", signinLimiter, (req, res) => SignInController.signIn(req, res));
+generalRoute.post("/auth/refreshToken", refreshLimiter, (req, res) => RefreshTokenController.newAcessToken(req, res));
+generalRoute.post("/auth/logout", (req, res) => LogoutController.logout(req, res));
+generalRoute.post("/auth/password/request", passwordRequestLimiter, (req, res) => RequestPasswordController.requestPassword(req, res));
+generalRoute.put("/auth/password/reset", passwordResetLimiter, (req, res) => ResetPasswordController.resetPassword(req, res));
+generalRoute.post("/auth/otp/send", otpSendLimiter, (req, res) => SendOtpCodeController.send(req, res));
+generalRoute.post("/auth/otp/verify-code", otpVerifyLimiter, (req, res) => ValidateOtpCodeController.validate(req, res));
 
-export{generalRoute}
+generalRoute.get("/auth/google/signin", passport.authenticate("google", { scope: ["profile", "email"] }));
+generalRoute.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { session: false, failureRedirect: `${FRONT_URL}/login?error=google_oauth_failed` }),
+  oauthRedirect
+);
+generalRoute.get("/auth/facebook/signin", passport.authenticate("facebook", { scope: ["email"] }));
+generalRoute.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", { session: false, failureRedirect: `${FRONT_URL}/login?error=facebook_oauth_failed` }),
+  oauthRedirect
+);
+
+generalRoute
+  .route("/users/:id_user")
+  .get(MiddlewareAuthorization.authorization, authorizeRoles("admin", "client"), (req: Request, res: Response) => {
+    UsersProfileController.profile(req, res);
+  })
+  .patch(MiddlewareAuthorization.authorization, authorizeRoles("admin", "client"), (req: Request, res: Response) => {
+    UsersEditProfileController.edit(req, res);
+  })
+  .delete(MiddlewareAuthorization.authorization, authorizeRoles("admin", "client"), (req: Request, res: Response) => {
+    UsersDeleteProfileController.delete(req, res);
+  });
+
+export { generalRoute };

@@ -74,4 +74,10 @@ function validateDateRange(from?: string | Date, to?: string | Date): void {
   }
 }
 
-export { buildAdminPagination, buildAdminMeta, validateDateRange, ADMIN_DEFAULT_LIMIT, ADMIN_MAX_LIMIT };
+const VALID_USER_TYPES = ["admin", "client"] as const;
+type UserType = (typeof VALID_USER_TYPES)[number];
+
+function isValidUserType(value: unknown): value is UserType {
+  return typeof value === "string" && (VALID_USER_TYPES as readonly string[]).includes(value);
+}
+export { buildAdminPagination, buildAdminMeta, validateDateRange, ADMIN_DEFAULT_LIMIT, ADMIN_MAX_LIMIT, isValidUserType };
