@@ -48,7 +48,7 @@ class ApplyCouponService {
       }
 
       if (coupon.usage_limit !== null && coupon.used_count >= coupon.usage_limit) {
-        throw new HttpException(false, 400, "Este cupom atingiu o limite de utilizações");
+        throw new HttpException(false, 400, "Este cupom atingiu o limite de utilização");
       }
 
       const alreadyUsedByUser = await this.repository.hasUserUsedCoupon(

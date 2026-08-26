@@ -85,13 +85,7 @@ class GetCurrentUserService {
       }
 
       // 🔐 Geração de novo accessToken
-      const newAccessToken = JwtOperations.GenerateToken(
-        {
-          sub: user.id_user,
-          user_type: user.user_type,
-        },
-        "access"
-      );
+      const newAccessToken = JwtOperations.GenerateAccessToken({sub: user.id_user,user_type: user.user_type});
       if(user.user_type === "admin")
       {
         return {

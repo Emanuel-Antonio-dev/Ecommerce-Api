@@ -4,6 +4,7 @@ import { RegisterProductOrderService } from "../../../Services/Products/Products
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaCartRepositories } from "../../../Repositories/Products/Cart/Prisma/PrismaCartRepositories";
 import { productsOrdersDatas } from "../../../interfaces/Products/Products-Orders/interface";
+import { RequestWithCredentials } from "../../../interfaces/Shared/authentication.interface";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
 const cartRepository: PrismaCartRepositories = new PrismaCartRepositories(prismaService);
@@ -11,13 +12,13 @@ const service: RegisterProductOrderService = new RegisterProductOrderService(pri
 
 class RegisterProductOrderController
 {
-    static async register(req: Request, res: Response):Promise<Response | any>
+    static async register(req: RequestWithCredentials, res: Response):Promise<Response | any>
     {
         try
         {
             const orderDatas: productsOrdersDatas =
             {
-                id_user_fk: req.body.id_user_fk,
+                id_user_fk: Number(req.credentials?.sub),
                 payment_method: req.body.payment_method || "cash",
                 status: "pending",
                 total_amount: req.body.total_amount,

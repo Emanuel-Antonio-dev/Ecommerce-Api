@@ -14,7 +14,7 @@ class RemoveFromWishlistController {
       const { id_product_fk } = req.params;
 
       if (!id_user_fk) {
-        return res.status(401).json({ success: false, statusCode: 401, message: "Não autorizado" });
+        return res.status(401).json({ success: false, statusCode: 401, message: "Usuário não autorizado" });
       }
 
       const result = await service.execute(Number(id_user_fk), Number(id_product_fk));

@@ -19,18 +19,18 @@ passport.use(new GoogleStrategy({
         let existingUser = await prismaService.accounts.findUnique({where:{email:email}, include:{user_details:true}})
         if (!existingUser)
         {
-            const tempToken = JwtOperations.GenerateToken({
+            const tempToken = JwtOperations.GenerateTempToken({
                 first_name: profile.name?.givenName,
                 last_name: profile.name?.familyName,
                 email: profile.emails,
                 user_type: "client",
                 providerId: profile.id,
                 provider: profile.provider
-            }, "temp")
+            })
             return done(null, {token: tempToken, newUser: true})
         }
-        const accessToken = JwtOperations.GenerateToken({userClaims:{sub:existingUser.user_details?.id_user, userType: existingUser.user_details?.user_type}}, "access")
-        const refreshToken = JwtOperations.GenerateToken({userClaims:{sub:existingUser.user_details?.id_user, userType: existingUser.user_details?.user_type}}, "refreshToken")
+        const accessToken = JwtOperations.GenerateAccessToken({sub:existingUser.user_details?.id_user!, user_type: existingUser.user_details?.user_type!})
+        const refreshToken = JwtOperations.GenerateTempToken({sub:existingUser.user_details?.id_user, user_type: existingUser.user_details?.user_type!})
 
         return done(null, {accessToken, refreshToken, user: existingUser})
     } catch (error: any)

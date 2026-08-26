@@ -12,14 +12,14 @@ class CreateCouponController {
     try {
       const datas: CouponDatas = {
         code: req.body.code,
+        discount_type: req.body.discount_type as "percentage" | "fixed",
         description: req.body.description,
-        discount_type: req.body.discount_type,
-        discount_value: req.body.discount_value,
-        minimum_amount: req.body.minimum_amount,
-        usage_limit: req.body.usage_limit,
+        discount_value: Number(req.body.discount_value),
+        minimum_amount: Number(req.body.minimum_amount),
+        usage_limit: Number(req.body.usage_limit),
         starts_at: req.body.starts_at,
         expires_at: req.body.expires_at,
-        active: req.body.active,
+        active: req.body.active
       };
       const result = await service.execute(datas);
 

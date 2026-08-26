@@ -7,7 +7,7 @@ class AuthorizationService
     {
         try
         {
-            const isValidToken = JwtOperations.VerifyToken(token)
+            const isValidToken = JwtOperations.VerifyAccessToken(token)
             if (!isValidToken)
             {
                 return { statusCode: 401, success: false, message: "Ocorreu um erro ao verificar este recurso." };

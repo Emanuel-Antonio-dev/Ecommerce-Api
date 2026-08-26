@@ -5,6 +5,7 @@ import { PrismaGeneralProductsRepositories } from "../../../Repositories/Product
 import { PrismaProductReviewsRepositories } from "../../../Repositories/Products/Reviews/Prisma/PrismaReviewsRepositories";
 import { RegisterProductReviewService } from "../../../Services/Products/Reviews/register-product-review.service";
 import { reviewsDatas } from "../../../interfaces/Products/Reviews/interface";
+import { RequestWithCredentials } from "../../../interfaces/Shared/authentication.interface";
 
 const repository: PrismaProductReviewsRepositories = new PrismaProductReviewsRepositories(prismaService)
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
@@ -13,7 +14,7 @@ const service: RegisterProductReviewService = new RegisterProductReviewService(r
 
 class RegisterProductReviewController
 {
-    static async register(req: Request, res: Response):Promise<Response | any>
+    static async register(req: RequestWithCredentials, res: Response):Promise<Response | any>
     {
         try
         {
@@ -21,7 +22,7 @@ class RegisterProductReviewController
                 comment: req.body.comment,
                 rating: req.body.rating,
                 id_product_fk: req.body.id_product_fk,
-                id_user_fk: req.body.id_user_fk
+                id_user_fk: Number(req.credentials?.sub)
             }
             const result = await service.registerProductReview(reviewDatas)
             return res.status(result.statusCode).json(result)

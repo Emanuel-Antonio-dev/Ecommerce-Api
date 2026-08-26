@@ -1,3 +1,4 @@
+import { UsersTypes } from "../../../../generated/prisma/enums";
 import { AuthorizationService } from "../../../Services/Auth/Authorization/authorization.service";
 import { Request, Response, NextFunction } from "express";
 
@@ -35,7 +36,7 @@ class MiddlewareAuthorization {
             return res.status(verifiedToken.statusCode).json(verifiedToken)
         }
         req.credentials = verifiedToken.info as {
-            sub: number,user_type: string,[key: string]: any
+            sub: number,user_type: UsersTypes,
         }
         return next()
     } catch (error) {

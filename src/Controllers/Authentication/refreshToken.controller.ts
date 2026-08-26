@@ -25,15 +25,15 @@ class RefreshTokenController
             {
               return res.status(401).json({ success: false,statusCode:401,message: "Sessão expirada." });
             }
-            const decodedToken = JwtOperations.VerifyToken(refreshToken)
+            const decodedToken = JwtOperations.VerifyRefreshToken(refreshToken)
             if (!decodedToken)
             {
               return res.status(401).json({success: false, statusCode: 401, message:"Sessão inválida"})
             }
             const { iat, exp, ...userClaims } = decodedToken
 
-            const newAccessToken = JwtOperations.GenerateToken(userClaims, "access")
-            const newRefreshToken = JwtOperations.GenerateToken(userClaims, "refreshToken")
+            const newAccessToken = JwtOperations.GenerateAccessToken({sub: Number(userClaims.sub), user_type: userClaims.user_type})
+            const newRefreshToken = JwtOperations.GenerateRefreshToken(userClaims)
 
             const accountId = storagedToken.authentication_details.id_account_fk || storagedToken.authentication_details.account_details?.id_account
             if(!accountId)

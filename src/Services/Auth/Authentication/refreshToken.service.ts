@@ -21,12 +21,12 @@ class RefreshTokenService
             {
                 return { success: false,statusCode:401,message: "Sessão expirada." }
             }
-            const decodedToken = JwtOperations.VerifyToken(refreshToken)
+            const decodedToken = JwtOperations.VerifyRefreshToken(refreshToken)
             if (!decodedToken)
             {
                 return {success: false, statusCode: 401, message:"Sessão inválida"}
             }
-            const newAccessToken = JwtOperations.GenerateToken({userClaims: decodedToken.userClaims, id_user: decodedToken.id_user}, "access")
+            const newAccessToken = JwtOperations.GenerateAccessToken({sub: decodedToken.sub, user_type: decodedToken.user_type})
             
             await this.repository.updateToken(refreshToken, true)
             return {success: true, statusCode: 200, datas: {accessToken: newAccessToken}}

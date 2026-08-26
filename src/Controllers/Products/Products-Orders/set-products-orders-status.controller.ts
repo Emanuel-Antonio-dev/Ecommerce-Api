@@ -5,6 +5,7 @@ import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";
+import { RequestWithCredentials } from "../../../interfaces/Shared/authentication.interface";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
@@ -14,11 +15,12 @@ const service = new SetOrdersStatusService(prismaService,repository,userReposito
 
 class SetProductsOrdersStatusController
 {
-    static async set(req: Request, res: Response):Promise<Response | any>
+    static async set(req: RequestWithCredentials, res: Response):Promise<Response | any>
     {
         try
         {
-            const {status, id_user} = req.body
+            const {status} = req.body
+            const id_user = Number(req.credentials?.sub) 
             const id_order = Number(req.params.id_order)
             const result = await service.setOrderStatus(id_order,status,id_user);
             return res.status(result.statusCode).json(result);   

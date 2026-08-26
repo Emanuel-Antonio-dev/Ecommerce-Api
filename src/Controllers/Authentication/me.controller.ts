@@ -24,11 +24,10 @@ class MeController {
 
         // Valida o refreshToken e extrai as credenciais
         try {
-          const decoded = JwtOperations.VerifyToken(refreshToken);
+          const decoded = JwtOperations.VerifyRefreshToken(refreshToken);
           credentials = {
             sub: decoded.sub,
             user_type: decoded.user_type,
-            access_level: decoded.access_level,
           };
         } catch {
           return res.status(401).json({

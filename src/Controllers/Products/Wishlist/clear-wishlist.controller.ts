@@ -13,7 +13,7 @@ class ClearWishlistController {
       const id_user_fk = req.credentials?.sub;
 
       if (!id_user_fk) {
-        return res.status(401).json({ success: false, statusCode: 401, message: "Não autorizado" });
+        return res.status(401).json({ success: false, statusCode: 401, message: "Usuário não autorizado" });
       }
 
       const result = await service.execute(Number(id_user_fk));

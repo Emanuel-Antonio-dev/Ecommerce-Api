@@ -57,25 +57,17 @@ class SignInController
             )
             await prismaService.$transaction(async(tx)=>{
                 const id_account = await tx.accounts.findUnique({where:{email: email}})
-                if(!id_account)
-                {
-                    throw new Error()
-                }
                 const authentication = await authenticationsRepositories.initAuthenticationDatas({
                     type: "by_token",
                     used:false,
                     expireIn: new Date(Date.now() + this.RefreshTokenDate),
-                    id_account_fk: id_account.id_account,
+                    id_account_fk: id_account?.id_account!,
                     context: "initial_sign_in"
                 }, tx)
                 const alreadyExistsRefreshToken = await authenticationsRepositories.findToken(authenticationResult.refreshToken, "refreshToken")
                 if(alreadyExistsRefreshToken)
                 {
                     await tx.tokens.delete({where:{id_token: alreadyExistsRefreshToken.id_token}})
-                }
-                if(!refreshToken)
-                {
-                    throw new Error()
                 }
                 await authenticationsRepositories.registerToken({
                     token: refreshToken,

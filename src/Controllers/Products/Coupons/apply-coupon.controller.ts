@@ -19,7 +19,7 @@ class ApplyCouponController {
         return res.status(401).json({
           success: false,
           statusCode: 401,
-          message: "Não autorizado",
+          message: "Usuário não autorizado",
         });
       }
 

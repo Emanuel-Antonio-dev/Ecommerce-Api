@@ -53,8 +53,8 @@ class LocalStrategyAuthenticationService
                 userClaims = {sub: clientDatas?.id_user, user_type: clientDatas?.user_type}
                 userCartItems = await handleCart(id_guest_cart, user.user_details.id_user)
             }
-            const accessToken = JwtOperations.GenerateToken(userClaims, "access")
-            const refreshToken = JwtOperations.GenerateToken(userClaims, "refreshToken")
+            const accessToken = JwtOperations.GenerateAccessToken(userClaims)
+            const refreshToken = JwtOperations.GenerateRefreshToken(userClaims)
             
             return {
                 success: true,

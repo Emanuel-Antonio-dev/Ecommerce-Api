@@ -16,7 +16,7 @@ class AddToWishlistController {
       const { id_product_fk } = req.body;
 
       if (!id_user_fk) {
-        return res.status(401).json({ success: false, statusCode: 401, message: "Não autorizado" });
+        return res.status(401).json({ success: false, statusCode: 401, message: "Usuário não autenticado" });
       }
 
       const result = await service.execute(Number(id_user_fk), Number(id_product_fk));
