@@ -3,13 +3,13 @@ import { prismaService } from "../../lib/prisma.service"
 import { RequestNewPasswordService } from "../../Services/Auth/ResetPassword/request-new-password.service"
 import { PrismaAccountRepositories } from "../../Repositories/General/Accounts/Prisma/PrismaAccountsRepositories"
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
-import { EmailProvider } from "../../Common/Utils/Emails/email-sender"
+import { EmailProviderFactory } from "../../Common/Utils/Emails/email-factory"
 import { SendEmail } from "../../Common/Utils/Emails/send-email"
 
 const acountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
 const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
-const emailProvider: EmailProvider = new EmailProvider()
-const emailSender: SendEmail = new SendEmail(emailProvider)
+const emailProvider: EmailProviderFactory = new EmailProviderFactory()
+const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
 const requestPasswordService: RequestNewPasswordService = new RequestNewPasswordService(prismaService, acountRepository, authenticationRepository, emailSender)
 class RequestPasswordController
 {

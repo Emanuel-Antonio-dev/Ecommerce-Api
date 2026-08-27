@@ -30,8 +30,10 @@ const swaggerYamlDocument = yaml.load("./docs.yaml");
 const isProd = process.env.NODE_ENV === 'production';
 
 // Rate limiters diferenciados por sensibilidade
-const apiLimiter = limiterMiddleware("Muitas requisições. Tente novamente mais tarde.", 1, 100);
-const authLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 15, 5); // ex: 5 tentativas / 15min
+const apiLimiter = limiterMiddleware("Muitas requisições. Tente novamente mais tarde.", 1, 100, "api-global");
+// ✅ FIX: "authLimiter" era declarado mas nunca aplicado a nenhuma rota — as
+// rotas de auth já usam limiters próprios e mais específicos (ver
+// src/Routes/GeneralRoutes/routes.ts). Código morto removido.
 
 // Whitelist explícita de origens
 const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')

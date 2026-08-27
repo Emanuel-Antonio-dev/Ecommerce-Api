@@ -6,6 +6,7 @@ import { Prisma } from "../../../../generated/prisma/client";
 interface UserCredentials {
   sub: number;
   user_type: "admin" | "client";
+  account_id: string;
 }
 
 class GetCurrentUserService {
@@ -13,7 +14,7 @@ class GetCurrentUserService {
 
   async execute(credentials: UserCredentials) {
     try {
-      const { sub, user_type } = credentials;
+      const { sub, user_type, account_id } = credentials;
 
       if (!sub || !user_type) {
         throw new HttpException(false, 401, "Credenciais inválidas.");
@@ -85,7 +86,7 @@ class GetCurrentUserService {
       }
 
       // 🔐 Geração de novo accessToken
-      const newAccessToken = JwtOperations.GenerateAccessToken({sub: user.id_user,user_type: user.user_type});
+      const newAccessToken = JwtOperations.GenerateAccessToken({sub: user.id_user,user_type: user.user_type, account_id: user.id_account_fk});
       if(user.user_type === "admin")
       {
         return {

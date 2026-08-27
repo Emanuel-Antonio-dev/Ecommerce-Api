@@ -7,6 +7,10 @@ export interface RequestWithCredentials extends Request {
     credentials?: {
         sub: number;
         user_type: string;
+        // ✅ FIX: id da conta (Accounts.id_account), agora sempre presente no
+        // payload do access token — usado pelos controllers de admin para
+        // registrar quem executou uma ação sensível (promote/suspend/etc).
+        account_id: string;
         [key: string]: any;
     }
 }
@@ -36,7 +40,7 @@ class MiddlewareAuthorization {
             return res.status(verifiedToken.statusCode).json(verifiedToken)
         }
         req.credentials = verifiedToken.info as {
-            sub: number,user_type: UsersTypes,
+            sub: number,user_type: UsersTypes, account_id: string,
         }
         return next()
     } catch (error) {

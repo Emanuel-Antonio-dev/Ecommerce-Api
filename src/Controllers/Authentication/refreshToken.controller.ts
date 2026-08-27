@@ -32,7 +32,7 @@ class RefreshTokenController
             }
             const { iat, exp, ...userClaims } = decodedToken
 
-            const newAccessToken = JwtOperations.GenerateAccessToken({sub: Number(userClaims.sub), user_type: userClaims.user_type})
+            const newAccessToken = JwtOperations.GenerateAccessToken({sub: Number(userClaims.sub), user_type: userClaims.user_type, account_id: userClaims.account_id})
             const newRefreshToken = JwtOperations.GenerateRefreshToken(userClaims)
 
             const accountId = storagedToken.authentication_details.id_account_fk || storagedToken.authentication_details.account_details?.id_account

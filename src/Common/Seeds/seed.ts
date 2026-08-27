@@ -280,7 +280,11 @@ async function main() {
   console.log("🌱 A iniciar seed...\n");
 
   const adminPasswordHashed = await bcrypt.hash(process.env.ADMIN_PASSWORD!, 10)
-  const clientPasswordHashed = await bcrypt.hash("Emaricar16@", 10)
+  // ✅ FIX: senha hardcoded removida — agora vem de variável de ambiente (só usada em seed de dev/teste).
+  if (!process.env.SEED_CLIENT_PASSWORD) {
+    throw new Error("Defina SEED_CLIENT_PASSWORD no .env antes de rodar o seed.")
+  }
+  const clientPasswordHashed = await bcrypt.hash(process.env.SEED_CLIENT_PASSWORD, 10)
 
   await prismaService.$transaction(
     async (tx) => {

@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { prismaService } from "../../lib/prisma.service"
 import { PrismaAuthenticationsRepositories } from "../../Repositories/Autentications/Prisma/PrismaAuthenticationsRepositories"
 import { OtpGeneratorService } from "../../Common/Utils/AuthenticationsProcols/2FA/generate-otp-code.protocol"
-import { EmailProvider } from "../../Common/Utils/Emails/email-sender"
+import { EmailProviderFactory } from "../../Common/Utils/Emails/email-factory"
 import { SendEmail } from "../../Common/Utils/Emails/send-email"
 import { SendOtpCodesService } from "../../Services/Auth/Authentication/2FA/send-otp-code.service"
 import { InitAuthenticationsService } from "../../Services/Auth/Authentication/init-autentication.service"
@@ -11,8 +11,7 @@ const repository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsR
 const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
 const initAuthenticationService: InitAuthenticationsService = new InitAuthenticationsService(authenticationRepository)
 const instanceOfOtpService = new OtpGeneratorService()
-const emailProvider: EmailProvider = new EmailProvider()
-const emailSender: SendEmail = new SendEmail(emailProvider)
+const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
 const service = new SendOtpCodesService(repository,instanceOfOtpService,initAuthenticationService,prismaService, emailSender)
 
 class SendOtpCodeController

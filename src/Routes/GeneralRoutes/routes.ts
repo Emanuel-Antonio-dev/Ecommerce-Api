@@ -22,14 +22,14 @@ import { authorizeRoles } from "../../Common/Middlewares/Authorization/authorize
 const generalRoute = Router();
 const FRONT_URL = process.env.REDIRECT_URI as string;
 
-// Limiters dedicados por sensibilidade (mensagem, janela em min, máx. pedidos)
-const signupLimiter = limiterMiddleware("Muitas tentativas de registo. Tente novamente mais tarde.", 15, 5);
-const signinLimiter = limiterMiddleware("Por motivos de segurança, bloqueamos temporariamente a sua sessão. Tente novamente dentro de 2 minutos.", 2, 5);
-const refreshLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 5, 10);
-const passwordRequestLimiter = limiterMiddleware("Muitos pedidos. Tente novamente mais tarde.", 15, 3);
-const passwordResetLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 15, 5);
-const otpSendLimiter = limiterMiddleware("Muitos pedidos de código. Tente novamente mais tarde.", 5, 3);
-const otpVerifyLimiter = limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.", 2, 3);
+// Limiters dedicados por sensibilidade (mensagem, janela em min, máx. pedidos, nome estável)
+const signupLimiter = limiterMiddleware("Muitas tentativas de registo. Tente novamente mais tarde.", 15, 5, "signup");
+const signinLimiter = limiterMiddleware("Por motivos de segurança, bloqueamos temporariamente a sua sessão. Tente novamente dentro de 2 minutos.", 2, 5, "signin");
+const refreshLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 5, 10, "refresh-token");
+const passwordRequestLimiter = limiterMiddleware("Muitos pedidos. Tente novamente mais tarde.", 15, 3, "password-request");
+const passwordResetLimiter = limiterMiddleware("Muitas tentativas. Tente novamente mais tarde.", 15, 5, "password-reset");
+const otpSendLimiter = limiterMiddleware("Muitos pedidos de código. Tente novamente mais tarde.", 5, 3, "otp-send");
+const otpVerifyLimiter = limiterMiddleware("Você excedeu o número de tentativas. Peça um novo código.", 2, 3, "otp-verify");
 
 generalRoute.get("/health", (_req: Request, res: Response) => {
   return res.json({

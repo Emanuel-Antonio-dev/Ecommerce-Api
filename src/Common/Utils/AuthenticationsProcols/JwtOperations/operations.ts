@@ -4,6 +4,12 @@ import "dotenv/config";
 interface AccessTokenPayload {
     sub: number;
     user_type: string;
+    // ✅ FIX: id da conta (Accounts.id_account) incluído no token — vários
+    // controllers de admin (promote/suspend/reactivate/hard-delete/logs) já
+    // liam `req.credentials.account_id` para registrar quem executou a ação,
+    // mas o valor nunca foi colocado no payload do JWT, então sempre vinha
+    // `undefined` nos logs de auditoria.
+    account_id: string;
     type: "access";
     iat?: number;
     exp?: number;
@@ -12,6 +18,7 @@ interface AccessTokenPayload {
 interface RefreshTokenPayload {
     sub: number;
     user_type: string;
+    account_id: string;
     type: "refresh";
     iat?: number;
     exp?: number;
@@ -66,6 +73,7 @@ class JwtOperations {
         payload: {
             sub: number;
             user_type: string;
+            account_id: string;
         }
     ): string {
 
@@ -126,10 +134,17 @@ class JwtOperations {
             );
         }
 
+        if (typeof decoded.account_id !== "string") {
+            throw new jwt.JsonWebTokenError(
+                "Identificador de conta inválido."
+            );
+        }
+
 
         return {
             sub: decoded.sub,
             user_type: decoded.user_type,
+            account_id: decoded.account_id,
             type: "access",
             iat: decoded.iat,
             exp: decoded.exp,
@@ -145,6 +160,7 @@ class JwtOperations {
         payload: {
             sub: number;
             user_type: string;
+            account_id?: string;
         }
     ): string {
 
@@ -209,6 +225,7 @@ class JwtOperations {
         return {
             sub: decoded.sub,
             user_type: decoded.user_type,
+            account_id: decoded.account_id,
             type: "refresh",
             iat: decoded.iat,
             exp: decoded.exp,

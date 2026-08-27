@@ -29,8 +29,8 @@ passport.use(new GoogleStrategy({
             })
             return done(null, {token: tempToken, newUser: true})
         }
-        const accessToken = JwtOperations.GenerateAccessToken({sub:existingUser.user_details?.id_user!, user_type: existingUser.user_details?.user_type!})
-        const refreshToken = JwtOperations.GenerateTempToken({sub:existingUser.user_details?.id_user, user_type: existingUser.user_details?.user_type!})
+        const accessToken = JwtOperations.GenerateAccessToken({sub:existingUser.user_details?.id_user!, user_type: existingUser.user_details?.user_type!, account_id: existingUser.id_account})
+        const refreshToken = JwtOperations.GenerateTempToken({sub:existingUser.user_details?.id_user, user_type: existingUser.user_details?.user_type!, account_id: existingUser.id_account})
 
         return done(null, {accessToken, refreshToken, user: existingUser})
     } catch (error: any)

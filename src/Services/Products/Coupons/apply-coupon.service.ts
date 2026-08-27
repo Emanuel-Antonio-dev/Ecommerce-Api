@@ -2,11 +2,15 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { ApplyCouponDatas } from "../../../interfaces/Products/Coupons/interface";
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
 import { IUsersRepositories } from "../../../Repositories/Users/users-repositories";
+import { IProductOrderRepositories } from "../../../Repositories/Products/ProductOrders/product-order-repositories";
 
 class ApplyCouponService {
   constructor(
     private readonly repository: ICouponsRepositories,
-    private readonly usersRepositories: IUsersRepositories
+    private readonly usersRepositories: IUsersRepositories,
+    // ✅ FIX: necessário para buscar o valor REAL do pedido no banco, em vez de
+    // confiar no `order_total` enviado pelo cliente.
+    private readonly ordersRepository: IProductOrderRepositories
 
   ) {}
 
@@ -20,6 +24,21 @@ class ApplyCouponService {
       if (!existsUser) {
         throw new HttpException(false, 404, "Usuário não encontrado");
       }
+
+      // ✅ FIX: busca o pedido real e confirma que pertence ao usuário autenticado
+      // (antes não havia checagem de ownership — qualquer usuário logado podia
+      // tentar aplicar um cupom em cima do id_order de outra pessoa).
+      const order = await this.ordersRepository.getOrder(datas.id_order_fk);
+      if (!order) {
+        throw new HttpException(false, 404, "Pedido não encontrado");
+      }
+      if (order.id_user_fk !== datas.id_user_fk) {
+        throw new HttpException(false, 403, "Você não tem permissão sobre este pedido");
+      }
+      if (order.status !== "pending") {
+        throw new HttpException(false, 400, "Este pedido não está mais disponível para aplicação de cupom");
+      }
+
       const sanitizedCode = datas.code.toUpperCase().trim();
 
         // evita brute force via código — normaliza antes de qualquer I/O
@@ -60,7 +79,7 @@ class ApplyCouponService {
         throw new HttpException(false, 400, "Você já utilizou este cupom");
       }
 
-      const orderTotal = Number(datas.order_total);
+      const orderTotal = Number(order.total_amount);
 
       if (coupon.minimum_amount !== null && orderTotal < Number(coupon.minimum_amount)) {
         throw new HttpException(
@@ -80,14 +99,22 @@ class ApplyCouponService {
 
       discount_applied = Math.round(discount_applied * 100) / 100;
 
-      await this.repository.registerUsage(
-        coupon.id_coupon,
-        datas.id_order_fk,
-        datas.id_user_fk,
-        discount_applied
-      );
+      // ✅ FIX: registro de uso + incremento do limite + gravação do desconto no
+      // pedido, tudo em uma transação atômica (ver applyCouponAtomically).
+      const result = await this.repository.applyCouponAtomically({
+        id_coupon: coupon.id_coupon,
+        id_order_fk: datas.id_order_fk,
+        id_user_fk: datas.id_user_fk,
+        discount_applied,
+        usage_limit: coupon.usage_limit,
+      });
 
-      await this.repository.incrementUsage(coupon.id_coupon);
+      if (!result.ok) {
+        if (result.reason === "limit_reached") {
+          throw new HttpException(false, 400, "Este cupom atingiu o limite de utilização");
+        }
+        throw new HttpException(false, 400, "Este pedido já possui um cupom aplicado");
+      }
 
       return {
         success: true,
@@ -97,6 +124,7 @@ class ApplyCouponService {
           discount_applied,
           discount_type: coupon.discount_type,
           coupon_code: coupon.code,
+          new_total: Math.max(orderTotal - discount_applied, 0),
         },
       };
     } catch (error: any) {

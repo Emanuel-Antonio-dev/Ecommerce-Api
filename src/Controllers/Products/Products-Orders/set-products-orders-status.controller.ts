@@ -1,6 +1,6 @@
 import { prismaService } from "../../../lib/prisma.service";
 import { Request, Response } from "express";
-import { EmailProvider } from "../../../Common/Utils/Emails/email-sender";
+import { EmailProviderFactory } from "../../../Common/Utils/Emails/email-factory";
 import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
@@ -9,8 +9,7 @@ import { RequestWithCredentials } from "../../../interfaces/Shared/authenticatio
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
-const emailProvider: EmailProvider = new EmailProvider() 
-const emailSender: SendEmail = new SendEmail(emailProvider)
+const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
 const service = new SetOrdersStatusService(prismaService,repository,userRepository,emailSender)
 
 class SetProductsOrdersStatusController

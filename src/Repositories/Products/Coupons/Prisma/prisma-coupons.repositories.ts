@@ -100,6 +100,60 @@ class PrismaCouponsRepositories implements ICouponsRepositories {
       },
     });
   }
+
+  // ✅ FIX: tudo dentro de $transaction. O incremento de uso é feito com
+  // `updateMany` + guarda condicional (equivalente a um UPDATE ... WHERE
+  // used_count < usage_limit atômico no Postgres), então duas requisições
+  // concorrentes não conseguem "passar" ao mesmo tempo pelo limite — a segunda
+  // sempre vê `count === 0` e é rejeitada. O desconto também é gravado direto
+  // em `orders.discount_amount`, para ser usado depois no valor cobrado.
+  async applyCouponAtomically(params: {
+    id_coupon: string;
+    id_order_fk: number;
+    id_user_fk: number;
+    discount_applied: number;
+    usage_limit: number | null;
+  }): Promise<{ ok: true } | { ok: false; reason: "limit_reached" | "already_applied_to_order" }> {
+    const { id_coupon, id_order_fk, id_user_fk, discount_applied, usage_limit } = params;
+
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        const incrementResult = await tx.coupons.updateMany({
+          where:
+            usage_limit === null
+              ? { id_coupon }
+              : { id_coupon, used_count: { lt: usage_limit } },
+          data: { used_count: { increment: 1 } },
+        });
+
+        if (incrementResult.count === 0) {
+          return { ok: false as const, reason: "limit_reached" as const };
+        }
+
+        await tx.couponUsages.create({
+          data: {
+            id_coupon_fk: id_coupon,
+            id_order_fk,
+            id_user_fk,
+            discount_applied,
+          },
+        });
+
+        await tx.orders.update({
+          where: { id_order: id_order_fk },
+          data: { discount_amount: discount_applied },
+        });
+
+        return { ok: true as const };
+      });
+    } catch (error: any) {
+      // violação da constraint única id_order_fk em CouponUsages => já havia cupom nesse pedido
+      if (error?.code === "P2002") {
+        return { ok: false, reason: "already_applied_to_order" };
+      }
+      throw error;
+    }
+  }
 }
 
 export { PrismaCouponsRepositories };

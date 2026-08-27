@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { stripeConfig } from "../../../Common/Utils/PaymentGatwayConfig/stripe.config";
 import { prismaService } from "../../../lib/prisma.service";
-import { EmailProvider } from "../../../Common/Utils/Emails/email-sender";
+import { EmailProviderFactory } from "../../../Common/Utils/Emails/email-factory";
 import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
@@ -9,8 +9,7 @@ import { SetOrdersStatusService } from "../../../Services/Products/Products-Orde
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService);
-const emailProvider: EmailProvider = new EmailProvider();
-const emailSender: SendEmail = new SendEmail(emailProvider);
+const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
 const service = new SetOrdersStatusService(prismaService, repository, userRepository, emailSender);
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;

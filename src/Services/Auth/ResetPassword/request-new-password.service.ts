@@ -23,10 +23,18 @@ class RequestNewPasswordService
             {
                 return {success: false, statusCode: 400, message:"Por favor informe o seu email"}
             }
+            // ✅ FIX: mensagem/status genéricos independente da conta existir ou não,
+            // para não permitir enumeração de e-mails cadastrados por esta rota.
+            const genericResponse = {
+                statusCode: 200,
+                success: true,
+                message: `Se ${email} estiver cadastrado, enviaremos um e-mail com as instruções para redefinir a senha.`
+            }
+
             const existsAccount = await this.acountRepository.getDatas({action:"GetOnlyBasicsDatas"}, undefined, email)
             if (!existsAccount)
             {
-                return {success: false, statusCode: 404, message:"Não conseguimos encontrar esta conta, verifique se informou correctamente os seus dados"}
+                return genericResponse
             }
             const restPasswordToken = crypto.randomBytes(32).toString("hex")
             await this.prisma.$transaction(async(tx)=>{
@@ -53,7 +61,7 @@ class RequestNewPasswordService
             })
             ///Add sendEmailService
             await this.emailSender.sendEmail(email, "Recuperação de senha.", HtmlTemplateResetPassword(restPasswordToken))
-            return {statusCode: 200, success: true, message:`Enviamos um email para ${email}, por favor verifique a sua caixa de email`, ...(process.env.NODE_ENV==="test"?{token: restPasswordToken}:{})}
+            return {...genericResponse, ...(process.env.NODE_ENV==="test"?{token: restPasswordToken}:{})}
 
         } catch (error: any)
         {

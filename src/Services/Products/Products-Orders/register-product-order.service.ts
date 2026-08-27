@@ -148,7 +148,7 @@ class RegisterProductOrderService {
             {
               id_order_fk: order.id_order,
 
-              id_variant_fk: item.variant.id_product_fk, // produto base
+              id_variant_fk: item.id_variant_fk!, // ✅ FIX: era item.variant.id_product_fk (ID do produto, não da variante)
 
               quantity: item.quantity,
 
@@ -161,9 +161,14 @@ class RegisterProductOrderService {
           );
 
           // 🔥 diminuir stock da VARIANTE (NÃO do produto)
-          await tx.productVariants.update({
+          // ✅ FIX: decremento condicional e atômico (evita overselling em concorrência).
+          // O "SELECT" de estoque acima (linha ~71) só serve para dar uma mensagem de
+          // erro amigável cedo; a garantia real contra corrida é este updateMany com
+          // guarda "stock >= quantity" + checagem de count.
+          const stockUpdateResult = await tx.productVariants.updateMany({
             where: {
-              id_variant: item.id_variant_fk!
+              id_variant: item.id_variant_fk!,
+              stock: { gte: item.quantity }
             },
             data: {
               stock: {
@@ -171,6 +176,14 @@ class RegisterProductOrderService {
               }
             }
           });
+
+          if (stockUpdateResult.count === 0) {
+            throw new HttpException(
+              false,
+              409,
+              `Estoque insuficiente para ${item.variant.product.name}. Outro pedido pode ter esgotado o item, tente novamente.`
+            );
+          }
         }
 
         // 🔥 atualizar carrinho

@@ -12,6 +12,17 @@ abstract class ICouponsRepositories {
   abstract incrementUsage(id_coupon: string): Promise<any>;
   abstract hasUserUsedCoupon(id_coupon: string, id_user_fk: number): Promise<boolean>;
   abstract registerUsage(id_coupon: string, id_order_fk: number, id_user_fk: number, discount_applied: number): Promise<any>;
+  // ✅ FIX: aplica o cupom (checagem de limite + registro de uso + incremento +
+  // gravação do desconto no pedido) em UMA ÚNICA transação atômica, evitando:
+  // (a) corrida que permitia ultrapassar o usage_limit em requisições simultâneas;
+  // (b) o desconto nunca ser refletido no valor cobrado no Stripe.
+  abstract applyCouponAtomically(params: {
+    id_coupon: string;
+    id_order_fk: number;
+    id_user_fk: number;
+    discount_applied: number;
+    usage_limit: number | null;
+  }): Promise<{ ok: true } | { ok: false; reason: "limit_reached" | "already_applied_to_order" }>;
 }
 
 export { ICouponsRepositories };

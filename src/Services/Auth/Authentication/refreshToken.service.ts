@@ -26,7 +26,7 @@ class RefreshTokenService
             {
                 return {success: false, statusCode: 401, message:"Sessão inválida"}
             }
-            const newAccessToken = JwtOperations.GenerateAccessToken({sub: decodedToken.sub, user_type: decodedToken.user_type})
+            const newAccessToken = JwtOperations.GenerateAccessToken({sub: decodedToken.sub, user_type: decodedToken.user_type, account_id: decodedToken.account_id})
             
             await this.repository.updateToken(refreshToken, true)
             return {success: true, statusCode: 200, datas: {accessToken: newAccessToken}}

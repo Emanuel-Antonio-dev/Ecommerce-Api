@@ -28,6 +28,7 @@ class MeController {
           credentials = {
             sub: decoded.sub,
             user_type: decoded.user_type,
+            account_id: decoded.account_id,
           };
         } catch {
           return res.status(401).json({

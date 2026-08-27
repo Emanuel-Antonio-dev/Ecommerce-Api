@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}",
+							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"seu-email@exemplo.com\",\n  \"provider\":\"Local\",\n  \"password\":\"SuaSenhaForte123!\",\n  \"username\":\"@EJMAA\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"emaricaroffice11@gmail.com\",\n    \"password\":\"Emaricar16@\"\n}",
+							"raw": "{\n    \"email\":\"seu-email@exemplo.com\",\n    \"password\":\"SuaSenhaForte123!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -162,7 +162,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newPassword\":\"Emaricar17@\"\n}",
+							"raw": "{\n    \"newPassword\":\"SuaNovaSenhaForte123!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,7 +170,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api.ecommerce/v1/auth/password/reset?authorization=355daa60d322b68d1255961ed85c1983d7fc1e740c43bce7bb236d0c4a130073",
+							"raw": "http://localhost:3000/api.ecommerce/v1/auth/password/reset?authorization=SEU_TOKEN_DE_RESET_AQUI",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -186,7 +186,7 @@
 							"query": [
 								{
 									"key": "authorization",
-									"value": "355daa60d322b68d1255961ed85c1983d7fc1e740c43bce7bb236d0c4a130073"
+									"value": "SEU_TOKEN_DE_RESET_AQUI"
 								}
 							]
 						}
@@ -255,7 +255,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}"
+							"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"seu-email@exemplo.com\",\n  \"provider\":\"Local\",\n  \"password\":\"SuaSenhaForte123!\",\n  \"username\":\"@EJMAA\"\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/api.ecommerce/v1/auth/me",
@@ -290,7 +290,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\":\"emaricaroffice11@gmail.com\"\n}",
+							"raw": "{\n  \"email\":\"seu-email@exemplo.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,7 +331,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"otp_code\":\"777123\"\n}",
+							"raw": "{\n  \"email\":\"seu-email@exemplo.com\",\n  \"otp_code\":\"777123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1584,7 +1584,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"emaricaroffice11@gmail.com\",\n  \"provider\":\"Local\",\n  \"password\":\"Emaricar16@\",\n  \"username\":\"@EJMAA\"\n}"
+									"raw": "{\n  \"first_name\":\"Emanuel\",\n  \"last_name\":\"Antonio\",\n  \"email\":\"seu-email@exemplo.com\",\n  \"provider\":\"Local\",\n  \"password\":\"SuaSenhaForte123!\",\n  \"username\":\"@EJMAA\"\n}"
 								},
 								"url": {
 									"raw": "localhost:3000/api.ecommerce/v1/users/1",

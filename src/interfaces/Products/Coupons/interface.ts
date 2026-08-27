@@ -17,7 +17,8 @@ interface ApplyCouponDatas {
   code: string;
   id_order_fk: number;
   id_user_fk: number;
-  order_total: number | Decimal;
+  // ✅ FIX: "order_total" removido — nunca deve ser confiado a partir do
+  // cliente; o service busca o valor real do pedido no banco de dados.
 }
 
 export { CouponDatas, ApplyCouponDatas };

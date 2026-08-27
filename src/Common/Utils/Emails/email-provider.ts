@@ -1,15 +1,16 @@
-interface IAddress{
-    email: string
-    name: string
+export interface IMessage {
+  from?: {
+    name: string;
+    email: string;
+  };
+  to: {
+    name: string;
+    email: string;
+  };
+  subject: string;
+  body: string;
 }
-interface IMessage{
-    to: IAddress
-    from: IAddress
-    subject: string
-    body: string
+
+export interface IEmailProvider {
+  sendEmail(message: IMessage): Promise<void>;
 }
-interface IEmailProvider
-{
-    sendEmail(message: IMessage):Promise<void>
-}
-export{IMessage, IEmailProvider}

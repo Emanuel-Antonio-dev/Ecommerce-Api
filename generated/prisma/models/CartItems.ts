@@ -222,7 +222,7 @@ export type CartItemsGroupByOutputType = {
   _max: CartItemsMaxAggregateOutputType | null
 }
 
-type GetCartItemsGroupByPayload<T extends CartItemsGroupByArgs> = Prisma.PrismaPromise<
+export type GetCartItemsGroupByPayload<T extends CartItemsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CartItemsGroupByOutputType, T['by']> &
       {
@@ -1391,6 +1391,11 @@ export type CartItemsFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` CartItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CartItems.
+   */
   distinct?: Prisma.CartItemsScalarFieldEnum | Prisma.CartItemsScalarFieldEnum[]
 }
 

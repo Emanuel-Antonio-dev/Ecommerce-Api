@@ -229,7 +229,7 @@ export type ProductsReviewsGroupByOutputType = {
   _max: ProductsReviewsMaxAggregateOutputType | null
 }
 
-type GetProductsReviewsGroupByPayload<T extends ProductsReviewsGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductsReviewsGroupByPayload<T extends ProductsReviewsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductsReviewsGroupByOutputType, T['by']> &
       {
@@ -1535,6 +1535,11 @@ export type ProductsReviewsFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` ProductsReviews.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductsReviews.
+   */
   distinct?: Prisma.ProductsReviewsScalarFieldEnum | Prisma.ProductsReviewsScalarFieldEnum[]
 }
 

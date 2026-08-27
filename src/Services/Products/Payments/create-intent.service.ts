@@ -17,20 +17,45 @@ class CreateStripePaymentIntentService {
         return { success: false, statusCode: 400, message: "Informe o pedido." };
       }
 
-      // ✔ pega pedido
-      const order = await this.ordersRepository.getOrderItemsByOrder(
-        Number(datas.id_order)
-      );
+      // ✅ FIX: usava getOrderItemsByOrder (retorna um ARRAY de itens do pedido,
+      // sem os campos total_amount/id_user_fk no nível esperado) em vez de
+      // getOrder (retorna o pedido em si). Na prática `order.total_amount` e
+      // `order.id_user_fk` eram sempre `undefined`.
+      const order = await this.ordersRepository.getOrder(Number(datas.id_order));
 
       if (!order) {
         return { success: false, statusCode: 404, message: "Pedido não encontrado." };
       }
 
+      // `id_user_fk` é omitido diretamente no retorno de getOrder(); o dono real
+      // do pedido vem pela relação já incluída em user_details.id_user.
+      const orderOwnerId = order.user_details?.id_user;
+
+      // ✅ FIX: garante que só o dono do pedido (ou um admin) pode gerar um payment intent para ele.
+      if (
+        datas.requester.user_type !== "admin" &&
+        orderOwnerId !== datas.requester.sub
+      ) {
+        return { success: false, statusCode: 403, message: "Você não tem permissão para pagar este pedido." };
+      }
+
+      if (order.status !== "pending") {
+        return { success: false, statusCode: 400, message: "Este pedido não está disponível para pagamento." };
+      }
+
+      // ✅ FIX: aplica o desconto do cupom (orders.discount_amount) no valor
+      // efetivamente cobrado — antes o Stripe sempre cobrava o total cheio,
+      // ignorando qualquer cupom aplicado.
+      const payableAmount = Math.max(
+        Number(order.total_amount) - Number(order.discount_amount ?? 0),
+        0
+      );
+
       // ✔ transação APENAS no banco
       const payment = await this.prisma.$transaction(async (tx) => {
         const createdPayment = await this.paymentsRepository.registerPayment({
           id_order_fk: order.id_order,
-          amount: order.total_amount,
+          amount: payableAmount,
           payment_status: "pending",
           provider: "stripe",
           currency: datas.currency || "aoa",
@@ -54,7 +79,7 @@ class CreateStripePaymentIntentService {
         metadata: {
           payment_id: payment.id_payment, // 🔥 importante
           id_order: order.id_order.toString(),
-          id_user: order.id_user_fk.toString(),
+          id_user: String(orderOwnerId),
         },
         description: `Pagamento do pedido #${order.id_order}`,
       });

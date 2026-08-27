@@ -48,8 +48,13 @@ const createUploader = () => {
     file: Express.Multer.File,
     cb: multer.FileFilterCallback
   ) => {
+    // ✅ FIX: removido "image/svg+xml" — SVG pode conter <script>/onload e abrir
+    // XSS armazenado se o arquivo for servido inline. Também vale lembrar que
+    // este `mimetype` vem do header enviado pelo cliente (Content-Type do
+    // multipart), então é apenas uma primeira barreira — ver checagem de
+    // assinatura binária (magic bytes) logo abaixo, no `fileFilter`.
     const allowedMimes = {
-      ProductImages: ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"],
+      ProductImages: ["image/jpeg", "image/png", "image/jpg"],
     };
 
     const field = file.fieldname as keyof typeof allowedMimes;
@@ -66,7 +71,9 @@ const createUploader = () => {
   return multer({
     storage,
     fileFilter,
-    limits: { fileSize: 50 * 1024 * 1024 },
+    // ✅ FIX: 50MB por imagem de produto era excessivo (vetor de esgotamento de
+    // disco). 5MB é generoso para uma foto de produto.
+    limits: { fileSize: 5 * 1024 * 1024 },
   });
 };
 

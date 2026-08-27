@@ -5,7 +5,9 @@ interface StripeIntentDatas
     id_order: number,
     amount?: number,
     currency?: string,
-    metadata?: Record<string, string>
+    metadata?: Record<string, string>,
+    // ✅ FIX: usuário autenticado que está solicitando o intent, para validação de ownership.
+    requester: { sub: number, user_type: "admin" | "client" }
 }
 interface PaymentsDatas{
     id_payment?:string

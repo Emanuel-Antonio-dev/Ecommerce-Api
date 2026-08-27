@@ -3,6 +3,10 @@ import { CreatePaymentIntentController } from "../../Controllers/Payments/Paymen
 import { MiddlewareAuthorization } from "../../Common/Middlewares/Authorization/authorization";
 
 const paymentRoutes = Router();
-paymentRoutes.route("/payments/intent").post((req: Request, res: Response) =>{CreatePaymentIntentController.createPaymentIntent(req, res)})
+// ✅ FIX: rota estava totalmente aberta (sem autenticação nem checagem de dono do pedido).
+paymentRoutes.route("/payments/intent").post(
+  MiddlewareAuthorization.authorization,
+  (req: Request, res: Response) =>{CreatePaymentIntentController.createPaymentIntent(req, res)}
+)
 
 export { paymentRoutes };

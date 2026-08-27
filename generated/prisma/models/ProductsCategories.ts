@@ -213,7 +213,7 @@ export type ProductsCategoriesGroupByOutputType = {
   _max: ProductsCategoriesMaxAggregateOutputType | null
 }
 
-type GetProductsCategoriesGroupByPayload<T extends ProductsCategoriesGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductsCategoriesGroupByPayload<T extends ProductsCategoriesGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductsCategoriesGroupByOutputType, T['by']> &
       {
@@ -1330,6 +1330,11 @@ export type ProductsCategoriesFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` ProductsCategories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductsCategories.
+   */
   distinct?: Prisma.ProductsCategoriesScalarFieldEnum | Prisma.ProductsCategoriesScalarFieldEnum[]
 }
 
