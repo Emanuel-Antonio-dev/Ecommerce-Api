@@ -8,7 +8,6 @@ import { SendEmail } from "../../Common/Utils/Emails/send-email"
 
 const acountRepository: PrismaAccountRepositories = new PrismaAccountRepositories(prismaService)
 const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAuthenticationsRepositories(prismaService)
-const emailProvider: EmailProviderFactory = new EmailProviderFactory()
 const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
 const requestPasswordService: RequestNewPasswordService = new RequestNewPasswordService(prismaService, acountRepository, authenticationRepository, emailSender)
 class RequestPasswordController

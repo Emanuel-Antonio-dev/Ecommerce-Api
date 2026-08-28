@@ -9,8 +9,11 @@ import { getRedisClient } from "../../../lib/redis.service";
 // MemoryStore padrão do express-rate-limit quando o Redis não está
 // configurado/disponível (ex.: ambiente de desenvolvimento sem REDIS_URL).
 export class RedisRateLimitStore implements Store {
-  public prefix: string;
-  private windowMs = 60_000;
+  // ✅ FIX: campos não podem ser `private` aqui — a interface `Store` do
+  // express-rate-limit é estrutural, e TypeScript rejeita a implementação
+  // quando a classe tem membros privados que não existem na interface.
+  prefix: string;
+  windowMs = 60_000;
 
   constructor(prefix: string) {
     this.prefix = prefix;

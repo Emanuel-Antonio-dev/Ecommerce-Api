@@ -19,6 +19,9 @@ import { variantsRoutes } from './Routes/Products/Variants/routes';
 import { wishlistRoutes } from './Routes/Products/Whishlist/wishlist.routes';
 import { shipmentsRoutes } from './Routes/Products/Shipments/routes';
 import { systemLogsRoutes } from './Routes/Settings/system-logs.routes';
+// ✅ FIX: router existia e estava correto, mas nunca era importado/montado —
+// toda a API de cupons (/coupons/*) estava inacessível (404 em produção).
+import { couponsRoutes } from './Routes/Products/coupons/coupons.routes';
 import { csrfProtection } from './Common/Middlewares/Authorization/csrf-protect';
 import { detectClient } from './Common/Middlewares/Authorization/detct-client';
 import { limiterMiddleware } from './Common/Middlewares/Limiters/requests-limiter.config';
@@ -109,6 +112,7 @@ app.use(urlBase, variantsRoutes);
 app.use(urlBase, wishlistRoutes);
 app.use(urlBase, shipmentsRoutes);
 app.use(urlBase, systemLogsRoutes);
+app.use(urlBase, couponsRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({ success: false, statusCode: 404, message: 'Não conseguimos encontrar esta página.' });
@@ -116,12 +120,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   // Log estruturado — troca por Sentry/Winston em produção
-  console.error({
-    message: err.message,
-    stack: isProd ? undefined : err.stack,
-    path: req.path,
-    method: req.method,
-  });
+  console.error(err);
 
   const statusCode = err.statusCode ?? 500;
   res.status(statusCode).json({

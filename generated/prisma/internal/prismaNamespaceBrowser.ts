@@ -77,7 +77,8 @@ export const ModelName = {
   CouponUsages: 'CouponUsages',
   SeoSettings: 'SeoSettings',
   SeoKeywords: 'SeoKeywords',
-  SystemLogs: 'SystemLogs'
+  SystemLogs: 'SystemLogs',
+  ProcessedWebhookEvents: 'ProcessedWebhookEvents'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -485,6 +486,15 @@ export const SystemLogsScalarFieldEnum = {
 } as const
 
 export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
+
+
+export const ProcessedWebhookEventsScalarFieldEnum = {
+  id_event: 'id_event',
+  event_type: 'event_type',
+  processed_at: 'processed_at'
+} as const
+
+export type ProcessedWebhookEventsScalarFieldEnum = (typeof ProcessedWebhookEventsScalarFieldEnum)[keyof typeof ProcessedWebhookEventsScalarFieldEnum]
 
 
 export const SortOrder = {

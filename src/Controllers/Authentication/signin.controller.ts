@@ -82,7 +82,7 @@ class SignInController
                 success: authenticationResult.success, 
                 statusCode: authenticationResult.statusCode, 
                 message: authenticationResult.message,
-                ...(authenticationResult.user_datas.user_type === "client" && {cart_items: authenticationResult.userCartItems}),
+                ...(authenticationResult.user_datas?.user_type === "client" && {cart_items: authenticationResult.userCartItems}),
             })
         } catch (error: any)
         {

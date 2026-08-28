@@ -160,7 +160,7 @@ class JwtOperations {
         payload: {
             sub: number;
             user_type: string;
-            account_id?: string;
+            account_id: string;
         }
     ): string {
 
@@ -218,6 +218,12 @@ class JwtOperations {
         if (typeof decoded.user_type !== "string") {
             throw new jwt.JsonWebTokenError(
                 "Tipo de usuário inválido."
+            );
+        }
+
+        if (typeof decoded.account_id !== "string") {
+            throw new jwt.JsonWebTokenError(
+                "Identificador de conta inválido."
             );
         }
 

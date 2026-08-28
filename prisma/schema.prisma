@@ -776,3 +776,13 @@ enum AuthContext {
   initial_sign_in
   refresh_token
 }
+
+// ✅ FIX: garante idempotência do webhook do Stripe. O Stripe pode reentregar o
+// mesmo evento mais de uma vez (timeout, erro 5xx, etc.); sem esta tabela, um
+// evento repetido de payment_intent.canceled/failed devolvia estoque em dobro,
+// e um payment_intent.succeeded repetido incrementava sales_count em dobro.
+model ProcessedWebhookEvents {
+  id_event     String   @id
+  event_type   String
+  processed_at DateTime @default(now())
+}

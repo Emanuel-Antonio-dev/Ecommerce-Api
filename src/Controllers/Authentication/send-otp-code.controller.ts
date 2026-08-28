@@ -12,6 +12,7 @@ const authenticationRepository: PrismaAuthenticationsRepositories = new PrismaAu
 const initAuthenticationService: InitAuthenticationsService = new InitAuthenticationsService(authenticationRepository)
 const instanceOfOtpService = new OtpGeneratorService()
 const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
+
 const service = new SendOtpCodesService(repository,instanceOfOtpService,initAuthenticationService,prismaService, emailSender)
 
 class SendOtpCodeController

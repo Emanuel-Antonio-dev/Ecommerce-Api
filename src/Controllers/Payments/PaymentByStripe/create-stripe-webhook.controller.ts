@@ -30,9 +30,25 @@ export const createStripeWebhookController = async (req: Request, res: Response)
   }
 
   // ==============================
-  // 2. PROCESSAR EVENTOS
+  // 2. PROCESSAR EVENTOS (com idempotência)
   // ==============================
   try {
+    // ✅ FIX: registra o event.id ANTES de processar. Se já existir (violação
+    // da PK), o evento já foi tratado nesta ou em outra entrega — respondemos
+    // 200 sem repetir nenhum efeito colateral (evita estoque/sales_count em
+    // dobro quando o Stripe reentrega o mesmo webhook).
+    try {
+      await prismaService.processedWebhookEvents.create({
+        data: { id_event: event.id, event_type: event.type },
+      });
+    } catch (dedupeError: any) {
+      if (dedupeError?.code === "P2002") {
+        console.log(`↩️  Evento ${event.id} já processado anteriormente, ignorando.`);
+        return res.json({ received: true, deduped: true });
+      }
+      throw dedupeError;
+    }
+
     switch (event.type) {
 
       // ======================================================

@@ -174,3 +174,8 @@ export type SeoKeywords = Prisma.SeoKeywordsModel
  * 
  */
 export type SystemLogs = Prisma.SystemLogsModel
+/**
+ * Model ProcessedWebhookEvents
+ * 
+ */
+export type ProcessedWebhookEvents = Prisma.ProcessedWebhookEventsModel
