@@ -89,7 +89,11 @@ export const PaymentProviders = {
   cash: 'cash',
   stripe: 'stripe',
   paypal: 'paypal',
-  express: 'express'
+  multicaixa_express: 'multicaixa_express',
+  unitel_money: 'unitel_money',
+  afrimoney: 'afrimoney',
+  bank_transfer: 'bank_transfer',
+  internal: 'internal'
 } as const
 
 export type PaymentProviders = (typeof PaymentProviders)[keyof typeof PaymentProviders]

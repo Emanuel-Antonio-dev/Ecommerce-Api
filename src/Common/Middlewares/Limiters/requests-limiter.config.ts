@@ -25,7 +25,7 @@ const limiterMiddleware = (
     // ✅ FIX: store compartilhado via Redis (com fallback automático para o
     // MemoryStore padrão quando REDIS_URL não está configurada) — ver
     // redis-store.ts.
-    store: new RedisRateLimitStore(name),
+    //store: new RedisRateLimitStore(name),
 
     handler: (req: Request, res: Response) => {
       return res.status(429).json({

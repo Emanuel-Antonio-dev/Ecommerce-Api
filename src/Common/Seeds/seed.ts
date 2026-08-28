@@ -330,7 +330,7 @@ async function main() {
           user_type: "client",
           account_details: {
             create: {
-              email: "emaricaroffice@gmail.com",
+              email: "teste@gmail.com",
               password: clientPasswordHashed, // substituir por bcrypt real
               verified: true,
               provider: "Local",

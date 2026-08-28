@@ -18,14 +18,14 @@
     "url": "git+https://github.com/Emaricarprogrammer/E-commerce.git"
   },
   "license": "MIT",
-  "author": "Emanuel António, x-Development",
+  "author": "Emanuel António",
   "type": "commonjs",
   "main": "server.ts",
   "scripts": {
-    "start:prod": "node ./dist/src/server.js",
+    "prod": "node ./dist/src/server.js",
     "seed": "node ./dist/src/Common/Seeds/seed.js",
     "postinstall": "prisma generate",
-    "start:dev": "nodemon --watch src --exec ts-node src/server.ts",
+    "dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
     "test": "jest --runInBand"
   },

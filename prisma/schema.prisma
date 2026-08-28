@@ -752,7 +752,11 @@ enum PaymentProviders {
   cash
   stripe
   paypal
-  express
+  multicaixa_express
+  unitel_money
+  afrimoney
+  bank_transfer
+  internal
 }
 
 enum ShipmentStatus {

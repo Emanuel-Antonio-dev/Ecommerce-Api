@@ -33,6 +33,7 @@ const otpVerifyLimiter = limiterMiddleware("Você excedeu o número de tentativa
 
 generalRoute.get("/health", (_req: Request, res: Response) => {
   return res.json({
+    version: process.env.APP_VERSION,
     status: "OK",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),

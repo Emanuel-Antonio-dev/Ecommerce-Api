@@ -11,7 +11,8 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')
 
 const ignoredRoutes = new Set([
   "/auth/google",
-  "/auth/google/callback"
+  "/auth/google/callback",
+  "/auth/signin"
 ])
 
 export function csrfProtection(
@@ -40,7 +41,7 @@ export function csrfProtection(
   // anexa o cookie automaticamente em requisições cross-site). Clientes que
   // usam Bearer token (mobile/Postman/curl) não são vulneráveis a CSRF, então
   // só exigimos Origin válida quando a requisição está autenticada via cookie.
-  const isCookieAuthenticated = Boolean(req.cookies?.accessToken || req.cookies?.refreshToken)
+  const isCookieAuthenticated = Boolean(req.cookies?.accessToken)
 
   if (isCookieAuthenticated) {
     if (!origin || !allowedOrigins.includes(origin)) {
