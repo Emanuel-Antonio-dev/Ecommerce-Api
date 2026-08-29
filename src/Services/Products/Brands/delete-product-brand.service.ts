@@ -1,4 +1,5 @@
 import { IProductsBrandsRepositories } from "../../../Repositories/Products/Brands/products-brands-repositories"
+import { cacheService } from "../../../lib/cache.service"
 
 class DeleteProductBrandService
 {
@@ -21,6 +22,7 @@ class DeleteProductBrandService
             {
                 return {success: false, statusCode: 500, message: "Ocorreu um erro ao deletar os dados desta marca, tente novamente"}
             }
+            cacheService.invalidateBrands();
             return {success: true, statusCode: 200, message:"Marca deletada com sucesso"}
         } catch (error: any)
         {

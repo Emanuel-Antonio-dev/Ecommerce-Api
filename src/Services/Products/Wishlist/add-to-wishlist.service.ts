@@ -1,6 +1,7 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { IWishlistRepositories } from "../../../Repositories/Products/Wishlist/I-wishlist-repository";
 import { IGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/general-products-repositoires";
+import { cacheService } from "../../../lib/cache.service";
 
 const WISHLIST_LIMIT = 100; // impede wishlist abusiva
 
@@ -47,6 +48,7 @@ class AddToWishlistService {
       if (!item) {
         throw new HttpException(false, 500, "Ocorreu um erro ao adicionar produto à lista de desejos");
       }
+      cacheService.invalidateWishlist(id_user_fk);
       return {
         success: true,
         statusCode: 201,

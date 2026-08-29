@@ -2,6 +2,7 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
 import { CouponDatas } from "../../../interfaces/Products/Coupons/interface";
 import { COUPON_CODE_REGEX } from "../../../Common/Utils/helpers";
+import { cacheService } from "../../../lib/cache.service";
 
 class CreateCouponService {
   constructor(private readonly repository: ICouponsRepositories) {}
@@ -57,6 +58,7 @@ class CreateCouponService {
       if(!coupon) {
         throw new HttpException(false, 500, "Ocorreu um erro ao criar o cupom");
       }
+      cacheService.invalidateCoupons();
       return {
         success: true,
         statusCode: 201,

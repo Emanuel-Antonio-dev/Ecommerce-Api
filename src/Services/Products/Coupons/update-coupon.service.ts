@@ -1,6 +1,7 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { CouponDatas } from "../../../interfaces/Products/Coupons/interface";
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
+import { cacheService } from "../../../lib/cache.service";
 
 class UpdateCouponService {
   constructor(private readonly repository: ICouponsRepositories) {}
@@ -54,6 +55,12 @@ class UpdateCouponService {
       }
 
       const updated = await this.repository.update(id_coupon, datas);
+
+      // invalida pelo código antigo E pelo novo (caso tenha sido alterado)
+      cacheService.invalidateCoupon(id_coupon, coupon.code);
+      if (datas.code && datas.code !== coupon.code) {
+        cacheService.invalidateCoupon(id_coupon, datas.code);
+      }
 
       return {
         success: true,

@@ -1,6 +1,9 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PaginationParams, buildPagination } from "../../../Common/Utils/helpers";
 import { IWishlistRepositories } from "../../../Repositories/Products/Wishlist/I-wishlist-repository";
+import { buildCacheHash } from "../../../Common/Utils/Cache/hash";
+import { cacheService } from "../../../lib/cache.service";
+import { CACHE_KEYS, CACHE_TTL } from "../../../lib/cache_keys";
 
 class GetWishlistService {
   constructor(private readonly repository: IWishlistRepositories) {}
@@ -12,6 +15,11 @@ class GetWishlistService {
       }
 
       const pagination = buildPagination({ page, limit });
+      const hash = buildCacheHash({ page: pagination.page, limit: pagination.take });
+      const cacheKey = CACHE_KEYS.wishlist(id_user_fk, hash);
+
+      const cached = cacheService.get<any>(cacheKey);
+      if (cached) return { ...cached, cached: true };
 
       const items = await this.repository.findByUser(
         id_user_fk,
@@ -21,7 +29,7 @@ class GetWishlistService {
 
       const total = await this.repository.countByUser(id_user_fk);
 
-      return {
+      const response = {
         success: true,
         statusCode: 200,
         datas: items,
@@ -32,6 +40,10 @@ class GetWishlistService {
           total_pages: Math.ceil(total / pagination.take),
         },
       };
+
+      cacheService.set(cacheKey, response, CACHE_TTL.WISHLIST);
+
+      return { ...response, cached: false };
     } catch (error: any) {
       if (error instanceof HttpException) {
         return { success: false, statusCode: error.statusCode, message: error.message };

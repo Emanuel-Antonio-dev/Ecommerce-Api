@@ -6,6 +6,7 @@ import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";
+import { cacheService } from "../../../lib/cache.service";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService);
@@ -58,6 +59,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
         const id_user  = Number(paymentIntent.metadata.id_user);
+        let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
         await prismaService.$transaction(async (tx) => {
           // 1. atualiza payment → paid
@@ -80,8 +82,13 @@ export const createStripeWebhookController = async (req: Request, res: Response)
             },
           });
 
+          affectedVariants = orderItems.map((item: any) => ({
+            id_variant: item.id_variant_fk,
+            id_product_fk: item.variant.id_product_fk,
+          }));
+
           await Promise.all(
-            orderItems.map((item) =>
+            orderItems.map((item: any) =>
               tx.products.update({
                 where: { id_product: item.variant.id_product_fk },
                 data: { sales_count: { increment: item.quantity } },
@@ -89,6 +96,12 @@ export const createStripeWebhookController = async (req: Request, res: Response)
             )
           );
         });
+
+        // ✅ sales_count e stock (decrementado na criação do pedido) mudaram
+        // — invalida cada variante/produto envolvido no pedido
+        affectedVariants.forEach(({ id_variant, id_product_fk }) =>
+          cacheService.invalidateVariant(id_variant, id_product_fk)
+        );
 
         // 4. email de confirmação (fora da transação — I/O externo)
         await service.setOrderStatus(id_order, "completed", id_user);
@@ -103,6 +116,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
         const id_user  = Number(paymentIntent.metadata.id_user);
+        let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
         await prismaService.$transaction(async (tx) => {
           await tx.payments.update({
@@ -118,10 +132,18 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           // devolve stock das variantes
           const orderItems = await tx.orderItems.findMany({
             where: { id_order_fk: id_order },
+            include: {
+              variant: { select: { id_product_fk: true } },
+            },
           });
 
+          affectedVariants = orderItems.map((item: any) => ({
+            id_variant: item.id_variant_fk,
+            id_product_fk: item.variant.id_product_fk,
+          }));
+
           await Promise.all(
-            orderItems.map((item) =>
+            orderItems.map((item: any) =>
               tx.productVariants.update({
                 where: { id_variant: item.id_variant_fk },
                 data: { stock: { increment: item.quantity } },
@@ -129,6 +151,11 @@ export const createStripeWebhookController = async (req: Request, res: Response)
             )
           );
         });
+
+        // ✅ stock devolvido — cache antigo mostraria stock indisponível
+        affectedVariants.forEach(({ id_variant, id_product_fk }) =>
+          cacheService.invalidateVariant(id_variant, id_product_fk)
+        );
 
         await service.setOrderStatus(id_order, "failed", id_user);
 
@@ -142,6 +169,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
         const id_user  = Number(paymentIntent.metadata.id_user);
+        let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
         await prismaService.$transaction(async (tx) => {
           await tx.payments.update({
@@ -157,10 +185,18 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           // devolve stock das variantes
           const orderItems = await tx.orderItems.findMany({
             where: { id_order_fk: id_order },
+            include: {
+              variant: { select: { id_product_fk: true } },
+            },
           });
 
+          affectedVariants = orderItems.map((item: any) => ({
+            id_variant: item.id_variant_fk,
+            id_product_fk: item.variant.id_product_fk,
+          }));
+
           await Promise.all(
-            orderItems.map((item) =>
+            orderItems.map((item: any) =>
               tx.productVariants.update({
                 where: { id_variant: item.id_variant_fk },
                 data: { stock: { increment: item.quantity } },
@@ -168,6 +204,11 @@ export const createStripeWebhookController = async (req: Request, res: Response)
             )
           );
         });
+
+        // ✅ stock devolvido — cache antigo mostraria stock indisponível
+        affectedVariants.forEach(({ id_variant, id_product_fk }) =>
+          cacheService.invalidateVariant(id_variant, id_product_fk)
+        );
 
         await service.setOrderStatus(id_order, "cancelled", id_user);
 

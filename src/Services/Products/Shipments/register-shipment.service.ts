@@ -2,6 +2,7 @@ import { PrismaClient } from "../../../../generated/prisma/client";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { RegisterShipmentDatas } from "../../../interfaces/Products/Shipments/interface";
 import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
+import { cacheService } from "../../../lib/cache.service";
 
 const TRACKING_CODE_REGEX = /^[A-Z0-9\-]{4,40}$/;
 const CARRIER_MAX_LENGTH = 100;
@@ -147,6 +148,9 @@ class RegisterShipmentService {
         ...datas,
         tracking_code: sanitizedTracking,
       });
+
+      // ✅ novo envio entra na listagem paginada
+      cacheService.invalidateShipments();
 
       return {
         success: true,

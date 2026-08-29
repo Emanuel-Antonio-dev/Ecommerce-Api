@@ -1,5 +1,6 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { IProductVariantsRepository } from '../../../Repositories/Products/Variants/IProduct-variants-repositories';
+import { cacheService } from "../../../lib/cache.service";
 
 export class UpdateVariantStockService {
   constructor(
@@ -22,6 +23,7 @@ export class UpdateVariantStockService {
         id_variant,
         stock
       );
+      cacheService.invalidateVariant(id_variant, existsVariant.id_product_fk);
       return {
         success: true,
         statusCode: 200,

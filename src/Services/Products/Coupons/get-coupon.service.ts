@@ -1,5 +1,7 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
+import { cacheService } from "../../../lib/cache.service";
+import { CACHE_KEYS, CACHE_TTL } from "../../../lib/cache_keys";
 
 class GetCouponService {
   constructor(private readonly repository: ICouponsRepositories) {}
@@ -11,14 +13,24 @@ class GetCouponService {
       }
 
       let coupon: any;
+      let cacheKey: string;
 
       if (param.code) {
         const sanitizedCode = param.code.toUpperCase().trim();
         if (sanitizedCode.length > 30) {
           throw new HttpException(false, 400, "Código inválido");
         }
+
+        cacheKey = CACHE_KEYS.couponCode(sanitizedCode);
+        const cached = cacheService.get<any>(cacheKey);
+        if (cached) return { ...cached, cached: true };
+
         coupon = await this.repository.findByCode(sanitizedCode);
       } else {
+        cacheKey = CACHE_KEYS.coupon(param.id_coupon!);
+        const cached = cacheService.get<any>(cacheKey);
+        if (cached) return { ...cached, cached: true };
+
         coupon = await this.repository.findById(param.id_coupon!);
       }
 
@@ -26,7 +38,17 @@ class GetCouponService {
         throw new HttpException(false, 404, "Cupom não encontrado");
       }
 
-      return { success: true, statusCode: 200, datas: coupon };
+      const response = { success: true, statusCode: 200, datas: coupon };
+
+      // TTL curto: cupões podem expirar/esgotar a qualquer momento e a
+      // validação precisa refletir isso rapidamente
+      cacheService.set(
+        cacheKey,
+        response,
+        param.code ? CACHE_TTL.COUPON_CODE : CACHE_TTL.COUPON
+      );
+
+      return { ...response, cached: false };
     } catch (error: any) {
       if (error instanceof HttpException) {
         return { success: false, statusCode: error.statusCode, message: error.message };

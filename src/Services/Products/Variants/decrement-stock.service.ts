@@ -1,5 +1,6 @@
 import { IProductVariantsRepository } from '../../../Repositories/Products/Variants/IProduct-variants-repositories';
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { cacheService } from "../../../lib/cache.service";
 
 export class DecrementVariantStockService {
   constructor(
@@ -27,6 +28,7 @@ export class DecrementVariantStockService {
       }
 
       await this.variantsRepository.decrementStock(id_variant, quantity);
+      cacheService.invalidateVariant(id_variant, variant.id_product_fk);
 
       return {
         success: true,

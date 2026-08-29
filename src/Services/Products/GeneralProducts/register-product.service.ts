@@ -10,6 +10,7 @@ import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Pris
 import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/Tags/Prisma/prisma-tags-repositories";
 import { RegisterProductVariantService } from "../Variants/register-product-variant.service";
 import { ProductVariantDatas } from "../../../interfaces/Products/Variants/interface";
+import { cacheService } from "../../../lib/cache.service";
 
 class RegisterGeneralProductService {
   constructor(
@@ -149,6 +150,10 @@ class RegisterGeneralProductService {
 
         return { product, tagsPerProductCreated, images };
       }, { timeout: 45000 });
+
+      // ✅ invalida listas de produtos (a nova lista/produto em destaque pode
+      // ter mudado o resultado de qualquer página cacheada)
+      cacheService.invalidateProducts();
 
       return {
         success: true,

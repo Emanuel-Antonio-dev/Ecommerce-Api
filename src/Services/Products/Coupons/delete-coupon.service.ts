@@ -1,5 +1,6 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
+import { cacheService } from "../../../lib/cache.service";
 
 class DeleteCouponService {
   constructor(private readonly repository: ICouponsRepositories) {}
@@ -20,6 +21,7 @@ class DeleteCouponService {
       if(!result) {
         throw new HttpException(false, 500, "Ocorreu um erro ao remover o cupom");
       }
+      cacheService.invalidateCoupon(id_coupon, coupon.code);
       return {
         success: true,
         statusCode: 200,

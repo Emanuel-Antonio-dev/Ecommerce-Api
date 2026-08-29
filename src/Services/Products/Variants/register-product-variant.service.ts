@@ -3,6 +3,7 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { ProductVariantDatas } from "../../../interfaces/Products/Variants/interface";
 import { IGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/general-products-repositoires";
 import { IProductVariantsRepository } from "../../../Repositories/Products/Variants/IProduct-variants-repositories";
+import { cacheService } from "../../../lib/cache.service";
 
 export class RegisterProductVariantService {
   constructor(
@@ -29,6 +30,7 @@ export class RegisterProductVariantService {
       if(!variant){
         throw new HttpException(false, 500, `Ocorreu um erro ao criar esta variante para o produto ${existsProduct.name}`);
       }
+      cacheService.invalidateProduct(datas.id_product_fk);
       return {
         success: true,
         statusCode: 201,

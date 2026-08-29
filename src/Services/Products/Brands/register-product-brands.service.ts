@@ -1,6 +1,7 @@
 import { IProductsBrandsRepositories } from "../../../Repositories/Products/Brands/products-brands-repositories";
 import { productBrandsDatas } from "../../../interfaces/Products/Brands/interface";
 import sanitize from "sanitize-html";
+import { cacheService } from "../../../lib/cache.service";
 
 class RegisterProductBrandService
 {
@@ -30,6 +31,7 @@ class RegisterProductBrandService
             {
                 return {success: false, statusCode: 400, message:"Ocorreu um erro ao cadastrar esta marca"} 
             }
+            cacheService.invalidateBrands();
             return {success: true, statusCode: 201, message:"Marca cadastrada com sucesso", datas: result}
         } catch (error: any)
         {

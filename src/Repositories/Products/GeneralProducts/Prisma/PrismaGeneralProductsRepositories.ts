@@ -60,9 +60,11 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
         tags:{select:{tag:{select:{tag: true}}}}}
         })
     }
-    async getAllProductsDatas(take?: number, skip?: number): Promise<any[]>
+    async getAllProductsDatas(take?: number, skip?: number, is_featured?: boolean): Promise<any[]>
     {
-        return await this.prisma.products.findMany({omit:{id_brand_fk: true, id_category_fk:true},include:{images: {select:{url:true}},
+        return await this.prisma.products.findMany({
+            where: is_featured !== undefined ? { is_featured } : undefined,
+            omit:{id_brand_fk: true, id_category_fk:true},include:{images: {select:{url:true}},
             reviews: {select:{id_review: true,comment: true, rating: true,created_at: true,id_user_fk: true}}, 
             category: {select:{id_category: true,name: true, slug: true, description: true,created_at: true}},
             variants:{
@@ -100,8 +102,10 @@ class PrismaGeneralProductsRepositories implements IGeneralProductsRepositories
             _count: {rating: true}
         })
     }
-    async countProducts(): Promise<number> {
-        return await this.prisma.products.count()
+    async countProducts(is_featured?: boolean): Promise<number> {
+        return await this.prisma.products.count({
+            where: is_featured !== undefined ? { is_featured } : undefined
+        })
     }
 }
 export {PrismaGeneralProductsRepositories}

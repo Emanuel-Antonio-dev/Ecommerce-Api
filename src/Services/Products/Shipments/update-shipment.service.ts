@@ -2,6 +2,7 @@ import { PrismaClient } from "../../../../generated/prisma/client";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
 import { ShipmentStatus } from "../../../../generated/prisma/enums";
+import { cacheService } from "../../../lib/cache.service";
 
 // Máquina de estados — define quais transições são permitidas a partir de cada status
 const ALLOWED_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
@@ -102,6 +103,13 @@ class UpdateShipmentStatusService {
           data: { status: "cancelled" },
         });
       }
+
+      // ✅ status e possivelmente o pedido associado mudaram
+      cacheService.invalidateShipment(
+        id_shipment,
+        shipment.id_order_fk,
+        shipment.tracking_code
+      );
 
       return {
         success: true,

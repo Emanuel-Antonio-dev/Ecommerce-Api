@@ -2,6 +2,7 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/Tags/Prisma/prisma-tags-repositories";
 import { ProductsTagsDatas } from "../../../interfaces/Products/Tags/interface";
 import sanitize from "sanitize-html";
+import { cacheService } from "../../../lib/cache.service";
 
 class RegisterProductsTagsService {
   constructor(private readonly repository: PrismaProductsTagsRepositories) {}
@@ -51,6 +52,7 @@ class RegisterProductsTagsService {
           return {success: false,statusCode: 409,message: `As seguintes tags já existem: ${existingNames}`,};
         }
         const createdTags = await this.repository.register({ tag: uniqueTags });
+        cacheService.invalidateTags();
         return {success: true,statusCode: 201,datas: createdTags,};
       } catch (error: any)
       {

@@ -1,6 +1,7 @@
 import sanitize from "sanitize-html";
 import { IProductsBrandsRepositories } from "../../../Repositories/Products/Brands/products-brands-repositories";
 import { productBrandsDatas } from "../../../interfaces/Products/Brands/interface";
+import { cacheService } from "../../../lib/cache.service";
 
 class EditProductBrandService
 {
@@ -40,6 +41,7 @@ class EditProductBrandService
             {
                 return {success: false, statusCode: 400, message: "Ocorreu um erro ao editar estes dados, tente novamente"}
             }
+            cacheService.invalidateBrands();
             return {success: true, statusCode: 200, message: "Dados atualizados com sucesso"}
         } catch (error: any)
         {

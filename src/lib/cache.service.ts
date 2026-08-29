@@ -78,11 +78,11 @@ class CacheService {
     ]);
     // invalida também as listas onde este produto pode aparecer
     this.invalidatePattern("products:list:");
-    this.del(CACHE_KEYS.featuredProducts());
+    this.invalidatePattern("products:featured:");
   }
 
   invalidateFeaturedProducts(): void {
-    this.del(CACHE_KEYS.featuredProducts());
+    this.invalidatePattern("products:featured:");
   }
 
   // ── CATEGORIES ──────────────────────────────────────────────────────
@@ -92,22 +92,27 @@ class CacheService {
   }
 
   invalidateCategory(id: number): void {
-    this.del([CACHE_KEYS.category(id), CACHE_KEYS.categoriesList()]);
+    this.del(CACHE_KEYS.category(id));
+    this.invalidatePattern("categories:list:");
   }
 
   // ── BRANDS ──────────────────────────────────────────────────────────
   invalidateBrands(): void {
     this.invalidatePattern("brands:");
+    this.invalidatePattern("brand:");
     console.log("[Cache] Brands invalidated");
   }
 
-  invalidateBrand(id: number): void {
-    this.del([CACHE_KEYS.brand(id), CACHE_KEYS.brandsList()]);
+  invalidateBrand(id: number, name?: string): void {
+    const keys: string[] = [CACHE_KEYS.brand(id)];
+    if (name) keys.push(CACHE_KEYS.brandByName(name));
+    this.del(keys);
+    this.invalidatePattern("brands:list:");
   }
 
   // ── TAGS ────────────────────────────────────────────────────────────
   invalidateTags(): void {
-    this.del(CACHE_KEYS.tagsList());
+    this.invalidatePattern("tags:");
     console.log("[Cache] Tags invalidated");
   }
 
@@ -129,9 +134,10 @@ class CacheService {
   }
 
   invalidateCoupon(id: string, code?: string): void {
-    const keys: string[] = [CACHE_KEYS.coupon(id), CACHE_KEYS.couponsList()];
+    const keys: string[] = [CACHE_KEYS.coupon(id)];
     if (code) keys.push(CACHE_KEYS.couponCode(code));
     this.del(keys);
+    this.invalidatePattern("coupons:list:");
   }
 
   // ── WISHLIST ─────────────────────────────────────────────────────────
@@ -156,12 +162,11 @@ class CacheService {
     console.log("[Cache] Shipments invalidated");
   }
 
-  invalidateShipment(id: string, orderId: number): void {
-    this.del([
-      CACHE_KEYS.shipment(id),
-      CACHE_KEYS.shipmentOrder(orderId),
-      CACHE_KEYS.shipmentsList(),
-    ]);
+  invalidateShipment(id: string, orderId: number, trackingCode?: string): void {
+    const keys: string[] = [CACHE_KEYS.shipment(id), CACHE_KEYS.shipmentOrder(orderId)];
+    if (trackingCode) keys.push(CACHE_KEYS.shipmentTracking(trackingCode));
+    this.del(keys);
+    this.invalidatePattern("shipments:list:");
   }
 
   // ── ADMIN ─────────────────────────────────────────────────────────────

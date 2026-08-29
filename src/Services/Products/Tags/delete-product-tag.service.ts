@@ -1,4 +1,5 @@
 import { PrismaProductsTagsRepositories } from "../../../Repositories/Products/Tags/Prisma/prisma-tags-repositories";
+import { cacheService } from "../../../lib/cache.service";
 
 class DeleteProductTagService
 {
@@ -21,6 +22,7 @@ class DeleteProductTagService
         {
             return {success: false,statusCode: 500,message: "Ocorreu um erro ao remover essa tag."};
         }
+        cacheService.invalidateTags();
         return {success: true,statusCode: 200,message: "Tag removida com sucesso",};   
     } catch (error: any)
     {

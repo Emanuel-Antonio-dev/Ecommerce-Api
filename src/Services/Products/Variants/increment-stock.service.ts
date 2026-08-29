@@ -1,5 +1,6 @@
 import { IProductVariantsRepository } from '../../../Repositories/Products/Variants/IProduct-variants-repositories';
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { cacheService } from "../../../lib/cache.service";
 export class IncrementVariantStockService {
   constructor(
     private readonly variantsRepository: IProductVariantsRepository
@@ -17,6 +18,7 @@ export class IncrementVariantStockService {
             throw new HttpException(false, 404, "Variante não encontrada");
         }
         await this.variantsRepository.incrementStock(id_variant, quantity);
+        cacheService.invalidateVariant(id_variant, variant.id_product_fk);
 
       return {
         success: true,

@@ -1,5 +1,6 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { IWishlistRepositories } from "../../../Repositories/Products/Wishlist/I-wishlist-repository";
+import { cacheService } from "../../../lib/cache.service";
 
 class ClearWishlistService {
   constructor(private readonly repository: IWishlistRepositories) {}
@@ -16,6 +17,7 @@ class ClearWishlistService {
       }
 
       await this.repository.clearByUser(id_user_fk);
+      cacheService.invalidateWishlist(id_user_fk);
 
       return {
         success: true,

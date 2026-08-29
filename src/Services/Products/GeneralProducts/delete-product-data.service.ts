@@ -1,5 +1,6 @@
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { PrismaGeneralProductsRepositories } from "../../../Repositories/Products/GeneralProducts/Prisma/PrismaGeneralProductsRepositories";
+import { cacheService } from "../../../lib/cache.service";
 
 class DeleteProductDataService
 {
@@ -22,6 +23,7 @@ class DeleteProductDataService
             {
                 throw new HttpException(false, 500, "Ocorreu um erro ao deletar os dados desta produto, tente novamente")
             }
+            cacheService.invalidateProducts();
             return {success: true, statusCode: 200, message:"Produto deletado com sucesso"}
         } catch (error: any)
         {

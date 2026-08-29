@@ -2,28 +2,29 @@ export const CACHE_KEYS = {
   // ── PRODUCTS ──────────────────────────────────────────────────────
   productsList:     (hash?: string) => `products:list:${hash || "all"}`,
   product:          (id: number)    => `product:${id}`,
-  featuredProducts: ()              => `products:featured`,
+  featuredProducts: (hash?: string) => `products:featured:${hash || "all"}`,
   productImages:    (id: number)    => `product:${id}:images`,
   productTags:      (id: number)    => `product:${id}:tags`,
   productVariants:  (id: number)    => `product:${id}:variants`,
   productReviews:   (id: number)    => `product:${id}:reviews`,
 
   // ── CATEGORIES ────────────────────────────────────────────────────
-  categoriesList: () => `categories:list:all`,
+  categoriesList: (hash?: string) => `categories:list:${hash || "all"}`,
   category:       (id: number) => `category:${id}`,
 
   // ── BRANDS ────────────────────────────────────────────────────────
-  brandsList: () => `brands:list:all`,
+  brandsList: (hash?: string) => `brands:list:${hash || "all"}`,
   brand:      (id: number) => `brand:${id}`,
+  brandByName: (name: string) => `brand:name:${name.toLowerCase()}`,
 
   // ── TAGS ──────────────────────────────────────────────────────────
-  tagsList: () => `tags:list:all`,
+  tagsList: (hash?: string) => `tags:list:${hash || "all"}`,
 
   // ── VARIANTS ──────────────────────────────────────────────────────
-  variant: (id: number) => `variant:${id}`,
+  variant:         (id: number) => `variant:${id}`,
 
   // ── COUPONS ───────────────────────────────────────────────────────
-  couponsList: () => `coupons:list:all`,
+  couponsList: (hash?: string) => `coupons:list:${hash || "all"}`,
   coupon:      (id: string) => `coupon:${id}`,
   couponCode:  (code: string) => `coupon:code:${code.toUpperCase()}`,
 
@@ -35,9 +36,10 @@ export const CACHE_KEYS = {
   order:      (id: number)     => `order:${id}`,
 
   // ── SHIPMENTS ─────────────────────────────────────────────────────
-  shipmentsList: () => `shipments:list:all`,
-  shipment:      (id: string)      => `shipment:${id}`,
-  shipmentOrder: (orderId: number) => `shipment:order:${orderId}`,
+  shipmentsList:   (hash?: string) => `shipments:list:${hash || "all"}`,
+  shipment:        (id: string)      => `shipment:${id}`,
+  shipmentOrder:   (orderId: number) => `shipment:order:${orderId}`,
+  shipmentTracking: (code: string)   => `shipment:tracking:${code.toUpperCase()}`,
 
   // ── ADMIN ─────────────────────────────────────────────────────────
   adminStatus: (adminId: string) => `admin:${adminId}:status`,

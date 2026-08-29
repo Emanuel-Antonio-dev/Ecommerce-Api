@@ -1,5 +1,8 @@
 import { buildPagination, PaginationParams, PaginatedResult} from "../../../Common/Utils/helpers"
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
+import { buildCacheHash } from "../../../Common/Utils/Cache/hash"
+import { cacheService } from "../../../lib/cache.service"
+import { CACHE_KEYS, CACHE_TTL } from "../../../lib/cache_keys"
 
 class GetAllProductsCategoriesService
 {
@@ -10,6 +13,11 @@ class GetAllProductsCategoriesService
         try
         {
             const pagination = buildPagination({limit, page})
+            const hash = buildCacheHash({ page: pagination.page, limit: pagination.take })
+            const cacheKey = CACHE_KEYS.categoriesList(hash)
+
+            const cached = cacheService.get<any>(cacheKey)
+            if (cached) return { ...cached, cached: true }
 
             const categoriesResult = await this.repository.getAllCategoriesDatas(pagination.take, pagination.skip)
             if(categoriesResult.length === 0)
@@ -18,7 +26,7 @@ class GetAllProductsCategoriesService
             }
             const totalProducts = await this.repository.countCategories()
 
-            return {
+            const response = {
                 success: true, 
                 statusCode: 200,
                 datas: categoriesResult,
@@ -29,6 +37,10 @@ class GetAllProductsCategoriesService
                     total_pages: Math.ceil(totalProducts / pagination.take)
                 }
             }
+
+            cacheService.set(cacheKey, response, CACHE_TTL.CATEGORIES)
+
+            return { ...response, cached: false }
         } catch (error: any)
         {
             console.log(error)

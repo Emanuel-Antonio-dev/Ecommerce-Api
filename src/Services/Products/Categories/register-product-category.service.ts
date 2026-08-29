@@ -2,6 +2,7 @@ import { PrismaProductsCategories } from "../../../Repositories/Products/Categor
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
 import slugify from "slugify";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
+import { cacheService } from "../../../lib/cache.service";
 
 import sanitize from "sanitize-html";
 
@@ -51,6 +52,7 @@ class RegisterProductCategoryService
             {
                 throw new HttpException(false,500,"Ocorreu um erro ao criar esta categoria, tente novamente");
             }
+            cacheService.invalidateCategories();
             return {success: true, statusCode: 201, message:"Categoria criada com sucesso", datas: categoryResult}
         } catch (error: any)
         {

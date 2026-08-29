@@ -12,8 +12,12 @@ class GetAllProductDatasController
     {
         try
         {
-            const{limit, page} = req.query
-            const result = await getAllProductsService.getAll({ page: Number(page) || 1, limit: Number(limit) || 50 })
+            const{limit, page, featured} = req.query
+            const result = await getAllProductsService.getAll({
+                page: Number(page) || 1,
+                limit: Number(limit) || 50,
+                is_featured: featured !== undefined ? featured === "true" : undefined
+            })
             return res.status(result.statusCode).json(result)
         }
         catch (error: any)

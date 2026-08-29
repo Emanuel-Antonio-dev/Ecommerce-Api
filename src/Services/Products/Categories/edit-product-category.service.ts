@@ -1,6 +1,7 @@
 import sanitize from "sanitize-html";
 import { productsCategoriesDatas } from "../../../interfaces/Products/Categories/interface";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
+import { cacheService } from "../../../lib/cache.service";
 
 class EditProductCategoryService
 {
@@ -53,6 +54,7 @@ class EditProductCategoryService
             {
                 return {success: false, statusCode: 400, message: "Ocorreu um erro ao editar estes dados, tente novamente"}
             }
+            cacheService.invalidateCategory(id_category);
             return {success: true, statusCode: 200, message: "Dados atualizados com sucesso"}
         } catch (error: any)
         {

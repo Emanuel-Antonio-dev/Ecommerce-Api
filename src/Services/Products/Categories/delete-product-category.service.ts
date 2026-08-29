@@ -1,4 +1,5 @@
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories"
+import { cacheService } from "../../../lib/cache.service"
 
 class DeleteProductCategoryService
 {
@@ -21,6 +22,7 @@ class DeleteProductCategoryService
             {
                 return {success: false, statusCode: 500, message: "Ocorreu um erro ao deletar os dados desta categoria, tente novamente"}
             }
+            cacheService.invalidateCategories();
             return {success: true, statusCode: 200, message:"Categoria deletada com sucesso"}
         } catch (error: any)
         {

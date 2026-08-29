@@ -5,6 +5,7 @@ import sanitize from "sanitize-html";
 import { PrismaProductsCategories } from "../../../Repositories/Products/Categories/Prisma/PrismaProductsCategories";
 import { cloudinary } from "../../../Common/Utils/Uploads/cloudinary-config";
 import { PrismaProductsBrands } from "../../../Repositories/Products/Brands/Prisma/prisma-products-brands";
+import { cacheService } from "../../../lib/cache.service";
 
 class EditProductDatasService
 {
@@ -147,6 +148,7 @@ class EditProductDatasService
                     throw new HttpException(false, 500, "Ocorreu um erro ao atualizar os dados deste produto")
                 }
             }
+            cacheService.invalidateProduct(id_product);
             return {success: true, statusCode: 200, message: "Produto atualizado com sucesso"};
         } catch (error: any)
         {    

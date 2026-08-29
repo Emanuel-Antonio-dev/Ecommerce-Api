@@ -3,6 +3,7 @@ import { ApplyCouponDatas } from "../../../interfaces/Products/Coupons/interface
 import { ICouponsRepositories } from "../../../Repositories/Products/Coupons/Icoupons-repositories";
 import { IUsersRepositories } from "../../../Repositories/Users/users-repositories";
 import { IProductOrderRepositories } from "../../../Repositories/Products/ProductOrders/product-order-repositories";
+import { cacheService } from "../../../lib/cache.service";
 
 class ApplyCouponService {
   constructor(
@@ -115,6 +116,10 @@ class ApplyCouponService {
         }
         throw new HttpException(false, 400, "Este pedido já possui um cupom aplicado");
       }
+
+      // ✅ used_count do cupom mudou (e pode ter atingido o limite de uso) —
+      // invalida para que a próxima leitura reflita o novo estado
+      cacheService.invalidateCoupon(coupon.id_coupon, coupon.code);
 
       return {
         success: true,
