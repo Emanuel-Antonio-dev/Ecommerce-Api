@@ -22,6 +22,7 @@ import { systemLogsRoutes } from './Routes/Settings/system-logs.routes';
 // ✅ FIX: router existia e estava correto, mas nunca era importado/montado —
 // toda a API de cupons (/coupons/*) estava inacessível (404 em produção).
 import { couponsRoutes } from './Routes/Products/coupons/coupons.routes';
+import { supportRoutes } from './Routes/Support/routes';
 import { csrfProtection } from './Common/Middlewares/Authorization/csrf-protect';
 import { detectClient } from './Common/Middlewares/Authorization/detct-client';
 import { limiterMiddleware } from './Common/Middlewares/Limiters/requests-limiter.config';
@@ -113,6 +114,7 @@ app.use(urlBase, wishlistRoutes);
 app.use(urlBase, shipmentsRoutes);
 app.use(urlBase, systemLogsRoutes);
 app.use(urlBase, couponsRoutes);
+app.use(urlBase, supportRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({ success: false, statusCode: 404, message: 'Não conseguimos encontrar esta página.' });

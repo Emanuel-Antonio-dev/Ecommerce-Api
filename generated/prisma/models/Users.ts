@@ -256,6 +256,8 @@ export type UsersWhereInput = {
   my_reviews?: Prisma.ProductsReviewsListRelationFilter
   wishlist_items?: Prisma.WishlistItemsListRelationFilter
   coupon_usages?: Prisma.CouponUsagesListRelationFilter
+  support_tickets?: Prisma.SupportTicketsListRelationFilter
+  support_ticket_messages?: Prisma.SupportTicketMessagesListRelationFilter
 }
 
 export type UsersOrderByWithRelationInput = {
@@ -276,6 +278,8 @@ export type UsersOrderByWithRelationInput = {
   my_reviews?: Prisma.ProductsReviewsOrderByRelationAggregateInput
   wishlist_items?: Prisma.WishlistItemsOrderByRelationAggregateInput
   coupon_usages?: Prisma.CouponUsagesOrderByRelationAggregateInput
+  support_tickets?: Prisma.SupportTicketsOrderByRelationAggregateInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesOrderByRelationAggregateInput
 }
 
 export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -299,6 +303,8 @@ export type UsersWhereUniqueInput = Prisma.AtLeast<{
   my_reviews?: Prisma.ProductsReviewsListRelationFilter
   wishlist_items?: Prisma.WishlistItemsListRelationFilter
   coupon_usages?: Prisma.CouponUsagesListRelationFilter
+  support_tickets?: Prisma.SupportTicketsListRelationFilter
+  support_ticket_messages?: Prisma.SupportTicketMessagesListRelationFilter
 }, "id_user" | "username" | "id_account_fk">
 
 export type UsersOrderByWithAggregationInput = {
@@ -349,6 +355,8 @@ export type UsersCreateInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateInput = {
@@ -368,6 +376,8 @@ export type UsersUncheckedCreateInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUpdateInput = {
@@ -386,6 +396,8 @@ export type UsersUpdateInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateInput = {
@@ -405,6 +417,8 @@ export type UsersUncheckedUpdateInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateManyInput = {
@@ -631,6 +645,34 @@ export type UsersUpdateOneRequiredWithoutCoupon_usagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutCoupon_usagesInput, Prisma.UsersUpdateWithoutCoupon_usagesInput>, Prisma.UsersUncheckedUpdateWithoutCoupon_usagesInput>
 }
 
+export type UsersCreateNestedOneWithoutSupport_ticketsInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticketsInput, Prisma.UsersUncheckedCreateWithoutSupport_ticketsInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutSupport_ticketsInput
+  connect?: Prisma.UsersWhereUniqueInput
+}
+
+export type UsersUpdateOneRequiredWithoutSupport_ticketsNestedInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticketsInput, Prisma.UsersUncheckedCreateWithoutSupport_ticketsInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutSupport_ticketsInput
+  upsert?: Prisma.UsersUpsertWithoutSupport_ticketsInput
+  connect?: Prisma.UsersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutSupport_ticketsInput, Prisma.UsersUpdateWithoutSupport_ticketsInput>, Prisma.UsersUncheckedUpdateWithoutSupport_ticketsInput>
+}
+
+export type UsersCreateNestedOneWithoutSupport_ticket_messagesInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedCreateWithoutSupport_ticket_messagesInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutSupport_ticket_messagesInput
+  connect?: Prisma.UsersWhereUniqueInput
+}
+
+export type UsersUpdateOneRequiredWithoutSupport_ticket_messagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedCreateWithoutSupport_ticket_messagesInput>
+  connectOrCreate?: Prisma.UsersCreateOrConnectWithoutSupport_ticket_messagesInput
+  upsert?: Prisma.UsersUpsertWithoutSupport_ticket_messagesInput
+  connect?: Prisma.UsersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsersUpdateToOneWithWhereWithoutSupport_ticket_messagesInput, Prisma.UsersUpdateWithoutSupport_ticket_messagesInput>, Prisma.UsersUncheckedUpdateWithoutSupport_ticket_messagesInput>
+}
+
 export type UsersCreateWithoutAccount_detailsInput = {
   first_name: string
   last_name: string
@@ -646,6 +688,8 @@ export type UsersCreateWithoutAccount_detailsInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutAccount_detailsInput = {
@@ -664,6 +708,8 @@ export type UsersUncheckedCreateWithoutAccount_detailsInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutAccount_detailsInput = {
@@ -697,6 +743,8 @@ export type UsersUpdateWithoutAccount_detailsInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
@@ -715,6 +763,8 @@ export type UsersUncheckedUpdateWithoutAccount_detailsInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutMy_contactsInput = {
@@ -732,6 +782,8 @@ export type UsersCreateWithoutMy_contactsInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutMy_contactsInput = {
@@ -750,6 +802,8 @@ export type UsersUncheckedCreateWithoutMy_contactsInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutMy_contactsInput = {
@@ -783,6 +837,8 @@ export type UsersUpdateWithoutMy_contactsInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_contactsInput = {
@@ -801,6 +857,8 @@ export type UsersUncheckedUpdateWithoutMy_contactsInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutMy_addressesInput = {
@@ -818,6 +876,8 @@ export type UsersCreateWithoutMy_addressesInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutMy_addressesInput = {
@@ -836,6 +896,8 @@ export type UsersUncheckedCreateWithoutMy_addressesInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutMy_addressesInput = {
@@ -869,6 +931,8 @@ export type UsersUpdateWithoutMy_addressesInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_addressesInput = {
@@ -887,6 +951,8 @@ export type UsersUncheckedUpdateWithoutMy_addressesInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutMy_reviewsInput = {
@@ -904,6 +970,8 @@ export type UsersCreateWithoutMy_reviewsInput = {
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutMy_reviewsInput = {
@@ -922,6 +990,8 @@ export type UsersUncheckedCreateWithoutMy_reviewsInput = {
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutMy_reviewsInput = {
@@ -955,6 +1025,8 @@ export type UsersUpdateWithoutMy_reviewsInput = {
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
@@ -973,6 +1045,8 @@ export type UsersUncheckedUpdateWithoutMy_reviewsInput = {
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutMy_cartInput = {
@@ -990,6 +1064,8 @@ export type UsersCreateWithoutMy_cartInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutMy_cartInput = {
@@ -1008,6 +1084,8 @@ export type UsersUncheckedCreateWithoutMy_cartInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutMy_cartInput = {
@@ -1041,6 +1119,8 @@ export type UsersUpdateWithoutMy_cartInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_cartInput = {
@@ -1059,6 +1139,8 @@ export type UsersUncheckedUpdateWithoutMy_cartInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutMy_ordersInput = {
@@ -1076,6 +1158,8 @@ export type UsersCreateWithoutMy_ordersInput = {
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutMy_ordersInput = {
@@ -1094,6 +1178,8 @@ export type UsersUncheckedCreateWithoutMy_ordersInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutMy_ordersInput = {
@@ -1127,6 +1213,8 @@ export type UsersUpdateWithoutMy_ordersInput = {
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutMy_ordersInput = {
@@ -1145,6 +1233,8 @@ export type UsersUncheckedUpdateWithoutMy_ordersInput = {
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutWishlist_itemsInput = {
@@ -1162,6 +1252,8 @@ export type UsersCreateWithoutWishlist_itemsInput = {
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutWishlist_itemsInput = {
@@ -1180,6 +1272,8 @@ export type UsersUncheckedCreateWithoutWishlist_itemsInput = {
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutWishlist_itemsInput = {
@@ -1213,6 +1307,8 @@ export type UsersUpdateWithoutWishlist_itemsInput = {
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutWishlist_itemsInput = {
@@ -1231,6 +1327,8 @@ export type UsersUncheckedUpdateWithoutWishlist_itemsInput = {
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersCreateWithoutCoupon_usagesInput = {
@@ -1248,6 +1346,8 @@ export type UsersCreateWithoutCoupon_usagesInput = {
   my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersUncheckedCreateWithoutCoupon_usagesInput = {
@@ -1266,6 +1366,8 @@ export type UsersUncheckedCreateWithoutCoupon_usagesInput = {
   my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
   my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
   wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
 }
 
 export type UsersCreateOrConnectWithoutCoupon_usagesInput = {
@@ -1299,6 +1401,8 @@ export type UsersUpdateWithoutCoupon_usagesInput = {
   my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
 }
 
 export type UsersUncheckedUpdateWithoutCoupon_usagesInput = {
@@ -1317,6 +1421,196 @@ export type UsersUncheckedUpdateWithoutCoupon_usagesInput = {
   my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
   my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
   wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
+}
+
+export type UsersCreateWithoutSupport_ticketsInput = {
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
+  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesCreateNestedManyWithoutAuthor_detailsInput
+}
+
+export type UsersUncheckedCreateWithoutSupport_ticketsInput = {
+  id_user?: number
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  id_account_fk: string
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedCreateNestedManyWithoutAuthor_detailsInput
+}
+
+export type UsersCreateOrConnectWithoutSupport_ticketsInput = {
+  where: Prisma.UsersWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticketsInput, Prisma.UsersUncheckedCreateWithoutSupport_ticketsInput>
+}
+
+export type UsersUpsertWithoutSupport_ticketsInput = {
+  update: Prisma.XOR<Prisma.UsersUpdateWithoutSupport_ticketsInput, Prisma.UsersUncheckedUpdateWithoutSupport_ticketsInput>
+  create: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticketsInput, Prisma.UsersUncheckedCreateWithoutSupport_ticketsInput>
+  where?: Prisma.UsersWhereInput
+}
+
+export type UsersUpdateToOneWithWhereWithoutSupport_ticketsInput = {
+  where?: Prisma.UsersWhereInput
+  data: Prisma.XOR<Prisma.UsersUpdateWithoutSupport_ticketsInput, Prisma.UsersUncheckedUpdateWithoutSupport_ticketsInput>
+}
+
+export type UsersUpdateWithoutSupport_ticketsInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
+  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUpdateManyWithoutAuthor_detailsNestedInput
+}
+
+export type UsersUncheckedUpdateWithoutSupport_ticketsInput = {
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_ticket_messages?: Prisma.SupportTicketMessagesUncheckedUpdateManyWithoutAuthor_detailsNestedInput
+}
+
+export type UsersCreateWithoutSupport_ticket_messagesInput = {
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  account_details: Prisma.AccountsCreateNestedOneWithoutUser_detailsInput
+  my_addresses?: Prisma.AddressesCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutUser_detailsInput
+}
+
+export type UsersUncheckedCreateWithoutSupport_ticket_messagesInput = {
+  id_user?: number
+  first_name: string
+  last_name: string
+  username: string
+  user_type?: $Enums.UsersTypes
+  id_account_fk: string
+  deleted_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  my_addresses?: Prisma.AddressesUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_contacts?: Prisma.ContactsUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutUser_detailsInput
+  my_cart?: Prisma.CartsUncheckedCreateNestedOneWithoutUser_detailsInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedCreateNestedManyWithoutUser_detailsInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedCreateNestedManyWithoutUserInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutUser_detailsInput
+}
+
+export type UsersCreateOrConnectWithoutSupport_ticket_messagesInput = {
+  where: Prisma.UsersWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedCreateWithoutSupport_ticket_messagesInput>
+}
+
+export type UsersUpsertWithoutSupport_ticket_messagesInput = {
+  update: Prisma.XOR<Prisma.UsersUpdateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedUpdateWithoutSupport_ticket_messagesInput>
+  create: Prisma.XOR<Prisma.UsersCreateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedCreateWithoutSupport_ticket_messagesInput>
+  where?: Prisma.UsersWhereInput
+}
+
+export type UsersUpdateToOneWithWhereWithoutSupport_ticket_messagesInput = {
+  where?: Prisma.UsersWhereInput
+  data: Prisma.XOR<Prisma.UsersUpdateWithoutSupport_ticket_messagesInput, Prisma.UsersUncheckedUpdateWithoutSupport_ticket_messagesInput>
+}
+
+export type UsersUpdateWithoutSupport_ticket_messagesInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_details?: Prisma.AccountsUpdateOneRequiredWithoutUser_detailsNestedInput
+  my_addresses?: Prisma.AddressesUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutUser_detailsNestedInput
+}
+
+export type UsersUncheckedUpdateWithoutSupport_ticket_messagesInput = {
+  id_user?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  user_type?: Prisma.EnumUsersTypesFieldUpdateOperationsInput | $Enums.UsersTypes
+  id_account_fk?: Prisma.StringFieldUpdateOperationsInput | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  my_addresses?: Prisma.AddressesUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_contacts?: Prisma.ContactsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_orders?: Prisma.OrdersUncheckedUpdateManyWithoutUser_detailsNestedInput
+  my_cart?: Prisma.CartsUncheckedUpdateOneWithoutUser_detailsNestedInput
+  my_reviews?: Prisma.ProductsReviewsUncheckedUpdateManyWithoutUser_detailsNestedInput
+  wishlist_items?: Prisma.WishlistItemsUncheckedUpdateManyWithoutUserNestedInput
+  coupon_usages?: Prisma.CouponUsagesUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutUser_detailsNestedInput
 }
 
 
@@ -1331,6 +1625,8 @@ export type UsersCountOutputType = {
   my_reviews: number
   wishlist_items: number
   coupon_usages: number
+  support_tickets: number
+  support_ticket_messages: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1340,6 +1636,8 @@ export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   my_reviews?: boolean | UsersCountOutputTypeCountMy_reviewsArgs
   wishlist_items?: boolean | UsersCountOutputTypeCountWishlist_itemsArgs
   coupon_usages?: boolean | UsersCountOutputTypeCountCoupon_usagesArgs
+  support_tickets?: boolean | UsersCountOutputTypeCountSupport_ticketsArgs
+  support_ticket_messages?: boolean | UsersCountOutputTypeCountSupport_ticket_messagesArgs
 }
 
 /**
@@ -1394,6 +1692,20 @@ export type UsersCountOutputTypeCountCoupon_usagesArgs<ExtArgs extends runtime.T
   where?: Prisma.CouponUsagesWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountSupport_ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketsWhereInput
+}
+
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountSupport_ticket_messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketMessagesWhereInput
+}
+
 
 export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_user?: boolean
@@ -1413,6 +1725,8 @@ export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   my_reviews?: boolean | Prisma.Users$my_reviewsArgs<ExtArgs>
   wishlist_items?: boolean | Prisma.Users$wishlist_itemsArgs<ExtArgs>
   coupon_usages?: boolean | Prisma.Users$coupon_usagesArgs<ExtArgs>
+  support_tickets?: boolean | Prisma.Users$support_ticketsArgs<ExtArgs>
+  support_ticket_messages?: boolean | Prisma.Users$support_ticket_messagesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -1464,6 +1778,8 @@ export type UsersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   my_reviews?: boolean | Prisma.Users$my_reviewsArgs<ExtArgs>
   wishlist_items?: boolean | Prisma.Users$wishlist_itemsArgs<ExtArgs>
   coupon_usages?: boolean | Prisma.Users$coupon_usagesArgs<ExtArgs>
+  support_tickets?: boolean | Prisma.Users$support_ticketsArgs<ExtArgs>
+  support_ticket_messages?: boolean | Prisma.Users$support_ticket_messagesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1484,6 +1800,8 @@ export type $UsersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     my_reviews: Prisma.$ProductsReviewsPayload<ExtArgs>[]
     wishlist_items: Prisma.$WishlistItemsPayload<ExtArgs>[]
     coupon_usages: Prisma.$CouponUsagesPayload<ExtArgs>[]
+    support_tickets: Prisma.$SupportTicketsPayload<ExtArgs>[]
+    support_ticket_messages: Prisma.$SupportTicketMessagesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_user: number
@@ -1897,6 +2215,8 @@ export interface Prisma__UsersClient<T, Null = never, ExtArgs extends runtime.Ty
   my_reviews<T extends Prisma.Users$my_reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$my_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductsReviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wishlist_items<T extends Prisma.Users$wishlist_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$wishlist_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WishlistItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupon_usages<T extends Prisma.Users$coupon_usagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$coupon_usagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponUsagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_tickets<T extends Prisma.Users$support_ticketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$support_ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_ticket_messages<T extends Prisma.Users$support_ticket_messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Users$support_ticket_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketMessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2496,6 +2816,54 @@ export type Users$coupon_usagesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.CouponUsagesScalarFieldEnum | Prisma.CouponUsagesScalarFieldEnum[]
+}
+
+/**
+ * Users.support_tickets
+ */
+export type Users$support_ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTickets
+   */
+  select?: Prisma.SupportTicketsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTickets
+   */
+  omit?: Prisma.SupportTicketsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketsInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketsWhereInput
+  orderBy?: Prisma.SupportTicketsOrderByWithRelationInput | Prisma.SupportTicketsOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketsScalarFieldEnum | Prisma.SupportTicketsScalarFieldEnum[]
+}
+
+/**
+ * Users.support_ticket_messages
+ */
+export type Users$support_ticket_messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicketMessages
+   */
+  select?: Prisma.SupportTicketMessagesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicketMessages
+   */
+  omit?: Prisma.SupportTicketMessagesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketMessagesInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketMessagesWhereInput
+  orderBy?: Prisma.SupportTicketMessagesOrderByWithRelationInput | Prisma.SupportTicketMessagesOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketMessagesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketMessagesScalarFieldEnum | Prisma.SupportTicketMessagesScalarFieldEnum[]
 }
 
 /**

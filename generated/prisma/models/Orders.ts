@@ -313,6 +313,7 @@ export type OrdersWhereInput = {
   payment?: Prisma.XOR<Prisma.PaymentsNullableScalarRelationFilter, Prisma.PaymentsWhereInput> | null
   shipment?: Prisma.XOR<Prisma.ShipmentsNullableScalarRelationFilter, Prisma.ShipmentsWhereInput> | null
   coupon_usage?: Prisma.XOR<Prisma.CouponUsagesNullableScalarRelationFilter, Prisma.CouponUsagesWhereInput> | null
+  support_tickets?: Prisma.SupportTicketsListRelationFilter
 }
 
 export type OrdersOrderByWithRelationInput = {
@@ -336,6 +337,7 @@ export type OrdersOrderByWithRelationInput = {
   payment?: Prisma.PaymentsOrderByWithRelationInput
   shipment?: Prisma.ShipmentsOrderByWithRelationInput
   coupon_usage?: Prisma.CouponUsagesOrderByWithRelationInput
+  support_tickets?: Prisma.SupportTicketsOrderByRelationAggregateInput
 }
 
 export type OrdersWhereUniqueInput = Prisma.AtLeast<{
@@ -362,6 +364,7 @@ export type OrdersWhereUniqueInput = Prisma.AtLeast<{
   payment?: Prisma.XOR<Prisma.PaymentsNullableScalarRelationFilter, Prisma.PaymentsWhereInput> | null
   shipment?: Prisma.XOR<Prisma.ShipmentsNullableScalarRelationFilter, Prisma.ShipmentsWhereInput> | null
   coupon_usage?: Prisma.XOR<Prisma.CouponUsagesNullableScalarRelationFilter, Prisma.CouponUsagesWhereInput> | null
+  support_tickets?: Prisma.SupportTicketsListRelationFilter
 }, "id_order" | "order_number">
 
 export type OrdersOrderByWithAggregationInput = {
@@ -427,6 +430,7 @@ export type OrdersCreateInput = {
   payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateInput = {
@@ -449,6 +453,7 @@ export type OrdersUncheckedCreateInput = {
   payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUpdateInput = {
@@ -470,6 +475,7 @@ export type OrdersUpdateInput = {
   payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateInput = {
@@ -492,6 +498,7 @@ export type OrdersUncheckedUpdateInput = {
   payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersCreateManyInput = {
@@ -629,6 +636,11 @@ export type OrdersScalarRelationFilter = {
   isNot?: Prisma.OrdersWhereInput
 }
 
+export type OrdersNullableScalarRelationFilter = {
+  is?: Prisma.OrdersWhereInput | null
+  isNot?: Prisma.OrdersWhereInput | null
+}
+
 export type OrdersCreateNestedManyWithoutUser_detailsInput = {
   create?: Prisma.XOR<Prisma.OrdersCreateWithoutUser_detailsInput, Prisma.OrdersUncheckedCreateWithoutUser_detailsInput> | Prisma.OrdersCreateWithoutUser_detailsInput[] | Prisma.OrdersUncheckedCreateWithoutUser_detailsInput[]
   connectOrCreate?: Prisma.OrdersCreateOrConnectWithoutUser_detailsInput | Prisma.OrdersCreateOrConnectWithoutUser_detailsInput[]
@@ -735,6 +747,22 @@ export type OrdersUpdateOneRequiredWithoutCoupon_usageNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrdersUpdateToOneWithWhereWithoutCoupon_usageInput, Prisma.OrdersUpdateWithoutCoupon_usageInput>, Prisma.OrdersUncheckedUpdateWithoutCoupon_usageInput>
 }
 
+export type OrdersCreateNestedOneWithoutSupport_ticketsInput = {
+  create?: Prisma.XOR<Prisma.OrdersCreateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedCreateWithoutSupport_ticketsInput>
+  connectOrCreate?: Prisma.OrdersCreateOrConnectWithoutSupport_ticketsInput
+  connect?: Prisma.OrdersWhereUniqueInput
+}
+
+export type OrdersUpdateOneWithoutSupport_ticketsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrdersCreateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedCreateWithoutSupport_ticketsInput>
+  connectOrCreate?: Prisma.OrdersCreateOrConnectWithoutSupport_ticketsInput
+  upsert?: Prisma.OrdersUpsertWithoutSupport_ticketsInput
+  disconnect?: Prisma.OrdersWhereInput | boolean
+  delete?: Prisma.OrdersWhereInput | boolean
+  connect?: Prisma.OrdersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrdersUpdateToOneWithWhereWithoutSupport_ticketsInput, Prisma.OrdersUpdateWithoutSupport_ticketsInput>, Prisma.OrdersUncheckedUpdateWithoutSupport_ticketsInput>
+}
+
 export type OrdersCreateWithoutUser_detailsInput = {
   order_number: string
   total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -753,6 +781,7 @@ export type OrdersCreateWithoutUser_detailsInput = {
   payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateWithoutUser_detailsInput = {
@@ -774,6 +803,7 @@ export type OrdersUncheckedCreateWithoutUser_detailsInput = {
   payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersCreateOrConnectWithoutUser_detailsInput = {
@@ -841,6 +871,7 @@ export type OrdersCreateWithoutOrder_itemsInput = {
   payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateWithoutOrder_itemsInput = {
@@ -862,6 +893,7 @@ export type OrdersUncheckedCreateWithoutOrder_itemsInput = {
   payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersCreateOrConnectWithoutOrder_itemsInput = {
@@ -898,6 +930,7 @@ export type OrdersUpdateWithoutOrder_itemsInput = {
   payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateWithoutOrder_itemsInput = {
@@ -919,6 +952,7 @@ export type OrdersUncheckedUpdateWithoutOrder_itemsInput = {
   payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersCreateWithoutPaymentInput = {
@@ -939,6 +973,7 @@ export type OrdersCreateWithoutPaymentInput = {
   order_items?: Prisma.OrderItemsCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateWithoutPaymentInput = {
@@ -960,6 +995,7 @@ export type OrdersUncheckedCreateWithoutPaymentInput = {
   order_items?: Prisma.OrderItemsUncheckedCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersCreateOrConnectWithoutPaymentInput = {
@@ -996,6 +1032,7 @@ export type OrdersUpdateWithoutPaymentInput = {
   order_items?: Prisma.OrderItemsUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateWithoutPaymentInput = {
@@ -1017,6 +1054,7 @@ export type OrdersUncheckedUpdateWithoutPaymentInput = {
   order_items?: Prisma.OrderItemsUncheckedUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersCreateWithoutShipmentInput = {
@@ -1037,6 +1075,7 @@ export type OrdersCreateWithoutShipmentInput = {
   order_items?: Prisma.OrderItemsCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateWithoutShipmentInput = {
@@ -1058,6 +1097,7 @@ export type OrdersUncheckedCreateWithoutShipmentInput = {
   order_items?: Prisma.OrderItemsUncheckedCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
   coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersCreateOrConnectWithoutShipmentInput = {
@@ -1094,6 +1134,7 @@ export type OrdersUpdateWithoutShipmentInput = {
   order_items?: Prisma.OrderItemsUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateWithoutShipmentInput = {
@@ -1115,6 +1156,7 @@ export type OrdersUncheckedUpdateWithoutShipmentInput = {
   order_items?: Prisma.OrderItemsUncheckedUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersCreateWithoutCoupon_usageInput = {
@@ -1135,6 +1177,7 @@ export type OrdersCreateWithoutCoupon_usageInput = {
   order_items?: Prisma.OrderItemsCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersUncheckedCreateWithoutCoupon_usageInput = {
@@ -1156,6 +1199,7 @@ export type OrdersUncheckedCreateWithoutCoupon_usageInput = {
   order_items?: Prisma.OrderItemsUncheckedCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
   shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
+  support_tickets?: Prisma.SupportTicketsUncheckedCreateNestedManyWithoutOrder_detailsInput
 }
 
 export type OrdersCreateOrConnectWithoutCoupon_usageInput = {
@@ -1192,6 +1236,7 @@ export type OrdersUpdateWithoutCoupon_usageInput = {
   order_items?: Prisma.OrderItemsUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateWithoutCoupon_usageInput = {
@@ -1213,6 +1258,109 @@ export type OrdersUncheckedUpdateWithoutCoupon_usageInput = {
   order_items?: Prisma.OrderItemsUncheckedUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
+}
+
+export type OrdersCreateWithoutSupport_ticketsInput = {
+  order_number: string
+  total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  payment_method: $Enums.PaymentMethods
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
+  delivered_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  user_details: Prisma.UsersCreateNestedOneWithoutMy_ordersInput
+  order_items?: Prisma.OrderItemsCreateNestedManyWithoutOrderInput
+  payment?: Prisma.PaymentsCreateNestedOneWithoutOrderInput
+  shipment?: Prisma.ShipmentsCreateNestedOneWithoutOrderInput
+  coupon_usage?: Prisma.CouponUsagesCreateNestedOneWithoutOrderInput
+}
+
+export type OrdersUncheckedCreateWithoutSupport_ticketsInput = {
+  id_order?: number
+  order_number: string
+  total_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  payment_method: $Enums.PaymentMethods
+  id_user_fk: number
+  shipping_street: string
+  shipping_city: string
+  shipping_province: string
+  shipping_country: string
+  shipping_phone_number: string
+  delivered_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  order_items?: Prisma.OrderItemsUncheckedCreateNestedManyWithoutOrderInput
+  payment?: Prisma.PaymentsUncheckedCreateNestedOneWithoutOrderInput
+  shipment?: Prisma.ShipmentsUncheckedCreateNestedOneWithoutOrderInput
+  coupon_usage?: Prisma.CouponUsagesUncheckedCreateNestedOneWithoutOrderInput
+}
+
+export type OrdersCreateOrConnectWithoutSupport_ticketsInput = {
+  where: Prisma.OrdersWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrdersCreateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedCreateWithoutSupport_ticketsInput>
+}
+
+export type OrdersUpsertWithoutSupport_ticketsInput = {
+  update: Prisma.XOR<Prisma.OrdersUpdateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedUpdateWithoutSupport_ticketsInput>
+  create: Prisma.XOR<Prisma.OrdersCreateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedCreateWithoutSupport_ticketsInput>
+  where?: Prisma.OrdersWhereInput
+}
+
+export type OrdersUpdateToOneWithWhereWithoutSupport_ticketsInput = {
+  where?: Prisma.OrdersWhereInput
+  data: Prisma.XOR<Prisma.OrdersUpdateWithoutSupport_ticketsInput, Prisma.OrdersUncheckedUpdateWithoutSupport_ticketsInput>
+}
+
+export type OrdersUpdateWithoutSupport_ticketsInput = {
+  order_number?: Prisma.StringFieldUpdateOperationsInput | string
+  total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  payment_method?: Prisma.EnumPaymentMethodsFieldUpdateOperationsInput | $Enums.PaymentMethods
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user_details?: Prisma.UsersUpdateOneRequiredWithoutMy_ordersNestedInput
+  order_items?: Prisma.OrderItemsUpdateManyWithoutOrderNestedInput
+  payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
+  shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
+  coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+}
+
+export type OrdersUncheckedUpdateWithoutSupport_ticketsInput = {
+  id_order?: Prisma.IntFieldUpdateOperationsInput | number
+  order_number?: Prisma.StringFieldUpdateOperationsInput | string
+  total_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  payment_method?: Prisma.EnumPaymentMethodsFieldUpdateOperationsInput | $Enums.PaymentMethods
+  id_user_fk?: Prisma.IntFieldUpdateOperationsInput | number
+  shipping_street?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_city?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_province?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_country?: Prisma.StringFieldUpdateOperationsInput | string
+  shipping_phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  delivered_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order_items?: Prisma.OrderItemsUncheckedUpdateManyWithoutOrderNestedInput
+  payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
+  shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
+  coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
 }
 
 export type OrdersCreateManyUser_detailsInput = {
@@ -1250,6 +1398,7 @@ export type OrdersUpdateWithoutUser_detailsInput = {
   payment?: Prisma.PaymentsUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateWithoutUser_detailsInput = {
@@ -1271,6 +1420,7 @@ export type OrdersUncheckedUpdateWithoutUser_detailsInput = {
   payment?: Prisma.PaymentsUncheckedUpdateOneWithoutOrderNestedInput
   shipment?: Prisma.ShipmentsUncheckedUpdateOneWithoutOrderNestedInput
   coupon_usage?: Prisma.CouponUsagesUncheckedUpdateOneWithoutOrderNestedInput
+  support_tickets?: Prisma.SupportTicketsUncheckedUpdateManyWithoutOrder_detailsNestedInput
 }
 
 export type OrdersUncheckedUpdateManyWithoutUser_detailsInput = {
@@ -1297,10 +1447,12 @@ export type OrdersUncheckedUpdateManyWithoutUser_detailsInput = {
 
 export type OrdersCountOutputType = {
   order_items: number
+  support_tickets: number
 }
 
 export type OrdersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order_items?: boolean | OrdersCountOutputTypeCountOrder_itemsArgs
+  support_tickets?: boolean | OrdersCountOutputTypeCountSupport_ticketsArgs
 }
 
 /**
@@ -1318,6 +1470,13 @@ export type OrdersCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  */
 export type OrdersCountOutputTypeCountOrder_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrderItemsWhereInput
+}
+
+/**
+ * OrdersCountOutputType without action
+ */
+export type OrdersCountOutputTypeCountSupport_ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketsWhereInput
 }
 
 
@@ -1342,6 +1501,7 @@ export type OrdersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   payment?: boolean | Prisma.Orders$paymentArgs<ExtArgs>
   shipment?: boolean | Prisma.Orders$shipmentArgs<ExtArgs>
   coupon_usage?: boolean | Prisma.Orders$coupon_usageArgs<ExtArgs>
+  support_tickets?: boolean | Prisma.Orders$support_ticketsArgs<ExtArgs>
   _count?: boolean | Prisma.OrdersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orders"]>
 
@@ -1408,6 +1568,7 @@ export type OrdersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   payment?: boolean | Prisma.Orders$paymentArgs<ExtArgs>
   shipment?: boolean | Prisma.Orders$shipmentArgs<ExtArgs>
   coupon_usage?: boolean | Prisma.Orders$coupon_usageArgs<ExtArgs>
+  support_tickets?: boolean | Prisma.Orders$support_ticketsArgs<ExtArgs>
   _count?: boolean | Prisma.OrdersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrdersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1425,6 +1586,7 @@ export type $OrdersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     payment: Prisma.$PaymentsPayload<ExtArgs> | null
     shipment: Prisma.$ShipmentsPayload<ExtArgs> | null
     coupon_usage: Prisma.$CouponUsagesPayload<ExtArgs> | null
+    support_tickets: Prisma.$SupportTicketsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_order: number
@@ -1841,6 +2003,7 @@ export interface Prisma__OrdersClient<T, Null = never, ExtArgs extends runtime.T
   payment<T extends Prisma.Orders$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Orders$paymentArgs<ExtArgs>>): Prisma.Prisma__PaymentsClient<runtime.Types.Result.GetResult<Prisma.$PaymentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   shipment<T extends Prisma.Orders$shipmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Orders$shipmentArgs<ExtArgs>>): Prisma.Prisma__ShipmentsClient<runtime.Types.Result.GetResult<Prisma.$ShipmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   coupon_usage<T extends Prisma.Orders$coupon_usageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Orders$coupon_usageArgs<ExtArgs>>): Prisma.Prisma__CouponUsagesClient<runtime.Types.Result.GetResult<Prisma.$CouponUsagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  support_tickets<T extends Prisma.Orders$support_ticketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Orders$support_ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2364,6 +2527,30 @@ export type Orders$coupon_usageArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.CouponUsagesInclude<ExtArgs> | null
   where?: Prisma.CouponUsagesWhereInput
+}
+
+/**
+ * Orders.support_tickets
+ */
+export type Orders$support_ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTickets
+   */
+  select?: Prisma.SupportTicketsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTickets
+   */
+  omit?: Prisma.SupportTicketsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketsInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketsWhereInput
+  orderBy?: Prisma.SupportTicketsOrderByWithRelationInput | Prisma.SupportTicketsOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketsScalarFieldEnum | Prisma.SupportTicketsScalarFieldEnum[]
 }
 
 /**

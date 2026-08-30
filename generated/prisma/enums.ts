@@ -128,3 +128,24 @@ export const AuthContext = {
 } as const
 
 export type AuthContext = (typeof AuthContext)[keyof typeof AuthContext]
+
+
+export const TicketStatus = {
+  open: 'open',
+  in_progress: 'in_progress',
+  waiting_customer: 'waiting_customer',
+  resolved: 'resolved',
+  closed: 'closed'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
+
+
+export const TicketPriority = {
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  urgent: 'urgent'
+} as const
+
+export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]

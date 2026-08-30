@@ -128,6 +128,9 @@ model Users {
 
   coupon_usages CouponUsages[]
 
+  support_tickets         SupportTickets[]
+  support_ticket_messages SupportTicketMessages[]
+
   deleted_at DateTime?
 
   created_at DateTime @default(now())
@@ -459,6 +462,8 @@ model Orders {
 
   coupon_usage CouponUsages?
 
+  support_tickets SupportTickets[]
+
   delivered_at DateTime?
 
   created_at DateTime @default(now())
@@ -691,7 +696,51 @@ model SystemLogs {
   @@index([created_at])
   @@map("tbl_system_logs")
 }
+model SupportTickets {
+  id_ticket String @id @default(cuid())
 
+  subject  String
+  status   TicketStatus   @default(open)
+  priority TicketPriority @default(medium)
+
+  id_user_fk   Int
+  user_details Users @relation(fields: [id_user_fk], references: [id_user], onDelete: Cascade)
+
+  // opcional — permite abrir o ticket já associado a um pedido específico
+  id_order_fk   Int?
+  order_details Orders? @relation(fields: [id_order_fk], references: [id_order], onDelete: SetNull)
+
+  messages SupportTicketMessages[]
+
+  closed_at DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([id_user_fk])
+  @@index([status])
+  @@index([id_order_fk])
+  @@map("tbl_support_tickets")
+}
+
+model SupportTicketMessages {
+  id_message String @id @default(cuid())
+
+  id_ticket_fk   String
+  ticket_details SupportTickets @relation(fields: [id_ticket_fk], references: [id_ticket], onDelete: Cascade)
+
+  // autor da mensagem — pode ser o próprio cliente dono do ticket ou um admin
+  id_author_fk   Int
+  author_details Users @relation(fields: [id_author_fk], references: [id_user], onDelete: Cascade)
+
+  message       String
+  is_admin_reply Boolean @default(false)
+
+  created_at DateTime @default(now())
+
+  @@index([id_ticket_fk])
+  @@map("tbl_support_ticket_messages")
+}
 // ======================================================
 // ENUMS
 // ======================================================
@@ -780,6 +829,27 @@ enum AuthContext {
   initial_sign_in
   refresh_token
 }
+
+// ======================================================
+// SUPPORT (tickets de suporte ao usuário)
+// ======================================================
+
+enum TicketStatus {
+  open
+  in_progress
+  waiting_customer
+  resolved
+  closed
+}
+
+enum TicketPriority {
+  low
+  medium
+  high
+  urgent
+}
+
+
 
 // ✅ FIX: garante idempotência do webhook do Stripe. O Stripe pode reentregar o
 // mesmo evento mais de uma vez (timeout, erro 5xx, etc.); sem esta tabela, um

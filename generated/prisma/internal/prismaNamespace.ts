@@ -424,6 +424,8 @@ export const ModelName = {
   SeoSettings: 'SeoSettings',
   SeoKeywords: 'SeoKeywords',
   SystemLogs: 'SystemLogs',
+  SupportTickets: 'SupportTickets',
+  SupportTicketMessages: 'SupportTicketMessages',
   ProcessedWebhookEvents: 'ProcessedWebhookEvents'
 } as const
 
@@ -440,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "users" | "contacts" | "addresses" | "productsCategories" | "products" | "productVariants" | "productsImages" | "productsReviews" | "productTags" | "productBrands" | "tagsPerProducts" | "carts" | "cartItems" | "orders" | "orderItems" | "payments" | "shipments" | "wishlistItems" | "coupons" | "couponUsages" | "seoSettings" | "seoKeywords" | "systemLogs" | "processedWebhookEvents"
+    modelProps: "accounts" | "authentications" | "tokens" | "twoFactorAuth" | "users" | "contacts" | "addresses" | "productsCategories" | "products" | "productVariants" | "productsImages" | "productsReviews" | "productTags" | "productBrands" | "tagsPerProducts" | "carts" | "cartItems" | "orders" | "orderItems" | "payments" | "shipments" | "wishlistItems" | "coupons" | "couponUsages" | "seoSettings" | "seoKeywords" | "systemLogs" | "supportTickets" | "supportTicketMessages" | "processedWebhookEvents"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2442,6 +2444,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SupportTickets: {
+      payload: Prisma.$SupportTicketsPayload<ExtArgs>
+      fields: Prisma.SupportTicketsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupportTicketsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupportTicketsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        findFirst: {
+          args: Prisma.SupportTicketsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupportTicketsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        findMany: {
+          args: Prisma.SupportTicketsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>[]
+        }
+        create: {
+          args: Prisma.SupportTicketsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        createMany: {
+          args: Prisma.SupportTicketsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupportTicketsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>[]
+        }
+        delete: {
+          args: Prisma.SupportTicketsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        update: {
+          args: Prisma.SupportTicketsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupportTicketsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupportTicketsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupportTicketsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupportTicketsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketsPayload>
+        }
+        aggregate: {
+          args: Prisma.SupportTicketsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupportTickets>
+        }
+        groupBy: {
+          args: Prisma.SupportTicketsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportTicketsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupportTicketsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportTicketsCountAggregateOutputType> | number
+        }
+      }
+    }
+    SupportTicketMessages: {
+      payload: Prisma.$SupportTicketMessagesPayload<ExtArgs>
+      fields: Prisma.SupportTicketMessagesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupportTicketMessagesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupportTicketMessagesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        findFirst: {
+          args: Prisma.SupportTicketMessagesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupportTicketMessagesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        findMany: {
+          args: Prisma.SupportTicketMessagesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>[]
+        }
+        create: {
+          args: Prisma.SupportTicketMessagesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        createMany: {
+          args: Prisma.SupportTicketMessagesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupportTicketMessagesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>[]
+        }
+        delete: {
+          args: Prisma.SupportTicketMessagesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        update: {
+          args: Prisma.SupportTicketMessagesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupportTicketMessagesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupportTicketMessagesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupportTicketMessagesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupportTicketMessagesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketMessagesPayload>
+        }
+        aggregate: {
+          args: Prisma.SupportTicketMessagesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupportTicketMessages>
+        }
+        groupBy: {
+          args: Prisma.SupportTicketMessagesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportTicketMessagesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupportTicketMessagesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportTicketMessagesCountAggregateOutputType> | number
+        }
+      }
+    }
     ProcessedWebhookEvents: {
       payload: Prisma.$ProcessedWebhookEventsPayload<ExtArgs>
       fields: Prisma.ProcessedWebhookEventsFieldRefs
@@ -2946,6 +3096,33 @@ export const SystemLogsScalarFieldEnum = {
 export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
 
 
+export const SupportTicketsScalarFieldEnum = {
+  id_ticket: 'id_ticket',
+  subject: 'subject',
+  status: 'status',
+  priority: 'priority',
+  id_user_fk: 'id_user_fk',
+  id_order_fk: 'id_order_fk',
+  closed_at: 'closed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SupportTicketsScalarFieldEnum = (typeof SupportTicketsScalarFieldEnum)[keyof typeof SupportTicketsScalarFieldEnum]
+
+
+export const SupportTicketMessagesScalarFieldEnum = {
+  id_message: 'id_message',
+  id_ticket_fk: 'id_ticket_fk',
+  id_author_fk: 'id_author_fk',
+  message: 'message',
+  is_admin_reply: 'is_admin_reply',
+  created_at: 'created_at'
+} as const
+
+export type SupportTicketMessagesScalarFieldEnum = (typeof SupportTicketMessagesScalarFieldEnum)[keyof typeof SupportTicketMessagesScalarFieldEnum]
+
+
 export const ProcessedWebhookEventsScalarFieldEnum = {
   id_event: 'id_event',
   event_type: 'event_type',
@@ -3248,6 +3425,34 @@ export type ListEnumDiscountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'TicketStatus'
+ */
+export type EnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TicketStatus[]'
+ */
+export type ListEnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TicketPriority'
+ */
+export type EnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority'>
+    
+
+
+/**
+ * Reference to a field of type 'TicketPriority[]'
+ */
+export type ListEnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3438,6 +3643,8 @@ export type GlobalOmitConfig = {
   seoSettings?: Prisma.SeoSettingsOmit
   seoKeywords?: Prisma.SeoKeywordsOmit
   systemLogs?: Prisma.SystemLogsOmit
+  supportTickets?: Prisma.SupportTicketsOmit
+  supportTicketMessages?: Prisma.SupportTicketMessagesOmit
   processedWebhookEvents?: Prisma.ProcessedWebhookEventsOmit
 }
 

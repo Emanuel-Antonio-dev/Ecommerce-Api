@@ -78,6 +78,8 @@ export const ModelName = {
   SeoSettings: 'SeoSettings',
   SeoKeywords: 'SeoKeywords',
   SystemLogs: 'SystemLogs',
+  SupportTickets: 'SupportTickets',
+  SupportTicketMessages: 'SupportTicketMessages',
   ProcessedWebhookEvents: 'ProcessedWebhookEvents'
 } as const
 
@@ -486,6 +488,33 @@ export const SystemLogsScalarFieldEnum = {
 } as const
 
 export type SystemLogsScalarFieldEnum = (typeof SystemLogsScalarFieldEnum)[keyof typeof SystemLogsScalarFieldEnum]
+
+
+export const SupportTicketsScalarFieldEnum = {
+  id_ticket: 'id_ticket',
+  subject: 'subject',
+  status: 'status',
+  priority: 'priority',
+  id_user_fk: 'id_user_fk',
+  id_order_fk: 'id_order_fk',
+  closed_at: 'closed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SupportTicketsScalarFieldEnum = (typeof SupportTicketsScalarFieldEnum)[keyof typeof SupportTicketsScalarFieldEnum]
+
+
+export const SupportTicketMessagesScalarFieldEnum = {
+  id_message: 'id_message',
+  id_ticket_fk: 'id_ticket_fk',
+  id_author_fk: 'id_author_fk',
+  message: 'message',
+  is_admin_reply: 'is_admin_reply',
+  created_at: 'created_at'
+} as const
+
+export type SupportTicketMessagesScalarFieldEnum = (typeof SupportTicketMessagesScalarFieldEnum)[keyof typeof SupportTicketMessagesScalarFieldEnum]
 
 
 export const ProcessedWebhookEventsScalarFieldEnum = {

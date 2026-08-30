@@ -153,6 +153,16 @@ export type SeoKeywords = Prisma.SeoKeywordsModel
  */
 export type SystemLogs = Prisma.SystemLogsModel
 /**
+ * Model SupportTickets
+ * 
+ */
+export type SupportTickets = Prisma.SupportTicketsModel
+/**
+ * Model SupportTicketMessages
+ * 
+ */
+export type SupportTicketMessages = Prisma.SupportTicketMessagesModel
+/**
  * Model ProcessedWebhookEvents
  * 
  */
