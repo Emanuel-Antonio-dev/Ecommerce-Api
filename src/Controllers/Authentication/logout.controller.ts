@@ -15,6 +15,7 @@ class LogoutController
               return res.status(401).json({success: false, statusCode:401, message: "Ocorreu um erro ao terminar esta sessão."})
             }
             res.clearCookie("refreshToken")
+            res.clearCookie("accessToken")
             await authenticationRepositories.deleteToken(refreshToken)
             return res.status(200).json({success: true, statusCode:200,message: "Sessão terminada com sucesso, volte sempre!"})
         } catch (error: any)

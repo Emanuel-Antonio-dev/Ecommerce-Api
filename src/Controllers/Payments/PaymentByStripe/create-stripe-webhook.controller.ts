@@ -7,11 +7,15 @@ import { PrismaOrdersRepositories } from "../../../Repositories/Products/Product
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";
 import { cacheService } from "../../../lib/cache.service";
+import { PrismaShipmentsRepository } from '../../../Repositories/Products/Shipments/Prisma/prisma-shipment';
+import { RegisterShipmentService } from "../../../Services/Products/Shipments/register-shipment.service";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService);
+const shippmentRepo = new PrismaShipmentsRepository(prismaService)
+const shippmentService = new RegisterShipmentService(prismaService,shippmentRepo)
 const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
-const service = new SetOrdersStatusService(prismaService, repository, userRepository, emailSender);
+const service = new SetOrdersStatusService(prismaService, repository, userRepository, emailSender, shippmentService);
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 
@@ -104,7 +108,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
         );
 
         // 4. email de confirmação (fora da transação — I/O externo)
-        await service.setOrderStatus(id_order, "completed", id_user);
+        await service.setOrderStatus(id_order, "completed");
 
         break;
       }
@@ -157,7 +161,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           cacheService.invalidateVariant(id_variant, id_product_fk)
         );
 
-        await service.setOrderStatus(id_order, "failed", id_user);
+        await service.setOrderStatus(id_order, "failed");
 
         break;
       }
@@ -210,7 +214,7 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           cacheService.invalidateVariant(id_variant, id_product_fk)
         );
 
-        await service.setOrderStatus(id_order, "cancelled", id_user);
+        await service.setOrderStatus(id_order, "cancelled");
 
         break;
       }

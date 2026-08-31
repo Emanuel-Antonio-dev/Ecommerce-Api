@@ -12,7 +12,6 @@ class RegisterShipmentController {
   static async register(req: Request, res: Response): Promise<Response> {
     try {
       const datas = {
-        tracking_code: req.body.tracking_code,
         carrier: req.body.carrier || null,
         id_order_fk: req.body.id_order_fk,
         status: ShipmentStatus.pending,

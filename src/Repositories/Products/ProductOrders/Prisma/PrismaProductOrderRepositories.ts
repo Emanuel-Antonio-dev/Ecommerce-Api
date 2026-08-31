@@ -12,7 +12,7 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
         const client = tx ?? this.prisma
         return await client.orders.create({
             data:{
-                total_amount: datas.total_amount,
+                total_amount: datas.total_amount!,
                 order_number: crypto.randomBytes(10).toString("hex"),
                 id_user_fk: datas.id_user_fk,
                 status: datas.status,
@@ -44,9 +44,37 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
         const client = tx ?? this.prisma
         return await client.orders.update({where:{id_order: id_order}, data:{status:status}})    
     }
-    async getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[] | any>
+    async getOrderItemsByOrder(id_order_fk: number, tx?:Omit<Prisma.TransactionClient, "$transaction">): Promise<productsOrderItemsDatas[] | any>
     {
-        return await this.prisma.orderItems.findMany({where:{id_order_fk: id_order_fk},omit:{id_order_fk: true, id_variant_fk: true},include:{order:{omit:{id_user_fk: true},include:{user_details: {select:{id_user: true,first_name: true, last_name: true}}}},variant: {select:{product: {select:{id_product: true,name: true, price: true, images:{select:{url: true}}}}}}}})
+        const client = tx || this.prisma
+        return await client.orderItems.findMany({where:{id_order_fk: id_order_fk},
+            omit:{id_order_fk: true, id_variant_fk: true},
+            include:{
+                order:{
+                    omit:
+                    {
+                        id_user_fk: true
+                    },
+                        include:{
+                            user_details: 
+                            {
+                                select:{
+                                    id_user: true,
+                                    first_name: true, 
+                                    last_name: true
+                                }}},},
+                        variant:{
+                            select:{
+                                product: {
+                                    select:{
+                                        id_product: true,
+                                        name: true, 
+                                        price: true, 
+                        images:{
+                            select:{
+                                url: true
+                            }},
+                }}}}}})
     }
     async getOrder(id_order: number): Promise<any> {
         return await this.prisma.orders.findFirst({where:{id_order: id_order}, omit:{id_user_fk: true},include:{user_details:{

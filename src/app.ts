@@ -63,13 +63,7 @@ app.use(helmet({
 app.set('trust proxy', 1);
 
 app.use(cors({
-  origin: (origin, callback) => {
-    // permite chamadas sem origin (ex: curl, mobile apps, Postman)
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Não permitido por CORS'));
-  },
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
   allowedHeaders: ['Content-Type', 'Authorization'],

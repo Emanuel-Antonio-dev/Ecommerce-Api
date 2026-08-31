@@ -1,8 +1,9 @@
-import { PrismaClient } from "../../../../generated/prisma/client";
+import { Prisma, PrismaClient } from "../../../../generated/prisma/client";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { RegisterShipmentDatas } from "../../../interfaces/Products/Shipments/interface";
 import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
 import { cacheService } from "../../../lib/cache.service";
+import { randonTrackingCode } from "../../../Common/Utils/helpers";
 
 const TRACKING_CODE_REGEX = /^[A-Z0-9\-]{4,40}$/;
 const CARRIER_MAX_LENGTH = 100;
@@ -13,24 +14,12 @@ class RegisterShipmentService {
     private readonly repository: PrismaShipmentsRepository
   ) {}
 
-  async registerShipment(datas: RegisterShipmentDatas) {
+  async registerShipment(datas: RegisterShipmentDatas, tx?: Omit<Prisma.TransactionClient, "$transaction">) {
     try {
       // ── campos obrigatórios ──────────────────────────────────────────
-      if (!datas.tracking_code || !datas.id_order_fk) {
+      if (!datas.id_order_fk) {
         throw new HttpException(false, 400, "Informe todos os campos");
       }
-
-      // ── tracking_code ────────────────────────────────────────────────
-      const sanitizedTracking = datas.tracking_code.toUpperCase().trim();
-
-      if (!TRACKING_CODE_REGEX.test(sanitizedTracking)) {
-        throw new HttpException(
-          false,
-          400,
-          "Código de rastreamento inválido. Use apenas letras maiúsculas, números e hífens (4–40 caracteres)"
-        );
-      }
-
       // ── carrier (opcional) ───────────────────────────────────────────
       if (datas.carrier !== undefined) {
         const carrier = datas.carrier.trim();
@@ -46,7 +35,6 @@ class RegisterShipmentService {
             `Transportadora não pode ultrapassar ${CARRIER_MAX_LENGTH} caracteres`
           );
         }
-
         datas.carrier = carrier;
       }
 
@@ -116,7 +104,9 @@ class RegisterShipmentService {
         throw new HttpException(false, 400, "Este pedido já possui envio registrado");
       }
 
-      const trackingAlreadyExists = await this.repository.findByTrackingCode(sanitizedTracking);
+      const trackingCode = randonTrackingCode
+
+      const trackingAlreadyExists = await this.repository.findByTrackingCode(trackingCode);
       if (trackingAlreadyExists) {
         throw new HttpException(false, 400, "Código de rastreamento já utilizado");
       }
@@ -131,13 +121,13 @@ class RegisterShipmentService {
         throw new HttpException(false, 404, "Pedido não encontrado");
       }
 
-      if (!order.payment) {
-        throw new HttpException(false, 400, "Pedido sem pagamento concluído");
-      }
+      // if (!order.payment) {
+      //   throw new HttpException(false, 400, "Pedido sem pagamento concluído");
+      // }
 
-      if (order.payment.status !== "paid") {
-        throw new HttpException(false, 400, "Somente pedidos pagos podem ser enviados");
-      }
+      // if (order.payment.status !== "paid") {
+      //   throw new HttpException(false, 400, "Somente pedidos pagos podem ser enviados");
+      // }
 
       if (order.status === "cancelled") {
         throw new HttpException(false, 400, "Não é possível criar envio para um pedido cancelado");
@@ -146,8 +136,8 @@ class RegisterShipmentService {
       // ── persistência ──────────────────────────────────────────────────
       const shipment = await this.repository.register({
         ...datas,
-        tracking_code: sanitizedTracking,
-      });
+        tracking_code: `SHP-${trackingCode}`,
+      }, tx);
 
       // ✅ novo envio entra na listagem paginada
       cacheService.invalidateShipments();

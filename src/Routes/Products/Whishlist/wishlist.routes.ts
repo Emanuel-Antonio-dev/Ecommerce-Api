@@ -8,9 +8,9 @@ import { ClearWishlistController } from "../../../Controllers/Products/Wishlist/
 const wishlistRoutes: Router = Router();
 
 // Private — Authenticated user
-wishlistRoutes.route("/wishlist").get(MiddlewareAuthorization.authorization, (req: Request, res: Response) => { GetWishlistController.get(req, res) });
-wishlistRoutes.route("/wishlist").post(MiddlewareAuthorization.authorization, (req: Request, res: Response) => { AddToWishlistController.add(req, res) });
-wishlistRoutes.route("/wishlist/clear").delete(MiddlewareAuthorization.authorization, (req: Request, res: Response) => { ClearWishlistController.clear(req, res) });
-wishlistRoutes.route("/wishlist/:id_product_fk").delete(MiddlewareAuthorization.authorization, (req: Request, res: Response) => { RemoveFromWishlistController.remove(req, res) });
+wishlistRoutes.route("/wishlist").get(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isClient,(req: Request, res: Response) => { GetWishlistController.get(req, res) });
+wishlistRoutes.route("/wishlist").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient,(req: Request, res: Response) => { AddToWishlistController.add(req, res) });
+wishlistRoutes.route("/wishlist/clear").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient,(req: Request, res: Response) => { ClearWishlistController.clear(req, res) });
+wishlistRoutes.route("/wishlist/:id_product_fk").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isClient,(req: Request, res: Response) => { RemoveFromWishlistController.remove(req, res) });
 
 export { wishlistRoutes };

@@ -26,7 +26,6 @@ class GetWishlistService {
         pagination.take,
         pagination.skip
       );
-
       const total = await this.repository.countByUser(id_user_fk);
 
       const response = {

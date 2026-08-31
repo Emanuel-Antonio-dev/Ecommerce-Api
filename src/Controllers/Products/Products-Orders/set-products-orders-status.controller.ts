@@ -6,11 +6,16 @@ import { PrismaOrdersRepositories } from "../../../Repositories/Products/Product
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";
 import { RequestWithCredentials } from "../../../interfaces/Shared/authentication.interface";
+import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
+import { RegisterShipmentService } from "../../../Services/Products/Shipments/register-shipment.service";
+import { ShipmentStatus } from "../../../../generated/prisma/enums";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService)
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService)
 const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
-const service = new SetOrdersStatusService(prismaService,repository,userRepository,emailSender)
+const shippmentRepo = new PrismaShipmentsRepository(prismaService)
+const shippmentService = new RegisterShipmentService(prismaService,shippmentRepo)
+const service = new SetOrdersStatusService(prismaService,repository,userRepository,emailSender,shippmentService)
 
 class SetProductsOrdersStatusController
 {
@@ -19,9 +24,17 @@ class SetProductsOrdersStatusController
         try
         {
             const {status} = req.body
-            const id_user = Number(req.credentials?.sub) 
+            const shippmentDatas = {
+                carrier: req.body.carrier || null,
+                status: ShipmentStatus.pending,
+                estimated_delivery: new Date(req.body.estimated_delivery) || null,
+            }
+            
             const id_order = Number(req.params.id_order)
-            const result = await service.setOrderStatus(id_order,status,id_user);
+            const result = await service.setOrderStatus(id_order,status, {
+                ...shippmentDatas,
+                id_order_fk: id_order
+            });
             return res.status(result.statusCode).json(result);   
         }
         catch (error: any)

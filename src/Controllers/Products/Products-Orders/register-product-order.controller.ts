@@ -21,7 +21,6 @@ class RegisterProductOrderController
                 id_user_fk: Number(req.credentials?.sub),
                 payment_method: req.body.payment_method || "cash",
                 status: "pending",
-                total_amount: req.body.total_amount,
                 shipping_city: req.body.shipping_city,
                 shipping_country: req.body.shipping_country  || "Angola",
                 shipping_phone_number: req.body.shipping_phone_number,

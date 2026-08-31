@@ -1,7 +1,7 @@
 import { ShipmentStatus } from "../../../../generated/prisma/enums";
 
 export interface RegisterShipmentDatas {
-    tracking_code: string;
+    tracking_code?: string;
     carrier?: string;
     id_order_fk: number;
     status: ShipmentStatus;

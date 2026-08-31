@@ -1,15 +1,17 @@
 import { IShipmentsRepository } from '../IShipment-repositories';
-import { PrismaClient } from '../../../../../generated/prisma/client';
+import { Prisma, PrismaClient } from '../../../../../generated/prisma/client';
 import { RegisterShipmentDatas } from '../../../../interfaces/Products/Shipments/interface';
 import { ShipmentStatus } from '../../../../../generated/prisma/enums';
 
 export class PrismaShipmentsRepository implements IShipmentsRepository {
   constructor(private readonly prisma: PrismaClient){}
 
-  async register(data: RegisterShipmentDatas): Promise<any> {
-    return this.prisma.shipments.create({
+  async register(data: RegisterShipmentDatas, tx?:Omit<Prisma.TransactionClient, "$transaction">): Promise<any> {
+    const client = tx || this.prisma
+    return client.shipments.create({
       data: {
         ...data,
+        tracking_code: data.tracking_code!
       },
     });
   }

@@ -3,22 +3,25 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { PrismaClient } from "../../../../generated/prisma/client";
 import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
+import { RegisterShipmentService } from "../Shipments/register-shipment.service";
+import { RegisterShipmentDatas } from "../../../interfaces/Products/Shipments/interface";
 
 class SetOrdersStatusService {
   constructor(
     private readonly prisma: PrismaClient,
     private readonly repository: PrismaOrdersRepositories,
     private readonly userRepository: PrismaUsersRepositories,
-    private readonly emailProvider: SendEmail
+    private readonly emailProvider: SendEmail,
+    private readonly shippmentService: RegisterShipmentService
   ) {}
 
   async setOrderStatus(
     id_order: number,
     status: "completed" | "cancelled" | "failed",
-    id_user: number
+    shippmentDatas?: RegisterShipmentDatas
   ) {
     try {
-      if (!id_order || !id_user) {
+      if (!id_order) {
         throw new HttpException(false, 400, "Informe todos os campos");
       }
 
@@ -27,7 +30,7 @@ class SetOrdersStatusService {
       }
 
       const order = await this.prisma.orders.findFirst({
-        where: { id_order, id_user_fk: id_user }
+        where: { id_order}
       });
 
       if (!order) {
@@ -35,7 +38,7 @@ class SetOrdersStatusService {
       }
 
       const userDatas = await this.userRepository.getUsersProfileDatas(
-        id_user,
+        order.id_user_fk,
         "client"
       );
 
@@ -52,23 +55,35 @@ class SetOrdersStatusService {
       // ==============================
       // COMPLETED (PAGAMENTO OK)
       // ==============================
-      if (status === "completed") {
-        await this.repository.setOrderStatus(id_order, "completed");
+      if (status === "completed" && shippmentDatas) {
+        return await this.prisma.$transaction(async(tx)=>{
+          await this.repository.setOrderStatus(id_order, "completed");
+          orderResume = await this.repository.getOrderItemsByOrder(order.id_order, tx);
 
-        orderResume = await this.repository.getOrderItemsByOrder(order.id_order);
+          const shippement = await this.shippmentService?.registerShipment({
+            ...shippmentDatas,
+            id_order_fk: id_order
+          }, tx)
+          
+        if(!shippement?.success)
+        {
+          return shippement
+        }
+        const shippentResponse = shippement.datas
 
         await this.emailProvider.sendEmail(
           userDatas.account_details.email,
           "Compra confirmada",
           "<h1>O seu pedido foi aprovado</h1>"
         );
-
+        console.log(orderResume)
         return {
           success: true,
           statusCode: 200,
-          message: "Pedido aprovado com sucesso.",
+          message: "Pedido aprovado e envio processado.",
           datas: orderResume
         };
+        })
       }
 
       // ==============================

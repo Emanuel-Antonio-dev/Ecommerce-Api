@@ -1,8 +1,9 @@
 import { RegisterShipmentDatas } from '../../../interfaces/Products/Shipments/interface';
 import { ShipmentStatus } from '../../../../generated/prisma/enums';
+import { Prisma } from '../../../../generated/prisma/client';
 
 export abstract class IShipmentsRepository {
-  abstract register(data: RegisterShipmentDatas): Promise<any>;
+  abstract register(data: RegisterShipmentDatas, tx?:Omit<Prisma.TransactionClient, "$transaction">): Promise<any>;
   abstract findByOrderId(id_order: number): Promise<any | null>;
   abstract findByTrackingCode(code: string): Promise<any | null>;
   abstract updateStatus(id_shipment: string,status: ShipmentStatus): Promise<any>;

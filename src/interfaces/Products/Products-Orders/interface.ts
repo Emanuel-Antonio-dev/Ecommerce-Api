@@ -2,7 +2,7 @@ import { Decimal } from "../../../../generated/prisma/internal/prismaNamespace"
 interface productsOrdersDatas
 {
     id_order?: number
-    total_amount: number
+    total_amount?: number
     id_user_fk: number
     shipping_street: string
     shipping_city: string
