@@ -3,6 +3,7 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
 import { ShipmentStatus } from "../../../../generated/prisma/enums";
 import { cacheService } from "../../../lib/cache.service";
+import { SetOrdersStatusService } from "../Products-Orders/set-products-orders-status.service";
 
 // Máquina de estados — define quais transições são permitidas a partir de cada status
 const ALLOWED_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
@@ -24,7 +25,15 @@ const VALID_STATUSES: ShipmentStatus[] = [
 class UpdateShipmentStatusService {
   constructor(
     private readonly prisma: PrismaClient,
-    private readonly repository: PrismaShipmentsRepository
+    private readonly repository: PrismaShipmentsRepository,
+    // ✅ FIX: antes este service escrevia `orders.status` diretamente com
+    // `prisma.orders.update`, ignorando por completo `SetOrdersStatusService`
+    // — isso significava que cancelar um envio NÃO devolvia o stock (só o
+    // fluxo de cancelamento do pedido faz isso), e nenhum email era
+    // disparado. Agora delega ao mesmo caminho único usado pelo webhook e
+    // pelo admin, para que "cancelar"/"completar" um pedido tenha sempre o
+    // mesmo efeito, venha de onde vier.
+    private readonly orderStatusService?: SetOrdersStatusService
   ) {}
 
   async updateStatus(id_shipment: string, status: ShipmentStatus) {
@@ -86,22 +95,27 @@ class UpdateShipmentStatusService {
       // ── persistência ──────────────────────────────────────────────────
       const updatedShipment = await this.repository.updateStatus(id_shipment, status);
 
-      // ── efeitos colaterais por status ─────────────────────────────────
-      if (status === "delivered") {
-        await this.prisma.orders.update({
-          where: { id_order: shipment.id_order_fk },
-          data: {
-            delivered_at: new Date(),
-            status: "completed",
-          },
-        });
+      // ── efeitos colaterais no pedido — desacoplados, depois do commit
+      // acima. Se falharem, o ENVIO continua correctamente atualizado; só o
+      // pedido fica por sincronizar, registado no log para correção manual.
+      if (status === "delivered" && this.orderStatusService) {
+        const result = await this.orderStatusService.setOrderStatus(shipment.id_order_fk, "completed");
+        if (!result.success) {
+          console.error(
+            `[UpdateShipmentStatusService] falha ao marcar pedido ${shipment.id_order_fk} como completed:`,
+            result.message
+          );
+        }
       }
 
-      if (status === "cancelled") {
-        await this.prisma.orders.update({
-          where: { id_order: shipment.id_order_fk },
-          data: { status: "cancelled" },
-        });
+      if (status === "cancelled" && this.orderStatusService) {
+        const result = await this.orderStatusService.setOrderStatus(shipment.id_order_fk, "cancelled");
+        if (!result.success) {
+          console.error(
+            `[UpdateShipmentStatusService] falha ao cancelar pedido ${shipment.id_order_fk}:`,
+            result.message
+          );
+        }
       }
 
       // ✅ status e possivelmente o pedido associado mudaram

@@ -7,7 +7,7 @@ abstract class IProductOrderRepositories
     abstract registerOrderItems(datas: productsOrderItemsDatas, tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
    //abstract getOrdersByUser(id_user_fk: number): Promise<productsOrdersDatas[]>
    abstract getOrderItemsByOrder(id_order_fk: number): Promise<productsOrderItemsDatas[]>
-   abstract setOrderStatus(id_order: number, status:"completed"|"cancelled"):Promise<any>
+   abstract setOrderStatus(id_order: number, status:"confirmed"|"completed"|"cancelled"|"failed"):Promise<any>
    abstract getOrder(id_order: number):Promise<any>
 }
 export {IProductOrderRepositories}

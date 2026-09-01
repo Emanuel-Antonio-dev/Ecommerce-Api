@@ -6,16 +6,23 @@ import { SendEmail } from "../../../Common/Utils/Emails/send-email";
 import { PrismaOrdersRepositories } from "../../../Repositories/Products/ProductOrders/Prisma/PrismaProductOrderRepositories";
 import { PrismaUsersRepositories } from "../../../Repositories/Users/Prisma/PrismaUsersRepositories";
 import { SetOrdersStatusService } from "../../../Services/Products/Products-Orders/set-products-orders-status.service";
+import { ProcessOrderFulfillmentService } from "../../../Services/Products/Products-Orders/process-order-fulfillment.service";
 import { cacheService } from "../../../lib/cache.service";
 import { PrismaShipmentsRepository } from '../../../Repositories/Products/Shipments/Prisma/prisma-shipment';
 import { RegisterShipmentService } from "../../../Services/Products/Shipments/register-shipment.service";
+import { FulfillmentProviderFactory } from "../../../Services/Products/Shipments/Providers/fulfillment-provider.factory";
 
 const repository: PrismaOrdersRepositories = new PrismaOrdersRepositories(prismaService);
 const userRepository: PrismaUsersRepositories = new PrismaUsersRepositories(prismaService);
 const shippmentRepo = new PrismaShipmentsRepository(prismaService)
-const shippmentService = new RegisterShipmentService(prismaService,shippmentRepo)
+const shippmentService = new RegisterShipmentService(prismaService, shippmentRepo)
+const fulfillmentService = new ProcessOrderFulfillmentService(
+  prismaService,
+  shippmentService,
+  FulfillmentProviderFactory.create()
+)
 const emailSender: SendEmail = new SendEmail(EmailProviderFactory.create())
-const service = new SetOrdersStatusService(prismaService, repository, userRepository, emailSender, shippmentService);
+const service = new SetOrdersStatusService(prismaService, repository, userRepository, emailSender, fulfillmentService);
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 
@@ -62,23 +69,25 @@ export const createStripeWebhookController = async (req: Request, res: Response)
       case "payment_intent.succeeded": {
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
-        const id_user  = Number(paymentIntent.metadata.id_user);
         let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
+        // ✅ FIX: esta transação cuida apenas do que é específico do
+        // provedor de pagamento (Stripe) — status do pagamento e os efeitos
+        // de estoque/vendas da compra. A transição do PEDIDO em si (status,
+        // email, fulfillment) é responsabilidade única de
+        // SetOrdersStatusService.setOrderStatus, chamado logo a seguir.
+        // Antes, esta transação também escrevia `orders.status` diretamente
+        // — isso corria em paralelo com o que o service tentava fazer e
+        // deixava o pedido "completed" antes do service rodar, fazendo o
+        // guard de idempotência dele (`order.status !== "pending"`) rejeitar
+        // sempre a chamada, silenciosamente (o retorno nunca era checado) —
+        // ou seja, nem o email nem o envio automático chegavam a acontecer.
         await prismaService.$transaction(async (tx) => {
-          // 1. atualiza payment → paid
           await tx.payments.update({
             where: { provider_reference: paymentIntent.id },
             data: { status: "paid", paid_at: new Date() },
           });
 
-          // 2. atualiza order → completed
-          await tx.orders.update({
-            where: { id_order },
-            data: { status: "completed" },
-          });
-
-          // 3. incrementa sales_count por quantidade vendida
           const orderItems = await tx.orderItems.findMany({
             where: { id_order_fk: id_order },
             include: {
@@ -107,8 +116,19 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           cacheService.invalidateVariant(id_variant, id_product_fk)
         );
 
-        // 4. email de confirmação (fora da transação — I/O externo)
-        await service.setOrderStatus(id_order, "completed");
+        // transiciona o pedido (email + fulfillment automático incluídos)
+        // ✅ o pagamento aprovado leva o pedido a "confirmed" — não a
+        // "completed". "completed" só acontece quando o envio é
+        // efectivamente entregue (ver UpdateShipmentStatusService).
+        const result = await service.setOrderStatus(id_order, "confirmed");
+        if (!result.success) {
+          // ✅ FIX: antes o retorno nunca era verificado — uma falha aqui
+          // ficava completamente silenciosa. Agora fica registada para
+          // investigação (o pagamento já foi confirmado no Stripe, então o
+          // pedido precisa de correção manual, não de retry automático do
+          // webhook).
+          console.error(`⚠️  setOrderStatus(confirmed) falhou para o pedido ${id_order}:`, result.message);
+        }
 
         break;
       }
@@ -119,17 +139,11 @@ export const createStripeWebhookController = async (req: Request, res: Response)
       case "payment_intent.payment_failed": {
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
-        const id_user  = Number(paymentIntent.metadata.id_user);
         let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
         await prismaService.$transaction(async (tx) => {
           await tx.payments.update({
             where: { provider_reference: paymentIntent.id },
-            data: { status: "failed" },
-          });
-
-          await tx.orders.update({
-            where: { id_order },
             data: { status: "failed" },
           });
 
@@ -161,7 +175,10 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           cacheService.invalidateVariant(id_variant, id_product_fk)
         );
 
-        await service.setOrderStatus(id_order, "failed");
+        const result = await service.setOrderStatus(id_order, "failed");
+        if (!result.success) {
+          console.error(`⚠️  setOrderStatus(failed) falhou para o pedido ${id_order}:`, result.message);
+        }
 
         break;
       }
@@ -172,17 +189,11 @@ export const createStripeWebhookController = async (req: Request, res: Response)
       case "payment_intent.canceled": {
         const paymentIntent = event.data.object as any;
         const id_order = Number(paymentIntent.metadata.id_order);
-        const id_user  = Number(paymentIntent.metadata.id_user);
         let affectedVariants: { id_variant: number; id_product_fk: number }[] = [];
 
         await prismaService.$transaction(async (tx) => {
           await tx.payments.update({
             where: { provider_reference: paymentIntent.id },
-            data: { status: "cancelled" },
-          });
-
-          await tx.orders.update({
-            where: { id_order },
             data: { status: "cancelled" },
           });
 
@@ -214,7 +225,10 @@ export const createStripeWebhookController = async (req: Request, res: Response)
           cacheService.invalidateVariant(id_variant, id_product_fk)
         );
 
-        await service.setOrderStatus(id_order, "cancelled");
+        const result = await service.setOrderStatus(id_order, "cancelled");
+        if (!result.success) {
+          console.error(`⚠️  setOrderStatus(cancelled) falhou para o pedido ${id_order}:`, result.message);
+        }
 
         break;
       }

@@ -24,7 +24,13 @@ export function buildPagination(params: PaginationParams): {
   const limit = Math.min(100, Math.max(1, params.limit ?? 20));
   return { skip: (page - 1) * limit, take: limit, page, limit };
 }
-export const randonTrackingCode = randomBytes(6).toString('hex').toUpperCase()
+// ✅ FIX: antes era uma constante calculada uma única vez na importação do
+// módulo — todo envio criado durante o tempo de vida do processo reutilizava
+// o mesmo código, colidindo com a constraint @unique de tracking_code a
+// partir do segundo envio. Agora é gerado a cada chamada.
+export function generateTrackingCode(): string {
+  return randomBytes(6).toString('hex').toUpperCase()
+}
 
 export const COUPON_CODE_REGEX = /^[A-Z0-9_-]{3,30}$/;
 const ADMIN_DEFAULT_LIMIT = 50;

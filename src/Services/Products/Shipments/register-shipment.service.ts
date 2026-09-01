@@ -3,7 +3,6 @@ import { HttpException } from "../../../Common/Middlewares/Filters/HttpException
 import { RegisterShipmentDatas } from "../../../interfaces/Products/Shipments/interface";
 import { PrismaShipmentsRepository } from "../../../Repositories/Products/Shipments/Prisma/prisma-shipment";
 import { cacheService } from "../../../lib/cache.service";
-import { randonTrackingCode } from "../../../Common/Utils/helpers";
 
 const TRACKING_CODE_REGEX = /^[A-Z0-9\-]{4,40}$/;
 const CARRIER_MAX_LENGTH = 100;
@@ -19,6 +18,19 @@ class RegisterShipmentService {
       // ── campos obrigatórios ──────────────────────────────────────────
       if (!datas.id_order_fk) {
         throw new HttpException(false, 400, "Informe todos os campos");
+      }
+      // ✅ FIX: tracking_code voltou a ser obrigatório aqui. Este service é a
+      // primitiva de "persistir um envio" — quem decide QUAL é o código
+      // (provedor interno, transportadora real, ou um admin a inserir um
+      // código manualmente) é responsabilidade de quem chama, não deste
+      // service. Gerar o código aqui (como antes) misturava a validação com
+      // a geração, e a geração tinha o bug de rodar uma única vez no
+      // arranque do processo.
+      if (!datas.tracking_code) {
+        throw new HttpException(false, 400, "Informe o código de rastreamento");
+      }
+      if (!TRACKING_CODE_REGEX.test(datas.tracking_code)) {
+        throw new HttpException(false, 400, "Código de rastreamento em formato inválido");
       }
       // ── carrier (opcional) ───────────────────────────────────────────
       if (datas.carrier !== undefined) {
@@ -104,15 +116,13 @@ class RegisterShipmentService {
         throw new HttpException(false, 400, "Este pedido já possui envio registrado");
       }
 
-      const trackingCode = randonTrackingCode
-
-      const trackingAlreadyExists = await this.repository.findByTrackingCode(trackingCode);
+      const trackingAlreadyExists = await this.repository.findByTrackingCode(datas.tracking_code);
       if (trackingAlreadyExists) {
         throw new HttpException(false, 400, "Código de rastreamento já utilizado");
       }
 
       // ── pedido e pagamento ────────────────────────────────────────────
-      const order = await this.prisma.orders.findFirst({
+      const order: any = await this.prisma.orders.findFirst({
         where: { id_order: datas.id_order_fk },
         include: { payment: true },
       });
@@ -121,23 +131,23 @@ class RegisterShipmentService {
         throw new HttpException(false, 404, "Pedido não encontrado");
       }
 
-      // if (!order.payment) {
-      //   throw new HttpException(false, 400, "Pedido sem pagamento concluído");
-      // }
+      // ✅ FIX: esta validação estava comentada — permitia criar envio para
+      // um pedido sem pagamento confirmado. Restaurada: só se envia o que
+      // já foi pago.
+      if (!order.payment) {
+        throw new HttpException(false, 400, "Pedido sem pagamento concluído");
+      }
 
-      // if (order.payment.status !== "paid") {
-      //   throw new HttpException(false, 400, "Somente pedidos pagos podem ser enviados");
-      // }
+      if (order.payment.status !== "paid") {
+        throw new HttpException(false, 400, "Somente pedidos pagos podem ser enviados");
+      }
 
       if (order.status === "cancelled") {
         throw new HttpException(false, 400, "Não é possível criar envio para um pedido cancelado");
       }
 
       // ── persistência ──────────────────────────────────────────────────
-      const shipment = await this.repository.register({
-        ...datas,
-        tracking_code: `SHP-${trackingCode}`,
-      }, tx);
+      const shipment = await this.repository.register(datas, tx);
 
       // ✅ novo envio entra na listagem paginada
       cacheService.invalidateShipments();

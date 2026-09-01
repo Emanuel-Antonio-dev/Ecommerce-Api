@@ -39,10 +39,12 @@ class PrismaOrdersRepositories implements IProductOrderRepositories
             }
         })
     }
-    async setOrderStatus(id_order: number, status: "completed" | "cancelled" | "failed", tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
+    async setOrderStatus(id_order: number, status: "confirmed" | "completed" | "cancelled" | "failed", tx?: Omit<Prisma.TransactionClient, "$transaction">): Promise<any>
     {
         const client = tx ?? this.prisma
-        return await client.orders.update({where:{id_order: id_order}, data:{status:status}})    
+        // `as any`: o cliente Prisma gerado neste ambiente ainda não
+        // conhece "confirmed" (ver nota em set-products-orders-status.service.ts)
+        return await client.orders.update({where:{id_order: id_order}, data:{status: status as any}})    
     }
     async getOrderItemsByOrder(id_order_fk: number, tx?:Omit<Prisma.TransactionClient, "$transaction">): Promise<productsOrderItemsDatas[] | any>
     {

@@ -35,6 +35,16 @@ export class PrismaShipmentsRepository implements IShipmentsRepository {
     });
   }
 
+  async updateDetails(
+    id_shipment: string,
+    data: Partial<{ carrier: string; tracking_code: string; estimated_delivery: Date }>
+  ): Promise<any> {
+    return this.prisma.shipments.update({
+      where: { id_shipment },
+      data,
+    });
+  }
+
   async findById(id: string): Promise<any | null> {
     return this.prisma.shipments.findUnique({
       where: { id_shipment: id },

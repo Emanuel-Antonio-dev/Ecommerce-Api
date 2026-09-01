@@ -775,8 +775,8 @@ enum CartStatus {
 
 enum OrderStatus {
   pending
-  completed
   confirmed
+  completed
   cancelled
   failed
 }
