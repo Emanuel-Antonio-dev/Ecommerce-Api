@@ -20,7 +20,7 @@ class LocalStrategyAuthenticationService
         {
             if (!email || !password)
             {
-                throw new HttpException(false, 400, "Informe todos os campos.")
+                throw new HttpException(false, 400, "Informe as suas credenciais.")
             }
             const user = await this.prisma.accounts.findUnique({where:{email: email.trim(), is_active: true}, include:{user_details:true}})
 
@@ -32,7 +32,7 @@ class LocalStrategyAuthenticationService
             // canal já autenticado (ex.: after 2FA/e-mail confirmado), não no login.
             const invalidCredentials = (): never => { throw new HttpException(false, 401, "Credenciais inválidas.") }
 
-            if(!user || !user.user_details || user.is_active === false || user.provider !== "Local" || !user.password)
+            if(!user || !user.user_details || user.provider !== "Local" || !user.password)
             {
                 // roda um bcrypt.compare "de mentira" para igualar o tempo de resposta
                 // ao caminho onde o usuário existe e a senha é comparada de verdade.
@@ -53,8 +53,8 @@ class LocalStrategyAuthenticationService
             let userCartItems: any[] = []
             if(validUser.user_details?.user_type == "admin")
             {
-                const adminDatas = await this.prisma.users.findFirst({where:{id_user: validUser.user_details.id_user, user_type:"admin"}})
-                userClaims = {sub: adminDatas?.id_user, user_type: adminDatas?.user_type, account_id: validUser.id_account}
+                const adminDatas: any = await this.prisma.users.findFirst({where:{id_user: validUser.user_details.id_user, user_type:"admin"}})
+                userClaims = {sub: adminDatas?.id_user, user_type: adminDatas?.user_type, admin_role: adminDatas?.admin_role, account_id: validUser.id_account}
             }
             
             if(validUser.user_details?.user_type == "client")

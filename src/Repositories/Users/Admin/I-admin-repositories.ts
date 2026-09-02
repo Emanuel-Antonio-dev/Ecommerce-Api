@@ -12,12 +12,14 @@ abstract class IAdminRepositories {
   abstract suspendAccount(id_account: string): Promise<any>;
   abstract reactivateAccount(id_account: string): Promise<any>;
   abstract promoteUser(id_account: string, user_type: "admin" | "client"): Promise<any>;
+  abstract setAdminRole(id_account: string, admin_role: "super_admin" | "support"): Promise<any>;
   abstract hardDeleteAccount(id_account: string): Promise<any>;
 
   // ── Pedidos ───────────────────────────────────────────────────────────────
   abstract getAllOrders(take: number, skip: number, filters?: AdminOrderFilters): Promise<any[]>;
   abstract countOrders(filters?: AdminOrderFilters): Promise<number>;
   abstract getOrderById(id_order: number): Promise<any>;
+  abstract getOrdersForExport(filters?: AdminOrderFilters): Promise<any[]>;
 
   // ── Produtos ──────────────────────────────────────────────────────────────
   abstract getAllProducts(take: number, skip: number, filters?: AdminProductFilters): Promise<any[]>;

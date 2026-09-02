@@ -86,7 +86,9 @@ class GetCurrentUserService {
       }
 
       // 🔐 Geração de novo accessToken
-      const newAccessToken = JwtOperations.GenerateAccessToken({sub: user.id_user,user_type: user.user_type, account_id: user.id_account_fk});
+      // `as any`: o cliente Prisma gerado neste ambiente ainda não conhece
+      // `admin_role` (schema atualizado, client não regenerado — ver README)
+      const newAccessToken = JwtOperations.GenerateAccessToken({sub: user.id_user,user_type: user.user_type, admin_role: (user as any).admin_role, account_id: user.id_account_fk});
       if(user.user_type === "admin")
       {
         return {

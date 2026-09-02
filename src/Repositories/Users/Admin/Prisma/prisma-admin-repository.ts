@@ -86,6 +86,13 @@ class PrismaAdminRepository implements IAdminRepositories {
     });
   }
 
+  async setAdminRole(id_account: string, admin_role: "super_admin" | "support"): Promise<any> {
+    return await this.prisma.users.update({
+      where: { id_account_fk: id_account },
+      data:  { admin_role } as any, // as any: ver nota do client Prisma não regenerado
+    });
+  }
+
   async hardDeleteAccount(id_account: string): Promise<any> {
     // cascade apaga users, orders, etc conforme schema
     return await this.prisma.accounts.delete({ where: { id_account } });
@@ -111,6 +118,26 @@ class PrismaAdminRepository implements IAdminRepositories {
       orderBy: { created_at: "desc" },
       take,
       skip,
+    });
+  }
+
+  // ✅ novo — usado para exportação contábil (CSV). Sem paginação de
+  // propósito: um export cobre o período pedido por inteiro. `buildOrderWhere`
+  // já reutiliza a mesma lógica de filtros de `getAllOrders`/`countOrders`.
+  async getOrdersForExport(filters?: AdminOrderFilters): Promise<any[]> {
+    return await this.prisma.orders.findMany({
+      where: this.buildOrderWhere(filters),
+      include: {
+        user_details: {
+          select: {
+            first_name: true,
+            last_name: true,
+            account_details: { select: { email: true } },
+          },
+        },
+        payment: { select: { status: true, provider: true, amount: true, paid_at: true } },
+      },
+      orderBy: { created_at: "asc" },
     });
   }
 
@@ -200,6 +227,15 @@ class PrismaAdminRepository implements IAdminRepositories {
   // ══════════════════════════════════════════════════════════════════════════
 
   async getDashboardStats(): Promise<DashboardStats> {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const threeDaysAgo = new Date();
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
     const [
       total_users,
       total_orders,
@@ -208,6 +244,11 @@ class PrismaAdminRepository implements IAdminRepositories {
       ordersByStatus,
       low_stock_variants,
       active_coupons,
+      recentPayments,
+      topProductsRaw,
+      open_support_tickets,
+      failed_payments_last_7_days,
+      shipments_stuck,
     ] = await Promise.all([
       this.prisma.accounts.count(),
       this.prisma.orders.count(),
@@ -222,12 +263,55 @@ class PrismaAdminRepository implements IAdminRepositories {
       }),
       this.countLowStockVariants(),
       this.prisma.coupons.count({ where: { active: true, deleted_at: null } }),
+      // ── receita dos últimos 30 dias, para agrupar por dia em memória
+      // (evita depender de funções de data específicas do Postgres/MySQL
+      // via SQL bruto — mais portável)
+      this.prisma.payments.findMany({
+        where: { status: "paid", paid_at: { gte: thirtyDaysAgo } },
+        select: { amount: true, paid_at: true },
+      }),
+      this.prisma.products.findMany({
+        where: { deleted_at: null },
+        orderBy: { sales_count: "desc" },
+        take: 5,
+        select: { id_product: true, name: true, sales_count: true },
+      }),
+      // ✅ "needs attention" — pensado para uso diário, não só totais
+      this.prisma.supportTickets.count({
+        where: { status: { in: ["open", "waiting_customer"] } },
+      }),
+      this.prisma.payments.count({
+        where: { status: "failed", created_at: { gte: sevenDaysAgo } },
+      }),
+      this.prisma.shipments.count({
+        where: {
+          status: { in: ["pending", "processing"] },
+          created_at: { lte: threeDaysAgo },
+        },
+      }),
     ]);
 
     const orders_by_status: Record<string, number> = {};
     for (const row of ordersByStatus) {
       orders_by_status[row.status] = row._count.status;
     }
+
+    // ── agrupa receita por dia (YYYY-MM-DD) ──────────────────────────────
+    const revenueByDayMap = new Map<string, number>();
+    for (const payment of recentPayments) {
+      if (!payment.paid_at) continue;
+      const dayKey = payment.paid_at.toISOString().slice(0, 10);
+      revenueByDayMap.set(dayKey, (revenueByDayMap.get(dayKey) ?? 0) + Number(payment.amount));
+    }
+    const revenue_last_30_days = Array.from(revenueByDayMap.entries())
+      .map(([date, revenue]) => ({ date, revenue }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    const top_products = topProductsRaw.map((p: any) => ({
+      id_product: p.id_product,
+      name: p.name,
+      sales_count: p.sales_count,
+    }));
 
     return {
       total_users,
@@ -237,6 +321,14 @@ class PrismaAdminRepository implements IAdminRepositories {
       orders_by_status,
       low_stock_variants,
       active_coupons,
+      revenue_last_30_days,
+      top_products,
+      needs_attention: {
+        open_support_tickets,
+        low_stock_variants,
+        failed_payments_last_7_days,
+        shipments_stuck,
+      },
     };
   }
 

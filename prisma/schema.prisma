@@ -750,6 +750,11 @@ enum UsersTypes {
   client
 }
 
+enum AdminRole {
+  super_admin
+  support
+}
+
 enum Providers {
   Google
   Facebook

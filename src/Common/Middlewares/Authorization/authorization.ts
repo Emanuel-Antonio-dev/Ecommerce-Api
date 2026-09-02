@@ -7,6 +7,10 @@ export interface RequestWithCredentials extends Request {
     credentials?: {
         sub: number;
         user_type: string;
+        // ✅ só populado para user_type === "admin". Tokens emitidos antes
+        // desta mudança não terão este campo — tratado como "super_admin"
+        // (ver isSuperAdmin), consistente com o valor por omissão no BD.
+        admin_role?: string;
         // ✅ FIX: id da conta (Accounts.id_account), agora sempre presente no
         // payload do access token — usado pelos controllers de admin para
         // registrar quem executou uma ação sensível (promote/suspend/etc).
@@ -40,7 +44,7 @@ class MiddlewareAuthorization {
             return res.status(verifiedToken.statusCode).json(verifiedToken)
         }
         req.credentials = verifiedToken.info as {
-            sub: number,user_type: UsersTypes, account_id: string,
+            sub: number,user_type: UsersTypes, admin_role?: string, account_id: string,
         }
         return next()
     } catch (error) {
@@ -59,6 +63,33 @@ class MiddlewareAuthorization {
                 statusCode: 403, 
                 success: false, 
                 message: "Acesso negado! Você não tem permissão para acessar este recurso.",
+                isAuth: false
+            });
+        }
+        next();
+    }
+
+    // ✅ NOVO: gate para ações sensíveis (gestão de contas, dashboard
+    // financeiro, exportações contáveis) que um admin "support" não deve
+    // poder executar. Um admin "support" continua a passar em `isAdmin`
+    // normalmente — só fica de fora do que exige `isSuperAdmin`.
+    static isSuperAdmin(req: RequestWithCredentials, res: Response, next: NextFunction) {
+        if (!req.credentials || req.credentials.user_type !== "admin") {
+            return res.status(403).json({
+                statusCode: 403,
+                success: false,
+                message: "Acesso negado! Você não tem permissão para acessar este recurso.",
+                isAuth: false
+            });
+        }
+        // tokens emitidos antes desta funcionalidade não têm admin_role —
+        // tratado como super_admin, igual ao valor por omissão no BD
+        const role = req.credentials.admin_role ?? "super_admin";
+        if (role !== "super_admin") {
+            return res.status(403).json({
+                statusCode: 403,
+                success: false,
+                message: "Esta ação requer privilégios de administrador completo.",
                 isAuth: false
             });
         }

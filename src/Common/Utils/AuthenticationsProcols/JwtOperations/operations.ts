@@ -4,6 +4,10 @@ import "dotenv/config";
 interface AccessTokenPayload {
     sub: number;
     user_type: string;
+    // ✅ só populado para user_type === "admin" — distingue admin completo
+    // ("super_admin") de admin com acesso restrito ("support"). Ausente
+    // para clientes.
+    admin_role?: string;
     // ✅ FIX: id da conta (Accounts.id_account) incluído no token — vários
     // controllers de admin (promote/suspend/reactivate/hard-delete/logs) já
     // liam `req.credentials.account_id` para registrar quem executou a ação,
@@ -18,6 +22,7 @@ interface AccessTokenPayload {
 interface RefreshTokenPayload {
     sub: number;
     user_type: string;
+    admin_role?: string;
     account_id: string;
     type: "refresh";
     iat?: number;
@@ -73,6 +78,7 @@ class JwtOperations {
         payload: {
             sub: number;
             user_type: string;
+            admin_role?: string;
             account_id: string;
         }
     ): string {
@@ -160,6 +166,7 @@ class JwtOperations {
         payload: {
             sub: number;
             user_type: string;
+            admin_role?: string;
             account_id: string;
         }
     ): string {

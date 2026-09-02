@@ -7,6 +7,7 @@ import { DeleteProductsController } from "../../../Controllers/Products/GeneralP
 import { EditProductDatasController } from "../../../Controllers/Products/GeneralProducts/edit-product-datas.controller";
 import { RegisterProductReviewController } from "../../../Controllers/Products/ProductsReviews/register-product-review.controller";
 import { GetAllProductReviewsController } from "../../../Controllers/Products/ProductsReviews/get-all-product-reviews.controller";
+import { AdminDeleteReviewController } from "../../../Controllers/Products/ProductsReviews/admin-delete-review.controller";
 import { HttpException } from "../../../Common/Middlewares/Filters/HttpException";
 import { multerErrorHandler } from "../../../Common/Middlewares/Filters/errors";
 import { validateUploadedImageContent } from "../../../Common/Utils/Uploads/validate-image-content";
@@ -33,6 +34,9 @@ productsRoutes.route("/products").get((req: Request, res: Response) => {GetAllPr
 
 productsRoutes.route("/products/reviews").post(MiddlewareAuthorization.authorization,MiddlewareAuthorization.isClient,(req: Request, res: Response) => {RegisterProductReviewController.register(req, res)})
 productsRoutes.route("/products/:id_product_fk/reviews").get((req: Request, res: Response) => {GetAllProductReviewsController.get(req, res)})
+// ✅ novo — moderação: admin (ou admin_role "support") remove uma review
+// abusiva/falsa/ofensiva
+productsRoutes.route("/products/reviews/:id_review").delete(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {AdminDeleteReviewController.delete(req as any, res)})
 
 productsRoutes.route("/tags").post(MiddlewareAuthorization.authorization, MiddlewareAuthorization.isAdmin, (req: Request, res: Response) => {RegisterProductsTagsController.register(req, res)})
 productsRoutes.route("/tags").get((req: Request, res: Response) => {GetAllProductTagsController.getAll(req, res)})

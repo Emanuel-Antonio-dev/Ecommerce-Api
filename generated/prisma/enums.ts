@@ -17,6 +17,14 @@ export const UsersTypes = {
 export type UsersTypes = (typeof UsersTypes)[keyof typeof UsersTypes]
 
 
+export const AdminRole = {
+  super_admin: 'super_admin',
+  support: 'support'
+} as const
+
+export type AdminRole = (typeof AdminRole)[keyof typeof AdminRole]
+
+
 export const Providers = {
   Google: 'Google',
   Facebook: 'Facebook',

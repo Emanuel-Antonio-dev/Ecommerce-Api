@@ -21,7 +21,7 @@ interface AdminUserFilters {
 }
 
 interface AdminOrderFilters {
-  status?: "pending" | "completed" | "cancelled" | "failed";
+  status?: "pending" | "confirmed" | "completed" | "cancelled" | "failed";
   payment_method?: "cash" | "card" | "transfer" | "paypal" | "stripe";
   id_user_fk?: number;
   from?: string | Date;
@@ -50,6 +50,24 @@ interface PromoteUserDatas {
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
+interface RevenueByDay {
+  date: string; // "YYYY-MM-DD"
+  revenue: number;
+}
+
+interface TopProduct {
+  id_product: number;
+  name: string;
+  sales_count: number;
+}
+
+interface DashboardNeedsAttention {
+  open_support_tickets: number;
+  low_stock_variants: number;
+  failed_payments_last_7_days: number;
+  shipments_stuck: number; // pending/processing há mais de 3 dias
+}
+
 interface DashboardStats {
   total_users: number;
   total_orders: number;
@@ -58,6 +76,10 @@ interface DashboardStats {
   orders_by_status: Record<string, number>;
   low_stock_variants: number;
   active_coupons: number;
+  // ✅ novo — pensado para uso diário, não só uma fotografia de totais
+  revenue_last_30_days: RevenueByDay[];
+  top_products: TopProduct[];
+  needs_attention: DashboardNeedsAttention;
 }
 
 export { usersDatas,
@@ -66,4 +88,7 @@ export { usersDatas,
   AdminProductFilters,
   SuspendAccountDatas,
   PromoteUserDatas,
-  DashboardStats,}
+  DashboardStats,
+  RevenueByDay,
+  TopProduct,
+  DashboardNeedsAttention,}
